@@ -1,0 +1,87 @@
+{
+  "name": "react-portable-text",
+  "version": "1.0.0",
+  "description": "Render Portable Text with React",
+  "main": "dist/react-portable-text.umd.js",
+  "module": "dist/react-portable-text.esm.js",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "prepublishOnly": "vite build",
+    "build": "vite build",
+    "start": "vite demo",
+    "test": "tap test/*.test.*",
+    "prettify": "prettier --write src/**/*.ts src/*.ts",
+    "prettify-check": "prettier --check src/**/*.ts src/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/portabletext/react-portable-text.git"
+  },
+  "keywords": [
+    "portable-text"
+  ],
+  "author": "Sanity.io <hello@sanity.io>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "@types/tap": "^15.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
+    "esbuild-register": "^3.2.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-sanity": "^5.1.0",
+    "eslint-plugin-react": "^7.27.1",
+    "prettier": "^2.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "tap": "^15.1.5",
+    "typescript": "^4.5.4",
+    "vite": "^2.7.4",
+    "vite-dts": "^1.0.4"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/portabletext/react-portable-text/issues"
+  },
+  "homepage": "https://github.com/portabletext/react-portable-text#readme",
+  "prettier": {
+    "semi": false,
+    "printWidth": 100,
+    "bracketSpacing": false,
+    "singleQuote": true
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 9,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "modules": true
+      }
+    },
+    "extends": [
+      "sanity",
+      "sanity/react",
+      "sanity/typescript",
+      "prettier"
+    ],
+    "ignorePatterns": [
+      "lib/**/"
+    ]
+  },
+  "tap": {
+    "node-arg": [
+      "-r",
+      "esbuild-register"
+    ],
+    "check-coverage": false
+  }
+}

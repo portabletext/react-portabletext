@@ -1,0 +1,5 @@
+export * from './types'
+export {PortableText} from './react-portable-text'
+export {mergeComponents} from './components/merge'
+export {usePortableTextComponents} from './hooks'
+export {PortableTextComponentsContext} from './context'
