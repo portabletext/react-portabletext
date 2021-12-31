@@ -112,7 +112,12 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
     }
 
     if (isToolkitTextNode(node)) {
-      return node.text === '\n' ? <br key={key} /> : node.text
+      if (node.text === '\n') {
+        const HardBreak = components.hardBreak
+        return HardBreak ? <HardBreak key={key} /> : '\n'
+      }
+
+      return node.text
     }
 
     const Node = components.types[node._type]

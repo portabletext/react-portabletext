@@ -190,21 +190,20 @@ tap.test('handles hardbreaks', (t) => {
   t.end()
 })
 
-// @todo
-/*
-tap.test('can disable hardbreak serializer', (t) => {
+tap.test('can disable hardbreak component', (t) => {
   const {input, output} = fixtures.hardBreaks
   const result = render({blocks: input, components: {hardBreak: false}})
-  t.same(result, outputreplace(/<br\/>/g, '\n')))
+  t.same(result, output.replace(/<br\/>/g, '\n'))
+  t.end()
 })
 
-tap.test('can customize hardbreak serializer', (t) => {
-  const {input, output} = require('./fixtures/023-hard-breaks')
-  const hardBreak = () => h('br', {className: 'dat-newline'})
+tap.test('can customize hardbreak component', (t) => {
+  const {input, output} = fixtures.hardBreaks
+  const hardBreak = () => <br className="dat-newline" />
   const result = render({blocks: input, components: {hardBreak}})
-  t.same(result, outputreplace(/<br\/>/g, '<br class="dat-newline"/>')))
+  t.same(result, output.replace(/<br\/>/g, '<br class="dat-newline"/>'))
+  t.end()
 })
-*/
 
 tap.test('can nest marks correctly in block/marks context', (t) => {
   const {input, output} = fixtures.inlineImages

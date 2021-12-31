@@ -92,6 +92,12 @@ export interface PortableTextComponents {
     | PortableTextComponent<PortableTextListItemBlock>
 
   /**
+   * Component to use for rendering "hard breaks", eg `\n` inside of text spans
+   * Will by default render a `<br />`. Pass `false` to render as-is (`\n`)
+   */
+  hardBreak: ComponentType<{}> | false
+
+  /**
    * React component used when encountering a mark type there is no registered component for
    * in the `components.marks` prop.
    */
