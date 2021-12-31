@@ -6,10 +6,10 @@ import type {
   PortableTextComponents,
 } from '../types'
 import {defaultMarks} from './marks'
-import {DefaultList, DefaultListItem} from './list'
+import {defaultLists, DefaultListItem} from './list'
 import {DefaultUnknownType, DefaultUnknownMark} from './unknown'
 
-const hardBreak = () => <br />
+export const DefaultHardBreak = () => <br />
 
 // @todo move these into `./block.tsx` without typescript/tap complaining
 export const defaultBlockStyles: Record<
@@ -29,10 +29,10 @@ export const defaultBlockStyles: Record<
 export const defaultComponents: PortableTextComponents = {
   block: defaultBlockStyles,
   marks: defaultMarks,
-  list: DefaultList,
+  list: defaultLists,
   listItem: DefaultListItem,
   types: {},
-  hardBreak,
+  hardBreak: DefaultHardBreak,
   unknownType: DefaultUnknownType,
   unknownMark: DefaultUnknownMark,
 }

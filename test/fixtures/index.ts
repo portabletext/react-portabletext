@@ -25,6 +25,7 @@ import inlineImages from './024-inline-images'
 import imageWithHotspot from './025-image-with-hotspot'
 import inlineBlockWithText from './026-inline-block-with-text'
 import styledListItems from './027-styled-list-items'
+import customListItemType from './028-custom-list-item-type'
 import customBlockType from './050-custom-block-type'
 import overrideDefaults from './051-override-defaults'
 import customMarks from './052-custom-marks'
@@ -60,6 +61,7 @@ export {
   imageWithHotspot,
   inlineBlockWithText,
   styledListItems,
+  customListItemType,
   customBlockType,
   overrideDefaults,
   customMarks,

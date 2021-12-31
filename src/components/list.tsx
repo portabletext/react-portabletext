@@ -5,8 +5,13 @@ import type {
   ReactPortableTextList,
 } from '../types'
 
-export const DefaultList: PortableTextComponent<ReactPortableTextList> = ({children, node}) =>
-  node.listItem === 'number' ? <ol>{children}</ol> : <ul>{children}</ul>
+export const defaultLists: Record<
+  'number' | 'bullet',
+  PortableTextComponent<ReactPortableTextList>
+> = {
+  number: ({children}) => <ol>{children}</ol>,
+  bullet: ({children}) => <ul>{children}</ul>,
+}
 
 export const DefaultListItem: PortableTextComponent<PortableTextListItemBlock> = ({
   index,

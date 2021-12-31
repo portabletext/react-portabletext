@@ -15,6 +15,7 @@ import {
   isToolkitTextNode,
 } from './toolkit/asserters'
 import {nestLists} from './toolkit/nestLists'
+import {defaultLists} from './components/list'
 import {mergeComponents} from './components/merge'
 import {Block as DefaultBlock, serializeBlock} from './components/block'
 import {PortableTextComponentsContext} from './context'
@@ -64,7 +65,9 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
         })
       )
 
-      const List = components.list
+      const component = components.list
+      const handler = typeof component === 'function' ? component : component[node.listItem]
+      const List = handler || defaultLists.bullet
       return (
         <List key={key} node={node} {...passthrough}>
           {children}

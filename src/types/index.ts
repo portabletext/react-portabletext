@@ -71,13 +71,18 @@ export interface PortableTextComponents {
     | PortableTextComponent<PortableTextBlock>
 
   /**
-   * React component used to render lists (the container component, eg usually `ul` or `ol`)
+   * Object of React components used to render different lists of different types
+   * (bulleted vs numbered, for instance, which by default is `<ul>` and `<ol>`, respectively)
    *
    * There is no actual "list" node type in the Portable Text specification, but a series of
    * list item blocks with the same `level` and `listItem` properties will be grouped into a
    * virtual one inside of this library.
+   *
+   * Can also be set to a single React component, which would handle lists of _any_ type.
    */
-  list: PortableTextComponent<ReactPortableTextList>
+  list:
+    | Record<ListItemType, PortableTextComponent<ReactPortableTextList>>
+    | PortableTextComponent<ReactPortableTextList>
 
   /**
    * Object of React components used to render different list item styles.
