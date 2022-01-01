@@ -83,9 +83,16 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
       // @todo warn on fallback
       const Li = handler || DefaultListItem
 
+      let children = tree.children
+      if (node.style && node.style !== 'normal') {
+        // Wrap any other style in whatever the block serializer says to use
+        const {listItem, ...blockNode} = node
+        children = renderNode({node: blockNode, index, isInline, renderNode})
+      }
+
       return (
         <Li key={key} node={node} {...passthrough}>
-          {tree.children}
+          {children}
         </Li>
       )
     }

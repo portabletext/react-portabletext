@@ -269,6 +269,20 @@ tap.test('can render custom list item styles with provided list style component'
   t.end()
 })
 
+tap.test('can render styled list items with custom list item component', (t) => {
+  const {input, output} = fixtures.styledListItems
+  const result = render({
+    blocks: input,
+    components: {
+      listItem: ({children}) => {
+        return <li>{children}</li>
+      },
+    },
+  })
+  t.same(result, output)
+  t.end()
+})
+
 tap.test('can specify custom component for custom block types', (t) => {
   const {input, output} = fixtures.customBlockType
   const types: Partial<PortableTextComponents>['types'] = {
