@@ -33,12 +33,14 @@ export const defaultBlockStyles: Record<
 }
 
 export const defaultComponents: PortableTextComponents = {
+  types: {},
+
   block: defaultBlockStyles,
   marks: defaultMarks,
   list: defaultLists,
   listItem: DefaultListItem,
-  types: {},
   hardBreak: DefaultHardBreak,
+
   unknownType: DefaultUnknownType,
   unknownMark: DefaultUnknownMark,
   unknownList: DefaultUnknownList,
