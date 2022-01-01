@@ -81,7 +81,7 @@ export interface PortableTextComponents {
    * Can also be set to a single React component, which would handle lists of _any_ type.
    */
   list:
-    | Record<ListItemType, PortableTextComponent<ReactPortableTextList>>
+    | Record<ListItemType, PortableTextComponent<ReactPortableTextList> | undefined>
     | PortableTextComponent<ReactPortableTextList>
 
   /**
@@ -93,7 +93,7 @@ export interface PortableTextComponents {
    * Can also be set to a single React component, which would handle list items of _any_ type.
    */
   listItem:
-    | Record<ListItemType, PortableTextComponent<PortableTextListItemBlock>>
+    | Record<ListItemType, PortableTextComponent<PortableTextListItemBlock> | undefined>
     | PortableTextComponent<PortableTextListItemBlock>
 
   /**
