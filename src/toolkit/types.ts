@@ -1,3 +1,4 @@
+import type {ReactNode} from 'react'
 import type {
   ArbitraryTypedObject,
   MarkDefinition,
@@ -40,3 +41,11 @@ export type ToolkitNestedPortableTextBlock<
   M extends MarkDefinition = MarkDefinition,
   C extends TypedObject = never
 > = PortableTextBlock<M, C | ToolkitNestedPortableTextSpan<M>>
+
+export interface SerializedBlock {
+  _key: string
+  children: ReactNode
+  index: number
+  isInline: boolean
+  node: PortableTextBlock | PortableTextListItemBlock
+}

@@ -1,4 +1,5 @@
 import React, {ReactNode, useMemo} from 'react'
+import type {SerializedBlock} from './toolkit/types'
 import type {
   NodeRenderer,
   PortableTextBlock,
@@ -15,9 +16,9 @@ import {
   isToolkitTextNode,
 } from './toolkit/asserters'
 import {nestLists} from './toolkit/nestLists'
+import {buildMarksTree} from './toolkit/buildMarksTree'
 import {DefaultListItem, defaultLists} from './components/list'
 import {mergeComponents} from './components/merge'
-import {Block as DefaultBlock, serializeBlock} from './components/block'
 import {PortableTextComponentsContext} from './context'
 import {usePortableTextComponents} from './hooks'
 
@@ -119,7 +120,10 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
 
     if (isPortableTextBlock(node)) {
       const {_key, ...props} = serializeBlock({node, index, isInline, renderNode})
-      const Block = typeof components.block === 'function' ? components.block : DefaultBlock
+      const style = props.node.style || 'normal'
+      const handler =
+        typeof components.block === 'function' ? components.block : components.block[style]
+      const Block = handler || components.unknownBlockStyle
       return <Block key={key} {...props} renderNode={renderNode} />
     }
 
@@ -139,5 +143,21 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
 
     const UnknownType = components.unknownType
     return <UnknownType key={key} {...options} />
+  }
+}
+
+function serializeBlock(options: SerializeOptions<PortableTextBlock>): SerializedBlock {
+  const {node, index, isInline, renderNode} = options
+  const tree = buildMarksTree(node)
+  const children = tree.map((child, i) =>
+    renderNode({node: child, isInline: true, index: i, renderNode})
+  )
+
+  return {
+    _key: node._key || `block-${index}`,
+    children,
+    index,
+    isInline,
+    node,
   }
 }

@@ -22,3 +22,16 @@ export const DefaultUnknownMark: PortableTextComponents['unknownMark'] = ({markT
 
   return <span className={`unknown__pt__mark__${markType}`}>{children}</span>
 }
+
+export const DefaultUnknownBlockStyle: PortableTextComponents['unknownBlockStyle'] = ({
+  children,
+  node,
+}) => {
+  const style = node.style || 'normal'
+  // eslint-disable-next-line no-console
+  console.warn(
+    `Unknown block style "${style}", please specify a serializer for it in the \`serializers.block\` prop`
+  )
+
+  return <p>{children}</p>
+}

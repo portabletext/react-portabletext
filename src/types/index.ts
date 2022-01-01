@@ -113,6 +113,24 @@ export interface PortableTextComponents {
    * in the `components.types` prop.
    */
   unknownType: PortableTextComponent<UnknownNodeType>
+
+  /**
+   * React component used when encountering a block style there is no registered component for
+   * in the `components.block` prop. Only used if `components.block` is an object.
+   */
+  unknownBlockStyle: PortableTextComponent<PortableTextBlock>
+
+  /**
+   * React component used when encountering a list style there is no registered component for
+   * in the `components.list` prop. Only used if `components.list` is an object.
+   */
+  unknownList: PortableTextComponent<ReactPortableTextList>
+
+  /**
+   * React component used when encountering a list item style there is no registered component for
+   * in the `components.listItem` prop. Only used if `components.listItem` is an object.
+   */
+  unknownListItem: PortableTextComponent<PortableTextListItemBlock>
 }
 
 export interface PortableTextComponentProps<N> {
