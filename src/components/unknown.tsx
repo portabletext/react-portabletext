@@ -4,7 +4,7 @@ import type {PortableTextComponents} from '../types'
 export const DefaultUnknownType: PortableTextComponents['unknownType'] = ({node}) => {
   // eslint-disable-next-line no-console
   console.warn(
-    `Unknown block type "${node._type}", please specify a serializer for it in the \`serializers.types\` prop`
+    `Unknown block type "${node._type}", please specify a component for it in the \`components.types\` prop`
   )
 
   return (
@@ -17,7 +17,7 @@ export const DefaultUnknownType: PortableTextComponents['unknownType'] = ({node}
 export const DefaultUnknownMark: PortableTextComponents['unknownMark'] = ({markType, children}) => {
   // eslint-disable-next-line no-console
   console.warn(
-    `Unknown mark type "${markType}", please specify a serializer for it in the \`serializers.marks\` prop`
+    `Unknown mark type "${markType}", please specify a component for it in the \`components.marks\` prop`
   )
 
   return <span className={`unknown__pt__mark__${markType}`}>{children}</span>
@@ -30,8 +30,31 @@ export const DefaultUnknownBlockStyle: PortableTextComponents['unknownBlockStyle
   const style = node.style || 'normal'
   // eslint-disable-next-line no-console
   console.warn(
-    `Unknown block style "${style}", please specify a serializer for it in the \`serializers.block\` prop`
+    `Unknown block style "${style}", please specify a component for it in the \`components.block\` prop`
   )
 
   return <p>{children}</p>
+}
+
+export const DefaultUnknownList: PortableTextComponents['unknownList'] = ({children, node}) => {
+  const style = node.listItem || 'bullet'
+  // eslint-disable-next-line no-console
+  console.warn(
+    `Unknown list style "${style}", please specify a component for it in the \`components.list\` prop`
+  )
+
+  return <ul>{children}</ul>
+}
+
+export const DefaultUnknownListItem: PortableTextComponents['unknownListItem'] = ({
+  children,
+  node,
+}) => {
+  const style = node.listItem || 'bullet'
+  // eslint-disable-next-line no-console
+  console.warn(
+    `Unknown list item style "${style}", please specify a component for it in the \`components.list\` prop`
+  )
+
+  return <li>{children}</li>
 }

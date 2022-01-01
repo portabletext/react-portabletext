@@ -7,7 +7,13 @@ import type {
 } from '../types'
 import {defaultMarks} from './marks'
 import {defaultLists, DefaultListItem} from './list'
-import {DefaultUnknownType, DefaultUnknownMark, DefaultUnknownBlockStyle} from './unknown'
+import {
+  DefaultUnknownType,
+  DefaultUnknownMark,
+  DefaultUnknownList,
+  DefaultUnknownListItem,
+  DefaultUnknownBlockStyle,
+} from './unknown'
 
 export const DefaultHardBreak = () => <br />
 
@@ -35,5 +41,7 @@ export const defaultComponents: PortableTextComponents = {
   hardBreak: DefaultHardBreak,
   unknownType: DefaultUnknownType,
   unknownMark: DefaultUnknownMark,
+  unknownList: DefaultUnknownList,
+  unknownListItem: DefaultUnknownListItem,
   unknownBlockStyle: DefaultUnknownBlockStyle,
 }

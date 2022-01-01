@@ -17,7 +17,6 @@ import {
 } from './toolkit/asserters'
 import {nestLists} from './toolkit/nestLists'
 import {buildMarksTree} from './toolkit/buildMarksTree'
-import {DefaultListItem, defaultLists} from './components/list'
 import {mergeComponents} from './components/merge'
 import {PortableTextComponentsContext} from './context'
 import {usePortableTextComponents} from './hooks'
@@ -68,8 +67,7 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
 
       const component = components.list
       const handler = typeof component === 'function' ? component : component[node.listItem]
-      // @todo warn on fallback
-      const List = handler || defaultLists.bullet
+      const List = handler || components.unknownList
       return (
         <List key={key} node={node} {...passthrough}>
           {children}
@@ -81,8 +79,7 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
       const tree = serializeBlock({node, index, isInline, renderNode})
       const renderer = components.listItem
       const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
-      // @todo warn on fallback
-      const Li = handler || DefaultListItem
+      const Li = handler || components.unknownListItem
 
       let children = tree.children
       if (node.style && node.style !== 'normal') {

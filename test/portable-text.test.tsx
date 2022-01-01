@@ -269,6 +269,19 @@ tap.test('can render custom list item styles with provided list style component'
   t.end()
 })
 
+tap.test('warns on missing list style component', (t) => {
+  const {input} = fixtures.customListItemType
+  const result = render({
+    blocks: input,
+    components: {list: {}},
+  })
+  t.same(
+    result,
+    '<ul><li>Square 1</li><li>Square 2<ul><li>Dat disc</li></ul></li><li>Square 3</li></ul>'
+  )
+  t.end()
+})
+
 tap.test('can render styled list items with custom list item component', (t) => {
   const {input, output} = fixtures.styledListItems
   const result = render({
