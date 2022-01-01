@@ -15,7 +15,7 @@ import {
   isToolkitTextNode,
 } from './toolkit/asserters'
 import {nestLists} from './toolkit/nestLists'
-import {defaultLists} from './components/list'
+import {DefaultListItem, defaultLists} from './components/list'
 import {mergeComponents} from './components/merge'
 import {Block as DefaultBlock, serializeBlock} from './components/block'
 import {PortableTextComponentsContext} from './context'
@@ -67,6 +67,7 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
 
       const component = components.list
       const handler = typeof component === 'function' ? component : component[node.listItem]
+      // @todo warn on fallback
       const List = handler || defaultLists.bullet
       return (
         <List key={key} node={node} {...passthrough}>
@@ -79,7 +80,8 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
       const tree = serializeBlock({node, index, isInline, renderNode})
       const renderer = components.listItem
       const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
-      const Li = handler // @todo unknown handler for list styles
+      // @todo warn on fallback
+      const Li = handler || DefaultListItem
 
       return (
         <Li key={key} node={node} {...passthrough}>

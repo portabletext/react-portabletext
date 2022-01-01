@@ -239,7 +239,7 @@ tap.test('can render custom list item styles with fallback', (t) => {
   t.end()
 })
 
-tap.test('can render custom list item styles with provided list component', (t) => {
+tap.test('can render custom list item styles with provided list style component', (t) => {
   const {input} = fixtures.customListItemType
   const result = render({
     blocks: input,
@@ -248,6 +248,23 @@ tap.test('can render custom list item styles with provided list component', (t) 
   t.same(
     result,
     '<ul class="list-squared"><li>Square 1</li><li>Square 2<ul><li>Dat disc</li></ul></li><li>Square 3</li></ul>'
+  )
+  t.end()
+})
+
+tap.test('can render custom list item styles with provided list style component', (t) => {
+  const {input} = fixtures.customListItemType
+  const result = render({
+    blocks: input,
+    components: {
+      listItem: {
+        square: ({children}) => <li className="item-squared">{children}</li>,
+      },
+    },
+  })
+  t.same(
+    result,
+    '<ul><li class="item-squared">Square 1</li><li class="item-squared">Square 2<ul><li>Dat disc</li></ul></li><li class="item-squared">Square 3</li></ul>'
   )
   t.end()
 })
