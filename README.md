@@ -83,10 +83,72 @@ export default function MyComponent() {
 }
 ```
 
+## Available components
+
+These are the overridable/implementable keys:
+
+### `types`
+
+An object of React components that renders different types of objects that might appear both as part of the input array, or as inline objects within text blocks - eg alongside text spans.
+
+Use the `isInline` property to check whether or not this is an inline object or a block.
+
+The object has the shape `{typeName: ReactComponent}`, where `typeName` is the value set in individual `_type` attributes.
+
+### `marks`
+
+Object of React components that renders different types of marks that might appear in spans. Marks can be either be simple "decorators" (eg emphasis, underline, italic) or full "annotations" which include associated data (eg links, references, descriptions).
+
+If the mark is a decorator, the component will receive a `markType` prop which has the name of the decorator (eg `em`). If the mark is an annotation, it will receive both a `markType` with the associated `_type` property (eg `link`), and a `markDef` property with an object holding the data for this mark.
+
+The component also receives a `children` prop that should (usually) be returned in whatever parent container component makes sense for this mark (eg `<a>`, `<em>`).
+
+### `block`
+
+An object of React components that renders portable text blocks with different `style` properties. The object has the shape {styleName: ReactComponent}`, where `styleName`is the value set in individual`style` attributes on blocks (`normal` being the default).
+
+Can also be set to a single React component, which would handle block styles of _any_ type.
+
+### `list`
+
+Object of React components used to render lists of different types (`bullet` vs `number`, for instance, which by default is `<ul>` and `<ol>`, respectively).
+
+Note that there is no actual "list" node type in the Portable Text specification, but a series of list item blocks with the same `level` and `listItem` properties will be grouped into a virtual one inside of this library.
+
+The property can also be set to a single React component, which would handle lists of _any_ type.
+
+### `listItem`
+
+Object of React components used to render different list item styles. The object has the shape `{listItemType: ReactComponent}`, where `listItemType` is the value set in individual `listItem` attributes on blocks.
+
+Can also be set to a single React component, which would handle list items of _any_ type.
+
+### `hardBreak`
+
+Component to use for rendering "hard breaks", eg `\n` inside of text spans.
+
+Will by default render a `<br />`. Pass `false` to render as-is (`\n`)
+
+### `unknownMark`
+
+React component used when encountering a mark type there is no registered component for in the `components.marks` prop.
+
+### `unknownType`
+
+React component used when encountering an object type there is no registered component for in the `components.types` prop.
+
+### `unknownBlockStyle`
+
+React component used when encountering a block style there is no registered component for in the `components.block` prop. Only used if `components.block` is an object.
+
+### `unknownList`
+
+React component used when encountering a list style there is no registered component for in the `components.list` prop. Only used if `components.list` is an object.
+
+### `unknownListItem`
+
+React component used when encountering a list item style there is no registered component for in the `components.listItem` prop. Only used if `components.listItem` is an object.
+
 ## License
 
 MIT © [Sanity.io](https://www.sanity.io/)
-
-```
-
-```
