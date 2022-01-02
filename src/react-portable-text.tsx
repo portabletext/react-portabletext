@@ -22,7 +22,7 @@ import {PortableTextComponentsContext} from './context'
 import {usePortableTextComponents} from './hooks'
 
 export function PortableText<B extends TypedObject = PortableTextBlock>({
-  blocks: input,
+  content: input,
   components: componentOverrides,
 }: PortableTextProps<B>) {
   const blocks = Array.isArray(input) ? input : [input]

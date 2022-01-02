@@ -12,7 +12,7 @@ export interface PortableTextProps<
   /**
    * One or more blocks to render
    */
-  blocks: B | B[]
+  content: B | B[]
 
   /**
    * React components to use for rendering

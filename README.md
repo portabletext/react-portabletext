@@ -13,7 +13,7 @@ npm install --save react-portable-text
 ```js
 import {PortableText} from 'react-portable-text'
 
-<PortableText blocks={[/* array of portable text blocks */]}>
+<PortableText content={[/* array of portable text blocks */]}>
 ```
 
 ## Styling the output
@@ -55,7 +55,7 @@ const myPortableTextComponents = {
 }
 
 const YourComponent = (props) => {
-  return <PortableText blocks={props.blocks} components={myPortableTextComponents} />
+  return <PortableText content={props.content} components={myPortableTextComponents} />
 }
 ```
 
@@ -76,7 +76,7 @@ export default function MyComponent() {
   return (
     <PortableTextComponentsProvider components={myPortableTextComponents}>
       <div className="portable-text">
-        <PortableText blocks={somePortableTextInput} />
+        <PortableText content={somePortableTextInput} />
       </div>
     </PortableTextComponentsProvider>
   )

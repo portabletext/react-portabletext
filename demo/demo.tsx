@@ -76,4 +76,4 @@ const blocks: PortableTextBlock[] = [
   },
 ]
 
-render(<PortableText blocks={blocks} />, document.getElementById('root'))
+render(<PortableText content={blocks} />, document.getElementById('root'))
