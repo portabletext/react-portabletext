@@ -173,8 +173,8 @@ tap.test('handles inline non-span nodes', (t) => {
     blocks: input,
     components: {
       types: {
-        rating: ({node}) => {
-          return <span className={`rating type-${node.type} rating-${node.rating}`} />
+        rating: ({data}) => {
+          return <span className={`rating type-${data.type} rating-${data.rating}`} />
         },
       },
     },
@@ -209,7 +209,7 @@ tap.test('can nest marks correctly in block/marks context', (t) => {
   const {input, output} = fixtures.inlineImages
   const result = render({
     blocks: input,
-    components: {types: {image: ({node}) => <img src={node.url} />}},
+    components: {types: {image: ({data}) => <img src={data.url} />}},
   })
   t.same(result, output)
   t.end()
@@ -219,7 +219,7 @@ tap.test('can render inline block with text property', (t) => {
   const {input, output} = fixtures.inlineBlockWithText
   const result = render({
     blocks: input,
-    components: {types: {button: (props) => <button type="button">{props.node.text}</button>}},
+    components: {types: {button: (props) => <button type="button">{props.data.text}</button>}},
   })
   t.same(result, output)
   t.end()
@@ -301,7 +301,7 @@ tap.test('can specify custom component for custom block types', (t) => {
   const types: Partial<PortableTextComponents>['types'] = {
     code: ({renderNode, ...props}) => {
       t.same(props, {
-        node: {
+        data: {
           _key: '9a15ea2ed8a2',
           _type: 'code',
           code: input[0].code,
@@ -311,8 +311,8 @@ tap.test('can specify custom component for custom block types', (t) => {
         isInline: false,
       })
       return (
-        <pre data-language={props.node.language}>
-          <code>{props.node.code}</code>
+        <pre data-language={props.data.language}>
+          <code>{props.data.code}</code>
         </pre>
       )
     },

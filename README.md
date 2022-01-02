@@ -33,12 +33,12 @@ This overrides/provides components on a per-use basis, and will be merged with t
 ```js
 const myPortableTextComponents = {
   types: {
-    image: ({node}) => <img src={node.imageUrl} />,
-    callToAction: ({node, isInline}) =>
+    image: ({data}) => <img src={data.imageUrl} />,
+    callToAction: ({data, isInline}) =>
       isInline ? (
-        <a href={node.url}>{node.text}</a>
+        <a href={data.url}>{data.text}</a>
       ) : (
-        <div className="callToAction">{node.text}</div>
+        <div className="callToAction">{data.text}</div>
       ),
   },
 

@@ -5,7 +5,7 @@ import type {
   PortableTextBlock,
   PortableTextComponents,
   PortableTextProps,
-  SerializeOptions,
+  Serializable,
   TypedObject,
 } from './types'
 import {
@@ -37,7 +37,7 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
 
   const renderNode = useMemo(() => getNodeRenderer(components), [components])
   const rendered = nested.map((node, index) =>
-    renderNode({node, index, isInline: false, renderNode})
+    renderNode({node: node, index, isInline: false, renderNode})
   )
 
   return componentOverrides ? (
@@ -50,7 +50,7 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
 }
 
 const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
-  return function renderNode<N extends TypedObject>(options: SerializeOptions<N>): ReactNode {
+  return function renderNode<N extends TypedObject>(options: Serializable<N>): ReactNode {
     const {node, index, isInline} = options
     const passthrough = {index, isInline, renderNode}
     const key = node._key || `node-${index}`
@@ -69,7 +69,7 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
       const handler = typeof component === 'function' ? component : component[node.listItem]
       const List = handler || components.unknownList
       return (
-        <List key={key} node={node} {...passthrough}>
+        <List key={key} data={node} {...passthrough}>
           {children}
         </List>
       )
@@ -89,7 +89,7 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
       }
 
       return (
-        <Li key={key} node={node} {...passthrough}>
+        <Li key={key} data={node} {...passthrough}>
           {children}
         </Li>
       )
@@ -121,7 +121,7 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
       const handler =
         typeof components.block === 'function' ? components.block : components.block[style]
       const Block = handler || components.unknownBlockStyle
-      return <Block key={key} {...props} renderNode={renderNode} />
+      return <Block key={key} {...props} data={props.node} renderNode={renderNode} />
     }
 
     if (isToolkitTextNode(node)) {
@@ -134,16 +134,20 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
     }
 
     const Node = components.types[node._type]
+
+    const nodeOptions = {...options, node: undefined, data: options.node}
+    delete nodeOptions.node
+
     if (Node) {
-      return <Node key={key} {...options} />
+      return <Node key={key} {...nodeOptions} />
     }
 
     const UnknownType = components.unknownType
-    return <UnknownType key={key} {...options} />
+    return <UnknownType key={key} {...nodeOptions} />
   }
 }
 
-function serializeBlock(options: SerializeOptions<PortableTextBlock>): SerializedBlock {
+function serializeBlock(options: Serializable<PortableTextBlock>): SerializedBlock {
   const {node, index, isInline, renderNode} = options
   const tree = buildMarksTree(node)
   const children = tree.map((child, i) =>

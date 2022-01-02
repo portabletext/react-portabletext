@@ -147,7 +147,7 @@ export interface PortableTextComponentProps<T> {
   /**
    * Data associated with this portable text node, eg the raw JSON data of a block/type
    */
-  node: T
+  data: T
 
   /**
    * Index within its parent
