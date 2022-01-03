@@ -1,15 +1,22 @@
+name: test
+on:
+  - push
+  - pull_request
 jobs:
-  build:
+  test:
+    name: Node.js ${{ matrix.node-version }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        node: ['12', '14', '16']
-    name: Node ${{ matrix.node }} sample
+        node-version:
+          - 15
+          - 14
+          - 12
     steps:
       - uses: actions/checkout@v2
-      - name: Setup node
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node }}
+          node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm test
