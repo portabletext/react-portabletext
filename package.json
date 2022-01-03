@@ -2,8 +2,14 @@
   "name": "react-portable-text",
   "version": "1.0.0",
   "description": "Render Portable Text with React",
-  "main": "dist/react-portable-text.umd.js",
-  "module": "dist/react-portable-text.esm.js",
+  "main": "./dist/react-portable-text.cjs.js",
+  "module": "./dist/react-portable-text.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/react-portable-text.esm.js",
+      "require": "./dist/react-portable-text.cjs.js"
+    }
+  },
   "files": [
     "dist",
     "src",

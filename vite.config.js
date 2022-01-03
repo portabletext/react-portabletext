@@ -7,8 +7,8 @@ module.exports = defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
       formats: ['esm', 'cjs'],
-      name: 'portable-text',
-      fileName: (format) => `portable-text.${format}.js`,
+      name: 'react-portable-text',
+      fileName: (format) => `react-portable-text.${format}.js`,
     },
     rollupOptions: {
       external: ['react'],
