@@ -1,4 +1,4 @@
-import React, {ReactNode, useMemo} from 'react'
+import React, {ReactNode, useContext, useMemo} from 'react'
 import type {SerializedBlock} from './toolkit/types'
 import type {
   NodeRenderer,
@@ -19,7 +19,6 @@ import {nestLists} from './toolkit/nestLists'
 import {buildMarksTree} from './toolkit/buildMarksTree'
 import {mergeComponents} from './components/merge'
 import {PortableTextComponentsContext} from './context'
-import {usePortableTextComponents} from './hooks'
 
 export function PortableText<B extends TypedObject = PortableTextBlock>({
   content: input,
@@ -28,7 +27,7 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   const blocks = Array.isArray(input) ? input : [input]
   const nested = nestLists(blocks)
 
-  const parentComponents = usePortableTextComponents()
+  const parentComponents = useContext(PortableTextComponentsContext)
   const components = useMemo(() => {
     return componentOverrides
       ? mergeComponents(parentComponents, componentOverrides)
