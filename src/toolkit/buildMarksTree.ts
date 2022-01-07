@@ -5,7 +5,7 @@ import type {
   PortableTextSpan,
   TypedObject,
 } from '../types'
-import {isTextSpan} from './asserters'
+import {isPortableTextSpan} from './asserters'
 import {ToolkitNestedPortableTextSpan, ToolkitTextNode} from './types'
 
 const knownDecorators = ['strong', 'em', 'code', 'underline', 'strike-through']
@@ -79,7 +79,7 @@ export function buildMarksTree<M extends MarkDefinition = MarkDefinition>(
     // Split at newlines to make individual line chunks, but keep newline
     // characters as individual elements in the array. We use these characters
     // in the span serializer to trigger hard-break rendering
-    if (isTextSpan(span)) {
+    if (isPortableTextSpan(span)) {
       const lines = span.text.split('\n')
       for (let line = lines.length; line-- > 1; ) {
         lines.splice(line, 0, '\n')
@@ -107,7 +107,7 @@ function sortMarksByOccurences(
   i: number,
   spans: (PortableTextSpan | TypedObject)[]
 ): string[] {
-  if (!isTextSpan(span) || !span.marks) {
+  if (!isPortableTextSpan(span) || !span.marks) {
     return []
   }
 
@@ -125,7 +125,7 @@ function sortMarksByOccurences(
       const sibling = spans[siblingIndex]
 
       if (
-        isTextSpan(sibling) &&
+        isPortableTextSpan(sibling) &&
         Array.isArray(sibling.marks) &&
         sibling.marks.indexOf(mark) !== -1
       ) {

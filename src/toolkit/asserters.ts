@@ -6,7 +6,7 @@ import type {
 } from '../types'
 import type {ToolkitNestedPortableTextSpan, ToolkitPortableTextList, ToolkitTextNode} from './types'
 
-export function isTextSpan(node: TypedObject | PortableTextSpan): node is PortableTextSpan {
+export function isPortableTextSpan(node: TypedObject | PortableTextSpan): node is PortableTextSpan {
   return (
     node._type === 'span' &&
     'text' in node &&

@@ -1,6 +1,6 @@
 import type {PortableTextBlock, PortableTextListItemBlock, TypedObject} from '../types'
 import type {ToolkitPortableTextList, ToolkitPortableTextListItem} from './types'
-import {isListItemBlock, isTextSpan, isToolkitList} from './asserters'
+import {isListItemBlock, isPortableTextSpan, isToolkitList} from './asserters'
 
 type NestListsInputNode = PortableTextBlock | TypedObject
 type NestListsOutputNode<T> = T | ToolkitPortableTextList
@@ -139,5 +139,5 @@ function findListMatching<T extends TypedObject | PortableTextBlock>(
   }
 
   const node = rootNode.children[rootNode.children.length - 1]
-  return node && !isTextSpan(node) ? findListMatching(node, matching) : undefined
+  return node && !isPortableTextSpan(node) ? findListMatching(node, matching) : undefined
 }
