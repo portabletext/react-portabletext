@@ -23,7 +23,7 @@ tap.test('can extract text from a properly formatted block', (t) => {
         {_type: 'span', text: 'Plain '},
         {_type: 'span', text: 'text', marks: ['em']},
         {_type: 'span', text: ', even with '},
-        {_type: 'span', text: 'annotated content', marks: ['a1b']},
+        {_type: 'span', text: 'annotated value', marks: ['a1b']},
         {_type: 'span', text: '.'},
       ],
     },
@@ -33,6 +33,6 @@ tap.test('can extract text from a properly formatted block', (t) => {
     },
   ])
 
-  t.same(text, 'Plain text, even with annotated content.\n\nShould work?')
+  t.same(text, 'Plain text, even with annotated value.\n\nShould work?')
   t.end()
 })

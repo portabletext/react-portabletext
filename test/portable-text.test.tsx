@@ -10,98 +10,98 @@ const render = (props: PortableTextProps) =>
 
 tap.test('builds empty tree on empty block', (t) => {
   const {input, output} = fixtures.emptyBlock
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('builds simple one-node tree on single, markless span', (t) => {
   const {input, output} = fixtures.singleSpan
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('builds simple multi-node tree on markless spans', (t) => {
   const {input, output} = fixtures.multipleSpans
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('builds annotated span on simple mark', (t) => {
   const {input, output} = fixtures.basicMarkSingleSpan
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('builds annotated, joined span on adjacent, equal marks', (t) => {
   const {input, output} = fixtures.basicMarkMultipleAdjacentSpans
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('builds annotated, nested spans in tree format', (t) => {
   const {input, output} = fixtures.basicMarkNestedMarks
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('builds annotated spans with expanded marks on object-style marks', (t) => {
   const {input, output} = fixtures.linkMarkDef
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('builds correct structure from advanced, nested mark structure', (t) => {
   const {input, output} = fixtures.messyLinkText
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('builds bullet lists in parent container', (t) => {
   const {input, output} = fixtures.basicBulletList
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('builds numbered lists in parent container', (t) => {
   const {input, output} = fixtures.basicNumberedList
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('builds nested lists', (t) => {
   const {input, output} = fixtures.nestedLists
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('builds all basic marks as expected', (t) => {
   const {input, output} = fixtures.allBasicMarks
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('builds weirdly complex lists without any issues', (t) => {
   const {input, output} = fixtures.deepWeirdLists
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('renders all default block styles', (t) => {
   const {input, output} = fixtures.allDefaultBlockStyles
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
@@ -113,28 +113,28 @@ tap.test('sorts marks correctly on equal number of occurences', (t) => {
       <span style={{border: `${markDef?.thickness}px solid`}}>{children}</span>
     ),
   }
-  const result = render({content: input, components: {marks}})
+  const result = render({value: input, components: {marks}})
   t.same(result, output)
   t.end()
 })
 
 tap.test('handles keyless blocks/spans', (t) => {
   const {input, output} = fixtures.keyless
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('handles empty arrays', (t) => {
   const {input, output} = fixtures.emptyArray
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('handles lists without level', (t) => {
   const {input, output} = fixtures.listWithoutLevel
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
@@ -142,7 +142,7 @@ tap.test('handles lists without level', (t) => {
 tap.test('handles inline non-span nodes', (t) => {
   const {input, output} = fixtures.inlineNodes
   const result = render({
-    content: input,
+    value: input,
     components: {
       types: {
         rating: ({data}) => {
@@ -157,14 +157,14 @@ tap.test('handles inline non-span nodes', (t) => {
 
 tap.test('handles hardbreaks', (t) => {
   const {input, output} = fixtures.hardBreaks
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('can disable hardbreak component', (t) => {
   const {input, output} = fixtures.hardBreaks
-  const result = render({content: input, components: {hardBreak: false}})
+  const result = render({value: input, components: {hardBreak: false}})
   t.same(result, output.replace(/<br\/>/g, '\n'))
   t.end()
 })
@@ -172,7 +172,7 @@ tap.test('can disable hardbreak component', (t) => {
 tap.test('can customize hardbreak component', (t) => {
   const {input, output} = fixtures.hardBreaks
   const hardBreak = () => <br className="dat-newline" />
-  const result = render({content: input, components: {hardBreak}})
+  const result = render({value: input, components: {hardBreak}})
   t.same(result, output.replace(/<br\/>/g, '<br class="dat-newline"/>'))
   t.end()
 })
@@ -180,7 +180,7 @@ tap.test('can customize hardbreak component', (t) => {
 tap.test('can nest marks correctly in block/marks context', (t) => {
   const {input, output} = fixtures.inlineImages
   const result = render({
-    content: input,
+    value: input,
     components: {types: {image: ({data}) => <img src={data.url} />}},
   })
   t.same(result, output)
@@ -190,7 +190,7 @@ tap.test('can nest marks correctly in block/marks context', (t) => {
 tap.test('can render inline block with text property', (t) => {
   const {input, output} = fixtures.inlineBlockWithText
   const result = render({
-    content: input,
+    value: input,
     components: {types: {button: (props) => <button type="button">{props.data.text}</button>}},
   })
   t.same(result, output)
@@ -199,14 +199,14 @@ tap.test('can render inline block with text property', (t) => {
 
 tap.test('can render styled list items', (t) => {
   const {input, output} = fixtures.styledListItems
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
 
 tap.test('can render custom list item styles with fallback', (t) => {
   const {input, output} = fixtures.customListItemType
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })
@@ -214,7 +214,7 @@ tap.test('can render custom list item styles with fallback', (t) => {
 tap.test('can render custom list item styles with provided list style component', (t) => {
   const {input} = fixtures.customListItemType
   const result = render({
-    content: input,
+    value: input,
     components: {list: {square: ({children}) => <ul className="list-squared">{children}</ul>}},
   })
   t.same(
@@ -227,7 +227,7 @@ tap.test('can render custom list item styles with provided list style component'
 tap.test('can render custom list item styles with provided list style component', (t) => {
   const {input} = fixtures.customListItemType
   const result = render({
-    content: input,
+    value: input,
     components: {
       listItem: {
         square: ({children}) => <li className="item-squared">{children}</li>,
@@ -244,7 +244,7 @@ tap.test('can render custom list item styles with provided list style component'
 tap.test('warns on missing list style component', (t) => {
   const {input} = fixtures.customListItemType
   const result = render({
-    content: input,
+    value: input,
     components: {list: {}},
   })
   t.same(
@@ -257,7 +257,7 @@ tap.test('warns on missing list style component', (t) => {
 tap.test('can render styled list items with custom list item component', (t) => {
   const {input, output} = fixtures.styledListItems
   const result = render({
-    content: input,
+    value: input,
     components: {
       listItem: ({children}) => {
         return <li>{children}</li>
@@ -289,7 +289,7 @@ tap.test('can specify custom component for custom block types', (t) => {
       )
     },
   }
-  const result = render({content: input, components: {types}})
+  const result = render({value: input, components: {types}})
   t.same(result, output)
   t.end()
 })
@@ -301,7 +301,7 @@ tap.test('can specify custom components for custom marks', (t) => {
     children,
   }) => <span style={{border: `${markDef?.thickness}px solid`}}>{children}</span>
 
-  const result = render({content: input, components: {marks: {highlight}}})
+  const result = render({value: input, components: {marks: {highlight}}})
   t.same(result, output)
   t.end()
 })
@@ -314,14 +314,14 @@ tap.test('can specify custom components for defaults marks', (t) => {
     </a>
   )
 
-  const result = render({content: input, components: {marks: {link}}})
+  const result = render({value: input, components: {marks: {link}}})
   t.same(result, output)
   t.end()
 })
 
 tap.test('falls back to default component for missing mark components', (t) => {
   const {input, output} = fixtures.missingMarkComponent
-  const result = render({content: input})
+  const result = render({value: input})
   t.same(result, output)
   t.end()
 })

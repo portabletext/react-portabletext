@@ -12,7 +12,7 @@ export interface PortableTextProps<
   /**
    * One or more blocks to render
    */
-  content: B | B[]
+  value: B | B[]
 
   /**
    * React components to use for rendering
@@ -226,7 +226,7 @@ export type ListItemType = 'bullet' | 'number' | string
 /**
  * A Portable Text Block can be thought of as one paragraph, quote or list item.
  * In other words, it is a container for text, that can have a visual style associated with it.
- * The actual text content is stored in portable text spans inside of the `childen` array.
+ * The actual text value is stored in portable text spans inside of the `childen` array.
  *
  * @template M Mark types that be used for text spans
  * @template C Types allowed as children of this block
@@ -292,7 +292,7 @@ export interface PortableTextListItemBlock<
 }
 
 /**
- * A Portable Text Span holds a chunk of the actual text content of a Portable Text Block
+ * A Portable Text Span holds a chunk of the actual text value of a Portable Text Block
  */
 export interface PortableTextSpan {
   /**
@@ -306,7 +306,7 @@ export interface PortableTextSpan {
   _key?: string
 
   /**
-   * The actual text content of this text span
+   * The actual text value of this text span
    */
   text: string
 

@@ -13,7 +13,7 @@ npm install --save react-portable-text
 ```js
 import {PortableText} from 'react-portable-text'
 
-<PortableText content={[/* array of portable text blocks */]}>
+<PortableText value={[/* array of portable text blocks */]}>
 ```
 
 ## Styling the output
@@ -55,7 +55,7 @@ const myPortableTextComponents = {
 }
 
 const YourComponent = (props) => {
-  return <PortableText content={props.content} components={myPortableTextComponents} />
+  return <PortableText value={props.value} components={myPortableTextComponents} />
 }
 ```
 
@@ -76,7 +76,7 @@ export default function MyComponent() {
   return (
     <PortableTextComponentsProvider components={myPortableTextComponents}>
       <div className="portable-text">
-        <PortableText content={somePortableTextInput} />
+        <PortableText value={somePortableTextInput} />
       </div>
     </PortableTextComponentsProvider>
   )
@@ -105,7 +105,7 @@ The component also receives a `children` prop that should (usually) be returned 
 
 ### `block`
 
-An object of React components that renders portable text blocks with different `style` properties. The object has the shape {styleName: ReactComponent}`, where `styleName`is the value set in individual`style` attributes on blocks (`normal` being the default).
+An object of React components that renders portable text blocks with different `style` properties. The object has the shape {styleName: ReactComponent}`, where `styleName`is the value set in individual `style` attributes on blocks (`normal` being the default).
 
 Can also be set to a single React component, which would handle block styles of _any_ type.
 
@@ -160,8 +160,8 @@ etc.).
 ```jsx
 import {toPlainText} from 'react-portable-text'
 
-const MetaDescription = ({content}) => {
-  return <meta name="description" content={toPlainText(content)} />
+const MetaDescription = ({value}) => {
+  return <meta name="description" value={toPlainText(value)} />
 }
 ```
 

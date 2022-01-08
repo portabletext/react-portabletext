@@ -21,7 +21,7 @@ import {mergeComponents} from './components/merge'
 import {PortableTextComponentsContext} from './context'
 
 export function PortableText<B extends TypedObject = PortableTextBlock>({
-  content: input,
+  value: input,
   components: componentOverrides,
 }: PortableTextProps<B>) {
   const blocks = Array.isArray(input) ? input : [input]

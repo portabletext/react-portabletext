@@ -9,7 +9,7 @@ const render = (props: PortableTextProps) =>
 
 tap.test('can override unknown mark component', (t) => {
   const result = render({
-    content: {
+    value: {
       _type: 'block',
       markDefs: [{_key: 'unknown-mark', _type: 'unknown-mark'}],
       children: [

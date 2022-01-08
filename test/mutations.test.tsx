@@ -24,7 +24,7 @@ tap.test('never mutates input', (t) => {
     const passedInput = fixture.input
     try {
       render({
-        content: passedInput as any,
+        value: passedInput as any,
         components,
       })
     } catch (error) {
