@@ -1,4 +1,5 @@
 export * from './types'
+export {toPlainText} from './toolkit/toPlainText'
 export {PortableText} from './react-portable-text'
 export {mergeComponents} from './components/merge'
 export {defaultComponents} from './components/defaults'

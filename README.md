@@ -149,6 +149,22 @@ React component used when encountering a list style there is no registered compo
 
 React component used when encountering a list item style there is no registered component for in the `components.listItem` prop. Only used if `components.listItem` is an object.
 
+## Rendering Plain Text
+
+As a bonus, `react-portable-text` offers a function that will render your
+portable text content to a plain-text string. This is often useful for previews
+and such in the Studio and for ancillary uses of content in contexts where
+formatting is not supported (e.g. calendar invite descriptions, meta tags,
+etc.).
+
+```jsx
+import {toPlainText} from 'react-portable-text'
+
+const MetaDescription = ({content}) => {
+  return <meta name="description" content={toPlainText(content)} />
+}
+```
+
 ## License
 
 MIT © [Sanity.io](https://www.sanity.io/)
