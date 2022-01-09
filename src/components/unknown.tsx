@@ -1,7 +1,7 @@
 import React from 'react'
 import type {PortableTextComponents} from '../types'
 
-export const DefaultUnknownType: PortableTextComponents['unknownType'] = ({data: node}) => {
+export const DefaultUnknownType: PortableTextComponents['unknownType'] = ({value: node}) => {
   // eslint-disable-next-line no-console
   console.warn(
     `Unknown block type "${node._type}", please specify a component for it in the \`components.types\` prop`
@@ -25,7 +25,7 @@ export const DefaultUnknownMark: PortableTextComponents['unknownMark'] = ({markT
 
 export const DefaultUnknownBlockStyle: PortableTextComponents['unknownBlockStyle'] = ({
   children,
-  data: node,
+  value: node,
 }) => {
   const style = node.style || 'normal'
   // eslint-disable-next-line no-console
@@ -38,7 +38,7 @@ export const DefaultUnknownBlockStyle: PortableTextComponents['unknownBlockStyle
 
 export const DefaultUnknownList: PortableTextComponents['unknownList'] = ({
   children,
-  data: node,
+  value: node,
 }) => {
   const style = node.listItem || 'bullet'
   // eslint-disable-next-line no-console
@@ -51,7 +51,7 @@ export const DefaultUnknownList: PortableTextComponents['unknownList'] = ({
 
 export const DefaultUnknownListItem: PortableTextComponents['unknownListItem'] = ({
   children,
-  data: node,
+  value: node,
 }) => {
   const style = node.listItem || 'bullet'
   // eslint-disable-next-line no-console

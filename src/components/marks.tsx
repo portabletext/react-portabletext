@@ -6,8 +6,8 @@ interface DefaultLink extends TypedObject {
   href: string
 }
 
-const link: PortableTextMarkComponent<DefaultLink> = ({children, markDef}) => (
-  <a href={markDef?.href}>{children}</a>
+const link: PortableTextMarkComponent<DefaultLink> = ({children, value}) => (
+  <a href={value?.href}>{children}</a>
 )
 
 export const defaultMarks: Record<string, PortableTextMarkComponent | undefined> = {

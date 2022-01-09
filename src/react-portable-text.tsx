@@ -68,7 +68,7 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
       const handler = typeof component === 'function' ? component : component[node.listItem]
       const List = handler || components.unknownList
       return (
-        <List key={key} data={node} {...passthrough}>
+        <List key={key} value={node} {...passthrough}>
           {children}
         </List>
       )
@@ -88,7 +88,7 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
       }
 
       return (
-        <Li key={key} data={node} {...passthrough}>
+        <Li key={key} value={node} {...passthrough}>
           {children}
         </Li>
       )
@@ -105,7 +105,7 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
         <Span
           key={key}
           markType={markType}
-          markDef={markDef}
+          value={markDef}
           markKey={markKey}
           renderNode={renderNode}
         >
@@ -120,7 +120,7 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
       const handler =
         typeof components.block === 'function' ? components.block : components.block[style]
       const Block = handler || components.unknownBlockStyle
-      return <Block key={key} {...props} data={props.node} renderNode={renderNode} />
+      return <Block key={key} {...props} value={props.node} renderNode={renderNode} />
     }
 
     if (isToolkitTextNode(node)) {
@@ -134,7 +134,7 @@ const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
 
     const Node = components.types[node._type]
 
-    const nodeOptions = {...options, node: undefined, data: options.node}
+    const nodeOptions = {...options, node: undefined, value: options.node}
     delete nodeOptions.node
 
     if (Node) {

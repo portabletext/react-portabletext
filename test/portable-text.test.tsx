@@ -109,8 +109,8 @@ tap.test('renders all default block styles', (t) => {
 tap.test('sorts marks correctly on equal number of occurences', (t) => {
   const {input, output} = fixtures.marksAllTheWayDown
   const marks: PortableTextComponents['marks'] = {
-    highlight: ({markDef, children}) => (
-      <span style={{border: `${markDef?.thickness}px solid`}}>{children}</span>
+    highlight: ({value, children}) => (
+      <span style={{border: `${value?.thickness}px solid`}}>{children}</span>
     ),
   }
   const result = render({value: input, components: {marks}})
@@ -145,8 +145,8 @@ tap.test('handles inline non-span nodes', (t) => {
     value: input,
     components: {
       types: {
-        rating: ({data}) => {
-          return <span className={`rating type-${data.type} rating-${data.rating}`} />
+        rating: ({value}) => {
+          return <span className={`rating type-${value.type} rating-${value.rating}`} />
         },
       },
     },
@@ -181,7 +181,7 @@ tap.test('can nest marks correctly in block/marks context', (t) => {
   const {input, output} = fixtures.inlineImages
   const result = render({
     value: input,
-    components: {types: {image: ({data}) => <img src={data.url} />}},
+    components: {types: {image: ({value}) => <img src={value.url} />}},
   })
   t.same(result, output)
   t.end()
@@ -191,7 +191,7 @@ tap.test('can render inline block with text property', (t) => {
   const {input, output} = fixtures.inlineBlockWithText
   const result = render({
     value: input,
-    components: {types: {button: (props) => <button type="button">{props.data.text}</button>}},
+    components: {types: {button: (props) => <button type="button">{props.value.text}</button>}},
   })
   t.same(result, output)
   t.end()
@@ -273,7 +273,7 @@ tap.test('can specify custom component for custom block types', (t) => {
   const types: Partial<PortableTextComponents>['types'] = {
     code: ({renderNode, ...props}) => {
       t.same(props, {
-        data: {
+        value: {
           _key: '9a15ea2ed8a2',
           _type: 'code',
           code: input[0].code,
@@ -283,8 +283,8 @@ tap.test('can specify custom component for custom block types', (t) => {
         isInline: false,
       })
       return (
-        <pre data-language={props.data.language}>
-          <code>{props.data.code}</code>
+        <pre data-language={props.value.language}>
+          <code>{props.value.code}</code>
         </pre>
       )
     },
@@ -297,9 +297,9 @@ tap.test('can specify custom component for custom block types', (t) => {
 tap.test('can specify custom components for custom marks', (t) => {
   const {input, output} = fixtures.customMarks
   const highlight: PortableTextMarkComponent<{_type: 'highlight'; thickness: number}> = ({
-    markDef,
+    value,
     children,
-  }) => <span style={{border: `${markDef?.thickness}px solid`}}>{children}</span>
+  }) => <span style={{border: `${value?.thickness}px solid`}}>{children}</span>
 
   const result = render({value: input, components: {marks: {highlight}}})
   t.same(result, output)
@@ -308,8 +308,8 @@ tap.test('can specify custom components for custom marks', (t) => {
 
 tap.test('can specify custom components for defaults marks', (t) => {
   const {input, output} = fixtures.overrideDefaultMarks
-  const link: PortableTextMarkComponent<{_type: 'link'; href: string}> = ({markDef, children}) => (
-    <a className="mahlink" href={markDef?.href}>
+  const link: PortableTextMarkComponent<{_type: 'link'; href: string}> = ({value, children}) => (
+    <a className="mahlink" href={value?.href}>
       {children}
     </a>
   )

@@ -145,9 +145,9 @@ export interface PortableTextComponents {
  */
 export interface PortableTextComponentProps<T> {
   /**
-   * Data associated with this portable text node, eg the raw JSON data of a block/type
+   * Data associated with this portable text node, eg the raw JSON value of a block/type
    */
-  data: T
+  value: T
 
   /**
    * Index within its parent
@@ -182,7 +182,7 @@ export interface PortableTextMarkComponentProps<M extends TypedObject = Arbitrar
   /**
    * Mark definition, eg the actual data of the annotation. If the mark is a simple decorator, this will be `undefined`
    */
-  markDef?: M
+  value?: M
 
   /**
    * Key for this mark. The same key can be used amongst multiple text spans within the same block, so don't rely on this for React keys.

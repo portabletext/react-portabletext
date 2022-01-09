@@ -33,24 +33,24 @@ This overrides/provides components on a per-use basis, and will be merged with t
 ```js
 const myPortableTextComponents = {
   types: {
-    image: ({data}) => <img src={data.imageUrl} />,
-    callToAction: ({data, isInline}) =>
+    image: ({value}) => <img src={value.imageUrl} />,
+    callToAction: ({value, isInline}) =>
       isInline ? (
-        <a href={data.url}>{data.text}</a>
+        <a href={value.url}>{value.text}</a>
       ) : (
-        <div className="callToAction">{data.text}</div>
+        <div className="callToAction">{value.text}</div>
       ),
   },
 
   marks: {
-    link: ({children, markDef}) => (
-      <a
-        href={markDef.href}
-        rel={!markDef.href.startsWith('/') ? 'noreferrer noopener' : undefined}
-      >
-        {children}
-      </a>
-    ),
+    link: ({children, value}) => {
+      const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
+      return (
+        <a href={value.href} rel={rel}>
+          {children}
+        </a>
+      )
+    },
   },
 }
 
@@ -99,7 +99,7 @@ The object has the shape `{typeName: ReactComponent}`, where `typeName` is the v
 
 Object of React components that renders different types of marks that might appear in spans. Marks can be either be simple "decorators" (eg emphasis, underline, italic) or full "annotations" which include associated data (eg links, references, descriptions).
 
-If the mark is a decorator, the component will receive a `markType` prop which has the name of the decorator (eg `em`). If the mark is an annotation, it will receive both a `markType` with the associated `_type` property (eg `link`), and a `markDef` property with an object holding the data for this mark.
+If the mark is a decorator, the component will receive a `markType` prop which has the name of the decorator (eg `em`). If the mark is an annotation, it will receive both a `markType` with the associated `_type` property (eg `link`), and a `value` property with an object holding the data for this mark.
 
 The component also receives a `children` prop that should (usually) be returned in whatever parent container component makes sense for this mark (eg `<a>`, `<em>`).
 
