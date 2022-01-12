@@ -3,7 +3,7 @@ import type {SerializedBlock} from './toolkit/types'
 import type {
   NodeRenderer,
   PortableTextBlock,
-  PortableTextComponents,
+  PortableTextReactComponents,
   PortableTextProps,
   Serializable,
   TypedObject,
@@ -48,7 +48,7 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   )
 }
 
-const getNodeRenderer = (components: PortableTextComponents): NodeRenderer => {
+const getNodeRenderer = (components: PortableTextReactComponents): NodeRenderer => {
   return function renderNode<N extends TypedObject>(options: Serializable<N>): ReactNode {
     const {node, index, isInline} = options
     const passthrough = {index, isInline, renderNode}

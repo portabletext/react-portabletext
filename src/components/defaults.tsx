@@ -3,7 +3,7 @@ import type {
   BlockStyle,
   PortableTextBlock,
   PortableTextComponent,
-  PortableTextComponents,
+  PortableTextReactComponents,
 } from '../types'
 import {defaultMarks} from './marks'
 import {defaultLists, DefaultListItem} from './list'
@@ -17,7 +17,6 @@ import {
 
 export const DefaultHardBreak = () => <br />
 
-// @todo move these into `./block.tsx` without typescript/tap complaining
 export const defaultBlockStyles: Record<
   BlockStyle,
   PortableTextComponent<PortableTextBlock> | undefined
@@ -32,7 +31,7 @@ export const defaultBlockStyles: Record<
   h6: ({children}) => <h6>{children}</h6>,
 }
 
-export const defaultComponents: PortableTextComponents = {
+export const defaultComponents: PortableTextReactComponents = {
   types: {},
 
   block: defaultBlockStyles,

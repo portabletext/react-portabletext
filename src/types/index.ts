@@ -17,7 +17,7 @@ export interface PortableTextProps<
   /**
    * React components to use for rendering
    */
-  components?: Partial<PortableTextComponents>
+  components?: Partial<PortableTextReactComponents>
 }
 
 /**
@@ -37,10 +37,16 @@ export type PortableTextMarkComponent<M extends TypedObject = any> = ComponentTy
 >
 
 /**
+ * Object defining the different React components to use for rendering various aspects
+ * of Portable Text and user-provided types, where only the overrides needs to be provided.
+ */
+export type PortableTextComponents = Partial<PortableTextReactComponents>
+
+/**
  * Object definining the different React components to use for rendering various aspects
  * of Portable Text and user-provided types.
  */
-export interface PortableTextComponents {
+export interface PortableTextReactComponents {
   /**
    * Object of React components that renders different types of objects that might appear
    * both as part of the blocks array, or as inline objects _inside_ of a block,
@@ -59,8 +65,6 @@ export interface PortableTextComponents {
    * The object has the shape `{markName: ReactComponent}`, where `markName` is the value set
    * in individual `_type` attributes, values being stored in the parent blocks `markDefs`.
    */
-  // @todo figure out how to make the generic type here `MarkDefinition` (or similar)
-  // @todo while allow extensions - see `link` default component
   marks: Record<string, PortableTextMarkComponent | undefined>
 
   /**

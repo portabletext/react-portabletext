@@ -2,7 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/server'
 import tap from 'tap'
 import {PortableText} from '../src/react-portable-text'
-import {PortableTextComponents, PortableTextMarkComponent, PortableTextProps} from '../src/types'
+import {
+  PortableTextReactComponents,
+  PortableTextMarkComponent,
+  PortableTextProps,
+} from '../src/types'
 import * as fixtures from './fixtures'
 
 const render = (props: PortableTextProps) =>
@@ -108,7 +112,7 @@ tap.test('renders all default block styles', (t) => {
 
 tap.test('sorts marks correctly on equal number of occurences', (t) => {
   const {input, output} = fixtures.marksAllTheWayDown
-  const marks: PortableTextComponents['marks'] = {
+  const marks: PortableTextReactComponents['marks'] = {
     highlight: ({value, children}) => (
       <span style={{border: `${value?.thickness}px solid`}}>{children}</span>
     ),
@@ -270,7 +274,7 @@ tap.test('can render styled list items with custom list item component', (t) => 
 
 tap.test('can specify custom component for custom block types', (t) => {
   const {input, output} = fixtures.customBlockType
-  const types: Partial<PortableTextComponents>['types'] = {
+  const types: Partial<PortableTextReactComponents>['types'] = {
     code: ({renderNode, ...props}) => {
       t.same(props, {
         value: {

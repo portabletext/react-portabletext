@@ -1,7 +1,7 @@
 import React from 'react'
-import type {PortableTextComponents} from '../types'
+import type {PortableTextReactComponents} from '../types'
 
-export const DefaultUnknownType: PortableTextComponents['unknownType'] = ({value: node}) => {
+export const DefaultUnknownType: PortableTextReactComponents['unknownType'] = ({value: node}) => {
   // eslint-disable-next-line no-console
   console.warn(
     `Unknown block type "${node._type}", please specify a component for it in the \`components.types\` prop`
@@ -14,7 +14,10 @@ export const DefaultUnknownType: PortableTextComponents['unknownType'] = ({value
   )
 }
 
-export const DefaultUnknownMark: PortableTextComponents['unknownMark'] = ({markType, children}) => {
+export const DefaultUnknownMark: PortableTextReactComponents['unknownMark'] = ({
+  markType,
+  children,
+}) => {
   // eslint-disable-next-line no-console
   console.warn(
     `Unknown mark type "${markType}", please specify a component for it in the \`components.marks\` prop`
@@ -23,7 +26,7 @@ export const DefaultUnknownMark: PortableTextComponents['unknownMark'] = ({markT
   return <span className={`unknown__pt__mark__${markType}`}>{children}</span>
 }
 
-export const DefaultUnknownBlockStyle: PortableTextComponents['unknownBlockStyle'] = ({
+export const DefaultUnknownBlockStyle: PortableTextReactComponents['unknownBlockStyle'] = ({
   children,
   value: node,
 }) => {
@@ -36,7 +39,7 @@ export const DefaultUnknownBlockStyle: PortableTextComponents['unknownBlockStyle
   return <p>{children}</p>
 }
 
-export const DefaultUnknownList: PortableTextComponents['unknownList'] = ({
+export const DefaultUnknownList: PortableTextReactComponents['unknownList'] = ({
   children,
   value: node,
 }) => {
@@ -49,7 +52,7 @@ export const DefaultUnknownList: PortableTextComponents['unknownList'] = ({
   return <ul>{children}</ul>
 }
 
-export const DefaultUnknownListItem: PortableTextComponents['unknownListItem'] = ({
+export const DefaultUnknownListItem: PortableTextReactComponents['unknownListItem'] = ({
   children,
   value: node,
 }) => {

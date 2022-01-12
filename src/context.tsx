@@ -1,15 +1,15 @@
 import React, {createContext, ReactNode, useMemo} from 'react'
-import {mergeComponents, PortableTextComponents} from '.'
+import {mergeComponents, PortableTextReactComponents} from '.'
 import {defaultComponents} from './components/defaults'
 
-export const PortableTextComponentsContext: React.Context<PortableTextComponents> =
+export const PortableTextComponentsContext: React.Context<PortableTextReactComponents> =
   createContext(defaultComponents)
 
 export const PortableTextComponentsProvider = ({
   components,
   children,
 }: {
-  components: Partial<PortableTextComponents>
+  components: Partial<PortableTextReactComponents>
   children: ReactNode
 }) => {
   const value = useMemo(() => mergeComponents(defaultComponents, components), [components])

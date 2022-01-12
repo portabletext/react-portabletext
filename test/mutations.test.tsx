@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/server'
 import tap from 'tap'
 import {PortableText} from '../src/react-portable-text'
-import type {PortableTextComponents, PortableTextProps} from '../src/types'
+import type {PortableTextReactComponents, PortableTextProps} from '../src/types'
 import * as fixtures from './fixtures'
 
 const render = (props: PortableTextProps) =>
@@ -15,7 +15,7 @@ tap.test('never mutates input', (t) => {
     }
 
     const highlight = () => <mark />
-    const components: Partial<PortableTextComponents> = {
+    const components: Partial<PortableTextReactComponents> = {
       marks: {highlight},
       unknownMark: ({children}) => <span>{children}</span>,
       unknownType: ({children}) => <div>{children}</div>,
