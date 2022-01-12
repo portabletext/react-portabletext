@@ -28,9 +28,19 @@ export interface PortableTextProps<
 export type PortableTextComponent<N> = ComponentType<PortableTextComponentProps<N>>
 
 /**
- * React component type for rendering portable text blocks (paragraps, headings, blockquotes etc)
+ * React component type for rendering portable text blocks (paragraphs, headings, blockquotes etc)
  */
 export type PortableTextBlockComponent = PortableTextComponent<PortableTextBlock>
+
+/**
+ * React component type for rendering (virtual, not part of the spec) portable text lists
+ */
+export type PortableTextListComponent = PortableTextComponent<ReactPortableTextList>
+
+/**
+ * React component type for rendering portable text list items
+ */
+export type PortableTextListItemComponent = PortableTextComponent<PortableTextListItemBlock>
 
 /**
  * React component type for rendering portable text marks and/or decorators
@@ -39,6 +49,10 @@ export type PortableTextBlockComponent = PortableTextComponent<PortableTextBlock
  */
 export type PortableTextMarkComponent<M extends TypedObject = any> = ComponentType<
   PortableTextMarkComponentProps<M>
+>
+
+export type PortableTextTypeComponent<V extends TypedObject = any> = ComponentType<
+  PortableTextTypeComponentProps<V>
 >
 
 /**
@@ -62,7 +76,7 @@ export interface PortableTextReactComponents {
    * The object has the shape `{typeName: ReactComponent}`, where `typeName` is the value set
    * in individual `_type` attributes.
    */
-  types: Record<string, PortableTextComponent<ArbitraryTypedObject> | undefined>
+  types: Record<string, PortableTextTypeComponent | undefined>
 
   /**
    * Object of React components that renders different types of marks that might appear in spans.
@@ -92,9 +106,7 @@ export interface PortableTextReactComponents {
    *
    * Can also be set to a single React component, which would handle lists of _any_ type.
    */
-  list:
-    | Record<ListItemType, PortableTextComponent<ReactPortableTextList> | undefined>
-    | PortableTextComponent<ReactPortableTextList>
+  list: Record<ListItemType, PortableTextListComponent | undefined> | PortableTextListComponent
 
   /**
    * Object of React components used to render different list item styles.
@@ -105,8 +117,8 @@ export interface PortableTextReactComponents {
    * Can also be set to a single React component, which would handle list items of _any_ type.
    */
   listItem:
-    | Record<ListItemType, PortableTextComponent<PortableTextListItemBlock> | undefined>
-    | PortableTextComponent<PortableTextListItemBlock>
+    | Record<ListItemType, PortableTextListItemComponent | undefined>
+    | PortableTextListItemComponent
 
   /**
    * Component to use for rendering "hard breaks", eg `\n` inside of text spans
@@ -148,7 +160,7 @@ export interface PortableTextReactComponents {
 /**
  * Props received by most Portable Text components
  *
- * @template T Type of data this component will receive in its `node` property
+ * @template T Type of data this component will receive in its `value` property
  */
 export interface PortableTextComponentProps<T> {
   /**
@@ -179,6 +191,13 @@ export interface PortableTextComponentProps<T> {
    */
   renderNode: NodeRenderer
 }
+
+/**
+ * Props received by any user-defined type in the input array that is not a text block
+ *
+ * @template T Type of data this component will receive in its `value` property
+ */
+export type PortableTextTypeComponentProps<T> = Omit<PortableTextComponentProps<T>, 'children'>
 
 /**
  * Props received by Portable Text mark rendering components

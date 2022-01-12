@@ -136,8 +136,12 @@ const getNodeRenderer = (components: PortableTextReactComponents): NodeRenderer 
 
     const Node = components.types[node._type]
 
-    const nodeOptions = {...options, node: undefined, value: options.node}
-    delete nodeOptions.node
+    const nodeOptions = {
+      value: options.node,
+      isInline,
+      index,
+      renderNode,
+    }
 
     if (Node) {
       return <Node key={key} {...nodeOptions} />
