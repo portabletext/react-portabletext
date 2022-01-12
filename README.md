@@ -1,17 +1,17 @@
-# react-portable-text
+# @portabletext/react
 
 Render [Portable Text](https://portabletext.org/) with React.
 
 ## Installation
 
 ```
-npm install --save react-portable-text
+npm install --save @portabletext/react
 ```
 
 ## Basic usage
 
 ```js
-import {PortableText} from 'react-portable-text'
+import {PortableText} from '@portabletext/react'
 
 <PortableText value={[/* array of portable text blocks */]}>
 ```
@@ -70,7 +70,7 @@ When using the context, the passed components gets merged with the defaults - yo
 **Note**: Make sure the object does not change on every render - eg do not create the object within a React component, or if you do, use `useMemo` to ensure referential identity between renders.
 
 ```js
-import {PortableTextComponentsProvider, PortableText} from 'react-portable-text'
+import {PortableTextComponentsProvider, PortableText} from '@portabletext/react'
 
 export default function MyComponent() {
   return (
@@ -151,14 +151,14 @@ React component used when encountering a list item style there is no registered 
 
 ## Rendering Plain Text
 
-As a bonus, `react-portable-text` offers a function that will render your
+As a bonus, `@portabletext/react` offers a function that will render your
 portable text content to a plain-text string. This is often useful for previews
 and such in the Studio and for ancillary uses of content in contexts where
 formatting is not supported (e.g. calendar invite descriptions, meta tags,
 etc.).
 
 ```jsx
-import {toPlainText} from 'react-portable-text'
+import {toPlainText} from '@portabletext/react'
 
 const MetaDescription = ({value}) => {
   return <meta name="description" value={toPlainText(value)} />

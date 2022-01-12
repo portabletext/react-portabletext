@@ -1,5 +1,5 @@
 {
-  "name": "react-portable-text",
+  "name": "@portabletext/react",
   "version": "1.0.0",
   "description": "Render Portable Text with React",
   "main": "./dist/react-portable-text.cjs.js",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/portabletext/react-portable-text.git"
+    "url": "git+ssh://git@github.com/portabletext/react-portabletext.git"
   },
   "keywords": [
     "portable-text"
@@ -63,9 +63,9 @@
     "react": "^17.0.0"
   },
   "bugs": {
-    "url": "https://github.com/portabletext/react-portable-text/issues"
+    "url": "https://github.com/portabletext/react-portabletext/issues"
   },
-  "homepage": "https://github.com/portabletext/react-portable-text#readme",
+  "homepage": "https://github.com/portabletext/react-portabletext#readme",
   "prettier": {
     "semi": false,
     "printWidth": 100,
