@@ -28,7 +28,12 @@ export interface PortableTextProps<
 export type PortableTextComponent<N> = ComponentType<PortableTextComponentProps<N>>
 
 /**
- * Generic type for rendering portable text marks and/or decorators
+ * React component type for rendering portable text blocks (paragraps, headings, blockquotes etc)
+ */
+export type PortableTextBlockComponent = PortableTextComponent<PortableTextBlock>
+
+/**
+ * React component type for rendering portable text marks and/or decorators
  *
  * @template M The mark type we expect
  */
@@ -75,9 +80,7 @@ export interface PortableTextReactComponents {
    *
    * Can also be set to a single React component, which would handle block styles of _any_ type.
    */
-  block:
-    | Record<BlockStyle, PortableTextComponent<PortableTextBlock> | undefined>
-    | PortableTextComponent<PortableTextBlock>
+  block: Record<BlockStyle, PortableTextBlockComponent | undefined> | PortableTextBlockComponent
 
   /**
    * Object of React components used to render lists of different types (bulleted vs numbered,
