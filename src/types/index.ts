@@ -192,6 +192,11 @@ export interface PortableTextMarkComponentProps<M extends TypedObject = Arbitrar
   value?: M
 
   /**
+   * Text content of this mark
+   */
+  text: string
+
+  /**
    * Key for this mark. The same key can be used amongst multiple text spans within the same block, so don't rely on this for React keys.
    */
   markKey?: string

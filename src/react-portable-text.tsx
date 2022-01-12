@@ -16,6 +16,7 @@ import {
   isToolkitTextNode,
 } from './toolkit/asserters'
 import {nestLists} from './toolkit/nestLists'
+import {spanToPlainText} from './toolkit/toPlainText'
 import {buildMarksTree} from './toolkit/buildMarksTree'
 import {mergeComponents} from './components/merge'
 import {PortableTextComponentsContext} from './context'
@@ -104,8 +105,9 @@ const getNodeRenderer = (components: PortableTextReactComponents): NodeRenderer 
       return (
         <Span
           key={key}
-          markType={markType}
+          text={spanToPlainText(node)}
           value={markDef}
+          markType={markType}
           markKey={markKey}
           renderNode={renderNode}
         >
