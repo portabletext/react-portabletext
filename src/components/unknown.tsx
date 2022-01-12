@@ -1,17 +1,18 @@
 import React from 'react'
 import type {PortableTextReactComponents} from '../types'
 
-export const DefaultUnknownType: PortableTextReactComponents['unknownType'] = ({value: node}) => {
-  // eslint-disable-next-line no-console
-  console.warn(
-    `Unknown block type "${node._type}", please specify a component for it in the \`components.types\` prop`
-  )
+const hidden = {display: 'none'}
 
-  return (
-    <div style={{display: 'none'}}>
-      Unknown block type "{node._type}", specify a component for it in the `components.types` prop
-    </div>
-  )
+export const DefaultUnknownType: PortableTextReactComponents['unknownType'] = ({
+  value,
+  isInline,
+}) => {
+  const warning = `Unknown block type "${value._type}", specify a component for it in the \`components.types\` prop`
+
+  // eslint-disable-next-line no-console
+  console.warn(warning)
+
+  return isInline ? <span>{warning}</span> : <div style={hidden}>{warning}</div>
 }
 
 export const DefaultUnknownMark: PortableTextReactComponents['unknownMark'] = ({
