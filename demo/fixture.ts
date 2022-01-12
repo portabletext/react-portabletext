@@ -28,7 +28,7 @@ export const blocks: (PortableTextBlock | CodeBlock | AnnotatedMapBlock)[] = [
     _type: 'block',
     _key: 'text-format-header',
     style: 'h2',
-    children: [{_type: 'span', _key: 'a', text: 'Basic text formatting'}],
+    children: [{_type: 'span', _key: 'a', text: 'Text formatting'}],
   },
   {
     _type: 'block',
@@ -77,7 +77,26 @@ export const blocks: (PortableTextBlock | CodeBlock | AnnotatedMapBlock)[] = [
       {_type: 'span', _key: 'f', text: 'speech synthesis controls', marks: ['sp33ch']},
       {_type: 'span', _key: 'g', text: ' '},
       {_type: 'span', _key: 'h', text: '(configurable)', marks: ['p17ch']},
-      {_type: 'span', _key: 'i', text: ' or some other fun and creative use.'},
+      {_type: 'span', _key: 'i', text: ' or some other fun and creative use case.'},
+    ],
+  },
+  {
+    _type: 'block',
+    _key: 'inline-objects',
+    style: 'normal',
+    children: [
+      {_type: 'span', text: 'Blocks can also contain "'},
+      {_type: 'span', text: 'inline objects', marks: ['em']},
+      {
+        _type: 'span',
+        text: '", which contain user-defined data. Maybe you want to represent a price in a given currency, but be able to get a live exchange rate in the users local currency? In January 2022, a Whopper was about ',
+      },
+      {
+        _type: 'currencyAmount',
+        currency: 'USD',
+        amount: 5,
+      },
+      {_type: 'span', text: ' at your local Burger King restaurant in Miami.'},
     ],
   },
   {

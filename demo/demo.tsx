@@ -8,6 +8,7 @@ import {Link} from './components/Link'
 import {TermDefinition} from './components/TermDefinition'
 import {CharacterReference} from './components/CharacterReference'
 import {hasSpeechApi, SpeechSynthesis} from './components/SpeechSynthesis'
+import {CurrencyAmount} from './components/CurrencyAmount'
 import {LinkableHeader} from './components/LinkableHeader'
 import {SchnauzerList} from './components/SchnauzerList'
 import {AnnotatedMap} from './components/AnnotatedMap'
@@ -16,6 +17,7 @@ import {Code} from './components/Code'
 const ptComponents: PortableTextComponents = {
   types: {
     code: Code,
+    currencyAmount: CurrencyAmount,
     annotatedMap: AnnotatedMap,
   },
   block: {
