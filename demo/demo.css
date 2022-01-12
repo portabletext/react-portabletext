@@ -1,0 +1,42 @@
+body {
+  font-family: sans-serif;
+}
+
+#demo-root {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+code {
+  background: #eee;
+}
+
+blockquote {
+  border-left: 3px solid #ccc;
+  margin-left: 0.6rem;
+  padding-left: 0.6rem;
+}
+
+.slug-anchor {
+  opacity: 0;
+  text-decoration: none;
+  color: #888;
+  display: inline-block;
+  padding: 5px 10px;
+}
+
+.slug-anchor:hover {
+  background: #eee;
+}
+
+h2:hover .slug-anchor {
+  opacity: 1;
+}
+
+li {
+  margin: 5px;
+}
+
+.annotated-map {
+  min-height: 400px;
+}
