@@ -1,5 +1,23 @@
 import type {PortableTextBlock, ArbitraryTypedObject} from '../types'
-import {isPortableTextBlock, isPortableTextSpan} from './asserters'
+import type {ToolkitNestedPortableTextSpan} from './types'
+import {
+  isPortableTextBlock,
+  isPortableTextSpan,
+  isToolkitSpan,
+  isToolkitTextNode,
+} from './asserters'
+
+export function spanToPlainText(span: ToolkitNestedPortableTextSpan): string {
+  let text = ''
+  span.children.forEach((current) => {
+    if (isToolkitTextNode(current)) {
+      text += current.text
+    } else if (isToolkitSpan(current)) {
+      text += spanToPlainText(current)
+    }
+  })
+  return text
+}
 
 export function toPlainText(
   block: PortableTextBlock | ArbitraryTypedObject[] | PortableTextBlock[]
