@@ -22,7 +22,7 @@ export function nestLists<T extends TypedObject = NestListsInputNode>(
 
     // Start of a new list?
     if (!currentList) {
-      currentList = listFromBlock(block)
+      currentList = listFromBlock(block, i)
       tree.push(currentList)
       continue
     }
@@ -35,7 +35,7 @@ export function nestLists<T extends TypedObject = NestListsInputNode>(
 
     // Different list props, are we going deeper?
     if ((block.level || 1) > currentList.level) {
-      const newList = listFromBlock(block)
+      const newList = listFromBlock(block, i)
 
       if (mode === 'html') {
         // Because HTML is kinda weird, nested lists needs to be nested within list items.
@@ -74,7 +74,7 @@ export function nestLists<T extends TypedObject = NestListsInputNode>(
       }
 
       // Similar parent can't be found, assume new list
-      currentList = listFromBlock(block)
+      currentList = listFromBlock(block, i)
       tree.push(currentList)
       continue
     }
@@ -87,7 +87,7 @@ export function nestLists<T extends TypedObject = NestListsInputNode>(
         currentList.children.push(block)
         continue
       } else {
-        currentList = listFromBlock(block)
+        currentList = listFromBlock(block, i)
         tree.push(currentList)
         continue
       }
@@ -108,10 +108,10 @@ function blockMatchesList(block: PortableTextBlock, list: ToolkitPortableTextLis
   )
 }
 
-function listFromBlock(block: PortableTextListItemBlock): ToolkitPortableTextList {
+function listFromBlock(block: PortableTextListItemBlock, index: number): ToolkitPortableTextList {
   return {
     _type: '@list',
-    _key: `${block._key || '0'}-parent`,
+    _key: `${block._key || `${index}`}-parent`,
     level: block.level || 1,
     listItem: block.listItem || 'bullet',
     children: [block],
