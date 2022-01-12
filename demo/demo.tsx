@@ -4,6 +4,7 @@ import {studioTheme, ThemeProvider} from '@sanity/ui'
 import {PortableTextComponents} from '../src'
 import {PortableText} from '../src/react-portable-text'
 import {blocks} from './fixture'
+
 import {Link} from './components/Link'
 import {TermDefinition} from './components/TermDefinition'
 import {CharacterReference} from './components/CharacterReference'
@@ -14,18 +15,32 @@ import {SchnauzerList} from './components/SchnauzerList'
 import {AnnotatedMap} from './components/AnnotatedMap'
 import {Code} from './components/Code'
 
+/**
+ * Note that these are statically defined (outside the scope of a function),
+ * which ensures that unnecessary rerenders does not happen because of a new
+ * components object being generated on every render. The alternative is to
+ * `useMemo()`, but if you can get away with this approach it is _better_.
+ **/
 const ptComponents: PortableTextComponents = {
+  // Components for totally custom types outside the scope of Portable Text
   types: {
     code: Code,
     currencyAmount: CurrencyAmount,
     annotatedMap: AnnotatedMap,
   },
+
+  // Overrides for specific block styles - in this case just the `h2` style
   block: {
     h2: LinkableHeader,
   },
+
+  // Implements a custom component to handle the `schnauzer` list item type
   list: {
     schnauzer: SchnauzerList,
   },
+
+  // Custom components for marks - note that `link` overrides the default component,
+  // while the others define components for totally custom types.
   marks: {
     link: Link,
     characterReference: CharacterReference,
@@ -34,9 +49,13 @@ const ptComponents: PortableTextComponents = {
   },
 }
 
+function Demo() {
+  return <PortableText value={blocks} components={ptComponents} />
+}
+
 render(
   <ThemeProvider theme={studioTheme}>
-    <PortableText value={blocks} components={ptComponents} />
+    <Demo />
   </ThemeProvider>,
   document.getElementById('demo-root')
 )
