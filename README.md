@@ -13,7 +13,10 @@ npm install --save @portabletext/react
 ```js
 import {PortableText} from '@portabletext/react'
 
-<PortableText value={[/* array of portable text blocks */]}>
+<PortableText
+  value={[/* array of portable text blocks */]}
+  components={/* optional object of custom components to use */}
+/>
 ```
 
 ## Styling the output
