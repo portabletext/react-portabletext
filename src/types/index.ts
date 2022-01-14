@@ -1,5 +1,9 @@
 import type {ComponentType, ReactNode} from 'react'
-import type {ToolkitPortableTextList, ToolkitPortableTextListItem} from '../toolkit/types'
+import type {
+  ListNestMode,
+  ToolkitPortableTextList,
+  ToolkitPortableTextListItem,
+} from '../toolkit/types'
 
 /**
  * Properties for the Portable Text react component
@@ -18,6 +22,14 @@ export interface PortableTextProps<
    * React components to use for rendering
    */
   components?: Partial<PortableTextReactComponents>
+
+  /**
+   * Determines whether or not lists are nested inside of list items (`html`)
+   * or as a direct child of another list (`direct` - for React Native)
+   *
+   * You rarely (if ever) need/want to customize this
+   */
+  listNestingMode?: ListNestMode
 }
 
 /**

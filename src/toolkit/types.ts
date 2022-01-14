@@ -8,12 +8,30 @@ import type {
   TypedObject,
 } from '../types'
 
-export interface ToolkitPortableTextList {
+/* eslint-disable no-shadow, no-unused-vars */
+export enum ListNestMode {
+  Html = 'html',
+  Direct = 'direct',
+}
+/* eslint-enable no-shadow, no-unused-vars */
+
+export type ToolkitPortableTextList = ToolkitPortableTextHtmlList | ToolkitPortableTextDirectList
+export interface ToolkitPortableTextHtmlList {
   _type: '@list'
   _key: string
+  mode: 'html'
   level: number
   listItem: string
   children: ToolkitPortableTextListItem[]
+}
+
+export interface ToolkitPortableTextDirectList {
+  _type: '@list'
+  _key: string
+  mode: 'direct'
+  level: number
+  listItem: string
+  children: (PortableTextListItemBlock | ToolkitPortableTextDirectList)[]
 }
 
 export interface ToolkitPortableTextListItem

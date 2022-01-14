@@ -1,5 +1,5 @@
 import React, {ReactNode, useContext, useMemo} from 'react'
-import type {SerializedBlock} from './toolkit/types'
+import {ListNestMode, SerializedBlock} from './toolkit/types'
 import type {
   NodeRenderer,
   PortableTextBlock,
@@ -24,9 +24,10 @@ import {PortableTextComponentsContext} from './context'
 export function PortableText<B extends TypedObject = PortableTextBlock>({
   value: input,
   components: componentOverrides,
+  listNestingMode,
 }: PortableTextProps<B>) {
   const blocks = Array.isArray(input) ? input : [input]
-  const nested = nestLists(blocks)
+  const nested = nestLists(blocks, listNestingMode || ListNestMode.Html)
 
   const parentComponents = useContext(PortableTextComponentsContext)
   const components = useMemo(() => {

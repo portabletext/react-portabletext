@@ -1,13 +1,19 @@
 import type {PortableTextBlock, PortableTextListItemBlock, TypedObject} from '../types'
-import type {ToolkitPortableTextList, ToolkitPortableTextListItem} from './types'
+import type {
+  ListNestMode,
+  ToolkitPortableTextDirectList,
+  ToolkitPortableTextHtmlList,
+  ToolkitPortableTextList,
+  ToolkitPortableTextListItem,
+} from './types'
 import {isListItemBlock, isPortableTextSpan, isToolkitList} from './asserters'
 
 type NestListsInputNode = PortableTextBlock | TypedObject
-type NestListsOutputNode<T> = T | ToolkitPortableTextList
+type NestListsOutputNode<T> = T | ToolkitPortableTextHtmlList | ToolkitPortableTextDirectList
 
 export function nestLists<T extends TypedObject = NestListsInputNode>(
   blocks: T[],
-  mode = 'html'
+  mode: ListNestMode
 ): NestListsOutputNode<T>[] {
   const tree: NestListsOutputNode<T>[] = []
   let currentList: ToolkitPortableTextList | undefined
@@ -22,7 +28,7 @@ export function nestLists<T extends TypedObject = NestListsInputNode>(
 
     // Start of a new list?
     if (!currentList) {
-      currentList = listFromBlock(block, i)
+      currentList = listFromBlock(block, i, mode)
       tree.push(currentList)
       continue
     }
@@ -35,7 +41,7 @@ export function nestLists<T extends TypedObject = NestListsInputNode>(
 
     // Different list props, are we going deeper?
     if ((block.level || 1) > currentList.level) {
-      const newList = listFromBlock(block, i)
+      const newList = listFromBlock(block, i, mode)
 
       if (mode === 'html') {
         // Because HTML is kinda weird, nested lists needs to be nested within list items.
@@ -45,7 +51,10 @@ export function nestLists<T extends TypedObject = NestListsInputNode>(
         // will mutate the input, and we don't want to blindly clone the entire tree.
 
         // Clone the last child while adding our new list as the last child of it
-        const lastListItem = currentList.children[currentList.children.length - 1]
+        const lastListItem = currentList.children[
+          currentList.children.length - 1
+        ] as ToolkitPortableTextListItem
+
         const newLastChild: ToolkitPortableTextListItem = {
           ...lastListItem,
           children: [...lastListItem.children, newList],
@@ -54,8 +63,9 @@ export function nestLists<T extends TypedObject = NestListsInputNode>(
         // Swap the last child
         currentList.children[currentList.children.length - 1] = newLastChild
       } else {
-        // @todo non-html mode
-        //currentList.children.push(newList)
+        ;(currentList as ToolkitPortableTextDirectList).children.push(
+          newList as ToolkitPortableTextDirectList
+        )
       }
 
       // Set the newly created, deeper list as the current
@@ -74,7 +84,7 @@ export function nestLists<T extends TypedObject = NestListsInputNode>(
       }
 
       // Similar parent can't be found, assume new list
-      currentList = listFromBlock(block, i)
+      currentList = listFromBlock(block, i, mode)
       tree.push(currentList)
       continue
     }
@@ -87,7 +97,7 @@ export function nestLists<T extends TypedObject = NestListsInputNode>(
         currentList.children.push(block)
         continue
       } else {
-        currentList = listFromBlock(block, i)
+        currentList = listFromBlock(block, i, mode)
         tree.push(currentList)
         continue
       }
@@ -108,10 +118,15 @@ function blockMatchesList(block: PortableTextBlock, list: ToolkitPortableTextLis
   )
 }
 
-function listFromBlock(block: PortableTextListItemBlock, index: number): ToolkitPortableTextList {
+function listFromBlock(
+  block: PortableTextListItemBlock,
+  index: number,
+  mode: ListNestMode
+): ToolkitPortableTextList {
   return {
     _type: '@list',
     _key: `${block._key || `${index}`}-parent`,
+    mode,
     level: block.level || 1,
     listItem: block.listItem || 'bullet',
     children: [block],
