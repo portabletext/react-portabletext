@@ -12,7 +12,7 @@ export const DefaultUnknownType: PortableTextReactComponents['unknownType'] = ({
   // eslint-disable-next-line no-console
   console.warn(warning)
 
-  return isInline ? <span>{warning}</span> : <div style={hidden}>{warning}</div>
+  return isInline ? <span style={hidden}>{warning}</span> : <div style={hidden}>{warning}</div>
 }
 
 export const DefaultUnknownMark: PortableTextReactComponents['unknownMark'] = ({
