@@ -1,6 +1,7 @@
 import React, {createContext, ReactNode, useMemo} from 'react'
-import {mergeComponents, PortableTextReactComponents} from '.'
+import type {PortableTextReactComponents} from './types'
 import {defaultComponents} from './components/defaults'
+import {mergeComponents} from './components/merge'
 
 export const PortableTextComponentsContext: React.Context<PortableTextReactComponents> =
   createContext(defaultComponents)
