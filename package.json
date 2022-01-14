@@ -21,8 +21,8 @@
     "build": "vite build",
     "start": "vite demo",
     "test": "tap test/*.test.*",
-    "prettify": "prettier --write src/**/*.ts src/*.ts",
-    "prettify-check": "prettier --check src/**/*.ts src/*.ts"
+    "prettify": "prettier --write src/**/*.ts src/**/*.tsx test/**/*.ts test/**/*.tsx",
+    "prettify-check": "prettier --check src/**/*.ts src/**/*.tsx test/**/*.ts test/**/*.tsx"
   },
   "repository": {
     "type": "git",
