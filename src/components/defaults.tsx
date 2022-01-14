@@ -1,10 +1,5 @@
 import React from 'react'
-import type {
-  BlockStyle,
-  PortableTextBlock,
-  PortableTextComponent,
-  PortableTextReactComponents,
-} from '../types'
+import type {BlockStyle, PortableTextBlockComponent, PortableTextReactComponents} from '../types'
 import {defaultMarks} from './marks'
 import {defaultLists, DefaultListItem} from './list'
 import {
@@ -17,10 +12,7 @@ import {
 
 export const DefaultHardBreak = () => <br />
 
-export const defaultBlockStyles: Record<
-  BlockStyle,
-  PortableTextComponent<PortableTextBlock> | undefined
-> = {
+export const defaultBlockStyles: Record<BlockStyle, PortableTextBlockComponent | undefined> = {
   normal: ({children}) => <p>{children}</p>,
   blockquote: ({children}) => <blockquote>{children}</blockquote>,
   h1: ({children}) => <h1>{children}</h1>,
