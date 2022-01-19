@@ -1,5 +1,6 @@
 /test
 /coverage
+/dist/stats.html
 .editorconfig
 .eslintrc
 .gitignore

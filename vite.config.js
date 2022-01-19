@@ -1,6 +1,8 @@
 const path = require('path')
 const {defineConfig} = require('vite')
 const dts = require('vite-dts').default
+const {visualizer} = require('rollup-plugin-visualizer')
+const pkg = require('./package.json')
 
 module.exports = defineConfig({
   build: {
@@ -19,5 +21,12 @@ module.exports = defineConfig({
     },
     sourcemap: true,
   },
-  plugins: [dts()],
+  plugins: [
+    dts(),
+    visualizer({
+      filename: path.join(__dirname, 'dist', 'stats.html'),
+      gzipSize: true,
+      title: `${pkg.name}@${pkg.version} bundle analysis`,
+    }),
+  ],
 })
