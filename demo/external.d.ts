@@ -1,9 +1,9 @@
-declare module 'react-lowlight' {
+declare module 'react-refractor' {
   const Lowlight: any
   export default Lowlight
 }
 
-declare module 'highlight.js/lib/languages/typescript' {
+declare module 'refractor/lang/typescript' {
   const lang: any
   export default lang
 }
