@@ -1,7 +1,6 @@
 import 'leaflet/dist/leaflet.css'
-import React from 'react'
-import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
-
+import React, {useEffect, useState} from 'react'
+import type {ReducedLeafletApi} from './Leaflet'
 import {PortableTextTypeComponent} from '../../src'
 
 export interface Geopoint {
@@ -25,22 +24,36 @@ export interface AnnotatedMapBlock {
 }
 
 export const AnnotatedMap: PortableTextTypeComponent<AnnotatedMapBlock> = ({value}) => {
+  const [Leaflet, setLeaflet] = useState<ReducedLeafletApi | undefined>(undefined)
+
+  useEffect(() => {
+    import('./Leaflet').then((leafletApi) => setLeaflet(leafletApi.default))
+  }, [Leaflet, setLeaflet])
+
+  if (!Leaflet) {
+    return (
+      <div className="annotated-map loading">
+        <div>Loading map…</div>
+      </div>
+    )
+  }
+
   return (
-    <MapContainer
+    <Leaflet.MapContainer
       center={value.center || [51.505, -0.09]}
       zoom={13}
       scrollWheelZoom={false}
       className="annotated-map"
     >
-      <TileLayer
+      <Leaflet.TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {value.markers?.map((marker) => (
-        <Marker key={marker._key} position={marker.position}>
-          <Popup>{marker.title}</Popup>
-        </Marker>
+        <Leaflet.Marker key={marker._key} position={marker.position}>
+          <Leaflet.Popup>{marker.title}</Leaflet.Popup>
+        </Leaflet.Marker>
       ))}
-    </MapContainer>
+    </Leaflet.MapContainer>
   )
 }

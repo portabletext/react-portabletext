@@ -39,4 +39,18 @@ li {
 
 .annotated-map {
   min-height: 400px;
+  border: 1px solid transparent;
+}
+
+.annotated-map.loading {
+  border: 1px solid #000;
+  background: #eee;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.annotated-map.loading > div {
+  flex: 1;
 }
