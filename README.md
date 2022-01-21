@@ -186,18 +186,41 @@ import {PortableText} from '@portabletext/react'
 
 ## Rendering Plain Text
 
-As a bonus, `@portabletext/react` offers a function that will render your
-portable text content to a plain-text string. This is often useful for previews
-and such in the Studio and for ancillary uses of content in contexts where
-formatting is not supported (e.g. calendar invite descriptions, meta tags,
-etc.).
+This module also exports a function (`toPlainText()`) that will render one or more Portable Text blocks as plain text. This is helpful in cases where formatted text is not supported, or you need to process the raw text value.
+
+For instance, to render an OpenGraph meta description for a page:
+
+```tsx
+import {toPlainText} from '@portabletext/react'
+
+const MetaDescription = (myPortableTextData) => {
+  return <meta name="og:description" value={toPlainText(myPortableTextData)} />
+}
+```
+
+Or to generate element IDs for headers, in order for them to be linkable:
 
 ```jsx
 import {toPlainText} from '@portabletext/react'
+import slugify from 'slugify'
 
-const MetaDescription = ({value}) => {
-  return <meta name="description" value={toPlainText(value)} />
+const LinkableHeader = ({children, value}) => {
+  // `value` is the single Portable Text block of this header
+  const slug = slugify(toPlainText(value))
+  return <h2 id={slug}>{children}</h2>
 }
+
+ReactDOM.render(
+  <PortableText
+    value={myPortableTextData}
+    components={{
+      block: {
+        h2: LinkableHeader,
+      },
+    }}
+  />,
+  document.getElementById('root')
+)
 ```
 
 ## License
