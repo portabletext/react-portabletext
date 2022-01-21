@@ -1,11 +1,20 @@
 import React, {ReactNode, useContext, useMemo} from 'react'
-import {ListNestMode, SerializedBlock} from './toolkit/types'
+import {
+  ListNestMode,
+  SerializedBlock,
+  ToolkitNestedPortableTextSpan,
+  ToolkitTextNode,
+} from './toolkit/types'
 import type {
-  NodeRenderer,
+  MarkDefinition,
   MissingComponentHandler,
+  NodeRenderer,
   PortableTextBlock,
+  PortableTextListItemBlock,
   PortableTextProps,
   PortableTextReactComponents,
+  PortableTextSpan,
+  ReactPortableTextList,
   Serializable,
   TypedObject,
 } from './types'
@@ -68,120 +77,148 @@ const getNodeRenderer = (
   components: PortableTextReactComponents,
   handleMissingComponent: MissingComponentHandler
 ): NodeRenderer => {
-  return function renderNode<N extends TypedObject>(options: Serializable<N>): ReactNode {
+  function renderNode<N extends TypedObject>(options: Serializable<N>): ReactNode {
     const {node, index, isInline} = options
-    const passthrough = {index, isInline, renderNode}
     const key = node._key || `node-${index}`
 
     if (isToolkitList(node)) {
-      const children = node.children.map((child, childIndex) =>
-        renderNode({
-          node: child._key ? child : {...child, _key: `li-${index}-${childIndex}`},
-          index: index,
-          isInline,
-          renderNode,
-        })
-      )
-
-      const component = components.list
-      const handler = typeof component === 'function' ? component : component[node.listItem]
-      const List = handler || components.unknownList
-
-      if (List === components.unknownList) {
-        const style = node.listItem || 'bullet'
-        handleMissingComponent(unknownListStyleWarning(style), {nodeType: 'listStyle', type: style})
-      }
-
-      return (
-        <List key={key} value={node} {...passthrough}>
-          {children}
-        </List>
-      )
+      return renderList(node, index, key)
     }
 
     if (isListItemBlock(node)) {
-      const tree = serializeBlock({node, index, isInline, renderNode})
-      const renderer = components.listItem
-      const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
-      const Li = handler || components.unknownListItem
-
-      if (Li === components.unknownListItem) {
-        const style = node.listItem || 'bullet'
-        handleMissingComponent(unknownListItemStyleWarning(style), {
-          type: style,
-          nodeType: 'listItemStyle',
-        })
-      }
-
-      let children = tree.children
-      if (node.style && node.style !== 'normal') {
-        // Wrap any other style in whatever the block serializer says to use
-        const {listItem, ...blockNode} = node
-        children = renderNode({node: blockNode, index, isInline, renderNode})
-      }
-
-      return (
-        <Li key={key} value={node} {...passthrough}>
-          {children}
-        </Li>
-      )
+      return renderListItem(node, index, key)
     }
 
     if (isToolkitSpan(node)) {
-      const {markDef, markType, markKey} = node
-      const Span = components.marks[markType] || components.unknownMark
-      const children = node.children.map((child, childIndex) =>
-        renderNode({node: child, index: childIndex, isInline: true, renderNode})
-      )
-
-      if (Span === components.unknownMark) {
-        handleMissingComponent(unknownMarkWarning(markType), {nodeType: 'mark', type: markType})
-      }
-
-      return (
-        <Span
-          key={key}
-          text={spanToPlainText(node)}
-          value={markDef}
-          markType={markType}
-          markKey={markKey}
-          renderNode={renderNode}
-        >
-          {children}
-        </Span>
-      )
+      return renderSpan(node, index, key)
     }
 
     if (isPortableTextBlock(node)) {
-      const {_key, ...props} = serializeBlock({node, index, isInline, renderNode})
-      const style = props.node.style || 'normal'
-      const handler =
-        typeof components.block === 'function' ? components.block : components.block[style]
-      const Block = handler || components.unknownBlockStyle
-
-      if (Block === components.unknownBlockStyle) {
-        handleMissingComponent(unknownBlockStyleWarning(style), {
-          nodeType: 'blockStyle',
-          type: style,
-        })
-      }
-
-      return <Block key={key} {...props} value={props.node} renderNode={renderNode} />
+      return renderBlock(node, index, key, isInline)
     }
 
     if (isToolkitTextNode(node)) {
-      if (node.text === '\n') {
-        const HardBreak = components.hardBreak
-        return HardBreak ? <HardBreak key={key} /> : '\n'
-      }
-
-      return node.text
+      return renderText(node, key)
     }
 
+    return renderCustomBlock(node, index, key, isInline)
+  }
+
+  /* eslint-disable react/jsx-no-bind */
+  function renderListItem(
+    node: PortableTextListItemBlock<MarkDefinition, PortableTextSpan>,
+    index: number,
+    key: string
+  ) {
+    const tree = serializeBlock({node, index, isInline: false, renderNode})
+    const renderer = components.listItem
+    const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
+    const Li = handler || components.unknownListItem
+
+    if (Li === components.unknownListItem) {
+      const style = node.listItem || 'bullet'
+      handleMissingComponent(unknownListItemStyleWarning(style), {
+        type: style,
+        nodeType: 'listItemStyle',
+      })
+    }
+
+    let children = tree.children
+    if (node.style && node.style !== 'normal') {
+      // Wrap any other style in whatever the block serializer says to use
+      const {listItem, ...blockNode} = node
+      children = renderNode({node: blockNode, index, isInline: false, renderNode})
+    }
+
+    return (
+      <Li key={key} value={node} index={index} isInline={false} renderNode={renderNode}>
+        {children}
+      </Li>
+    )
+  }
+
+  function renderList(node: ReactPortableTextList, index: number, key: string) {
+    const children = node.children.map((child, childIndex) =>
+      renderNode({
+        node: child._key ? child : {...child, _key: `li-${index}-${childIndex}`},
+        index: index,
+        isInline: false,
+        renderNode,
+      })
+    )
+
+    const component = components.list
+    const handler = typeof component === 'function' ? component : component[node.listItem]
+    const List = handler || components.unknownList
+
+    if (List === components.unknownList) {
+      const style = node.listItem || 'bullet'
+      handleMissingComponent(unknownListStyleWarning(style), {nodeType: 'listStyle', type: style})
+    }
+
+    return (
+      <List key={key} value={node} index={index} isInline={false} renderNode={renderNode}>
+        {children}
+      </List>
+    )
+  }
+
+  function renderSpan(node: ToolkitNestedPortableTextSpan, index: number, key: string) {
+    const {markDef, markType, markKey} = node
+    const Span = components.marks[markType] || components.unknownMark
+    const children = node.children.map((child, childIndex) =>
+      renderNode({node: child, index: childIndex, isInline: true, renderNode})
+    )
+
+    if (Span === components.unknownMark) {
+      handleMissingComponent(unknownMarkWarning(markType), {nodeType: 'mark', type: markType})
+    }
+
+    return (
+      <Span
+        key={key}
+        text={spanToPlainText(node)}
+        value={markDef}
+        markType={markType}
+        markKey={markKey}
+        renderNode={renderNode}
+      >
+        {children}
+      </Span>
+    )
+  }
+
+  function renderBlock(node: PortableTextBlock, index: number, key: string, isInline: boolean) {
+    const {_key, ...props} = serializeBlock({node, index, isInline, renderNode})
+    const style = props.node.style || 'normal'
+    const handler =
+      typeof components.block === 'function' ? components.block : components.block[style]
+    const Block = handler || components.unknownBlockStyle
+
+    if (Block === components.unknownBlockStyle) {
+      handleMissingComponent(unknownBlockStyleWarning(style), {
+        nodeType: 'blockStyle',
+        type: style,
+      })
+    }
+
+    return <Block key={key} {...props} value={props.node} renderNode={renderNode} />
+  }
+
+  function renderText(node: ToolkitTextNode, key: string) {
+    if (node.text === '\n') {
+      const HardBreak = components.hardBreak
+      return HardBreak ? <HardBreak key={key} /> : '\n'
+    }
+
+    return node.text
+  }
+
+  function renderCustomBlock(node: TypedObject, index: number, key: string, isInline: boolean) {
     const Node = components.types[node._type]
 
     const nodeOptions = {
-      value: options.node,
+      value: node,
       isInline,
       index,
       renderNode,
@@ -196,6 +233,9 @@ const getNodeRenderer = (
     const UnknownType = components.unknownType
     return <UnknownType key={key} {...nodeOptions} />
   }
+  /* eslint-enable react/jsx-no-bind */
+
+  return renderNode
 }
 
 function serializeBlock(options: Serializable<PortableTextBlock>): SerializedBlock {
