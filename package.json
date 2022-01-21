@@ -1,6 +1,6 @@
 {
   "name": "@portabletext/react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Render Portable Text with React",
   "main": "./dist/react-portable-text.cjs.js",
   "module": "./dist/react-portable-text.esm.js",
