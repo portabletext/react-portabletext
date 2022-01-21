@@ -19,7 +19,7 @@
   "scripts": {
     "lint": "eslint . && tsc --noEmit",
     "prepublishOnly": "npm run build && npm run lint",
-    "build:demo": "vite build demo --config=./vite.config.demo.js",
+    "build:demo": "vite build demo --config=./vite.config.demo.js --base=/react-portabletext",
     "build": "vite build",
     "start": "vite demo",
     "test": "tap test/*.test.*",
