@@ -154,6 +154,36 @@ React component used when encountering a list style there is no registered compo
 
 React component used when encountering a list item style there is no registered component for in the `components.listItem` prop. Only used if `components.listItem` is an object.
 
+## Disabling warnings / handling unknown types
+
+When the library encounters a block, mark, list or list item with a type that is not known (eg it has no corresponding component in the `components` property or context), it will by default print a console warning.
+
+To disable this behavior, you can either pass `false` to the `onMissingComponent` property, or give it a custom function you want to use to report the error. For instance:
+
+```jsx
+import {PortableText} from '@portabletext/react'
+
+<PortableText
+  value={[/* array of portable text blocks */]}
+  onMissingComponent={false}
+/>
+
+// or, pass it a function:
+
+<PortableText
+  value={[/* array of portable text blocks */]}
+  onMissingComponent={(message, options) => {
+    myErrorLogger.report(message, {
+      // eg `someUnknownType`
+      type: options.type,
+
+      // 'block' | 'mark' | 'blockStyle' | 'listStyle' | 'listItemStyle'
+      nodeType: options.nodeType
+    })
+  }}
+/>
+```
+
 ## Rendering Plain Text
 
 As a bonus, `@portabletext/react` offers a function that will render your

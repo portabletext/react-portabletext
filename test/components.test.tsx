@@ -5,7 +5,7 @@ import {PortableTextProps} from '../src'
 import {PortableText} from '../src/react-portable-text'
 
 const render = (props: PortableTextProps) =>
-  ReactDOM.renderToStaticMarkup(<PortableText {...props} />)
+  ReactDOM.renderToStaticMarkup(<PortableText {...props} onMissingComponent={false} />)
 
 tap.test('can override unknown mark component', (t) => {
   const result = render({

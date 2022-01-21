@@ -6,7 +6,7 @@ import type {PortableTextReactComponents, PortableTextProps} from '../src/types'
 import * as fixtures from './fixtures'
 
 const render = (props: PortableTextProps) =>
-  ReactDOM.renderToStaticMarkup(<PortableText {...props} />)
+  ReactDOM.renderToStaticMarkup(<PortableText {...props} onMissingComponent={false} />)
 
 tap.test('never mutates input', (t) => {
   for (const [key, fixture] of Object.entries(fixtures)) {

@@ -2,9 +2,10 @@ import React, {ReactNode, useContext, useMemo} from 'react'
 import {ListNestMode, SerializedBlock} from './toolkit/types'
 import type {
   NodeRenderer,
+  MissingComponentHandler,
   PortableTextBlock,
-  PortableTextReactComponents,
   PortableTextProps,
+  PortableTextReactComponents,
   Serializable,
   TypedObject,
 } from './types'
@@ -20,12 +21,22 @@ import {spanToPlainText} from './toolkit/toPlainText'
 import {buildMarksTree} from './toolkit/buildMarksTree'
 import {mergeComponents} from './components/merge'
 import {PortableTextComponentsContext} from './context'
+import {
+  printWarning,
+  unknownBlockStyleWarning,
+  unknownListItemStyleWarning,
+  unknownListStyleWarning,
+  unknownMarkWarning,
+  unknownTypeWarning,
+} from './warnings'
 
 export function PortableText<B extends TypedObject = PortableTextBlock>({
   value: input,
   components: componentOverrides,
   listNestingMode,
+  onMissingComponent: missingComponentHandler = printWarning,
 }: PortableTextProps<B>) {
+  const handleMissingComponent = missingComponentHandler || noop
   const blocks = Array.isArray(input) ? input : [input]
   const nested = nestLists(blocks, listNestingMode || ListNestMode.Html)
 
@@ -36,7 +47,10 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
       : parentComponents
   }, [parentComponents, componentOverrides])
 
-  const renderNode = useMemo(() => getNodeRenderer(components), [components])
+  const renderNode = useMemo(
+    () => getNodeRenderer(components, handleMissingComponent),
+    [components, handleMissingComponent]
+  )
   const rendered = nested.map((node, index) =>
     renderNode({node: node, index, isInline: false, renderNode})
   )
@@ -50,7 +64,10 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   )
 }
 
-const getNodeRenderer = (components: PortableTextReactComponents): NodeRenderer => {
+const getNodeRenderer = (
+  components: PortableTextReactComponents,
+  handleMissingComponent: MissingComponentHandler
+): NodeRenderer => {
   return function renderNode<N extends TypedObject>(options: Serializable<N>): ReactNode {
     const {node, index, isInline} = options
     const passthrough = {index, isInline, renderNode}
@@ -69,6 +86,12 @@ const getNodeRenderer = (components: PortableTextReactComponents): NodeRenderer 
       const component = components.list
       const handler = typeof component === 'function' ? component : component[node.listItem]
       const List = handler || components.unknownList
+
+      if (List === components.unknownList) {
+        const style = node.listItem || 'bullet'
+        handleMissingComponent(unknownListStyleWarning(style), {nodeType: 'listStyle', type: style})
+      }
+
       return (
         <List key={key} value={node} {...passthrough}>
           {children}
@@ -81,6 +104,14 @@ const getNodeRenderer = (components: PortableTextReactComponents): NodeRenderer 
       const renderer = components.listItem
       const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
       const Li = handler || components.unknownListItem
+
+      if (Li === components.unknownListItem) {
+        const style = node.listItem || 'bullet'
+        handleMissingComponent(unknownListItemStyleWarning(style), {
+          type: style,
+          nodeType: 'listItemStyle',
+        })
+      }
 
       let children = tree.children
       if (node.style && node.style !== 'normal') {
@@ -103,6 +134,10 @@ const getNodeRenderer = (components: PortableTextReactComponents): NodeRenderer 
         renderNode({node: child, index: childIndex, isInline: true, renderNode})
       )
 
+      if (Span === components.unknownMark) {
+        handleMissingComponent(unknownMarkWarning(markType), {nodeType: 'mark', type: markType})
+      }
+
       return (
         <Span
           key={key}
@@ -123,6 +158,14 @@ const getNodeRenderer = (components: PortableTextReactComponents): NodeRenderer 
       const handler =
         typeof components.block === 'function' ? components.block : components.block[style]
       const Block = handler || components.unknownBlockStyle
+
+      if (Block === components.unknownBlockStyle) {
+        handleMissingComponent(unknownBlockStyleWarning(style), {
+          nodeType: 'blockStyle',
+          type: style,
+        })
+      }
+
       return <Block key={key} {...props} value={props.node} renderNode={renderNode} />
     }
 
@@ -148,6 +191,8 @@ const getNodeRenderer = (components: PortableTextReactComponents): NodeRenderer 
       return <Node key={key} {...nodeOptions} />
     }
 
+    handleMissingComponent(unknownTypeWarning(node._type), {nodeType: 'block', type: node._type})
+
     const UnknownType = components.unknownType
     return <UnknownType key={key} {...nodeOptions} />
   }
@@ -167,4 +212,8 @@ function serializeBlock(options: Serializable<PortableTextBlock>): SerializedBlo
     isInline,
     node,
   }
+}
+
+function noop() {
+  // Intentional noop
 }

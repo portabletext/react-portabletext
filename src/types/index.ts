@@ -24,6 +24,15 @@ export interface PortableTextProps<
   components?: Partial<PortableTextReactComponents>
 
   /**
+   * Function to call when encountering unknown unknown types, eg blocks, marks,
+   * block style, list styles without an associated React component.
+   *
+   * Will print a warning message to the console by default.
+   * Pass `false` to disable.
+   */
+  onMissingComponent?: MissingComponentHandler | false
+
+  /**
    * Determines whether or not lists are nested inside of list items (`html`)
    * or as a direct child of another list (`direct` - for React Native)
    *
@@ -409,6 +418,13 @@ export type ArbitraryTypedObject = TypedObject & {[key: string]: any}
  * including virtual "toolkit"-nodes like lists and nested spans
  */
 export type NodeRenderer = <T extends TypedObject>(options: Serializable<T>) => ReactNode
+
+export type NodeType = 'block' | 'mark' | 'blockStyle' | 'listStyle' | 'listItemStyle'
+
+export type MissingComponentHandler = (
+  message: string,
+  options: {type: string; nodeType: NodeType}
+) => void
 
 export interface Serializable<T> {
   node: T

@@ -6,11 +6,12 @@ import {
   PortableTextReactComponents,
   PortableTextMarkComponent,
   PortableTextProps,
+  MissingComponentHandler,
 } from '../src/types'
 import * as fixtures from './fixtures'
 
 const render = (props: PortableTextProps) =>
-  ReactDOM.renderToStaticMarkup(<PortableText {...props} />)
+  ReactDOM.renderToStaticMarkup(<PortableText onMissingComponent={false} {...props} />)
 
 tap.test('builds empty tree on empty block', (t) => {
   const {input, output} = fixtures.emptyBlock
@@ -327,5 +328,20 @@ tap.test('falls back to default component for missing mark components', (t) => {
   const {input, output} = fixtures.missingMarkComponent
   const result = render({value: input})
   t.same(result, output)
+  t.end()
+})
+
+tap.test('can register custom `missing component` handler', (t) => {
+  let warning = '<never called>'
+  const onMissingComponent: MissingComponentHandler = (message) => {
+    warning = message
+  }
+
+  const {input} = fixtures.missingMarkComponent
+  render({value: input, onMissingComponent})
+  t.same(
+    warning,
+    'Unknown mark type "abc", specify a component for it in the `components.marks` prop'
+  )
   t.end()
 })
