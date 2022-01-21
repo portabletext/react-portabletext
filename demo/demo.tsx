@@ -54,8 +54,10 @@ function Demo() {
 }
 
 render(
-  <ThemeProvider theme={studioTheme}>
-    <Demo />
-  </ThemeProvider>,
+  <React.StrictMode>
+    <ThemeProvider theme={studioTheme}>
+      <Demo />
+    </ThemeProvider>
+  </React.StrictMode>,
   document.getElementById('demo-root')
 )
