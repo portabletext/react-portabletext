@@ -120,13 +120,13 @@ export const blocks: (PortableTextBlock | CodeBlock | AnnotatedMapBlock)[] = [
     _type: 'block',
     _key: 'cool-custom',
     style: 'normal',
-    markDefs: [{_type: 'link', _key: 'lllink', href: 'https://github.com/rexxars/react-lowlight'}],
+    markDefs: [{_type: 'link', _key: 'lllink', href: 'https://github.com/rexxars/react-refractor'}],
     children: [
       {
         _type: 'span',
         text: 'Aside from that, you can drop in pretty much any data you want, as long as you define a React component to render it. Here is a code block, highlighted by ',
       },
-      {_type: 'span', text: 'react-lowlight', marks: ['lllink']},
+      {_type: 'span', text: 'react-refractor', marks: ['lllink']},
       {_type: 'span', text: ', for instance:'},
     ],
   },
