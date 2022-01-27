@@ -77,7 +77,7 @@ const BlockRenderer = (props) => {
   return BlockContent.defaultSerializers.types.block(props)
 }
 
-;<BlockContent blocks={input} serializers={{types: {block: BlockRenderer}}} />
+<BlockContent blocks={input} serializers={{types: {block: BlockRenderer}}} />
 ```
 
 You are now able to provide different React components for different block styles - handy if you just want to override the rendering of headings, but not other styles, for instance.
@@ -107,13 +107,32 @@ We've removed the only Sanity-specific part of the module, which was image handl
 We've seen the community have vastly different preferences on how images should be rendered, so having a generic image component included out of the box felt unnecessary.
 
 ```jsx
+import urlBuilder from '@sanity/image-url'
+import { getImageDimensions } from '@sanity/asset-utils'
+
+// Simple lazy-loaded image component
+const SampleImageComponent = ({value}) => {
+  const {width, height} = getImageDimensions(value)
+  return (
+    <img
+      src={urlBuilder().image(value).width(800).fit('max').auto('format').url()}
+      alt={value.alt || ' '}
+      loading="lazy"
+      style={{
+        // Avoid jumping around with aspect-ratio CSS property
+        aspectRatio: width / height,
+      }}
+    />
+  )
+}
+
 // You'll now need to define your own image component
 <PortableText
   value={input}
   components={{
     // ...
     types: {
-      image: MyImageComponent,
+      image: SampleImageComponent,
     },
   }}
 />
