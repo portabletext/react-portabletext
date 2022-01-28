@@ -110,7 +110,7 @@ We've seen the community have vastly different preferences on how images should 
 import urlBuilder from '@sanity/image-url'
 import { getImageDimensions } from '@sanity/asset-utils'
 
-// Simple lazy-loaded image component
+// Barebones lazy-loaded image component
 const SampleImageComponent = ({value}) => {
   const {width, height} = getImageDimensions(value)
   return (

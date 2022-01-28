@@ -25,7 +25,7 @@ import {PortableText} from '@portabletext/react'
 
 ## Styling the output
 
-The rendered HTML does not have any styling applied, so you will want to either render a parent container with a class name you can target in your CSS, or pass [custom components](#customizing-components) if you want to pass specific class names, or you are using frameworks such as styled-components or similar.
+The rendered HTML does not have any styling applied, so you will either render a parent container with a class name you can target in your CSS, or pass [custom components](#customizing-components) if you want to control the direct markup and CSS of each element.
 
 ## Customizing components
 
@@ -35,7 +35,7 @@ Default components are provided for all standard features of the Portable Text s
 
 This overrides/provides components on a per-use basis, and will be merged with the defaults. In other words, you only need to provide the things you want to override.
 
-**Note**: Make sure the object does not change on every render - eg do not create the object within a React component, or if you do, use `useMemo` to ensure referential identity between renders.
+**Note**: Make sure the object does not change on every render - eg do not create the object within a React component, or if you do, use `useMemo` to ensure referential identity between renders for better performance.
 
 ```js
 const myPortableTextComponents = {
@@ -66,7 +66,7 @@ const YourComponent = (props) => {
 }
 ```
 
-### Using a context
+### Using a React context
 
 You can also use the `<PortableTextComponentsProvider>` to provide the same set of components to all `<PortableText>` instances below it in the tree.
 
@@ -74,16 +74,20 @@ This is useful for recursive rendering as well as in cases where you have the sa
 
 When using the context, the passed components gets merged with the defaults - you only need to provide overrides and components for custom types.
 
-**Note**: Make sure the object does not change on every render - eg do not create the object within a React component, or if you do, use `useMemo` to ensure referential identity between renders.
+**Note**: Make sure the object does not change on every render - eg do not create the object within a React component, or if you do, use `useMemo` to ensure referential identity between renders for better performance.
 
 ```js
 import {PortableTextComponentsProvider, PortableText} from '@portabletext/react'
 
-export default function MyComponent() {
+const YourComponent = (props) => {
   return (
     <PortableTextComponentsProvider components={myPortableTextComponents}>
-      <div className="portable-text">
+      {/* The 2 PortableText instances below will receive the same custom components */}
+      <div className="main-content">
         <PortableText value={somePortableTextInput} />
+      </div>
+      <div className="editor-notice">
+        <PortableText value={somePortableTextInput2} />
       </div>
     </PortableTextComponentsProvider>
   )
@@ -102,6 +106,53 @@ Use the `isInline` property to check whether or not this is an inline object or 
 
 The object has the shape `{typeName: ReactComponent}`, where `typeName` is the value set in individual `_type` attributes.
 
+Example of rendering a custom `image` object:
+
+```jsx
+import {PortableText} from '@portabletext/react'
+import urlBuilder from '@sanity/image-url'
+import {getImageDimensions} from '@sanity/asset-utils'
+
+// Barebones lazy-loaded image component
+const SampleImageComponent = ({value, isInline}) => {
+  const {width, height} = getImageDimensions(value)
+  return (
+    <img
+      src={urlBuilder()
+        .image(value)
+        .width(isInline ? 100 : 800)
+        .fit('max')
+        .auto('format')
+        .url()}
+      alt={value.alt || ' '}
+      loading="lazy"
+      style={{
+        // Display alongside text if image appears inside a block text span
+        display: isInline ? 'inline-block' : 'block',
+
+        // Avoid jumping around with aspect-ratio CSS property
+        aspectRatio: width / height,
+      }}
+    />
+  )
+}
+
+const YourComponent = (props) => {
+  return (
+    <PortableText
+      value={somePortableTextInput}
+      components={{
+        types: {
+          image: SampleImageComponent,
+          // Any other custom types you have in your content
+          // Examples: mapLocation, contactForm, code, featuredProjects, latestNews, etc.
+        },
+      }}
+    />
+  )
+}
+```
+
 ### `marks`
 
 Object of React components that renders different types of marks that might appear in spans. Marks can be either be simple "decorators" (eg emphasis, underline, italic) or full "annotations" which include associated data (eg links, references, descriptions).
@@ -110,11 +161,51 @@ If the mark is a decorator, the component will receive a `markType` prop which h
 
 The component also receives a `children` prop that should (usually) be returned in whatever parent container component makes sense for this mark (eg `<a>`, `<em>`).
 
+```jsx
+<PortableText
+  value={somePortableTextInput}
+  components={{
+    marks: {
+      // Ex. 1: custom renderer for the em / italics decorator
+      em: ({children}) => <em class="text-gray-600 font-semibold">{children}</em>,
+
+      // Ex. 2: rendering a custom `link` annotation
+      link: ({value, children}) => {
+        const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
+        return (
+          <a href={value?.href} target={target} rel={target === '_blank' && 'noindex nofollow'}>
+            {children}
+          </a>
+        )
+      },
+    },
+  }}
+/>
+```
+
 ### `block`
 
 An object of React components that renders portable text blocks with different `style` properties. The object has the shape `{styleName: ReactComponent}`, where `styleName` is the value set in individual `style` attributes on blocks (`normal` being the default).
 
-Can also be set to a single React component, which would handle block styles of _any_ type.
+```jsx
+<PortableText
+  value={input}
+  components={{
+    block: {
+      // Ex. 1: customizing common block types
+      h1: ({children}) => <h1 class="text-2xl">{children}</h1>,
+      blockquote: ({children}) => <blockquote class="border-l-purple-500">{children}</blockquote>,
+
+      // Ex. 2: rendering custom styles
+      customHeading: ({children}) => (
+        <h2 class="text-lg text-primary text-purple-700">{children}</h2>
+      ),
+    },
+  }}
+/>
+```
+
+The `block` object can also be set to a single React component, which would handle block styles of _any_ type.
 
 ### `list`
 
@@ -122,13 +213,44 @@ Object of React components used to render lists of different types (`bullet` vs 
 
 Note that there is no actual "list" node type in the Portable Text specification, but a series of list item blocks with the same `level` and `listItem` properties will be grouped into a virtual one inside of this library.
 
-The property can also be set to a single React component, which would handle lists of _any_ type.
+```jsx
+<PortableText
+  value={input}
+  components={{
+    list: {
+      // Ex. 1: customizing common list types
+      bullet: ({children}) => <ul class="mt-xl">{children}</ul>,
+      number: ({children}) => <ol class="mt-lg">{children}</ol>,
+
+      // Ex. 2: rendering custom lists
+      checkmarks: ({children}) => <ol class="m-auto text-lg">{children}</ol>,
+    },
+  }}
+/>
+```
+
+The `list` property can also be set to a single React component, which would handle lists of _any_ type.
 
 ### `listItem`
 
 Object of React components used to render different list item styles. The object has the shape `{listItemType: ReactComponent}`, where `listItemType` is the value set in individual `listItem` attributes on blocks.
 
-Can also be set to a single React component, which would handle list items of _any_ type.
+```jsx
+<PortableText
+  value={input}
+  components={{
+    listItem: {
+      // Ex. 1: customizing common list types
+      bullet: ({children}) => <li style={{listStyleType: 'disclosure-closed'}}>{children}</li>,
+
+      // Ex. 2: rendering custom list items
+      checkmarks: ({children}) => <li>✅ {children}</li>,
+    },
+  }}
+/>
+```
+
+The `listItem` property can also be set to a single React component, which would handle list items of _any_ type.
 
 ### `hardBreak`
 
@@ -203,7 +325,7 @@ const MetaDescription = (myPortableTextData) => {
 Or to generate element IDs for headers, in order for them to be linkable:
 
 ```jsx
-import {toPlainText} from '@portabletext/react'
+import {PortableText, toPlainText} from '@portabletext/react'
 import slugify from 'slugify'
 
 const LinkableHeader = ({children, value}) => {
@@ -212,17 +334,14 @@ const LinkableHeader = ({children, value}) => {
   return <h2 id={slug}>{children}</h2>
 }
 
-ReactDOM.render(
-  <PortableText
-    value={myPortableTextData}
-    components={{
-      block: {
-        h2: LinkableHeader,
-      },
-    }}
-  />,
-  document.getElementById('root')
-)
+;<PortableText
+  value={myPortableTextData}
+  components={{
+    block: {
+      h2: LinkableHeader,
+    },
+  }}
+/>
 ```
 
 ## License
