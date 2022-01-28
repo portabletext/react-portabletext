@@ -112,7 +112,7 @@ The component also receives a `children` prop that should (usually) be returned 
 
 ### `block`
 
-An object of React components that renders portable text blocks with different `style` properties. The object has the shape {styleName: ReactComponent}`, where `styleName`is the value set in individual `style` attributes on blocks (`normal` being the default).
+An object of React components that renders portable text blocks with different `style` properties. The object has the shape `{styleName: ReactComponent}`, where `styleName` is the value set in individual `style` attributes on blocks (`normal` being the default).
 
 Can also be set to a single React component, which would handle block styles of _any_ type.
 
