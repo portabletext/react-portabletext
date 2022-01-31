@@ -137,19 +137,16 @@ const SampleImageComponent = ({value, isInline}) => {
   )
 }
 
+const components = {
+  types: {
+    image: SampleImageComponent,
+    // Any other custom types you have in your content
+    // Examples: mapLocation, contactForm, code, featuredProjects, latestNews, etc.
+  },
+}
+
 const YourComponent = (props) => {
-  return (
-    <PortableText
-      value={somePortableTextInput}
-      components={{
-        types: {
-          image: SampleImageComponent,
-          // Any other custom types you have in your content
-          // Examples: mapLocation, contactForm, code, featuredProjects, latestNews, etc.
-        },
-      }}
-    />
-  )
+  return <PortableText value={somePortableTextInput} components={components} />
 }
 ```
 
@@ -162,25 +159,25 @@ If the mark is a decorator, the component will receive a `markType` prop which h
 The component also receives a `children` prop that should (usually) be returned in whatever parent container component makes sense for this mark (eg `<a>`, `<em>`).
 
 ```jsx
-<PortableText
-  value={somePortableTextInput}
-  components={{
-    marks: {
-      // Ex. 1: custom renderer for the em / italics decorator
-      em: ({children}) => <em class="text-gray-600 font-semibold">{children}</em>,
+// `components` object you'll pass to PortableText w/ optional TS definition
+import {PortableTextComponents} from '@portabletext/react'
 
-      // Ex. 2: rendering a custom `link` annotation
-      link: ({value, children}) => {
-        const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
-        return (
-          <a href={value?.href} target={target} rel={target === '_blank' && 'noindex nofollow'}>
-            {children}
-          </a>
-        )
-      },
+const components: PortableTextComponents = {
+  marks: {
+    // Ex. 1: custom renderer for the em / italics decorator
+    em: ({children}) => <em class="text-gray-600 font-semibold">{children}</em>,
+
+    // Ex. 2: rendering a custom `link` annotation
+    link: ({value, children}) => {
+      const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
+      return (
+        <a href={value?.href} target={target} rel={target === '_blank' && 'noindex nofollow'}>
+          {children}
+        </a>
+      )
     },
-  }}
-/>
+  },
+}
 ```
 
 ### `block`
@@ -188,21 +185,17 @@ The component also receives a `children` prop that should (usually) be returned 
 An object of React components that renders portable text blocks with different `style` properties. The object has the shape `{styleName: ReactComponent}`, where `styleName` is the value set in individual `style` attributes on blocks (`normal` being the default).
 
 ```jsx
-<PortableText
-  value={input}
-  components={{
-    block: {
-      // Ex. 1: customizing common block types
-      h1: ({children}) => <h1 class="text-2xl">{children}</h1>,
-      blockquote: ({children}) => <blockquote class="border-l-purple-500">{children}</blockquote>,
+// `components` object you'll pass to PortableText
+const components = {
+  block: {
+    // Ex. 1: customizing common block types
+    h1: ({children}) => <h1 class="text-2xl">{children}</h1>,
+    blockquote: ({children}) => <blockquote class="border-l-purple-500">{children}</blockquote>,
 
-      // Ex. 2: rendering custom styles
-      customHeading: ({children}) => (
-        <h2 class="text-lg text-primary text-purple-700">{children}</h2>
-      ),
-    },
-  }}
-/>
+    // Ex. 2: rendering custom styles
+    customHeading: ({children}) => <h2 class="text-lg text-primary text-purple-700">{children}</h2>,
+  },
+}
 ```
 
 The `block` object can also be set to a single React component, which would handle block styles of _any_ type.
@@ -214,19 +207,16 @@ Object of React components used to render lists of different types (`bullet` vs 
 Note that there is no actual "list" node type in the Portable Text specification, but a series of list item blocks with the same `level` and `listItem` properties will be grouped into a virtual one inside of this library.
 
 ```jsx
-<PortableText
-  value={input}
-  components={{
-    list: {
-      // Ex. 1: customizing common list types
-      bullet: ({children}) => <ul class="mt-xl">{children}</ul>,
-      number: ({children}) => <ol class="mt-lg">{children}</ol>,
+const components = {
+  list: {
+    // Ex. 1: customizing common list types
+    bullet: ({children}) => <ul class="mt-xl">{children}</ul>,
+    number: ({children}) => <ol class="mt-lg">{children}</ol>,
 
-      // Ex. 2: rendering custom lists
-      checkmarks: ({children}) => <ol class="m-auto text-lg">{children}</ol>,
-    },
-  }}
-/>
+    // Ex. 2: rendering custom lists
+    checkmarks: ({children}) => <ol class="m-auto text-lg">{children}</ol>,
+  },
+}
 ```
 
 The `list` property can also be set to a single React component, which would handle lists of _any_ type.
@@ -236,18 +226,15 @@ The `list` property can also be set to a single React component, which would han
 Object of React components used to render different list item styles. The object has the shape `{listItemType: ReactComponent}`, where `listItemType` is the value set in individual `listItem` attributes on blocks.
 
 ```jsx
-<PortableText
-  value={input}
-  components={{
-    listItem: {
-      // Ex. 1: customizing common list types
-      bullet: ({children}) => <li style={{listStyleType: 'disclosure-closed'}}>{children}</li>,
+const components = {
+  listItem: {
+    // Ex. 1: customizing common list types
+    bullet: ({children}) => <li style={{listStyleType: 'disclosure-closed'}}>{children}</li>,
 
-      // Ex. 2: rendering custom list items
-      checkmarks: ({children}) => <li>✅ {children}</li>,
-    },
-  }}
-/>
+    // Ex. 2: rendering custom list items
+    checkmarks: ({children}) => <li>✅ {children}</li>,
+  },
+}
 ```
 
 The `listItem` property can also be set to a single React component, which would handle list items of _any_ type.
@@ -325,7 +312,7 @@ const MetaDescription = (myPortableTextData) => {
 Or to generate element IDs for headers, in order for them to be linkable:
 
 ```jsx
-import {PortableText, toPlainText} from '@portabletext/react'
+import {PortableText, toPlainText, PortableTextComponents} from '@portabletext/react'
 import slugify from 'slugify'
 
 const LinkableHeader = ({children, value}) => {
@@ -334,14 +321,11 @@ const LinkableHeader = ({children, value}) => {
   return <h2 id={slug}>{children}</h2>
 }
 
-;<PortableText
-  value={myPortableTextData}
-  components={{
-    block: {
-      h2: LinkableHeader,
-    },
-  }}
-/>
+const components: PortableTextComponents = {
+  block: {
+    h2: LinkableHeader,
+  },
+}
 ```
 
 ## License
