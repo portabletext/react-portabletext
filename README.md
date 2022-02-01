@@ -4,7 +4,7 @@
 
 Render [Portable Text](https://portabletext.org/) with React.
 
-Migrating from [@sanity/block-content-to-react](https://www.npmjs.com/package/@sanity/block-content-to-react)? Refer to the [migration docs](/MIGRATING.md).
+Migrating from [@sanity/block-content-to-react](https://www.npmjs.com/package/@sanity/block-content-to-react)? Refer to the [migration docs](https://github.com/portabletext/react-portabletext/blob/main/MIGRATING.md).
 
 ## Installation
 
