@@ -1,33 +1,35 @@
 import React, {ReactNode, useContext, useMemo} from 'react'
 import {
-  ListNestMode,
-  SerializedBlock,
+  LIST_NEST_MODE_HTML,
   ToolkitNestedPortableTextSpan,
   ToolkitTextNode,
-} from './toolkit/types'
+} from '@portabletext/toolkit'
 import type {
-  MarkDefinition,
   MissingComponentHandler,
   NodeRenderer,
-  PortableTextBlock,
-  PortableTextListItemBlock,
   PortableTextProps,
   PortableTextReactComponents,
-  PortableTextSpan,
   ReactPortableTextList,
   Serializable,
-  TypedObject,
+  SerializedBlock,
 } from './types'
 import {
-  isListItemBlock,
   isPortableTextBlock,
-  isToolkitList,
-  isToolkitSpan,
-  isToolkitTextNode,
-} from './toolkit/asserters'
-import {nestLists} from './toolkit/nestLists'
-import {spanToPlainText} from './toolkit/toPlainText'
-import {buildMarksTree} from './toolkit/buildMarksTree'
+  isPortableTextListItemBlock,
+  isPortableTextToolkitList,
+  isPortableTextToolkitSpan,
+  isPortableTextToolkitTextNode,
+  nestLists,
+  spanToPlainText,
+  buildMarksTree,
+} from '@portabletext/toolkit'
+import type {
+  PortableTextBlock,
+  PortableTextListItemBlock,
+  PortableTextMarkDefinition,
+  PortableTextSpan,
+  TypedObject,
+} from '@portabletext/types'
 import {mergeComponents} from './components/merge'
 import {PortableTextComponentsContext} from './context'
 import {
@@ -47,7 +49,7 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
 }: PortableTextProps<B>) {
   const handleMissingComponent = missingComponentHandler || noop
   const blocks = Array.isArray(input) ? input : [input]
-  const nested = nestLists(blocks, listNestingMode || ListNestMode.Html)
+  const nested = nestLists(blocks, listNestingMode || LIST_NEST_MODE_HTML)
 
   const parentComponents = useContext(PortableTextComponentsContext)
   const components = useMemo(() => {
@@ -81,15 +83,15 @@ const getNodeRenderer = (
     const {node, index, isInline} = options
     const key = node._key || `node-${index}`
 
-    if (isToolkitList(node)) {
+    if (isPortableTextToolkitList(node)) {
       return renderList(node, index, key)
     }
 
-    if (isListItemBlock(node)) {
+    if (isPortableTextListItemBlock(node)) {
       return renderListItem(node, index, key)
     }
 
-    if (isToolkitSpan(node)) {
+    if (isPortableTextToolkitSpan(node)) {
       return renderSpan(node, index, key)
     }
 
@@ -97,7 +99,7 @@ const getNodeRenderer = (
       return renderBlock(node, index, key, isInline)
     }
 
-    if (isToolkitTextNode(node)) {
+    if (isPortableTextToolkitTextNode(node)) {
       return renderText(node, key)
     }
 
@@ -106,7 +108,7 @@ const getNodeRenderer = (
 
   /* eslint-disable react/jsx-no-bind */
   function renderListItem(
-    node: PortableTextListItemBlock<MarkDefinition, PortableTextSpan>,
+    node: PortableTextListItemBlock<PortableTextMarkDefinition, PortableTextSpan>,
     index: number,
     key: string
   ) {

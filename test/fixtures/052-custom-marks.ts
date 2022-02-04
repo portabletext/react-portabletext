@@ -1,4 +1,4 @@
-import type {PortableTextBlock} from '../../src/types'
+import type {PortableTextBlock} from '@portabletext/types'
 
 const input: PortableTextBlock = {
   _type: 'block',

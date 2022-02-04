@@ -1,4 +1,4 @@
-import type {ArbitraryTypedObject} from '../../src/types'
+import type {ArbitraryTypedObject} from '@portabletext/types'
 
 const input: ArbitraryTypedObject[] = [
   {

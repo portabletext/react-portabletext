@@ -1,6 +1,6 @@
 export * from './types'
-export {ListNestMode} from './toolkit/types'
-export {toPlainText} from './toolkit/toPlainText'
+export type {ToolkitListNestMode as ListNestMode} from '@portabletext/toolkit'
+export {toPlainText} from '@portabletext/toolkit'
 export {PortableText} from './react-portable-text'
 export {mergeComponents} from './components/merge'
 export {defaultComponents} from './components/defaults'

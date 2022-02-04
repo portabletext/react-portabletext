@@ -13,7 +13,7 @@ module.exports = defineConfig({
       fileName: (format) => `react-portable-text.${format}.js`,
     },
     rollupOptions: {
-      external: ['react'],
+      external: ['react', '@portabletext/toolkit', '@portabletext/types'],
       output: {
         // Since we publish our ./src folder, there's no point in bloating sourcemaps with another copy of it.
         sourcemapExcludeSources: true,

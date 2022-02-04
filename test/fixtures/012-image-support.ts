@@ -1,4 +1,4 @@
-import type {PortableTextBlock, TypedObject} from '../../src/types'
+import type {PortableTextBlock, TypedObject} from '@portabletext/types'
 
 interface Image extends TypedObject {
   _type: 'image'
