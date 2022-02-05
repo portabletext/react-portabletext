@@ -165,7 +165,7 @@ import {PortableTextComponents} from '@portabletext/react'
 const components: PortableTextComponents = {
   marks: {
     // Ex. 1: custom renderer for the em / italics decorator
-    em: ({children}) => <em class="text-gray-600 font-semibold">{children}</em>,
+    em: ({children}) => <em className="text-gray-600 font-semibold">{children}</em>,
 
     // Ex. 2: rendering a custom `link` annotation
     link: ({value, children}) => {
@@ -189,11 +189,11 @@ An object of React components that renders portable text blocks with different `
 const components = {
   block: {
     // Ex. 1: customizing common block types
-    h1: ({children}) => <h1 class="text-2xl">{children}</h1>,
-    blockquote: ({children}) => <blockquote class="border-l-purple-500">{children}</blockquote>,
+    h1: ({children}) => <h1 className="text-2xl">{children}</h1>,
+    blockquote: ({children}) => <blockquote className="border-l-purple-500">{children}</blockquote>,
 
     // Ex. 2: rendering custom styles
-    customHeading: ({children}) => <h2 class="text-lg text-primary text-purple-700">{children}</h2>,
+    customHeading: ({children}) => <h2 className="text-lg text-primary text-purple-700">{children}</h2>,
   },
 }
 ```
@@ -210,11 +210,11 @@ Note that there is no actual "list" node type in the Portable Text specification
 const components = {
   list: {
     // Ex. 1: customizing common list types
-    bullet: ({children}) => <ul class="mt-xl">{children}</ul>,
-    number: ({children}) => <ol class="mt-lg">{children}</ol>,
+    bullet: ({children}) => <ul className="mt-xl">{children}</ul>,
+    number: ({children}) => <ol className="mt-lg">{children}</ol>,
 
     // Ex. 2: rendering custom lists
-    checkmarks: ({children}) => <ol class="m-auto text-lg">{children}</ol>,
+    checkmarks: ({children}) => <ol className="m-auto text-lg">{children}</ol>,
   },
 }
 ```

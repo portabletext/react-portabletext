@@ -89,11 +89,11 @@ You are now able to provide different React components for different block style
   components={{
     block: {
       // Customize block types with ease
-      h1: ({children}) => <h1 class="text-2xl">{children}</h1>,
+      h1: ({children}) => <h1 className="text-2xl">{children}</h1>,
 
       // Same applies to custom styles
       customHeading: ({children}) => (
-        <h2 class="text-lg text-primary text-purple-700">{children}</h2>
+        <h2 className="text-lg text-primary text-purple-700">{children}</h2>
       ),
     },
   }}
