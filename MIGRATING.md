@@ -55,6 +55,13 @@ This component renders any Portable Text content or custom object (such as `code
 }} />
 ```
 
+## New component properties
+
+The properties for custom components (previously "serializers") have changed slightly:
+
+- Blocks: `node` has been renamed to `value`
+- Marks: `mark` has been renamed to `value`
+
 ## Easier customization of individual block styles
 
 Previously, if you wanted to override you'd need to override the rendering of headings, blockquotes, or other block styles, you'd need to re-define the entire block renderer (`serializers.types.block`):
@@ -99,6 +106,10 @@ You are now able to provide different React components for different block style
   }}
 />
 ```
+
+## No container rendered
+
+Previously the component would render a container element around the rendered blocks, unless a single block was given as the input. This was done because at the time the module was written, React did not support returning fragments (eg multiple children without a parent container element). This component requires React >= 17, which means we can use `<React.Fragment>` when multiple blocks are present.
 
 ## Images aren't handled by default anymore
 
