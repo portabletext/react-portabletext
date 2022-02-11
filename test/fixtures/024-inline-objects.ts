@@ -14,8 +14,9 @@ const input: PortableTextBlock[] = [
       },
       {
         _key: 'a862cadb584f',
-        _type: 'image',
-        url: 'https://cdn.provider/star.png',
+        _type: 'localCurrency',
+        sourceCurrency: 'USD',
+        sourceAmount: 13.5,
       },
       {_key: '08707ed2945b1', text: 'Neat', _type: 'span', marks: []},
     ],
@@ -35,8 +36,9 @@ const input: PortableTextBlock[] = [
       },
       {
         _key: 'a862cadb584f',
-        _type: 'image',
-        url: 'https://cdn.provider/star.png',
+        _type: 'localCurrency',
+        sourceCurrency: 'DKK',
+        sourceAmount: 200,
       },
       {_key: '08707ed2945b1', text: ' Baz!', _type: 'span', marks: ['code']},
     ],
@@ -56,8 +58,9 @@ const input: PortableTextBlock[] = [
       },
       {
         _key: 'a862cadb584f',
-        _type: 'image',
-        url: 'https://cdn.provider/star.png',
+        _type: 'localCurrency',
+        sourceCurrency: 'EUR',
+        sourceAmount: 25,
       },
       {_key: '08707ed2945b1', text: ' Baz!', _type: 'span', marks: ['code']},
     ],
@@ -68,5 +71,5 @@ const input: PortableTextBlock[] = [
 export default {
   input,
   output:
-    '<p><code>Foo! Bar!</code><img src="https://cdn.provider/star.png"/>Neat</p><p><code>Foo! Bar! </code><img src="https://cdn.provider/star.png"/><code> Baz!</code></p><p>Foo! Bar! <img src="https://cdn.provider/star.png"/><code> Baz!</code></p>',
+    '<p><code>Foo! Bar!</code><span class="currency">~119 NOK</span>Neat</p><p><code>Foo! Bar! </code><span class="currency">~270 NOK</span><code> Baz!</code></p><p>Foo! Bar! <span class="currency">~251 NOK</span><code> Baz!</code></p>',
 }

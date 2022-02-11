@@ -9,8 +9,6 @@ import plainHeaderBlock from './008-plain-header-block'
 import messyLinkText from './009-messy-link-text'
 import basicBulletList from './010-basic-bullet-list'
 import basicNumberedList from './011-basic-numbered-list'
-import imageSupport from './012-image-support'
-import materializedImageSupport from './013-materialized-image-support'
 import nestedLists from './014-nested-lists'
 import allBasicMarks from './015-all-basic-marks'
 import deepWeirdLists from './016-deep-weird-lists'
@@ -21,13 +19,11 @@ import emptyArray from './020-empty-array'
 import listWithoutLevel from './021-list-without-level'
 import inlineNodes from './022-inline-nodes'
 import hardBreaks from './023-hard-breaks'
-import inlineImages from './024-inline-images'
-import imageWithHotspot from './025-image-with-hotspot'
+import inlineObjects from './024-inline-objects'
 import inlineBlockWithText from './026-inline-block-with-text'
 import styledListItems from './027-styled-list-items'
 import customListItemType from './028-custom-list-item-type'
 import customBlockType from './050-custom-block-type'
-import overrideDefaults from './051-override-defaults'
 import customMarks from './052-custom-marks'
 import overrideDefaultMarks from './053-override-default-marks'
 import listIssue from './060-list-issue'
@@ -45,8 +41,6 @@ export {
   messyLinkText,
   basicBulletList,
   basicNumberedList,
-  imageSupport,
-  materializedImageSupport,
   nestedLists,
   allBasicMarks,
   deepWeirdLists,
@@ -57,13 +51,11 @@ export {
   listWithoutLevel,
   inlineNodes,
   hardBreaks,
-  inlineImages,
-  imageWithHotspot,
+  inlineObjects,
   inlineBlockWithText,
   styledListItems,
   customListItemType,
   customBlockType,
-  overrideDefaults,
   customMarks,
   overrideDefaultMarks,
   listIssue,

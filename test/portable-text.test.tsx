@@ -183,11 +183,22 @@ tap.test('can customize hardbreak component', (t) => {
 })
 
 tap.test('can nest marks correctly in block/marks context', (t) => {
-  const {input, output} = fixtures.inlineImages
+  const {input, output} = fixtures.inlineObjects
   const result = render({
     value: input,
-    components: {types: {image: ({value}) => <img src={value.url} />}},
+    components: {
+      types: {
+        localCurrency: ({value}) => {
+          // in the real world we'd look up the users local currency,
+          // do some rate calculations and render the result. Obviously.
+          const rates: Record<string, number> = {USD: 8.82, DKK: 1.35, EUR: 10.04}
+          const rate = rates[value.sourceCurrency]
+          return <span className="currency">~{Math.round(value.sourceAmount * rate)} NOK</span>
+        },
+      },
+    },
   })
+
   t.same(result, output)
   t.end()
 })
