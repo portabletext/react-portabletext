@@ -165,7 +165,7 @@ const getNodeRenderer = (
     )
   }
 
-  function renderSpan(node: ToolkitNestedPortableTextSpan, index: number, key: string) {
+  function renderSpan(node: ToolkitNestedPortableTextSpan, _index: number, key: string) {
     const {markDef, markType, markKey} = node
     const Span = components.marks[markType] || components.unknownMark
     const children = node.children.map((child, childIndex) =>

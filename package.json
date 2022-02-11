@@ -37,8 +37,8 @@
   "author": "Sanity.io <hello@sanity.io>",
   "license": "MIT",
   "dependencies": {
-    "@portabletext/toolkit": "^1.0.3",
-    "@portabletext/types": "^1.0.2"
+    "@portabletext/toolkit": "^1.0.4",
+    "@portabletext/types": "^1.0.3"
   },
   "devDependencies": {
     "@sanity/ui": "^0.37.5",

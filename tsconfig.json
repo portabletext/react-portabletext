@@ -3,6 +3,11 @@
     "strict": true,
     "esModuleInterop": true,
     "lib": ["ES2016", "DOM"],
-    "jsx": "react"
+    "jsx": "react",
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true
   }
 }

@@ -192,7 +192,7 @@ tap.test('can nest marks correctly in block/marks context', (t) => {
           // in the real world we'd look up the users local currency,
           // do some rate calculations and render the result. Obviously.
           const rates: Record<string, number> = {USD: 8.82, DKK: 1.35, EUR: 10.04}
-          const rate = rates[value.sourceCurrency]
+          const rate = rates[value.sourceCurrency] || 1
           return <span className="currency">~{Math.round(value.sourceAmount * rate)} NOK</span>
         },
       },
@@ -292,7 +292,7 @@ tap.test('can specify custom component for custom block types', (t) => {
         value: {
           _key: '9a15ea2ed8a2',
           _type: 'code',
-          code: input[0].code,
+          code: input[0]?.code,
           language: 'javascript',
         },
         index: 0,
