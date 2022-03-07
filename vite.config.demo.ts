@@ -1,9 +1,10 @@
-const path = require('path')
-const {defineConfig} = require('vite')
-const {visualizer} = require('rollup-plugin-visualizer')
+import path from 'path'
+import {defineConfig} from 'vite'
+import {visualizer} from 'rollup-plugin-visualizer'
+
 const pkg = require('./package.json')
 
-module.exports = defineConfig({
+export default defineConfig({
   plugins: [
     visualizer({
       filename: path.join(__dirname, 'demo', 'dist', 'stats.html'),
