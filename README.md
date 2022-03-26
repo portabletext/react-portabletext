@@ -140,6 +140,14 @@ const SampleImageComponent = ({value, isInline}) => {
 const components = {
   types: {
     image: SampleImageComponent,
+    code:({value}) => {
+      return (
+        <SyntaxHighlighterComponent
+          language={value.language}
+          value={value.code}
+        />
+      )
+    },
     // Any other custom types you have in your content
     // Examples: mapLocation, contactForm, code, featuredProjects, latestNews, etc.
   },
