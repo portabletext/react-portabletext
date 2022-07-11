@@ -297,6 +297,7 @@ tap.test('can specify custom component for custom block types', (t) => {
         },
         index: 0,
         isInline: false,
+        customProps: undefined
       })
       return (
         <pre data-language={props.value.language}>
