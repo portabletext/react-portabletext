@@ -328,6 +328,31 @@ const components: PortableTextComponents = {
 }
 ```
 
+## Passing in custom props
+
+You can pass in custom props whenever components need to access shared data, such as data from a hook. For example, theming metadata, conditional rendering based on a user's authentication status, handling window resize events, etc:
+
+```jsx
+const myPortableTextComponents = {
+  types: {
+    myCustomComponent: ({ children, customProps }) => <p>
+      {children}
+      {!customProps?.authenticated && <span>A custom message for users who are not logged in...</span>}
+    </p>,
+  },
+}
+
+const YourComponent = (props) => {
+  const [authenticated] = useAuthentication();
+
+  return <PortableText
+    value={props.value}
+    components={myPortableTextComponents}
+    customProps={{ authenticated }}
+    />
+}
+```
+
 ## License
 
 MIT © [Sanity.io](https://www.sanity.io/)
