@@ -112,7 +112,7 @@ const getNodeRenderer = (
     node: PortableTextListItemBlock<PortableTextMarkDefinition, PortableTextSpan>,
     index: number,
     key: string,
-    customProps: unknown
+    customProps: any
   ) {
     const tree = serializeBlock({node, index, isInline: false, renderNode, customProps})
     const renderer = components.listItem
@@ -141,7 +141,7 @@ const getNodeRenderer = (
     )
   }
 
-  function renderList(node: ReactPortableTextList, index: number, key: string, customProps: unknown) {
+  function renderList(node: ReactPortableTextList, index: number, key: string, customProps: any) {
     const children = node.children.map((child, childIndex) =>
       renderNode({
         node: child._key ? child : {...child, _key: `li-${index}-${childIndex}`},
@@ -168,7 +168,7 @@ const getNodeRenderer = (
     )
   }
 
-  function renderSpan(node: ToolkitNestedPortableTextSpan, _index: number, key: string, customProps: unknown) {
+  function renderSpan(node: ToolkitNestedPortableTextSpan, _index: number, key: string, customProps: any) {
     const {markDef, markType, markKey} = node
     const Span = components.marks[markType] || components.unknownMark
     const children = node.children.map((child, childIndex) =>
@@ -194,7 +194,7 @@ const getNodeRenderer = (
     )
   }
 
-  function renderBlock(node: PortableTextBlock, index: number, key: string, isInline: boolean, customProps: unknown) {
+  function renderBlock(node: PortableTextBlock, index: number, key: string, isInline: boolean, customProps: any) {
     const {_key, ...props} = serializeBlock({node, index, isInline, renderNode, customProps})
     const style = props.node.style || 'normal'
     const handler =
@@ -220,7 +220,7 @@ const getNodeRenderer = (
     return node.text
   }
 
-  function renderCustomBlock(node: TypedObject, index: number, key: string, isInline: boolean, customProps: unknown) {
+  function renderCustomBlock(node: TypedObject, index: number, key: string, isInline: boolean, customProps: any) {
     const Node = components.types[node._type]
 
     const nodeOptions = {
