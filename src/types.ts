@@ -47,6 +47,13 @@ export interface PortableTextProps<
    * You rarely (if ever) need/want to customize this
    */
   listNestingMode?: ToolkitListNestMode
+
+  /**
+   * Additional custom props passed into the render method of each component.
+   * This is helpful for situations that require shared data, such as hook
+   * data.
+   */
+  customProps?: any
 }
 
 /**
@@ -223,6 +230,13 @@ export interface PortableTextComponentProps<T> {
    * to use this.
    */
   renderNode: NodeRenderer
+
+  /**
+   * Additional custom props passed into the render method of each component.
+   * This is helpful for situations that require shared data, such as hook
+   * data.
+   */
+  customProps?: any
 }
 
 /**
@@ -269,13 +283,20 @@ export interface PortableTextMarkComponentProps<M extends TypedObject = Arbitrar
    * to use this.
    */
   renderNode: NodeRenderer
+
+  /**
+   * Additional custom props passed into the render method of each component.
+   * This is helpful for situations that require shared data, such as hook
+   * data.
+   */
+  customProps?: any
 }
 
 /**
  * Any node type that we can't identify - eg it has an `_type`,
  * but we don't know anything about its other properties
  */
-export type UnknownNodeType = {[key: string]: unknown; _type: string} | TypedObject
+export type UnknownNodeType = {[key: string]: any; _type: string} | TypedObject
 
 /**
  * Function that renders any node that might appear in a portable text array or block,
@@ -295,6 +316,7 @@ export interface Serializable<T> {
   index: number
   isInline: boolean
   renderNode: NodeRenderer
+  customProps: any
 }
 
 export interface SerializedBlock {
@@ -303,6 +325,7 @@ export interface SerializedBlock {
   index: number
   isInline: boolean
   node: PortableTextBlock | PortableTextListItemBlock
+  customProps: any
 }
 
 // Re-exporting these as we don't want to refer to "toolkit" outside of this module

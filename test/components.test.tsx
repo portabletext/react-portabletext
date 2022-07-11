@@ -31,3 +31,29 @@ tap.test('can override unknown mark component', (t) => {
   )
   t.end()
 })
+
+tap.test('can receive custom props', (t) => {
+  const result = render({
+    value: {
+      _type: 'block',
+      children: [
+        {_type: 'span', text: 'simple'},
+      ],
+    },
+    components: {
+      block: {
+        normal: ({customProps}) => (
+          <span className="custom">
+            {customProps.text}
+          </span>
+        ),
+      },
+    },
+    customProps: {text: 'Hello World'}
+  })
+  t.same(
+    result,
+    '<span class="custom">Hello World</span>'
+  )
+  t.end()
+})
