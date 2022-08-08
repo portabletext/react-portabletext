@@ -352,7 +352,7 @@ tap.test('can register custom `missing component` handler', (t) => {
   render({value: input, onMissingComponent})
   t.same(
     warning,
-    'Unknown mark type "abc", specify a component for it in the `components.marks` prop'
+    '[@portabletext/react] Unknown mark type "abc", specify a component for it in the `components.marks` prop'
   )
   t.end()
 })
