@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.settings",
-  "include": ["./demo", "./package.config.ts", "./package.json", "./src"],
+  "include": ["./src"],
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "./dist",
@@ -8,7 +8,6 @@
     "lib": ["ES2016", "DOM"],
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
-    "resolveJsonModule": true
+    "jsx": "react"
   }
 }
