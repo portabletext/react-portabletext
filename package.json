@@ -16,6 +16,9 @@
     }
   },
   "sideEffects": false,
+  "engines": {
+    "node": "^14.13.1 || >=16.0.0"
+  },
   "files": [
     "dist",
     "!dist/stats.html",
@@ -42,39 +45,39 @@
   "author": "Sanity.io <hello@sanity.io>",
   "license": "MIT",
   "dependencies": {
-    "@portabletext/toolkit": "^1.0.5",
-    "@portabletext/types": "^1.0.3"
+    "@portabletext/toolkit": "^2.0.0",
+    "@portabletext/types": "^2.0.0"
   },
   "devDependencies": {
     "@sanity/pkg-utils": "^1.15.0",
-    "@sanity/ui": "^0.37.7",
-    "@types/leaflet": "^1.7.9",
-    "@types/react": "^17.0.44",
-    "@types/react-dom": "^17.0.15",
+    "@sanity/ui": "1.0.0-beta.32",
+    "@types/leaflet": "^1.9.0",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
     "@types/refractor": "^3.0.2",
-    "@types/styled-components": "^5.1.25",
-    "@types/tap": "^15.0.6",
+    "@types/styled-components": "^5.1.26",
+    "@types/tap": "^15.0.7",
     "@types/ws": "^8.5.3",
-    "@typescript-eslint/eslint-plugin": "^5.18.0",
-    "@typescript-eslint/parser": "^5.18.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
     "esbuild-register": "^3.3.2",
-    "eslint": "^8.13.0",
+    "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-sanity": "^6.0.0",
-    "eslint-plugin-react": "^7.29.4",
-    "leaflet": "^1.7.1",
+    "eslint-plugin-react": "^7.31.10",
+    "leaflet": "^1.9.2",
     "prettier": "^2.6.2",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "react-leaflet": "^3.2.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-leaflet": "^4.1.0",
     "react-refractor": "^2.1.7",
-    "refractor": "^3.6.0",
+    "refractor": "^4.8.0",
     "rimraf": "^3.0.2",
-    "rollup-plugin-visualizer": "^5.6.0",
-    "styled-components": "^5.3.5",
-    "tap": "^16.0.1",
+    "rollup-plugin-visualizer": "^5.8.3",
+    "styled-components": "^5.3.6",
+    "tap": "^16.3.0",
     "typescript": "^4.6.3",
-    "vite": "^2.9.1"
+    "vite": "^3.2.2"
   },
   "peerDependencies": {
     "react": "^17 || ^18"
