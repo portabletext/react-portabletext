@@ -1,4 +1,4 @@
-import React, {ReactNode, useContext, useMemo} from 'react'
+import React, {ReactNode, useMemo} from 'react'
 import {
   LIST_NEST_MODE_HTML,
   ToolkitNestedPortableTextSpan,
@@ -31,7 +31,7 @@ import type {
   TypedObject,
 } from '@portabletext/types'
 import {mergeComponents} from './components/merge'
-import {PortableTextComponentsContext} from './context'
+import {defaultComponents} from './components/defaults'
 import {
   printWarning,
   unknownBlockStyleWarning,
@@ -51,12 +51,11 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   const blocks = Array.isArray(input) ? input : [input]
   const nested = nestLists(blocks, listNestingMode || LIST_NEST_MODE_HTML)
 
-  const parentComponents = useContext(PortableTextComponentsContext)
   const components = useMemo(() => {
     return componentOverrides
-      ? mergeComponents(parentComponents, componentOverrides)
-      : parentComponents
-  }, [parentComponents, componentOverrides])
+      ? mergeComponents(defaultComponents, componentOverrides)
+      : defaultComponents
+  }, [componentOverrides])
 
   const renderNode = useMemo(
     () => getNodeRenderer(components, handleMissingComponent),
@@ -66,13 +65,7 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
     renderNode({node: node, index, isInline: false, renderNode})
   )
 
-  return componentOverrides ? (
-    <PortableTextComponentsContext.Provider value={components}>
-      {rendered}
-    </PortableTextComponentsContext.Provider>
-  ) : (
-    <>{rendered}</>
-  )
+  return <>{rendered}</>
 }
 
 const getNodeRenderer = (

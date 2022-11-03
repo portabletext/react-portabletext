@@ -29,11 +29,9 @@ The rendered HTML does not have any styling applied, so you will either render a
 
 ## Customizing components
 
-Default components are provided for all standard features of the Portable Text spec, with logical HTML defaults. You can pass an object of components to use, both to override the defaults and to provide components for your custom content types. This can be done in two ways:
+Default components are provided for all standard features of the Portable Text spec, with logical HTML defaults. You can pass an object of components to use, both to override the defaults and to provide components for your custom content types.
 
-### Passing a `components` prop
-
-This overrides/provides components on a per-use basis, and will be merged with the defaults. In other words, you only need to provide the things you want to override.
+Provided components will be merged with the defaults. In other words, you only need to provide the things you want to override.
 
 **Note**: Make sure the object does not change on every render - eg do not create the object within a React component, or if you do, use `useMemo` to ensure referential identity between renders for better performance.
 
@@ -63,34 +61,6 @@ const myPortableTextComponents = {
 
 const YourComponent = (props) => {
   return <PortableText value={props.value} components={myPortableTextComponents} />
-}
-```
-
-### Using a React context
-
-You can also use the `<PortableTextComponentsProvider>` to provide the same set of components to all `<PortableText>` instances below it in the tree.
-
-This is useful for recursive rendering as well as in cases where you have the same configuration for all/most uses.
-
-When using the context, the passed components gets merged with the defaults - you only need to provide overrides and components for custom types.
-
-**Note**: Make sure the object does not change on every render - eg do not create the object within a React component, or if you do, use `useMemo` to ensure referential identity between renders for better performance.
-
-```js
-import {PortableTextComponentsProvider, PortableText} from '@portabletext/react'
-
-const YourComponent = (props) => {
-  return (
-    <PortableTextComponentsProvider components={myPortableTextComponents}>
-      {/* The 2 PortableText instances below will receive the same custom components */}
-      <div className="main-content">
-        <PortableText value={somePortableTextInput} />
-      </div>
-      <div className="editor-notice">
-        <PortableText value={somePortableTextInput2} />
-      </div>
-    </PortableTextComponentsProvider>
-  )
 }
 ```
 
@@ -193,7 +163,9 @@ const components = {
     blockquote: ({children}) => <blockquote className="border-l-purple-500">{children}</blockquote>,
 
     // Ex. 2: rendering custom styles
-    customHeading: ({children}) => <h2 className="text-lg text-primary text-purple-700">{children}</h2>,
+    customHeading: ({children}) => (
+      <h2 className="text-lg text-primary text-purple-700">{children}</h2>
+    ),
   },
 }
 ```
@@ -267,7 +239,7 @@ React component used when encountering a list item style there is no registered 
 
 ## Disabling warnings / handling unknown types
 
-When the library encounters a block, mark, list or list item with a type that is not known (eg it has no corresponding component in the `components` property or context), it will by default print a console warning.
+When the library encounters a block, mark, list or list item with a type that is not known (eg it has no corresponding component in the `components` property), it will by default print a console warning.
 
 To disable this behavior, you can either pass `false` to the `onMissingComponent` property, or give it a custom function you want to use to report the error. For instance:
 
