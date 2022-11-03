@@ -1,3 +1,9 @@
+# Migrating to @portabletext/react v2
+
+`@portabletext/react@1` allowed configuring custom components through React context. In v2, this functionality has been removed in order to allow using the component with [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) (RSC).
+
+If you were previously using the context provider, we now suggest creating a "wrapper component" (eg predefines which React components to use), or defining your own context that holds the components.
+
 # Migrating from @sanity/block-content-to-react to @portabletext/react
 
 This document outlines the differences between [@portabletext/react](https://www.npmjs.com/package/@portabletext/react) and [@sanity/block-content-to-react](https://www.npmjs.com/package/@sanity/block-content-to-react) so you can adjust your code to use the newer @portabletext/react.
@@ -119,7 +125,7 @@ We've seen the community have vastly different preferences on how images should 
 
 ```jsx
 import urlBuilder from '@sanity/image-url'
-import { getImageDimensions } from '@sanity/asset-utils'
+import {getImageDimensions} from '@sanity/asset-utils'
 
 // Barebones lazy-loaded image component
 const SampleImageComponent = ({value}) => {
