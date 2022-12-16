@@ -4,16 +4,17 @@
   "description": "Render Portable Text with React",
   "types": "./dist/react-portable-text.d.ts",
   "source": "./src/index.ts",
-  "module": "./dist/react-portable-text.esm.js",
-  "main": "./dist/react-portable-text.js",
+  "module": "./dist/react-portable-text.js",
+  "main": "./dist/react-portable-text.cjs",
   "exports": {
     ".": {
       "types": "./dist/react-portable-text.d.ts",
       "source": "./src/index.ts",
-      "import": "./dist/react-portable-text.esm.js",
-      "require": "./dist/react-portable-text.js",
-      "default": "./dist/react-portable-text.esm.js"
-    }
+      "import": "./dist/react-portable-text.js",
+      "require": "./dist/react-portable-text.cjs",
+      "default": "./dist/react-portable-text.js"
+    },
+    "./package.json": "./package.json"
   },
   "sideEffects": false,
   "engines": {
@@ -24,6 +25,7 @@
     "!dist/stats.html",
     "src"
   ],
+  "type": "module",
   "scripts": {
     "lint": "eslint . && tsc --noEmit",
     "prepublishOnly": "npm run build && npm run lint",
