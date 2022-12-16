@@ -50,5 +50,4 @@ package-lock.json
 .cache
 
 # Compiled portable text library + demo
-/dist
 /demo/dist
