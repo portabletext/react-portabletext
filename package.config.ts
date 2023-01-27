@@ -10,7 +10,7 @@ export default defineConfig({
     },
   },
 
-  minify: false,
+  legacyExports: true,
 
   rollup: {
     plugins: [
@@ -23,5 +23,5 @@ export default defineConfig({
     ],
   },
 
-  tsconfig: 'tsconfig.dist.json'
+  tsconfig: 'tsconfig.dist.json',
 })

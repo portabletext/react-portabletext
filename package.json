@@ -10,10 +10,15 @@
     ".": {
       "types": "./dist/react-portable-text.d.ts",
       "source": "./src/index.ts",
-      "import": "./dist/react-portable-text.esm.js",
       "require": "./dist/react-portable-text.js",
+      "node": {
+        "import": "./dist/react-portable-text.cjs.mjs",
+        "require": "./dist/react-portable-text.js"
+      },
+      "import": "./dist/react-portable-text.esm.js",
       "default": "./dist/react-portable-text.esm.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "sideEffects": false,
   "engines": {
@@ -49,7 +54,7 @@
     "@portabletext/types": "^2.0.0"
   },
   "devDependencies": {
-    "@sanity/pkg-utils": "^1.15.0",
+    "@sanity/pkg-utils": "^2.2.3",
     "@sanity/ui": "1.0.0-beta.32",
     "@types/leaflet": "^1.9.0",
     "@types/react": "^18.0.24",
