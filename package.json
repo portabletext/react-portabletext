@@ -1,6 +1,6 @@
 {
   "name": "@portabletext/react",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Render Portable Text with React",
   "types": "./dist/react-portable-text.d.ts",
   "source": "./src/index.ts",
