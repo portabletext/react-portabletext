@@ -2,10 +2,20 @@
   "name": "@portabletext/react",
   "version": "2.0.1",
   "description": "Render Portable Text with React",
-  "types": "./dist/react-portable-text.d.ts",
-  "source": "./src/index.ts",
-  "module": "./dist/react-portable-text.esm.js",
-  "main": "./dist/react-portable-text.js",
+  "keywords": [
+    "portable-text"
+  ],
+  "homepage": "https://github.com/portabletext/react-portabletext#readme",
+  "bugs": {
+    "url": "https://github.com/portabletext/react-portabletext/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/portabletext/react-portabletext.git"
+  },
+  "license": "MIT",
+  "author": "Sanity.io <hello@sanity.io>",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/react-portable-text.d.ts",
@@ -20,41 +30,95 @@
     },
     "./package.json": "./package.json"
   },
-  "sideEffects": false,
-  "engines": {
-    "node": "^14.13.1 || >=16.0.0"
-  },
+  "main": "./dist/react-portable-text.js",
+  "module": "./dist/react-portable-text.esm.js",
+  "source": "./src/index.ts",
+  "types": "./dist/react-portable-text.d.ts",
   "files": [
     "dist",
     "!dist/stats.html",
     "src"
   ],
   "scripts": {
-    "lint": "eslint . && tsc --noEmit",
-    "prepublishOnly": "npm run build && npm run lint",
+    "build": "rimraf dist && pkg-utils build --strict && pkg-utils --strict",
     "build:demo": "vite build demo --config=./vite.config.demo.ts --base=/react-portabletext/",
-    "build": "rimraf dist && pkg-utils build && pkg-utils --strict",
     "dev": "vite demo",
-    "start": "vite demo",
-    "test": "tap test/*.test.*",
+    "lint": "eslint . && tsc --noEmit",
+    "prepare": "husky install",
+    "prepublishOnly": "run-s build lint",
     "prettify": "prettier --write src/**/*.ts src/**/*.tsx test/**/*.ts test/**/*.tsx",
-    "prettify-check": "prettier --check src/**/*.ts src/**/*.tsx test/**/*.ts test/**/*.tsx"
+    "prettify-check": "prettier --check src/**/*.ts src/**/*.tsx test/**/*.ts test/**/*.tsx",
+    "start": "vite demo",
+    "test": "tap test/*.test.*"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/portabletext/react-portabletext.git"
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
-  "keywords": [
-    "portable-text"
-  ],
-  "author": "Sanity.io <hello@sanity.io>",
-  "license": "MIT",
+  "lint-staged": {
+    "*": [
+      "prettier --write --cache --ignore-unknown"
+    ]
+  },
+  "prettier": {
+    "bracketSpacing": false,
+    "plugins": [
+      "prettier-plugin-packagejson"
+    ],
+    "printWidth": 100,
+    "semi": false,
+    "singleQuote": true
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaFeatures": {
+        "modules": true
+      },
+      "ecmaVersion": 9,
+      "sourceType": "module"
+    },
+    "extends": [
+      "sanity",
+      "sanity/react",
+      "sanity/typescript",
+      "prettier"
+    ],
+    "ignorePatterns": [
+      "dist/**/"
+    ]
+  },
+  "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "main",
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
+      }
+    ],
+    "extends": "@sanity/semantic-release-preset"
+  },
+  "tap": {
+    "check-coverage": false,
+    "node-arg": [
+      "-r",
+      "esbuild-register"
+    ]
+  },
   "dependencies": {
     "@portabletext/toolkit": "^2.0.0",
     "@portabletext/types": "^2.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "@sanity/pkg-utils": "^2.2.3",
+    "@sanity/semantic-release-preset": "^4.0.0",
     "@sanity/ui": "1.0.0-beta.32",
     "@types/leaflet": "^1.9.0",
     "@types/react": "^18.0.24",
@@ -65,20 +129,28 @@
     "@types/ws": "^8.5.3",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
-    "esbuild-register": "^3.3.2",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "esbuild": "^0.17.5",
+    "esbuild-register": "^3.4.2",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-sanity": "^6.0.0",
     "eslint-plugin-react": "^7.31.10",
+    "husky": "^8.0.3",
     "leaflet": "^1.9.2",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2",
+    "prettier-plugin-packagejson": "^2.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-is": "^18.2.0",
     "react-leaflet": "^4.1.0",
     "react-refractor": "^2.1.7",
     "refractor": "^4.8.0",
     "rimraf": "^3.0.2",
     "rollup-plugin-visualizer": "^5.8.3",
+    "semantic-release": "^20.0.4",
     "styled-components": "^5.3.6",
     "tap": "^16.3.0",
     "typescript": "^4.6.3",
@@ -87,39 +159,11 @@
   "peerDependencies": {
     "react": "^17 || ^18"
   },
-  "bugs": {
-    "url": "https://github.com/portabletext/react-portabletext/issues"
+  "packageManager": "pnpm@7.26.2",
+  "engines": {
+    "node": "^14.13.1 || >=16.0.0"
   },
-  "homepage": "https://github.com/portabletext/react-portabletext#readme",
-  "prettier": {
-    "semi": false,
-    "printWidth": 100,
-    "bracketSpacing": false,
-    "singleQuote": true
-  },
-  "eslintConfig": {
-    "parserOptions": {
-      "ecmaVersion": 9,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "modules": true
-      }
-    },
-    "extends": [
-      "sanity",
-      "sanity/react",
-      "sanity/typescript",
-      "prettier"
-    ],
-    "ignorePatterns": [
-      "lib/**/"
-    ]
-  },
-  "tap": {
-    "node-arg": [
-      "-r",
-      "esbuild-register"
-    ],
-    "check-coverage": false
+  "publishConfig": {
+    "access": "public"
   }
 }
