@@ -1,0 +1,57 @@
+name: CI & Release
+
+on:
+  push:
+  pull_request:
+    branches:
+      - alpha
+      - beta
+      - main
+
+jobs:
+  test:
+    runs-on: ${{ matrix.platform }}
+    name: Node.js ${{ matrix.node-version }} / ${{ matrix.platform }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest, macos-latest]
+        node-version: [lts/*, current]
+    steps:
+      - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
+      - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm i pnpm@latest -g
+      - run: pnpm install
+      - run: pnpm test
+      - run: pnpm lint
+
+  release:
+    name: 'Semantic release'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
+        with:
+          # Need to fetch entire commit history to
+          # analyze every commit since last release
+          fetch-depth: 0
+      - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3
+        with:
+          node-version: lts/*
+      - run: npm i pnpm@latest -g
+      - run: pnpm install
+      # Branches that will release new versions are defined in .releaserc.json
+      - run: pnpm exec semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+      # Build demo
+      - run: npm run build:demo
+      # Deploy demo
+      - uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./demo/dist
