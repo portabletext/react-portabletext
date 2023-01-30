@@ -90,7 +90,7 @@ const BlockRenderer = (props) => {
   return BlockContent.defaultSerializers.types.block(props)
 }
 
-<BlockContent blocks={input} serializers={{types: {block: BlockRenderer}}} />
+;<BlockContent blocks={input} serializers={{types: {block: BlockRenderer}}} />
 ```
 
 You are now able to provide different React components for different block styles - handy if you just want to override the rendering of headings, but not other styles, for instance.
@@ -144,7 +144,7 @@ const SampleImageComponent = ({value}) => {
 }
 
 // You'll now need to define your own image component
-<PortableText
+;<PortableText
   value={input}
   components={{
     // ...

@@ -1,0 +1,5 @@
+.nyc_output
+dist
+pnpm-lock.yaml
+tap-snapshots
+demo/dist
