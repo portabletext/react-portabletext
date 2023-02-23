@@ -1,6 +1,6 @@
 # @portabletext/react
 
-[![npm version](https://img.shields.io/npm/v/@portabletext/react.svg?style=flat-square)](https://www.npmjs.com/package/@portabletext/react)[![npm bundle size](https://img.shields.io/bundlephobia/minzip/@portabletext/react?style=flat-square)](https://bundlephobia.com/result?p=@portabletext/react)[![Build Status](https://img.shields.io/github/actions/workflow/status/portabletext/react-portabletext/test.yml?branch=main&style=flat-square)](https://github.com/portabletext/react-portabletext/actions?query=workflow%3Atest)
+[![npm version](https://img.shields.io/npm/v/@portabletext/react.svg?style=flat-square)](https://www.npmjs.com/package/@portabletext/react)[![npm bundle size](https://img.shields.io/bundlephobia/minzip/@portabletext/react?style=flat-square)](https://bundlephobia.com/result?p=@portabletext/react)[![Build Status](https://img.shields.io/github/actions/workflow/status/portabletext/react-portabletext/main.yml?branch=main&style=flat-square)](https://github.com/portabletext/react-portabletext/actions?query=workflow%3Atest)
 
 Render [Portable Text](https://portabletext.org/) with React.
 
