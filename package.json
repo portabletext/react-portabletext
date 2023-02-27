@@ -156,7 +156,7 @@
     "semantic-release": "^20.0.4",
     "styled-components": "^5.3.6",
     "tap": "^16.3.0",
-    "typescript": "^4.6.3",
+    "typescript": "^4.9.5",
     "vite": "^3.2.2"
   },
   "peerDependencies": {
