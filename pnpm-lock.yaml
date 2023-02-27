@@ -1,48 +1,48 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@commitlint/cli': ^17.4.2
-  '@commitlint/config-conventional': ^17.4.2
+  '@commitlint/cli': ^17.4.4
+  '@commitlint/config-conventional': ^17.4.4
   '@portabletext/toolkit': ^2.0.0
   '@portabletext/types': ^2.0.0
-  '@sanity/pkg-utils': ^2.2.3
+  '@sanity/pkg-utils': ^2.2.6
   '@sanity/semantic-release-preset': ^4.0.0
-  '@sanity/ui': 1.0.0-beta.32
-  '@types/leaflet': ^1.9.0
-  '@types/react': ^18.0.24
-  '@types/react-dom': ^18.0.8
+  '@sanity/ui': 1.2.5
+  '@types/leaflet': ^1.9.1
+  '@types/react': ^18.0.28
+  '@types/react-dom': ^18.0.11
   '@types/refractor': ^3.0.2
   '@types/styled-components': ^5.1.26
-  '@types/tap': ^15.0.7
-  '@types/ws': ^8.5.3
-  '@typescript-eslint/eslint-plugin': ^5.42.0
-  '@typescript-eslint/parser': ^5.42.0
+  '@types/tap': ^15.0.8
+  '@types/ws': ^8.5.4
+  '@typescript-eslint/eslint-plugin': ^5.53.0
+  '@typescript-eslint/parser': ^5.53.0
   commitizen: ^4.3.0
   cz-conventional-changelog: ^3.3.0
-  esbuild: ^0.17.5
+  esbuild: ^0.17.10
   esbuild-register: ^3.4.2
-  eslint: ^8.26.0
-  eslint-config-prettier: ^8.5.0
+  eslint: ^8.35.0
+  eslint-config-prettier: ^8.6.0
   eslint-config-sanity: ^6.0.0
-  eslint-plugin-react: ^7.31.10
+  eslint-plugin-react: ^7.32.2
   husky: ^8.0.3
-  leaflet: ^1.9.2
+  leaflet: ^1.9.3
   npm-run-all: ^4.1.5
-  prettier: ^2.6.2
-  prettier-plugin-packagejson: ^2.4.2
+  prettier: ^2.8.4
+  prettier-plugin-packagejson: ^2.4.3
   react: ^18.2.0
   react-dom: ^18.2.0
   react-is: ^18.2.0
-  react-leaflet: ^4.1.0
+  react-leaflet: ^4.2.0
   react-refractor: ^2.1.7
   refractor: ^4.8.0
   rimraf: ^3.0.2
-  rollup-plugin-visualizer: ^5.8.3
-  semantic-release: ^20.0.4
+  rollup-plugin-visualizer: ^5.9.0
+  semantic-release: ^20.1.0
   styled-components: ^5.3.6
-  tap: ^16.3.0
+  tap: ^16.3.4
   typescript: ^4.9.5
-  vite: ^3.2.2
+  vite: ^3.2.5
 
 dependencies:
   '@portabletext/toolkit': 2.0.1
@@ -53,7 +53,7 @@ devDependencies:
   '@commitlint/config-conventional': 17.4.4
   '@sanity/pkg-utils': 2.2.6_typescript@4.9.5
   '@sanity/semantic-release-preset': 4.0.0_semantic-release@20.1.0
-  '@sanity/ui': 1.0.0-beta.32_23mhwjhnzfjwvdn7ol54k26zom
+  '@sanity/ui': 1.2.5_23mhwjhnzfjwvdn7ol54k26zom
   '@types/leaflet': 1.9.1
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -1867,53 +1867,6 @@ packages:
     resolution: {integrity: sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==}
     dev: true
 
-  /@motionone/animation/10.15.1:
-    resolution: {integrity: sha512-mZcJxLjHor+bhcPuIFErMDNyrdb2vJur8lSfMCsuCB4UyV8ILZLvK+t+pg56erv8ud9xQGK/1OGPt10agPrCyQ==}
-    dependencies:
-      '@motionone/easing': 10.15.1
-      '@motionone/types': 10.15.1
-      '@motionone/utils': 10.15.1
-      tslib: 2.4.0
-    dev: true
-
-  /@motionone/dom/10.15.5:
-    resolution: {integrity: sha512-Xc5avlgyh3xukU9tydh9+8mB8+2zAq+WlLsC3eEIp7Ax7DnXgY7Bj/iv0a4X2R9z9ZFZiaXK3BO0xMYHKbAAdA==}
-    dependencies:
-      '@motionone/animation': 10.15.1
-      '@motionone/generators': 10.15.1
-      '@motionone/types': 10.15.1
-      '@motionone/utils': 10.15.1
-      hey-listen: 1.0.8
-      tslib: 2.4.0
-    dev: true
-
-  /@motionone/easing/10.15.1:
-    resolution: {integrity: sha512-6hIHBSV+ZVehf9dcKZLT7p5PEKHGhDwky2k8RKkmOvUoYP3S+dXsKupyZpqx5apjd9f+php4vXk4LuS+ADsrWw==}
-    dependencies:
-      '@motionone/utils': 10.15.1
-      tslib: 2.4.0
-    dev: true
-
-  /@motionone/generators/10.15.1:
-    resolution: {integrity: sha512-67HLsvHJbw6cIbLA/o+gsm7h+6D4Sn7AUrB/GPxvujse1cGZ38F5H7DzoH7PhX+sjvtDnt2IhFYF2Zp1QTMKWQ==}
-    dependencies:
-      '@motionone/types': 10.15.1
-      '@motionone/utils': 10.15.1
-      tslib: 2.4.0
-    dev: true
-
-  /@motionone/types/10.15.1:
-    resolution: {integrity: sha512-iIUd/EgUsRZGrvW0jqdst8st7zKTzS9EsKkP+6c6n4MPZoQHwiHuVtTQLD6Kp0bsBLhNzKIBlHXponn/SDT4hA==}
-    dev: true
-
-  /@motionone/utils/10.15.1:
-    resolution: {integrity: sha512-p0YncgU+iklvYr/Dq4NobTRdAPv9PveRDUXabPEeOjBLSO/1FNB2phNTZxOxpi1/GZwYpAoECEa0Wam+nsmhSw==}
-    dependencies:
-      '@motionone/types': 10.15.1
-      hey-listen: 1.0.8
-      tslib: 2.4.0
-    dev: true
-
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -2260,12 +2213,13 @@ packages:
       string-argv: 0.3.1
     dev: true
 
-  /@sanity/color/2.1.19-beta.3:
-    resolution: {integrity: sha512-421F+o3BbumkPzj93wsM9VXeX4wuhrXp/B/AHVuB0uXWLEGYnrY2mBzRU44fsZGQWW4fgy139B5eV5orFzYJkA==}
+  /@sanity/color/2.2.3:
+    resolution: {integrity: sha512-b4e6JAHHa/tKpAnLOAHaJyNEHO1l/g2oecN22FWkhTAuKCINPNhPeoeUn5rK5ngKzbXrvynBd/h2849lld3FRg==}
     dev: true
 
-  /@sanity/icons/1.3.9-beta.3_react@18.2.0:
-    resolution: {integrity: sha512-IHacaR96czI6402cBlkiKqmi7AASj3jLVYZ8dTD9caRGi0Dp7eJzI9RFp0ptJNxQYdYbZCZu0D/oEdhJfHEMGA==}
+  /@sanity/icons/2.2.2_react@18.2.0:
+    resolution: {integrity: sha512-+Ks6LeYe44kjZSfcWFWj0zQRP48N3JisrZ9ia44QwG11y6bO9Wk8bfhu5o23FkyYrREu9CzQ0U+slSV7YsvcuQ==}
+    engines: {node: '>=14.0.0'}
     peerDependencies:
       react: ^18
     dependencies:
@@ -2335,8 +2289,9 @@ packages:
       - supports-color
     dev: true
 
-  /@sanity/ui/1.0.0-beta.32_23mhwjhnzfjwvdn7ol54k26zom:
-    resolution: {integrity: sha512-mzJXwdevJr/LAPnXHFnkhs4fXEuS7uDQqnvPRdX9t76GG9diyW5TOBemsujuFk4qFRKRUzgFDM3CyqllWbL2zw==}
+  /@sanity/ui/1.2.5_23mhwjhnzfjwvdn7ol54k26zom:
+    resolution: {integrity: sha512-4DJNpmZMTrZQSLF8L8FyDjd99F6ovbIbcr0B/83S75zPX36ztgPjVdmdZQVMD7c1QNL+NqLt29fu60hzYM1Ijw==}
+    engines: {node: '>=14.0.0'}
     peerDependencies:
       react: ^18
       react-dom: ^18
@@ -2344,9 +2299,10 @@ packages:
       styled-components: ^5.2
     dependencies:
       '@floating-ui/react-dom': 1.3.0_biqbaboplfbrettd7655fr4n2y
-      '@sanity/color': 2.1.19-beta.3
-      '@sanity/icons': 1.3.9-beta.3_react@18.2.0
-      framer-motion: 7.10.3_biqbaboplfbrettd7655fr4n2y
+      '@sanity/color': 2.2.3
+      '@sanity/icons': 2.2.2_react@18.2.0
+      csstype: 3.1.1
+      framer-motion: 9.1.7_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-is: 18.2.0
@@ -4517,17 +4473,15 @@ packages:
       signal-exit: 3.0.7
     dev: true
 
-  /framer-motion/7.10.3_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-k2ccYeZNSpPg//HTaqrU+4pRq9f9ZpaaN7rr0+Rx5zA4wZLbk547wtDzge2db1sB+1mnJ6r59P4xb+aEIi/W+w==}
+  /framer-motion/9.1.7_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-nKxBkIO4IPkMEqcBbbATxsVjwPYShKl051yhBv9628iAH6JLeHD0siBHxkL62oQzMC1+GNX73XtPjgP753ufuw==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
     dependencies:
-      '@motionone/dom': 10.15.5
-      hey-listen: 1.0.8
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      tslib: 2.4.0
+      tslib: 2.5.0
     optionalDependencies:
       '@emotion/is-prop-valid': 0.8.8
     dev: true
@@ -4897,10 +4851,6 @@ packages:
       hast-util-parse-selector: 3.1.1
       property-information: 6.2.0
       space-separated-tokens: 2.0.2
-    dev: true
-
-  /hey-listen/1.0.8:
-    resolution: {integrity: sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==}
     dev: true
 
   /hoist-non-react-statics/3.3.2:
@@ -7834,10 +7784,6 @@ packages:
 
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
-    dev: true
-
-  /tslib/2.4.0:
-    resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
     dev: true
 
   /tslib/2.5.0:
