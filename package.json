@@ -151,7 +151,7 @@
     "react-leaflet": "^4.2.0",
     "react-refractor": "^2.1.7",
     "refractor": "^4.8.0",
-    "rimraf": "^3.0.2",
+    "rimraf": "^4.1.2",
     "rollup-plugin-visualizer": "^5.9.0",
     "semantic-release": "^20.1.0",
     "styled-components": "^5.3.6",
