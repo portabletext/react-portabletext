@@ -114,8 +114,8 @@
     ]
   },
   "dependencies": {
-    "@portabletext/toolkit": "^2.0.0",
-    "@portabletext/types": "^2.0.0"
+    "@portabletext/toolkit": "^2.0.1",
+    "@portabletext/types": "^2.0.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",

@@ -3,8 +3,8 @@ lockfileVersion: 5.4
 specifiers:
   '@commitlint/cli': ^17.4.4
   '@commitlint/config-conventional': ^17.4.4
-  '@portabletext/toolkit': ^2.0.0
-  '@portabletext/types': ^2.0.0
+  '@portabletext/toolkit': ^2.0.1
+  '@portabletext/types': ^2.0.2
   '@sanity/pkg-utils': ^2.2.6
   '@sanity/semantic-release-preset': ^4.0.0
   '@sanity/ui': 1.2.5
