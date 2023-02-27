@@ -162,7 +162,7 @@
   "peerDependencies": {
     "react": "^17 || ^18"
   },
-  "packageManager": "pnpm@7.26.2",
+  "packageManager": "pnpm@7.28.0",
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
   },
