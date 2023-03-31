@@ -88,7 +88,7 @@ const getNodeRenderer = (
       return renderSpan(node, index, key)
     }
 
-    if (isPortableTextBlock(node)) {
+    if (node._type === 'block' && isPortableTextBlock(node)) {
       return renderBlock(node, index, key, isInline)
     }
 
