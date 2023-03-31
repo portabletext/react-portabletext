@@ -310,6 +310,41 @@ tap.test('can specify custom component for custom block types', (t) => {
   t.end()
 })
 
+tap.test('can specify custom component for custom block types with children', (t) => {
+  const {input, output} = fixtures.customBlockTypeWithChildren
+  const types: Partial<PortableTextReactComponents>['types'] = {
+    quote: ({renderNode, ...props}) => {
+      t.same(props, {
+        value: {
+          _type: 'quote',
+          _key: '9a15ea2ed8a2',
+          background: 'blue',
+          children: [
+            {
+              _type: 'span',
+              _key: '9a15ea2ed8a2',
+              text: 'This is an inspirational quote',
+            },
+          ],
+        },
+        index: 0,
+        isInline: false,
+      })
+
+      return (
+        <p style={{background: props.value.background}}>
+          {props.value.children.map(({text}) => (
+            <React.Fragment key={text}>Customers say: {text}</React.Fragment>
+          ))}
+        </p>
+      )
+    },
+  }
+  const result = render({value: input, components: {types}})
+  t.same(result, output)
+  t.end()
+})
+
 tap.test('can specify custom components for custom marks', (t) => {
   const {input, output} = fixtures.customMarks
   const highlight: PortableTextMarkComponent<{_type: 'highlight'; thickness: number}> = ({
