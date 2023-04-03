@@ -88,7 +88,11 @@ const getNodeRenderer = (
       return renderSpan(node, index, key)
     }
 
-    if (node._type === 'block' && isPortableTextBlock(node)) {
+    if (hasCustomComponentForNode(node)) {
+      return renderCustomBlock(node, index, key, isInline)
+    }
+
+    if (isPortableTextBlock(node)) {
       return renderBlock(node, index, key, isInline)
     }
 
@@ -96,7 +100,11 @@ const getNodeRenderer = (
       return renderText(node, key)
     }
 
-    return renderCustomBlock(node, index, key, isInline)
+    return renderUnknownType(node, index, key, isInline)
+  }
+
+  function hasCustomComponentForNode(node: TypedObject): boolean {
+    return node._type in components.types
   }
 
   /* eslint-disable react/jsx-no-bind */
@@ -209,9 +217,7 @@ const getNodeRenderer = (
     return node.text
   }
 
-  function renderCustomBlock(node: TypedObject, index: number, key: string, isInline: boolean) {
-    const Node = components.types[node._type]
-
+  function renderUnknownType(node: TypedObject, index: number, key: string, isInline: boolean) {
     const nodeOptions = {
       value: node,
       isInline,
@@ -219,14 +225,22 @@ const getNodeRenderer = (
       renderNode,
     }
 
-    if (Node) {
-      return <Node key={key} {...nodeOptions} />
-    }
-
     handleMissingComponent(unknownTypeWarning(node._type), {nodeType: 'block', type: node._type})
 
     const UnknownType = components.unknownType
     return <UnknownType key={key} {...nodeOptions} />
+  }
+
+  function renderCustomBlock(node: TypedObject, index: number, key: string, isInline: boolean) {
+    const nodeOptions = {
+      value: node,
+      isInline,
+      index,
+      renderNode,
+    }
+
+    const Node = components.types[node._type]
+    return Node ? <Node key={key} {...nodeOptions} /> : null
   }
   /* eslint-enable react/jsx-no-bind */
 

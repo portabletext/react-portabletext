@@ -24,11 +24,11 @@ import inlineBlockWithText from './026-inline-block-with-text'
 import styledListItems from './027-styled-list-items'
 import customListItemType from './028-custom-list-item-type'
 import customBlockType from './050-custom-block-type'
-import customBlockTypeWithChildren from './062-custom-block-type-with-children'
 import customMarks from './052-custom-marks'
 import overrideDefaultMarks from './053-override-default-marks'
 import listIssue from './060-list-issue'
 import missingMarkComponent from './061-missing-mark-component'
+import customBlockTypeWithChildren from './062-custom-block-type-with-children'
 
 export {
   emptyBlock,
