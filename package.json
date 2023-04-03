@@ -42,7 +42,7 @@
   "scripts": {
     "build": "run-s clean pkg:build pkg:check",
     "build:demo": "vite build demo --config=./vite.config.demo.ts --base=/react-portabletext/",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist coverage .nyc_output",
     "dev": "vite demo",
     "format": "prettier --write --cache --ignore-unknown .",
     "lint": "eslint .",
