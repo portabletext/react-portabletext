@@ -5,6 +5,24 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0](https://github.com/portabletext/react-portabletext/compare/v2.0.3...v3.0.0) (2023-04-26)
+
+### ⚠ BREAKING CHANGES
+
+- Components defined in `components.types` will now be used even
+  if the data shape appears to be a portable text block. In past versions, data
+  shapes that appeared to be portable text blocks would always be rendered using
+  the default block renderer, with no way of overriding how they would be
+  rendered.
+
+### Features
+
+- allow specifying custom component for block-like types ([6407839](https://github.com/portabletext/react-portabletext/commit/6407839fd9042bec6b77d21e62833ecd5b88bcc5))
+
+### Bug Fixes
+
+- confirm a \_type of "block" when using the basic block renderer ([75f1ec4](https://github.com/portabletext/react-portabletext/commit/75f1ec4dcbdd6f9a5c80cfcd6872bb27c57d9770))
+
 ## [2.0.3](https://github.com/portabletext/react-portabletext/compare/v2.0.2...v2.0.3) (2023-04-20)
 
 ### Bug Fixes
