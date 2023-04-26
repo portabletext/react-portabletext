@@ -128,7 +128,7 @@ If the mark is a decorator, the component will receive a `markType` prop which h
 
 The component also receives a `children` prop that should (usually) be returned in whatever parent container component makes sense for this mark (eg `<a>`, `<em>`).
 
-```jsx
+```tsx
 // `components` object you'll pass to PortableText w/ optional TS definition
 import {PortableTextComponents} from '@portabletext/react'
 
@@ -243,7 +243,7 @@ When the library encounters a block, mark, list or list item with a type that is
 
 To disable this behavior, you can either pass `false` to the `onMissingComponent` property, or give it a custom function you want to use to report the error. For instance:
 
-```jsx
+```tsx
 import {PortableText} from '@portabletext/react'
 
 <PortableText
@@ -283,7 +283,7 @@ const MetaDescription = (myPortableTextData) => {
 
 Or to generate element IDs for headers, in order for them to be linkable:
 
-```jsx
+```tsx
 import {PortableText, toPlainText, PortableTextComponents} from '@portabletext/react'
 import slugify from 'slugify'
 
