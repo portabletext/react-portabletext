@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/portabletext/react-portabletext/compare/v3.0.0...v3.0.1) (2023-05-31)
+
+### Bug Fixes
+
+- **docs:** added Typescript typing example ([631b3dc](https://github.com/portabletext/react-portabletext/commit/631b3dc1a08cd069ecaefa99962492c471ecfbdc))
+
 ## [3.0.0](https://github.com/portabletext/react-portabletext/compare/v2.0.3...v3.0.0) (2023-04-26)
 
 ### ⚠ BREAKING CHANGES
