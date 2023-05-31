@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.2](https://github.com/portabletext/react-portabletext/compare/v3.0.1...v3.0.2) (2023-05-31)
+
+### Bug Fixes
+
+- package should now work with Sanity Studio v2 ([bee2567](https://github.com/portabletext/react-portabletext/commit/bee25677374e05748a15439c492cbe69b6e9ee75))
+
 ## [3.0.1](https://github.com/portabletext/react-portabletext/compare/v3.0.0...v3.0.1) (2023-05-31)
 
 ### Bug Fixes
