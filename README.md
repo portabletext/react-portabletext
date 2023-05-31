@@ -6,6 +6,24 @@ Render [Portable Text](https://portabletext.org/) with React.
 
 Migrating from [@sanity/block-content-to-react](https://www.npmjs.com/package/@sanity/block-content-to-react)? Refer to the [migration docs](https://github.com/portabletext/react-portabletext/blob/main/MIGRATING.md).
 
+## Table of contents
+
+* [Installation](#installation)
+* [Basic usage](#basic-usage)
+* [Styling](#styling-the-output)
+* [Customizing components](#customizing-components)
+* [Available components](#available-components)
+  * [types](#types)
+  * [marks](#marks)
+  * [block](#block)
+  * [list](#list)
+  * [listItem](#listItem)
+  * [hardBreak](#hardBreak)
+  * [unknown components](#unknownMark)
+* [Disable warnings / Handling unknown types](#disabling-warnings--handling-unknown-types)
+* [Rendering Plain Text](#rendering-plain-text)
+* [Typing Portable Text](#typing-portable-text)
+
 ## Installation
 
 ```
@@ -297,6 +315,97 @@ const components: PortableTextComponents = {
   block: {
     h2: LinkableHeader,
   },
+}
+```
+
+## Typing Portable Text
+
+Portable Text data can be typed using the `@portabletext/types` package.
+
+### Basic usage
+
+Use `PortableTextBlock` without generics for loosely typed defaults.
+
+```ts
+import {PortableTextBlock} from '@portabletext/types'
+
+interface MySanityDocument {
+  portableTextField: (PortableTextBlock | SomeBlockType)[]
+}
+```
+
+### Narrow types, marks, inline-blocks and lists
+
+`PortableTextBlock` supports generics, and has the following signature:
+
+```ts
+interface PortableTextBlock<
+  M extends PortableTextMarkDefinition = PortableTextMarkDefinition,
+  C extends TypedObject = ArbitraryTypedObject | PortableTextSpan,
+  S extends string = PortableTextBlockStyle,
+  L extends string = PortableTextListItemType
+> {}
+```
+
+Create your own, narrowed Portable text type:
+
+```ts
+
+import {PortableTextBlock, PortableTextMarkDefinition, PortableTextSpan} from '@portabletext/types'
+
+// MARKS
+interface FirstMark extends PortableTextMarkDefinition {
+  _type: 'firstMark'
+  // ...other fields
+}
+
+interface SecondMark extends PortableTextMarkDefinition {
+  _type: 'secondMark'
+  // ...other fields
+}
+
+type CustomMarks = FirstMark | SecondMark
+
+// INLINE BLOCKS
+
+interface MyInlineBlock {
+  _type: 'myInlineBlock'
+  // ...other fields
+}
+
+type InlineBlocks = PortableTextSpan | MyInlineBlock
+
+// STYLES
+
+type TextStyles = 'normal' | 'h1' | 'myCustomStyle'
+
+// LISTS
+
+type ListStyles = 'bullet' | 'myCustomList'
+
+// CUSTOM PORTABLE TEXT BLOCK
+
+// Putting it all together by specifying generics
+// all of these are valid:
+// type CustomPortableTextBlock = PortableTextBlock<CustomMarks>
+// type CustomPortableTextBlock = PortableTextBlock<CustomMarks, InlineBlocks>
+// type CustomPortableTextBlock = PortableTextBlock<CustomMarks, InlineBlocks, TextStyles>
+type CustomPortableTextBlock = PortableTextBlock<CustomMarks, InlineBlocks, TextStyles, ListStyles>
+
+// Other BLOCKS that can appear inbetween text
+
+interface MyCustomBlock {
+  _type: 'myCustomBlock'
+  // ...other fields
+}
+
+
+// TYPE FOR PORTABLE TEXT FIELD ITEMS
+type PortableTextFieldType = CustomPortableTextBlock | MyCustomBlock
+
+// Using it in your document type
+interface MyDocumentType {
+  portableTextField: PortableTextFieldType[]
 }
 ```
 
