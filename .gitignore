@@ -51,3 +51,6 @@ jspm_packages
 
 *.iml
 .idea/
+
+.yalc
+yalc.lock
