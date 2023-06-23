@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.3](https://github.com/portabletext/react-portabletext/compare/v3.0.2...v3.0.3) (2023-06-23)
+
+### Bug Fixes
+
+- update deps ([9bddc53](https://github.com/portabletext/react-portabletext/commit/9bddc53c544d449a3944cef65a45467da152948d))
+
 ## [3.0.2](https://github.com/portabletext/react-portabletext/compare/v3.0.1...v3.0.2) (2023-05-31)
 
 ### Bug Fixes
