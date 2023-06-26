@@ -15,14 +15,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ubuntu-latest, macos-latest]
+        platform: [ubuntu-latest]
         node-version: [lts/*, current]
+        include:
+          - platform: macos-latest
+            node-version: lts/*
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm i pnpm@latest -g
+      - run: corepack enable && pnpm --version
       - run: pnpm install
       - run: pnpm test
       - run: pnpm lint
@@ -40,7 +43,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: lts/*
-      - run: npm i pnpm@latest -g
+      - run: corepack enable && pnpm --version
       - run: pnpm install
       # Branches that will release new versions are defined in .releaserc.json
       - run: pnpm exec semantic-release
