@@ -139,7 +139,7 @@
     "esbuild": "^0.18.9",
     "esbuild-register": "^3.4.2",
     "eslint": "^8.43.0",
-    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-config-sanity": "^6.0.0",
     "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
