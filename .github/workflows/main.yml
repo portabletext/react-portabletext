@@ -45,7 +45,7 @@ jobs:
           node-version: lts/*
       - run: corepack enable && pnpm --version
       - run: pnpm install
-      # Branches that will release new versions are defined in .releaserc.json
+      # Branches that will release new versions are defined in "release" in "package.json"
       - run: pnpm exec semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
