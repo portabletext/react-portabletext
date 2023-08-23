@@ -6,6 +6,8 @@
       "matchDepTypes": ["dependencies"],
       "matchPackageNames": ["@portabletext/toolkit", "@portabletext/types"],
       "rangeStrategy": "bump",
+      "groupName": null,
+      "groupSlug": null,
       "semanticCommitType": "fix"
     }
   ]
