@@ -22,8 +22,8 @@
       "source": "./src/index.ts",
       "require": "./dist/react-portable-text.js",
       "node": {
-        "import": "./dist/react-portable-text.cjs.mjs",
-        "require": "./dist/react-portable-text.js"
+        "module": "./dist/react-portable-text.esm.js",
+        "import": "./dist/react-portable-text.cjs.mjs"
       },
       "import": "./dist/react-portable-text.esm.js",
       "default": "./dist/react-portable-text.esm.js"
