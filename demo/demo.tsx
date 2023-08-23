@@ -59,5 +59,5 @@ render(
       <Demo />
     </ThemeProvider>
   </React.StrictMode>,
-  document.getElementById('demo-root')
+  document.getElementById('demo-root'),
 )

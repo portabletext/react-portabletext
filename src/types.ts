@@ -19,7 +19,7 @@ import type {
  * @template B Types that can appear in the array of blocks
  */
 export interface PortableTextProps<
-  B extends TypedObject = PortableTextBlock | ArbitraryTypedObject
+  B extends TypedObject = PortableTextBlock | ArbitraryTypedObject,
 > {
   /**
    * One or more blocks to render
@@ -287,7 +287,7 @@ export type NodeType = 'block' | 'mark' | 'blockStyle' | 'listStyle' | 'listItem
 
 export type MissingComponentHandler = (
   message: string,
-  options: {type: string; nodeType: NodeType}
+  options: {type: string; nodeType: NodeType},
 ) => void
 
 export interface Serializable<T> {

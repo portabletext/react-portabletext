@@ -8,21 +8,21 @@ Migrating from [@sanity/block-content-to-react](https://www.npmjs.com/package/@s
 
 ## Table of contents
 
-* [Installation](#installation)
-* [Basic usage](#basic-usage)
-* [Styling](#styling-the-output)
-* [Customizing components](#customizing-components)
-* [Available components](#available-components)
-  * [types](#types)
-  * [marks](#marks)
-  * [block](#block)
-  * [list](#list)
-  * [listItem](#listItem)
-  * [hardBreak](#hardBreak)
-  * [unknown components](#unknownMark)
-* [Disable warnings / Handling unknown types](#disabling-warnings--handling-unknown-types)
-* [Rendering Plain Text](#rendering-plain-text)
-* [Typing Portable Text](#typing-portable-text)
+- [Installation](#installation)
+- [Basic usage](#basic-usage)
+- [Styling](#styling-the-output)
+- [Customizing components](#customizing-components)
+- [Available components](#available-components)
+  - [types](#types)
+  - [marks](#marks)
+  - [block](#block)
+  - [list](#list)
+  - [listItem](#listItem)
+  - [hardBreak](#hardBreak)
+  - [unknown components](#unknownMark)
+- [Disable warnings / Handling unknown types](#disabling-warnings--handling-unknown-types)
+- [Rendering Plain Text](#rendering-plain-text)
+- [Typing Portable Text](#typing-portable-text)
 
 ## Installation
 
@@ -343,14 +343,13 @@ interface PortableTextBlock<
   M extends PortableTextMarkDefinition = PortableTextMarkDefinition,
   C extends TypedObject = ArbitraryTypedObject | PortableTextSpan,
   S extends string = PortableTextBlockStyle,
-  L extends string = PortableTextListItemType
+  L extends string = PortableTextListItemType,
 > {}
 ```
 
 Create your own, narrowed Portable text type:
 
 ```ts
-
 import {PortableTextBlock, PortableTextMarkDefinition, PortableTextSpan} from '@portabletext/types'
 
 // MARKS
@@ -398,7 +397,6 @@ interface MyCustomBlock {
   _type: 'myCustomBlock'
   // ...other fields
 }
-
 
 // TYPE FOR PORTABLE TEXT FIELD ITEMS
 type PortableTextFieldType = CustomPortableTextBlock | MyCustomBlock
