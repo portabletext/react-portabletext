@@ -1,0 +1,12 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>sanity-io/renovate-config"],
+   "packageRules": [
+    {
+      "matchDepTypes": ["dependencies"],
+      "matchPackageNames": ["@portabletext/toolkit", "@portabletext/types"],
+      "rangeStrategy": "bump",
+      "semanticCommitType": "fix"
+    }
+  ]
+}
