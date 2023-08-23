@@ -2,7 +2,7 @@ import type {PortableTextReactComponents, PortableTextComponents} from '../types
 
 export function mergeComponents(
   parent: PortableTextReactComponents,
-  overrides: PortableTextComponents
+  overrides: PortableTextComponents,
 ): PortableTextReactComponents {
   const {block, list, listItem, marks, types, ...rest} = overrides
   // @todo figure out how to not `as ...` these
@@ -20,7 +20,7 @@ export function mergeComponents(
 function mergeDeeply(
   parent: PortableTextReactComponents,
   overrides: PortableTextComponents,
-  key: 'block' | 'list' | 'listItem' | 'marks' | 'types'
+  key: 'block' | 'list' | 'listItem' | 'marks' | 'types',
 ): PortableTextReactComponents[typeof key] {
   const override = overrides[key]
   const parentVal = parent[key]

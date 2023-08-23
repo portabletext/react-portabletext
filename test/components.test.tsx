@@ -27,7 +27,7 @@ tap.test('can override unknown mark component', (t) => {
   })
   t.same(
     result,
-    '<p><span class="unknown">Unknown (unknown-deco): simple</span><span class="unknown">Unknown (unknown-mark): advanced</span></p>'
+    '<p><span class="unknown">Unknown (unknown-deco): simple</span><span class="unknown">Unknown (unknown-mark): advanced</span></p>',
   )
   t.end()
 })
