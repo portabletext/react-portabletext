@@ -5,6 +5,12 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.5](https://github.com/portabletext/react-portabletext/compare/v3.0.4...v3.0.5) (2023-08-23)
+
+### Bug Fixes
+
+- add `node.module` export condition ([#81](https://github.com/portabletext/react-portabletext/issues/81)) ([aab74d6](https://github.com/portabletext/react-portabletext/commit/aab74d6c790c4dc778f56b8c802e4cc1ce153fb2))
+
 ## [3.0.4](https://github.com/portabletext/react-portabletext/compare/v3.0.3...v3.0.4) (2023-06-26)
 
 ### Bug Fixes
