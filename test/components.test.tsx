@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/server'
 import {test} from 'vitest'
-import {PortableTextProps} from '../src'
-import {PortableText} from '../src/react-portable-text'
+import type {PortableTextProps} from '../src/types.js'
+import {PortableText} from '../src/react-portable-text.js'
 
 const render = (props: PortableTextProps) =>
   ReactDOM.renderToStaticMarkup(<PortableText {...props} onMissingComponent={false} />)

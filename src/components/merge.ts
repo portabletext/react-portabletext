@@ -1,4 +1,4 @@
-import type {PortableTextReactComponents, PortableTextComponents} from '../types'
+import type {PortableTextReactComponents, PortableTextComponents} from '../types.js'
 
 export function mergeComponents(
   parent: PortableTextReactComponents,

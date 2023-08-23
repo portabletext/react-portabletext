@@ -46,7 +46,7 @@ jspm_packages
 .cache
 
 # Compiled portable text library + demo
-/dist
+/lib
 /demo/dist
 
 *.iml
