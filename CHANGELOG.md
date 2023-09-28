@@ -5,6 +5,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.9](https://github.com/portabletext/react-portabletext/compare/v3.0.8...v3.0.9) (2023-09-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @commitlint/cli to ^17.7.2 ([#100](https://github.com/portabletext/react-portabletext/issues/100)) ([064001e](https://github.com/portabletext/react-portabletext/commit/064001e188adc59dd309523e6e1b88375635890a))
+
 ## [3.0.8](https://github.com/portabletext/react-portabletext/compare/v3.0.7...v3.0.8) (2023-09-28)
 
 
