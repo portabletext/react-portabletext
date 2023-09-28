@@ -99,7 +99,7 @@
     ]
   },
   "dependencies": {
-    "@portabletext/toolkit": "^2.0.8",
+    "@portabletext/toolkit": "^2.0.9",
     "@portabletext/types": "^2.0.6"
   },
   "devDependencies": {
