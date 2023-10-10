@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/server'
-import tap from 'tap'
+import {test} from 'vitest'
 import {PortableText} from '../src/react-portable-text'
 import type {PortableTextReactComponents, PortableTextProps} from '../src/types'
 import * as fixtures from './fixtures'
@@ -7,7 +7,7 @@ import * as fixtures from './fixtures'
 const render = (props: PortableTextProps) =>
   ReactDOM.renderToStaticMarkup(<PortableText {...props} onMissingComponent={false} />)
 
-tap.test('never mutates input', (t) => {
+test('never mutates input', ({expect}) => {
   for (const [key, fixture] of Object.entries(fixtures)) {
     if (key === 'default') {
       continue
@@ -29,8 +29,6 @@ tap.test('never mutates input', (t) => {
     } catch (error) {
       // ignore
     }
-    t.same(originalInput, passedInput)
+    expect(originalInput).toStrictEqual(passedInput)
   }
-
-  t.end()
 })

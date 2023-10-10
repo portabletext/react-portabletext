@@ -1,12 +1,12 @@
 import ReactDOM from 'react-dom/server'
-import tap from 'tap'
+import {test} from 'vitest'
 import {PortableTextProps} from '../src'
 import {PortableText} from '../src/react-portable-text'
 
 const render = (props: PortableTextProps) =>
   ReactDOM.renderToStaticMarkup(<PortableText {...props} onMissingComponent={false} />)
 
-tap.test('can override unknown mark component', (t) => {
+test('can override unknown mark component', ({expect}) => {
   const result = render({
     value: {
       _type: 'block',
@@ -24,9 +24,7 @@ tap.test('can override unknown mark component', (t) => {
       ),
     },
   })
-  t.same(
-    result,
+  expect(result).toBe(
     '<p><span class="unknown">Unknown (unknown-deco): simple</span><span class="unknown">Unknown (unknown-mark): advanced</span></p>',
   )
-  t.end()
 })
