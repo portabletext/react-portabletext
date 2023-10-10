@@ -5,6 +5,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.11](https://github.com/portabletext/react-portabletext/compare/v3.0.10...v3.0.11) (2023-10-10)
+
+
+### Bug Fixes
+
+* **regression:** output valid jsx ([#113](https://github.com/portabletext/react-portabletext/issues/113)) ([f5a0285](https://github.com/portabletext/react-portabletext/commit/f5a02858ae206693a01bee8fcf0cd466743bcf2c))
+
 ## [3.0.10](https://github.com/portabletext/react-portabletext/compare/v3.0.9...v3.0.10) (2023-10-10)
 
 
