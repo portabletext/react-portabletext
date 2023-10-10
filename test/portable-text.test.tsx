@@ -1,4 +1,4 @@
-import React from 'react'
+import {Fragment} from 'react'
 import ReactDOM from 'react-dom/server'
 import tap from 'tap'
 import {PortableText} from '../src/react-portable-text'
@@ -333,8 +333,8 @@ tap.test('can specify custom component for custom block types with children', (t
 
       return (
         <p style={{background: props.value.background}}>
-          {props.value.children.map(({text}) => (
-            <React.Fragment key={text}>Customers say: {text}</React.Fragment>
+          {props.value.children.map(({text}: any) => (
+            <Fragment key={text}>Customers say: {text}</Fragment>
           ))}
         </p>
       )

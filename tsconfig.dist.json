@@ -7,7 +7,6 @@
 
     "lib": ["ES2016", "DOM"],
     "noUncheckedIndexedAccess": true,
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "react"
+    "forceConsistentCasingInFileNames": true
   }
 }

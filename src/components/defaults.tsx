@@ -1,4 +1,3 @@
-import React from 'react'
 import type {PortableTextBlockStyle} from '@portabletext/types'
 import type {PortableTextBlockComponent, PortableTextReactComponents} from '../types'
 import {defaultMarks} from './marks'

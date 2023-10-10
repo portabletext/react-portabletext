@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/server'
 import tap from 'tap'
 import {PortableText} from '../src/react-portable-text'

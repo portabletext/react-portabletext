@@ -1,4 +1,3 @@
-import React from 'react'
 import type {PortableTextListComponent} from '../../src'
 
 const size = 14

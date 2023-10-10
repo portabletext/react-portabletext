@@ -1,4 +1,3 @@
-import React from 'react'
 import type {PortableTextTypeComponent} from '../../src'
 
 const style = {background: '#eee'}

@@ -5,6 +5,7 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
+    "jsx": "react-jsx",
 
     // Strict type-checking
     "strict": true,
