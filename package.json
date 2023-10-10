@@ -106,7 +106,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@commitlint/cli": "^17.7.2",
     "@commitlint/config-conventional": "^17.7.0",
-    "@sanity/pkg-utils": "^2.4.9",
+    "@sanity/pkg-utils": "^3.0.0",
     "@sanity/ui": "^1.8.2",
     "@types/leaflet": "^1.9.6",
     "@types/react": "^18.2.23",
