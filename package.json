@@ -109,19 +109,19 @@
     "@sanity/pkg-utils": "^3.0.0",
     "@sanity/ui": "^1.8.2",
     "@types/leaflet": "^1.9.6",
-    "@types/react": "^18.2.23",
-    "@types/react-dom": "^18.2.8",
+    "@types/react": "^18.2.27",
+    "@types/react-dom": "^18.2.12",
     "@types/refractor": "^3.0.3",
     "@types/tap": "^15.0.9",
     "@types/ws": "^8.5.6",
-    "@typescript-eslint/eslint-plugin": "^6.7.3",
-    "@typescript-eslint/parser": "^6.7.3",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
     "@vitejs/plugin-react": "^4.1.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "esbuild": "^0.19.4",
     "esbuild-register": "^3.5.0",
-    "eslint": "^8.50.0",
+    "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-sanity": "^6.0.0",
     "eslint-plugin-react": "^7.33.2",
@@ -141,7 +141,7 @@
     "styled-components": "^6.0.8",
     "tap": "^16.3.9",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9"
+    "vite": "^4.4.11"
   },
   "peerDependencies": {
     "react": "^17 || ^18"
