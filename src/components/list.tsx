@@ -1,4 +1,3 @@
-import React from 'react'
 import type {PortableTextListComponent, PortableTextListItemComponent} from '../types'
 
 export const defaultLists: Record<'number' | 'bullet', PortableTextListComponent> = {

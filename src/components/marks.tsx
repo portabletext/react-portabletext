@@ -1,5 +1,4 @@
 import type {TypedObject} from '@portabletext/types'
-import React from 'react'
 import type {PortableTextMarkComponent} from '../types'
 
 interface DefaultLink extends TypedObject {

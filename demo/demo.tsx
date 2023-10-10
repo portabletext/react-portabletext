@@ -1,5 +1,5 @@
-import React from 'react'
-import {render} from 'react-dom'
+import {StrictMode} from 'react'
+import {createRoot} from 'react-dom/client'
 import {studioTheme, ThemeProvider} from '@sanity/ui'
 import {PortableTextComponents} from '../src'
 import {PortableText} from '../src/react-portable-text'
@@ -53,11 +53,11 @@ function Demo() {
   return <PortableText value={blocks} components={ptComponents} />
 }
 
-render(
-  <React.StrictMode>
+const root = createRoot(document.getElementById('demo-root')!)
+root.render(
+  <StrictMode>
     <ThemeProvider theme={studioTheme}>
       <Demo />
     </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('demo-root'),
+  </StrictMode>,
 )

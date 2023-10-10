@@ -1,5 +1,4 @@
 import './Code.css'
-import React from 'react'
 import Refractor from 'react-refractor'
 import typescript from 'refractor/lang/typescript'
 import {PortableTextComponent} from '../../src'

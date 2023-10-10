@@ -16,24 +16,25 @@
   "license": "MIT",
   "author": "Sanity.io <hello@sanity.io>",
   "sideEffects": false,
+  "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/react-portable-text.d.ts",
+      "types": "./dist/index.d.ts",
       "source": "./src/index.ts",
-      "require": "./dist/react-portable-text.js",
+      "require": "./dist/index.cjs",
       "node": {
-        "module": "./dist/react-portable-text.esm.js",
-        "import": "./dist/react-portable-text.cjs.mjs"
+        "module": "./dist/index.js",
+        "import": "./dist/index.cjs.js"
       },
-      "import": "./dist/react-portable-text.esm.js",
-      "default": "./dist/react-portable-text.esm.js"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
-  "main": "./dist/react-portable-text.js",
-  "module": "./dist/react-portable-text.esm.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "source": "./src/index.ts",
-  "types": "./dist/react-portable-text.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "!dist/stats.html",
@@ -51,7 +52,7 @@
     "prepare": "husky install",
     "prepublishOnly": "run-s build lint type-check",
     "start": "vite demo",
-    "test": "tap test/*.test.*",
+    "test": "vitest",
     "type-check": "tsc --noEmit"
   },
   "commitlint": {
@@ -91,13 +92,6 @@
       "dist/**/"
     ]
   },
-  "tap": {
-    "check-coverage": false,
-    "node-arg": [
-      "-r",
-      "esbuild-register"
-    ]
-  },
   "dependencies": {
     "@portabletext/toolkit": "^2.0.10",
     "@portabletext/types": "^2.0.8"
@@ -112,7 +106,6 @@
     "@types/react": "^18.2.27",
     "@types/react-dom": "^18.2.12",
     "@types/refractor": "^3.0.3",
-    "@types/tap": "^15.0.9",
     "@types/ws": "^8.5.6",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",
@@ -123,7 +116,7 @@
     "esbuild-register": "^3.5.0",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-config-sanity": "^6.0.0",
+    "eslint-config-sanity": "^7.0.1",
     "eslint-plugin-react": "^7.33.2",
     "husky": "^8.0.3",
     "leaflet": "^1.9.4",
@@ -139,9 +132,9 @@
     "rimraf": "^5.0.1",
     "rollup-plugin-visualizer": "^5.9.2",
     "styled-components": "^6.0.8",
-    "tap": "^16.3.9",
     "typescript": "^5.2.2",
-    "vite": "^4.4.11"
+    "vite": "^4.4.11",
+    "vitest": "^0.34.6"
   },
   "peerDependencies": {
     "react": "^17 || ^18"

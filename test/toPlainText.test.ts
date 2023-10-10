@@ -1,20 +1,19 @@
-import tap from 'tap'
+import {test} from 'vitest'
 import {toPlainText} from '../src'
 import * as fixtures from './fixtures'
 
-tap.test('can extract text from all fixtures without crashing', (t) => {
+test('can extract text from all fixtures without crashing', ({expect}) => {
   for (const [key, fixture] of Object.entries(fixtures)) {
     if (key === 'default') {
       continue
     }
 
     const output = toPlainText(fixture.input)
-    t.same(typeof output, 'string')
+    expect(output).toBeTypeOf('string')
   }
-  t.end()
 })
 
-tap.test('can extract text from a properly formatted block', (t) => {
+test('can extract text from a properly formatted block', ({expect}) => {
   const text = toPlainText([
     {
       _type: 'block',
@@ -33,6 +32,5 @@ tap.test('can extract text from a properly formatted block', (t) => {
     },
   ])
 
-  t.same(text, 'Plain text, even with annotated value.\n\nShould work?')
-  t.end()
+  expect(text).toBe('Plain text, even with annotated value.\n\nShould work?')
 })
