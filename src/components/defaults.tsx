@@ -1,14 +1,14 @@
 import type {PortableTextBlockStyle} from '@portabletext/types'
-import type {PortableTextBlockComponent, PortableTextReactComponents} from '../types'
-import {defaultMarks} from './marks'
-import {defaultLists, DefaultListItem} from './list'
+import type {PortableTextBlockComponent, PortableTextReactComponents} from '../types.js'
+import {defaultMarks} from './marks.js'
+import {defaultLists, DefaultListItem} from './list.js'
 import {
   DefaultUnknownType,
   DefaultUnknownMark,
   DefaultUnknownList,
   DefaultUnknownListItem,
   DefaultUnknownBlockStyle,
-} from './unknown'
+} from './unknown.js'
 
 export const DefaultHardBreak = () => <br />
 

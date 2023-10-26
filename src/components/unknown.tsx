@@ -1,5 +1,5 @@
-import type {PortableTextReactComponents} from '../types'
-import {unknownTypeWarning} from '../warnings'
+import type {PortableTextReactComponents} from '../types.js'
+import {unknownTypeWarning} from '../warnings.js'
 
 const hidden = {display: 'none'}
 

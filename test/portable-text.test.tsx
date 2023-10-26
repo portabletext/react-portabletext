@@ -1,14 +1,14 @@
 import {Fragment} from 'react'
 import ReactDOM from 'react-dom/server'
 import {test} from 'vitest'
-import {PortableText} from '../src/react-portable-text'
-import {
+import {PortableText} from '../src/react-portable-text.js'
+import type {
   PortableTextReactComponents,
   PortableTextMarkComponent,
   PortableTextProps,
   MissingComponentHandler,
-} from '../src/types'
-import * as fixtures from './fixtures'
+} from '../src/types.js'
+import * as fixtures from './fixtures/index.js'
 
 const render = (props: PortableTextProps) =>
   ReactDOM.renderToStaticMarkup(<PortableText onMissingComponent={false} {...props} />)

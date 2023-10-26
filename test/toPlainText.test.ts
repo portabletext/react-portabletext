@@ -1,6 +1,6 @@
 import {test} from 'vitest'
-import {toPlainText} from '../src'
-import * as fixtures from './fixtures'
+import {toPlainText} from '../src/index.js'
+import * as fixtures from './fixtures/index.js'
 
 test('can extract text from all fixtures without crashing', ({expect}) => {
   for (const [key, fixture] of Object.entries(fixtures)) {

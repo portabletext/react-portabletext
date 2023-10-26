@@ -8,7 +8,7 @@ import type {
   ReactPortableTextList,
   Serializable,
   SerializedBlock,
-} from './types'
+} from './types.js'
 import {
   LIST_NEST_MODE_HTML,
   isPortableTextBlock,
@@ -27,8 +27,8 @@ import type {
   PortableTextSpan,
   TypedObject,
 } from '@portabletext/types'
-import {mergeComponents} from './components/merge'
-import {defaultComponents} from './components/defaults'
+import {mergeComponents} from './components/merge.js'
+import {defaultComponents} from './components/defaults.js'
 import {
   printWarning,
   unknownBlockStyleWarning,
@@ -36,7 +36,7 @@ import {
   unknownListStyleWarning,
   unknownMarkWarning,
   unknownTypeWarning,
-} from './warnings'
+} from './warnings.js'
 
 export function PortableText<B extends TypedObject = PortableTextBlock>({
   value: input,
