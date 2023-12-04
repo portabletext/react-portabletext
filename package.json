@@ -133,7 +133,7 @@
     "rollup-plugin-visualizer": "^5.9.2",
     "styled-components": "^6.1.0",
     "typescript": "^5.2.2",
-    "vite": "^4.5.0",
+    "vite": "^5.0.5",
     "vitest": "^0.34.6"
   },
   "peerDependencies": {
