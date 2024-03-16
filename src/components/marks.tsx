@@ -1,4 +1,5 @@
 import type {TypedObject} from '@portabletext/types'
+
 import type {PortableTextMarkComponent} from '../types'
 
 interface DefaultLink extends TypedObject {

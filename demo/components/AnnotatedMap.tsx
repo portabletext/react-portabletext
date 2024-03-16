@@ -1,7 +1,9 @@
 import 'leaflet/dist/leaflet.css'
+
 import {useEffect, useState} from 'react'
-import type {ReducedLeafletApi} from './Leaflet'
+
 import {PortableTextTypeComponent} from '../../src'
+import type {ReducedLeafletApi} from './Leaflet'
 
 export interface Geopoint {
   _type: 'geopoint'

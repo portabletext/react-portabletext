@@ -1,4 +1,5 @@
 import {test} from 'vitest'
+
 import {toPlainText} from '../src'
 import * as fixtures from './fixtures'
 

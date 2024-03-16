@@ -1,5 +1,26 @@
-import {type ReactNode, useMemo} from 'react'
 import type {ToolkitNestedPortableTextSpan, ToolkitTextNode} from '@portabletext/toolkit'
+import {
+  buildMarksTree,
+  isPortableTextBlock,
+  isPortableTextListItemBlock,
+  isPortableTextToolkitList,
+  isPortableTextToolkitSpan,
+  isPortableTextToolkitTextNode,
+  LIST_NEST_MODE_HTML,
+  nestLists,
+  spanToPlainText,
+} from '@portabletext/toolkit'
+import type {
+  PortableTextBlock,
+  PortableTextListItemBlock,
+  PortableTextMarkDefinition,
+  PortableTextSpan,
+  TypedObject,
+} from '@portabletext/types'
+import {type ReactNode, useMemo} from 'react'
+
+import {defaultComponents} from './components/defaults'
+import {mergeComponents} from './components/merge'
 import type {
   MissingComponentHandler,
   NodeRenderer,
@@ -9,26 +30,6 @@ import type {
   Serializable,
   SerializedBlock,
 } from './types'
-import {
-  LIST_NEST_MODE_HTML,
-  isPortableTextBlock,
-  isPortableTextListItemBlock,
-  isPortableTextToolkitList,
-  isPortableTextToolkitSpan,
-  isPortableTextToolkitTextNode,
-  nestLists,
-  spanToPlainText,
-  buildMarksTree,
-} from '@portabletext/toolkit'
-import type {
-  PortableTextBlock,
-  PortableTextListItemBlock,
-  PortableTextMarkDefinition,
-  PortableTextSpan,
-  TypedObject,
-} from '@portabletext/types'
-import {mergeComponents} from './components/merge'
-import {defaultComponents} from './components/defaults'
 import {
   printWarning,
   unknownBlockStyleWarning,
@@ -43,7 +44,7 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   components: componentOverrides,
   listNestingMode,
   onMissingComponent: missingComponentHandler = printWarning,
-}: PortableTextProps<B>) {
+}: PortableTextProps<B>): JSX.Element {
   const handleMissingComponent = missingComponentHandler || noop
   const blocks = Array.isArray(input) ? input : [input]
   const nested = nestLists(blocks, listNestingMode || LIST_NEST_MODE_HTML)
@@ -126,6 +127,7 @@ const getNodeRenderer = (
     let children = tree.children
     if (node.style && node.style !== 'normal') {
       // Wrap any other style in whatever the block serializer says to use
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const {listItem, ...blockNode} = node
       children = renderNode({node: blockNode, index, isInline: false, renderNode})
     }
@@ -189,6 +191,7 @@ const getNodeRenderer = (
   }
 
   function renderBlock(node: PortableTextBlock, index: number, key: string, isInline: boolean) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {_key, ...props} = serializeBlock({node, index, isInline, renderNode})
     const style = props.node.style || 'normal'
     const handler =

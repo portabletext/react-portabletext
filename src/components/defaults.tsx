@@ -1,16 +1,17 @@
 import type {PortableTextBlockStyle} from '@portabletext/types'
+
 import type {PortableTextBlockComponent, PortableTextReactComponents} from '../types'
+import {DefaultListItem, defaultLists} from './list'
 import {defaultMarks} from './marks'
-import {defaultLists, DefaultListItem} from './list'
 import {
-  DefaultUnknownType,
-  DefaultUnknownMark,
+  DefaultUnknownBlockStyle,
   DefaultUnknownList,
   DefaultUnknownListItem,
-  DefaultUnknownBlockStyle,
+  DefaultUnknownMark,
+  DefaultUnknownType,
 } from './unknown'
 
-export const DefaultHardBreak = () => <br />
+export const DefaultHardBreak = (): JSX.Element => <br />
 
 export const defaultBlockStyles: Record<
   PortableTextBlockStyle,

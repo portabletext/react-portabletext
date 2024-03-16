@@ -1,10 +1,13 @@
 import './Code.css'
+
 import Refractor from 'react-refractor'
 import typescript from 'refractor/lang/typescript'
-import {PortableTextComponent} from '../../src'
+
+import type {PortableTextComponent} from '../../src'
 
 // Prism auto-highlights, but we only want the API, so we need to set it to manual mode
 if (typeof window !== 'undefined') {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const prismWindow = window as any
   prismWindow.Prism = prismWindow.Prism || {}
   prismWindow.Prism.manual = true

@@ -1,19 +1,19 @@
+import {studioTheme, ThemeProvider} from '@sanity/ui'
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
-import {studioTheme, ThemeProvider} from '@sanity/ui'
+
 import {PortableTextComponents} from '../src'
 import {PortableText} from '../src/react-portable-text'
-import {blocks} from './fixture'
-
-import {Link} from './components/Link'
-import {TermDefinition} from './components/TermDefinition'
+import {AnnotatedMap} from './components/AnnotatedMap'
 import {CharacterReference} from './components/CharacterReference'
-import {hasSpeechApi, SpeechSynthesis} from './components/SpeechSynthesis'
+import {Code} from './components/Code'
 import {CurrencyAmount} from './components/CurrencyAmount'
+import {Link} from './components/Link'
 import {LinkableHeader} from './components/LinkableHeader'
 import {SchnauzerList} from './components/SchnauzerList'
-import {AnnotatedMap} from './components/AnnotatedMap'
-import {Code} from './components/Code'
+import {hasSpeechApi, SpeechSynthesis} from './components/SpeechSynthesis'
+import {TermDefinition} from './components/TermDefinition'
+import {blocks} from './fixture'
 
 /**
  * Note that these are statically defined (outside the scope of a function),

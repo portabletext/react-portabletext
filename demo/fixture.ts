@@ -1,4 +1,5 @@
 import type {PortableTextBlock} from '@portabletext/types'
+
 import type {AnnotatedMapBlock} from './components/AnnotatedMap'
 import type {CodeBlock} from './components/Code'
 

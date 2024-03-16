@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ReactDOM from 'react-dom/server'
 import {test} from 'vitest'
+
 import {PortableText} from '../src/react-portable-text'
-import type {PortableTextReactComponents, PortableTextProps} from '../src/types'
+import type {PortableTextProps, PortableTextReactComponents} from '../src/types'
 import * as fixtures from './fixtures'
 
 const render = (props: PortableTextProps) =>

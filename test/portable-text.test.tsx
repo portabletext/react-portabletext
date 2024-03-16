@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {Fragment} from 'react'
 import ReactDOM from 'react-dom/server'
 import {test} from 'vitest'
+
 import {PortableText} from '../src/react-portable-text'
 import {
-  PortableTextReactComponents,
+  MissingComponentHandler,
   PortableTextMarkComponent,
   PortableTextProps,
-  MissingComponentHandler,
+  PortableTextReactComponents,
 } from '../src/types'
 import * as fixtures from './fixtures'
 
