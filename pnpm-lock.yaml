@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@portabletext/toolkit':
-    specifier: ^2.0.12
-    version: 2.0.12
+    specifier: ^2.0.13
+    version: 2.0.13
   '@portabletext/types':
     specifier: ^2.0.11
     version: 2.0.11
@@ -1037,8 +1037,8 @@ packages:
       config-chain: 1.1.13
     dev: true
 
-  /@portabletext/toolkit@2.0.12:
-    resolution: {integrity: sha512-uSA8bDAuRht3uuFRXxVmDD3OkoqNYhT/R0JaCuoiaxr5WwEbFW/Rgngai/QInH9VxlDvfOpVCyt+DIIAm2W/uA==}
+  /@portabletext/toolkit@2.0.13:
+    resolution: {integrity: sha512-RH/jzwlWcsDPnpJBO1xEByUnweVVciD1OVLGyRUA8P++XedAc+fxY3RlUkgi5FyDEyEdisPflKtUU/GAXtMSig==}
     engines: {node: ^14.13.1 || >=16.0.0}
     dependencies:
       '@portabletext/types': 2.0.11
