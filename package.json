@@ -93,7 +93,7 @@
   },
   "dependencies": {
     "@portabletext/toolkit": "^2.0.12",
-    "@portabletext/types": "^2.0.10"
+    "@portabletext/types": "^2.0.11"
   },
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
