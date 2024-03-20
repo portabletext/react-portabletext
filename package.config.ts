@@ -11,8 +11,6 @@ export default defineConfig({
     },
   },
 
-  legacyExports: true,
-
   rollup: {
     plugins: [
       visualizer({
