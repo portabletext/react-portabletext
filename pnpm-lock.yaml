@@ -9,8 +9,8 @@ dependencies:
     specifier: ^2.0.12
     version: 2.0.12
   '@portabletext/types':
-    specifier: ^2.0.10
-    version: 2.0.10
+    specifier: ^2.0.11
+    version: 2.0.11
 
 devDependencies:
   '@babel/plugin-proposal-object-rest-spread':
@@ -1041,11 +1041,11 @@ packages:
     resolution: {integrity: sha512-uSA8bDAuRht3uuFRXxVmDD3OkoqNYhT/R0JaCuoiaxr5WwEbFW/Rgngai/QInH9VxlDvfOpVCyt+DIIAm2W/uA==}
     engines: {node: ^14.13.1 || >=16.0.0}
     dependencies:
-      '@portabletext/types': 2.0.10
+      '@portabletext/types': 2.0.11
     dev: false
 
-  /@portabletext/types@2.0.10:
-    resolution: {integrity: sha512-pyyT3w8bV2v0LjOiSMHMEqzUhUO9FD54xU4tdLDt9WKBShrvP9NTQO5BO4bUljp1l5I5yyai0Y/OTKI8VAE9BQ==}
+  /@portabletext/types@2.0.11:
+    resolution: {integrity: sha512-79Bj/tffVOV9mpMzQFLPMrxPpUXh4OKlUBG8eDJBirH/x1o28Qu8Tg2nO84/KAPmlCm4rC/TOGvDxqsP0apg5A==}
     engines: {node: ^14.13.1 || >=16.0.0 || >=18.0.0}
     dev: false
 
