@@ -25,11 +25,11 @@ jobs:
       - run: pnpm install --ignore-scripts
       - run: pnpm format
       - run: git restore .github/workflows CHANGELOG.md
-      - uses: actions/create-github-app-token@32691ba7c9e7063bd457bd8f2a5703138591fa58 # v1
+      - uses: actions/create-github-app-token@v1
         id: generate-token
         with:
-          app_id: ${{ secrets.ECOSCRIPT_APP_ID }}
-          private_key: ${{ secrets.ECOSCRIPT_APP_PRIVATE_KEY }}
+          app-id: ${{ secrets.ECOSCRIPT_APP_ID }}
+          private-key: ${{ secrets.ECOSCRIPT_APP_PRIVATE_KEY }}
       - uses: peter-evans/create-pull-request@70a41aba780001da0a30141984ae2a0c95d8704e # v6
         with:
           author: github-actions <41898282+github-actions[bot]@users.noreply.github.com>
