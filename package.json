@@ -92,7 +92,7 @@
     ]
   },
   "dependencies": {
-    "@portabletext/toolkit": "^2.0.13",
+    "@portabletext/toolkit": "^2.0.14",
     "@portabletext/types": "^2.0.12"
   },
   "devDependencies": {
