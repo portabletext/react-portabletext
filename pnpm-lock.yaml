@@ -26,8 +26,8 @@ devDependencies:
     specifier: ^5.1.11
     version: 5.1.11(@types/node@20.12.4)(typescript@5.4.4)
   '@sanity/ui':
-    specifier: ^2.0.14
-    version: 2.0.14(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(styled-components@6.1.8)
+    specifier: ^2.0.16
+    version: 2.0.16(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(styled-components@6.1.8)
   '@types/leaflet':
     specifier: ^1.9.9
     version: 1.9.9
@@ -1355,13 +1355,13 @@ packages:
     resolution: {integrity: sha512-UkJuiTyROgPcxbvpHYyXwr+T88Np4eLzu3h05gMgeZ2hv3EM7g/4VMyng5HuA1JdPQPEdq8bmmfQDR+u4KC+TA==}
     dev: true
 
-  /@sanity/color@3.0.4:
-    resolution: {integrity: sha512-kPlUmTdMbMOuYtx+eC+pAWtEjwIKR8MwnqMf+Hzy51/npIZr6PywSRTt+PA+9aWov39/N5ZjEPayCFjdeUuHJA==}
+  /@sanity/color@3.0.5:
+    resolution: {integrity: sha512-jwXekw8WGkpuTIjcTh3f5LSoSG+0sFrWPkcFlUIyQ2kwk9EDsQmFVf2X9Ewr1GAbRmqUEMhuCrr0O5z+KAqLmA==}
     engines: {node: '>=18.0.0'}
     dev: true
 
-  /@sanity/icons@2.11.6(react@18.2.0):
-    resolution: {integrity: sha512-5Su3YQEVZI2F98oYuo1wDXY3X2cAovfutewFHNN8e4LI9StJx+MiojpxG2Lg6qJSTr+YUMlOcHEqyzVOe/QpSA==}
+  /@sanity/icons@2.11.7(react@18.2.0):
+    resolution: {integrity: sha512-F0GkmYfzZFJZmhRRZFyzAVtqU4D+kiXMJCr5MeM9uGgGvFNKUW2amGCiN1528Z60v73hlqHTD9Eb6WEkwhWsiA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: ^18
@@ -1421,8 +1421,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sanity/ui@2.0.14(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(styled-components@6.1.8):
-    resolution: {integrity: sha512-MS82W0zGUNbhzyl4jbA2DhmAywHtjtlB8v45AZrf2Mu/FbD9HqW4HfFj9+aKomrVc+toXuKPy4STP/0DKggPhg==}
+  /@sanity/ui@2.0.16(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(styled-components@6.1.8):
+    resolution: {integrity: sha512-K0LlbQpHmpu2y/LA2+1DAJ4yzh0MEwsuPypx3IMdhAlJrr4d6KLu7USIUezQo/AcCmQNK6XutqQslnx7Bkq3TA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: ^18
@@ -1431,8 +1431,8 @@ packages:
       styled-components: ^5.2 || ^6
     dependencies:
       '@floating-ui/react-dom': 2.0.8(react-dom@18.2.0)(react@18.2.0)
-      '@sanity/color': 3.0.4
-      '@sanity/icons': 2.11.6(react@18.2.0)
+      '@sanity/color': 3.0.5
+      '@sanity/icons': 2.11.7(react@18.2.0)
       csstype: 3.1.3
       framer-motion: 11.0.8(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
