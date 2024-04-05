@@ -5,6 +5,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.16](https://github.com/portabletext/react-portabletext/compare/v3.0.15...v3.0.16) (2024-04-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @portabletext/types to ^2.0.12 ([#154](https://github.com/portabletext/react-portabletext/issues/154)) ([a745844](https://github.com/portabletext/react-portabletext/commit/a7458446845e798155e6b5fd686da3199ccf32f8))
+
 ## [3.0.15](https://github.com/portabletext/react-portabletext/compare/v3.0.14...v3.0.15) (2024-03-20)
 
 
