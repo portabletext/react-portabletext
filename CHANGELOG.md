@@ -5,6 +5,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.0](https://github.com/portabletext/react-portabletext/compare/v3.0.18...v3.1.0) (2024-05-28)
+
+
+### Features
+
+* support react 19 ([#170](https://github.com/portabletext/react-portabletext/issues/170)) ([4d3cce4](https://github.com/portabletext/react-portabletext/commit/4d3cce4bd70269df788e83d9c410d6377c453e00))
+
 ## [3.0.18](https://github.com/portabletext/react-portabletext/compare/v3.0.17...v3.0.18) (2024-04-11)
 
 

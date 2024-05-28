@@ -1,6 +1,6 @@
 {
   "name": "@portabletext/react",
-  "version": "3.1.0-canary.0",
+  "version": "3.1.0",
   "description": "Render Portable Text with React",
   "keywords": [
     "portable-text"
@@ -75,7 +75,9 @@
       "ecmaVersion": 9,
       "sourceType": "module"
     },
-    "plugins": ["react-compiler"],
+    "plugins": [
+      "react-compiler"
+    ],
     "extends": [
       "sanity",
       "sanity/react",
