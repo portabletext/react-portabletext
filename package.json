@@ -1,6 +1,6 @@
 {
   "name": "@portabletext/react",
-  "version": "3.0.18",
+  "version": "3.1.0-canary.0",
   "description": "Render Portable Text with React",
   "keywords": [
     "portable-text"
@@ -35,14 +35,12 @@
     "src"
   ],
   "scripts": {
-    "build": "run-s clean pkg:build pkg:check",
+    "build": "pkg-utils build --strict --check --clean",
     "build:demo": "vite build demo --config=./vite.config.demo.ts --base=/react-portabletext/",
     "clean": "rimraf dist coverage demo/dist .nyc_output",
     "dev": "vite demo",
     "format": "prettier --write --cache --ignore-unknown .",
     "lint": "eslint .",
-    "pkg:build": "pkg-utils build --strict",
-    "pkg:check": "pkg-utils --strict",
     "prepare": "husky install",
     "prepublishOnly": "run-s build lint type-check",
     "start": "vite demo",
@@ -77,6 +75,7 @@
       "ecmaVersion": 9,
       "sourceType": "module"
     },
+    "plugins": ["react-compiler"],
     "extends": [
       "sanity",
       "sanity/react",
@@ -84,7 +83,8 @@
       "prettier"
     ],
     "rules": {
-      "react/prop-types": "off"
+      "react/prop-types": "off",
+      "react-compiler/react-compiler": "error"
     },
     "ignorePatterns": [
       "dist/**/"
@@ -116,6 +116,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-sanity": "^7.1.2",
     "eslint-plugin-react": "^7.34.2",
+    "eslint-plugin-react-compiler": "0.0.0-experimental-c8b3f72-20240517",
     "eslint-plugin-react-hooks": "^4.6.2",
     "husky": "^8.0.3",
     "leaflet": "^1.9.4",
@@ -136,7 +137,7 @@
     "vitest": "^1.6.0"
   },
   "peerDependencies": {
-    "react": "^17 || ^18"
+    "react": "^17 || ^18 || >=19.0.0-rc"
   },
   "packageManager": "pnpm@9.1.3",
   "engines": {
