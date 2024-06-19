@@ -1,4 +1,8 @@
-import type {ToolkitNestedPortableTextSpan, ToolkitTextNode} from '@portabletext/toolkit'
+import type {
+  ToolkitListNestMode,
+  ToolkitNestedPortableTextSpan,
+  ToolkitTextNode,
+} from '@portabletext/toolkit'
 import {
   buildMarksTree,
   isPortableTextBlock,
@@ -17,7 +21,7 @@ import type {
   PortableTextSpan,
   TypedObject,
 } from '@portabletext/types'
-import {type ReactNode, useMemo} from 'react'
+import {memo, type ReactNode, useMemo} from 'react'
 
 import {defaultComponents} from './components/defaults'
 import {mergeComponents} from './components/merge'
@@ -39,26 +43,43 @@ import {
   unknownTypeWarning,
 } from './warnings'
 
-export function PortableText<B extends TypedObject = PortableTextBlock>({
-  value: input,
-  components: componentOverrides,
+export const PortableText = memo(function PortableTextComponent<
+  B extends TypedObject = PortableTextBlock,
+>({
+  value,
+  components,
   listNestingMode,
   onMissingComponent: missingComponentHandler = printWarning,
 }: PortableTextProps<B>): JSX.Element {
-  const handleMissingComponent = missingComponentHandler || noop
-  const blocks = Array.isArray(input) ? input : [input]
-  const nested = nestLists(blocks, listNestingMode || LIST_NEST_MODE_HTML)
-
-  const components = useMemo(() => {
-    return componentOverrides
-      ? mergeComponents(defaultComponents, componentOverrides)
-      : defaultComponents
-  }, [componentOverrides])
-
   const renderNode = useMemo(
-    () => getNodeRenderer(components, handleMissingComponent),
-    [components, handleMissingComponent],
+    () =>
+      getNodeRenderer(
+        components ? mergeComponents(defaultComponents, components) : defaultComponents,
+        missingComponentHandler || noop,
+      ),
+    [components, missingComponentHandler],
   )
+
+  return (
+    <PortableTextRenderer
+      listNestingMode={listNestingMode || LIST_NEST_MODE_HTML}
+      renderNode={renderNode}
+      value={value}
+    />
+  )
+})
+
+function PortableTextRenderer<B extends TypedObject = PortableTextBlock>({
+  listNestingMode,
+  renderNode,
+  value,
+}: {
+  listNestingMode: ToolkitListNestMode
+  renderNode: NodeRenderer
+  value: B | B[]
+}): JSX.Element {
+  const blocks = Array.isArray(value) ? value : [value]
+  const nested = nestLists(blocks, listNestingMode)
   const rendered = nested.map((node, index) =>
     renderNode({node: node, index, isInline: false, renderNode}),
   )
@@ -70,7 +91,7 @@ const getNodeRenderer = (
   components: PortableTextReactComponents,
   handleMissingComponent: MissingComponentHandler,
 ): NodeRenderer => {
-  function renderNode<N extends TypedObject>(options: Serializable<N>): ReactNode {
+  const renderNode = <N extends TypedObject>(options: Serializable<N>): ReactNode => {
     const {node, index, isInline} = options
     const key = node._key || `node-${index}`
 
@@ -101,16 +122,16 @@ const getNodeRenderer = (
     return renderUnknownType(node, index, key, isInline)
   }
 
-  function hasCustomComponentForNode(node: TypedObject): boolean {
+  const hasCustomComponentForNode = (node: TypedObject): boolean => {
     return node._type in components.types
   }
 
   /* eslint-disable react/jsx-no-bind */
-  function renderListItem(
+  const renderListItem = (
     node: PortableTextListItemBlock<PortableTextMarkDefinition, PortableTextSpan>,
     index: number,
     key: string,
-  ) {
+  ) => {
     const tree = serializeBlock({node, index, isInline: false, renderNode})
     const renderer = components.listItem
     const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
@@ -139,7 +160,7 @@ const getNodeRenderer = (
     )
   }
 
-  function renderList(node: ReactPortableTextList, index: number, key: string) {
+  const renderList = (node: ReactPortableTextList, index: number, key: string) => {
     const children = node.children.map((child, childIndex) =>
       renderNode({
         node: child._key ? child : {...child, _key: `li-${index}-${childIndex}`},
@@ -165,7 +186,7 @@ const getNodeRenderer = (
     )
   }
 
-  function renderSpan(node: ToolkitNestedPortableTextSpan, _index: number, key: string) {
+  const renderSpan = (node: ToolkitNestedPortableTextSpan, _index: number, key: string) => {
     const {markDef, markType, markKey} = node
     const Span = components.marks[markType] || components.unknownMark
     const children = node.children.map((child, childIndex) =>
@@ -190,7 +211,7 @@ const getNodeRenderer = (
     )
   }
 
-  function renderBlock(node: PortableTextBlock, index: number, key: string, isInline: boolean) {
+  const renderBlock = (node: PortableTextBlock, index: number, key: string, isInline: boolean) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {_key, ...props} = serializeBlock({node, index, isInline, renderNode})
     const style = props.node.style || 'normal'
@@ -208,7 +229,7 @@ const getNodeRenderer = (
     return <Block key={key} {...props} value={props.node} renderNode={renderNode} />
   }
 
-  function renderText(node: ToolkitTextNode, key: string) {
+  const renderText = (node: ToolkitTextNode, key: string) => {
     if (node.text === '\n') {
       const HardBreak = components.hardBreak
       return HardBreak ? <HardBreak key={key} /> : '\n'
@@ -217,7 +238,7 @@ const getNodeRenderer = (
     return node.text
   }
 
-  function renderUnknownType(node: TypedObject, index: number, key: string, isInline: boolean) {
+  const renderUnknownType = (node: TypedObject, index: number, key: string, isInline: boolean) => {
     const nodeOptions = {
       value: node,
       isInline,
@@ -231,7 +252,7 @@ const getNodeRenderer = (
     return <UnknownType key={key} {...nodeOptions} />
   }
 
-  function renderCustomBlock(node: TypedObject, index: number, key: string, isInline: boolean) {
+  const renderCustomBlock = (node: TypedObject, index: number, key: string, isInline: boolean) => {
     const nodeOptions = {
       value: node,
       isInline,
@@ -247,7 +268,7 @@ const getNodeRenderer = (
   return renderNode
 }
 
-function serializeBlock(options: Serializable<PortableTextBlock>): SerializedBlock {
+const serializeBlock = (options: Serializable<PortableTextBlock>): SerializedBlock => {
   const {node, index, isInline, renderNode} = options
   const tree = buildMarksTree(node)
   const children = tree.map((child, i) =>

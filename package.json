@@ -1,6 +1,6 @@
 {
   "name": "@portabletext/react",
-  "version": "3.1.0",
+  "version": "3.1.0-canary.2",
   "description": "Render Portable Text with React",
   "keywords": [
     "portable-text"
@@ -20,6 +20,10 @@
   "exports": {
     ".": {
       "source": "./src/index.ts",
+      "react-compiler": {
+        "source": "./src/index.ts",
+        "default": "./dist/index.compiled.js"
+      },
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "default": "./dist/index.js"
@@ -97,7 +101,7 @@
     "@portabletext/types": "^2.0.13"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
+    "@babel/plugin-transform-object-rest-spread": "^7.24.7",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@sanity/pkg-utils": "^6.10.0",
