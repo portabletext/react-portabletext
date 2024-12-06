@@ -26,19 +26,19 @@ importers:
         version: 19.6.0
       '@sanity/pkg-utils':
         specifier: ^6.11.14
-        version: 6.11.14(@types/babel__core@7.20.5)(@types/node@20.12.4)(typescript@5.7.2)
+        version: 6.11.14(@types/babel__core@7.20.5)(@types/node@20.12.4)(babel-plugin-react-compiler@19.0.0-beta-df7b47d-20241124)(typescript@5.7.2)
       '@sanity/ui':
         specifier: ^2.9.1
-        version: 2.9.1(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+        version: 2.9.1(react-dom@19.0.0(react@19.0.0))(react-is@19.0.0)(react@19.0.0)(styled-components@6.1.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       '@types/leaflet':
         specifier: ^1.9.15
         version: 1.9.15
       '@types/react':
-        specifier: ^18.3.14
-        version: 18.3.14
+        specifier: ^19.0.1
+        version: 19.0.1
       '@types/react-dom':
-        specifier: ^18.3.2
-        version: 18.3.2
+        specifier: ^19.0.1
+        version: 19.0.1
       '@types/refractor':
         specifier: ^3.4.1
         version: 3.4.1
@@ -54,6 +54,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.3.4
         version: 4.3.4(vite@5.4.11(@types/node@20.12.4)(terser@5.30.3))
+      babel-plugin-react-compiler:
+        specifier: 19.0.0-beta-df7b47d-20241124
+        version: 19.0.0-beta-df7b47d-20241124
       commitizen:
         specifier: ^4.3.1
         version: 4.3.1(@types/node@20.12.4)(typescript@5.7.2)
@@ -74,16 +77,16 @@ importers:
         version: 9.1.0(eslint@8.57.1)
       eslint-config-sanity:
         specifier: ^7.1.3
-        version: 7.1.3(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2))(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint-plugin-react-hooks@4.6.2(eslint@8.57.1))(eslint-plugin-react@7.37.2(eslint@8.57.1))(eslint@8.57.1)
+        version: 7.1.3(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2))(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint-plugin-react-hooks@5.1.0(eslint@8.57.1))(eslint-plugin-react@7.37.2(eslint@8.57.1))(eslint@8.57.1)
       eslint-plugin-react:
         specifier: ^7.37.2
         version: 7.37.2(eslint@8.57.1)
       eslint-plugin-react-compiler:
-        specifier: 0.0.0-experimental-c8b3f72-20240517
-        version: 0.0.0-experimental-c8b3f72-20240517(eslint@8.57.1)
+        specifier: 19.0.0-beta-df7b47d-20241124
+        version: 19.0.0-beta-df7b47d-20241124(eslint@8.57.1)
       eslint-plugin-react-hooks:
-        specifier: ^4.6.2
-        version: 4.6.2(eslint@8.57.1)
+        specifier: ^5.1.0
+        version: 5.1.0(eslint@8.57.1)
       husky:
         specifier: ^8.0.3
         version: 8.0.3
@@ -100,20 +103,20 @@ importers:
         specifier: ^2.5.6
         version: 2.5.6(prettier@3.4.2)
       react:
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.0.0
       react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
       react-is:
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^19.0.0
+        version: 19.0.0
       react-leaflet:
         specifier: ^4.2.1
-        version: 4.2.1(leaflet@1.9.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.2.1(leaflet@1.9.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-refractor:
         specifier: ^2.2.0
-        version: 2.2.0(react@18.3.1)
+        version: 2.2.0(react@19.0.0)
       refractor:
         specifier: ^4.8.1
         version: 4.8.1
@@ -125,7 +128,7 @@ importers:
         version: 5.12.0(rollup@4.28.0)
       styled-components:
         specifier: ^6.1.13
-        version: 6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 6.1.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -236,13 +239,6 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/plugin-proposal-private-methods@7.18.6':
-    resolution: {integrity: sha512-nutsvktDItsNn4rpGItSNV2sz1XwS+nfU0Rg8aCx3W3NOKVzdMjJRu0O5OkgDp3ZGICSTbgRpxZoWsxoKRvbeA==}
-    engines: {node: '>=6.9.0'}
-    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-private-methods instead.
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
   '@babel/plugin-syntax-jsx@7.25.9':
     resolution: {integrity: sha512-ld6oezHQMZsZfp6pWtbjaNDF2tiiCYYDqQszHt5VV437lewP9aSi2Of99CK0D0XB21k7FLgnLcmQKyKzynfeAA==}
     engines: {node: '>=6.9.0'}
@@ -268,6 +264,12 @@ packages:
 
   '@babel/plugin-transform-parameters@7.24.1':
     resolution: {integrity: sha512-8Jl6V24g+Uw5OGPeWNKrKqXPDw2YDjLc53ojwfMcKwlEoETKU9rU0mHUtcg9JntWI/QYzGAXNWEcVHZ+fR+XXg==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+
+  '@babel/plugin-transform-private-methods@7.25.9':
+    resolution: {integrity: sha512-D/JUozNpQLAPUVusvqMxyvjzllRaF8/nSrP1s2YGQT/W4LHK4xxsMcHjhOGTS01mp9Hda8nswb+FblLdJornQw==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -1085,14 +1087,11 @@ packages:
   '@types/prismjs@1.26.3':
     resolution: {integrity: sha512-A0D0aTXvjlqJ5ZILMz3rNfDBOx9hHxLZYv2by47Sm/pqW35zzjusrZTryatjN/Rf8Us2gZrJD+KeHbUSTux1Cw==}
 
-  '@types/prop-types@15.7.12':
-    resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
+  '@types/react-dom@19.0.1':
+    resolution: {integrity: sha512-hljHij7MpWPKF6u5vojuyfV0YA4YURsQG7KT6SzV0Zs2BXAtgdTxG6A229Ub/xiWV4w/7JL8fi6aAyjshH4meA==}
 
-  '@types/react-dom@18.3.2':
-    resolution: {integrity: sha512-Fqp+rcvem9wEnGr3RY8dYNvSQ8PoLqjZ9HLgaPUOjJJD120uDyOxOjc/39M4Kddp9JQCxpGQbnhVQF0C0ncYVg==}
-
-  '@types/react@18.3.14':
-    resolution: {integrity: sha512-NzahNKvjNhVjuPBQ+2G7WlxstQ+47kXZNHlUvFakDViuIEfGY926GqhMueQFZ7woG+sPiQKlF36XfrIUVSUfFg==}
+  '@types/react@19.0.1':
+    resolution: {integrity: sha512-YW6614BDhqbpR5KtUYzTA+zlA7nayzJRA9ljz9CQoxthR0sDisYZLuvSMsil36t4EH/uAt8T52Xb4sVw17G+SQ==}
 
   '@types/refractor@3.4.1':
     resolution: {integrity: sha512-wYuorIiCTSuvRT9srwt+taF6mH/ww+SyN2psM0sjef2qW+sS8GmshgDGTEDgWB1sTVGgYVE6EK7dBA2MxQxibg==}
@@ -1317,6 +1316,9 @@ packages:
   available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
+
+  babel-plugin-react-compiler@19.0.0-beta-df7b47d-20241124:
+    resolution: {integrity: sha512-93iSASR20HNsotcOTQ+KPL0zpgfRFVWL86AtXpmHp995HuMVnC9femd8Winr3GxkPEh8lEOyaw3nqY4q2HUm5w==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -1739,17 +1741,17 @@ packages:
       eslint-plugin-react-hooks:
         optional: true
 
-  eslint-plugin-react-compiler@0.0.0-experimental-c8b3f72-20240517:
-    resolution: {integrity: sha512-cxUTFNMEKiLX6uFaRfrr2GHnB7KUHDMYLjEGzDec82ka6WyBCHg906nGSf3JvVnQKHaBDfUk7Mmv/JMvdgQB8Q==}
+  eslint-plugin-react-compiler@19.0.0-beta-df7b47d-20241124:
+    resolution: {integrity: sha512-82PfnllC8jP/68KdLAbpWuYTcfmtGLzkqy2IW85WopKMTr+4rdQpp+lfliQ/QE79wWrv/dRoADrk3Pdhq25nTw==}
     engines: {node: ^14.17.0 || ^16.0.0 || >= 18.0.0}
     peerDependencies:
       eslint: '>=7'
 
-  eslint-plugin-react-hooks@4.6.2:
-    resolution: {integrity: sha512-QzliNJq4GinDBcD8gPB5v0wh6g8q3SUi6EFF0x8N/BL9PoVs0atuGc47ozMRyOWAKdwaZ5OnbOEa3WR+dSGKuQ==}
+  eslint-plugin-react-hooks@5.1.0:
+    resolution: {integrity: sha512-mpJRtPgHN2tNAvZ35AMfqeB3Xqeo273QxrHJsbBEPWODRM4r0yB6jfoROqKEYrOn27UtRPpcpHc2UqyBSuUNTw==}
     engines: {node: '>=10'}
     peerDependencies:
-      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
+      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
 
   eslint-plugin-react@7.37.2:
     resolution: {integrity: sha512-EsTAnj9fLVr/GZleBLFbj/sSuXeWmp1eXIN60ceYnZveqEaUCyW4X+Vh4WTdUhCkW4xutXYqTXCUSyqD4rB75w==}
@@ -2103,11 +2105,11 @@ packages:
   hastscript@7.2.0:
     resolution: {integrity: sha512-TtYPq24IldU8iKoJQqvZOuhi5CyCQRAbvDOX0x1eW6rsHSxa/1i2CCiptNTotGHJ3VoHRGmqiv6/D3q113ikkw==}
 
-  hermes-estree@0.20.1:
-    resolution: {integrity: sha512-SQpZK4BzR48kuOg0v4pb3EAGNclzIlqMj3Opu/mu7bbAoFw6oig6cEt/RAi0zTFW/iW6Iz9X9ggGuZTAZ/yZHg==}
+  hermes-estree@0.25.1:
+    resolution: {integrity: sha512-0wUoCcLp+5Ev5pDW2OriHC2MJCbwLwuRx+gAqMTOkGKJJiBCLjtrvy4PWUGn6MIVefecRpzoOZ/UV6iGdOr+Cw==}
 
-  hermes-parser@0.20.1:
-    resolution: {integrity: sha512-BL5P83cwCogI8D7rrDCgsFY0tdYUtmFP9XaXtl2IQjC+2Xo+4okjfXintlTxcIwl4qeGddEl28Z11kbVIw0aNA==}
+  hermes-parser@0.25.1:
+    resolution: {integrity: sha512-6pEjquH3rqaI6cYAXYPcz9MS4rY6R4ngRgrgfDshRptUZIc3lw0MCIJIGDj9++mfySOuPTHB4nrSW99BCvOPIA==}
 
   homedir-polyfill@1.0.3:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
@@ -2920,16 +2922,19 @@ packages:
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  react-dom@18.3.1:
-    resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
+  react-dom@19.0.0:
+    resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
     peerDependencies:
-      react: ^18.3.1
+      react: ^19.0.0
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
+
+  react-is@19.0.0:
+    resolution: {integrity: sha512-H91OHcwjZsbq3ClIDHMzBShc1rotbfACdWENsmEf0IFvZ3FgGPtdHMcsv45bQ1hAbgdfiA8SnxTKfDS+x/8m2g==}
 
   react-leaflet@4.2.1:
     resolution: {integrity: sha512-p9chkvhcKrWn/H/1FFeVSqLdReGwn2qmiobOQGO3BifX+/vV/39qhY8dGqbdcPh1e6jxh/QHriLXr7a4eLFK4Q==}
@@ -2947,8 +2952,8 @@ packages:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
     engines: {node: '>=0.10.0'}
 
-  react@18.3.1:
-    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
+  react@19.0.0:
+    resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
     engines: {node: '>=0.10.0'}
 
   read-pkg@5.2.0:
@@ -3095,8 +3100,8 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  scheduler@0.23.2:
-    resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
+  scheduler@0.25.0:
+    resolution: {integrity: sha512-xFVuu11jh+xcO7JOAGJNOXld8/TcEHK/4CituBUeUb5hqxJLj9YuemAEuvm9gQ/+pgXYfbQuqAkiYu+u7YEsNA==}
 
   semver@5.7.2:
     resolution: {integrity: sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==}
@@ -3767,14 +3772,6 @@ snapshots:
       '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.26.0)
       '@babel/plugin-transform-parameters': 7.24.1(@babel/core@7.26.0)
 
-  '@babel/plugin-proposal-private-methods@7.18.6(@babel/core@7.26.0)':
-    dependencies:
-      '@babel/core': 7.26.0
-      '@babel/helper-create-class-features-plugin': 7.25.9(@babel/core@7.26.0)
-      '@babel/helper-plugin-utils': 7.25.9
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/plugin-syntax-jsx@7.25.9(@babel/core@7.26.0)':
     dependencies:
       '@babel/core': 7.26.0
@@ -3802,6 +3799,14 @@ snapshots:
     dependencies:
       '@babel/core': 7.26.0
       '@babel/helper-plugin-utils': 7.25.9
+
+  '@babel/plugin-transform-private-methods@7.25.9(@babel/core@7.26.0)':
+    dependencies:
+      '@babel/core': 7.26.0
+      '@babel/helper-create-class-features-plugin': 7.25.9(@babel/core@7.26.0)
+      '@babel/helper-plugin-utils': 7.25.9
+    transitivePeerDependencies:
+      - supports-color
 
   '@babel/plugin-transform-react-jsx-self@7.25.9(@babel/core@7.26.0)':
     dependencies:
@@ -4157,11 +4162,11 @@ snapshots:
       '@floating-ui/core': 1.6.0
       '@floating-ui/utils': 0.2.1
 
-  '@floating-ui/react-dom@2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@floating-ui/react-dom@2.1.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@floating-ui/dom': 1.6.3
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
 
   '@floating-ui/utils@0.2.1': {}
 
@@ -4293,11 +4298,11 @@ snapshots:
 
   '@portabletext/types@2.0.13': {}
 
-  '@react-leaflet/core@2.1.0(leaflet@1.9.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@react-leaflet/core@2.1.0(leaflet@1.9.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       leaflet: 1.9.4
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
 
   '@rollup/plugin-alias@5.1.1(rollup@4.28.0)':
     optionalDependencies:
@@ -4457,11 +4462,11 @@ snapshots:
 
   '@sanity/color@3.0.6': {}
 
-  '@sanity/icons@3.5.0(react@18.3.1)':
+  '@sanity/icons@3.5.0(react@19.0.0)':
     dependencies:
-      react: 18.3.1
+      react: 19.0.0
 
-  '@sanity/pkg-utils@6.11.14(@types/babel__core@7.20.5)(@types/node@20.12.4)(typescript@5.7.2)':
+  '@sanity/pkg-utils@6.11.14(@types/babel__core@7.20.5)(@types/node@20.12.4)(babel-plugin-react-compiler@19.0.0-beta-df7b47d-20241124)(typescript@5.7.2)':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/preset-typescript': 7.26.0(@babel/core@7.26.0)
@@ -4505,25 +4510,27 @@ snapshots:
       uuid: 11.0.3
       zod: 3.23.8
       zod-validation-error: 3.4.0(zod@3.23.8)
+    optionalDependencies:
+      babel-plugin-react-compiler: 19.0.0-beta-df7b47d-20241124
     transitivePeerDependencies:
       - '@types/babel__core'
       - '@types/node'
       - supports-color
 
-  '@sanity/ui@2.9.1(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+  '@sanity/ui@2.9.1(react-dom@19.0.0(react@19.0.0))(react-is@19.0.0)(react@19.0.0)(styled-components@6.1.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0))':
     dependencies:
-      '@floating-ui/react-dom': 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@floating-ui/react-dom': 2.1.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@sanity/color': 3.0.6
-      '@sanity/icons': 3.5.0(react@18.3.1)
+      '@sanity/icons': 3.5.0(react@19.0.0)
       csstype: 3.1.3
-      framer-motion: 11.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react: 18.3.1
-      react-compiler-runtime: 19.0.0-beta-df7b47d-20241124(react@18.3.1)
-      react-dom: 18.3.1(react@18.3.1)
-      react-is: 18.3.1
-      react-refractor: 2.2.0(react@18.3.1)
-      styled-components: 6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      use-effect-event: 1.0.2(react@18.3.1)
+      framer-motion: 11.0.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react: 19.0.0
+      react-compiler-runtime: 19.0.0-beta-df7b47d-20241124(react@19.0.0)
+      react-dom: 19.0.0(react@19.0.0)
+      react-is: 19.0.0
+      react-refractor: 2.2.0(react@19.0.0)
+      styled-components: 6.1.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      use-effect-event: 1.0.2(react@19.0.0)
 
   '@sinclair/typebox@0.27.8': {}
 
@@ -4576,15 +4583,12 @@ snapshots:
 
   '@types/prismjs@1.26.3': {}
 
-  '@types/prop-types@15.7.12': {}
-
-  '@types/react-dom@18.3.2':
+  '@types/react-dom@19.0.1':
     dependencies:
-      '@types/react': 18.3.14
+      '@types/react': 19.0.1
 
-  '@types/react@18.3.14':
+  '@types/react@19.0.1':
     dependencies:
-      '@types/prop-types': 15.7.12
       csstype: 3.1.3
 
   '@types/refractor@3.4.1':
@@ -4863,6 +4867,10 @@ snapshots:
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.0.0
+
+  babel-plugin-react-compiler@19.0.0-beta-df7b47d-20241124:
+    dependencies:
+      '@babel/types': 7.26.3
 
   balanced-match@1.0.2: {}
 
@@ -5366,7 +5374,7 @@ snapshots:
     dependencies:
       eslint: 8.57.1
 
-  eslint-config-sanity@7.1.3(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2))(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint-plugin-react-hooks@4.6.2(eslint@8.57.1))(eslint-plugin-react@7.37.2(eslint@8.57.1))(eslint@8.57.1):
+  eslint-config-sanity@7.1.3(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2))(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint-plugin-react-hooks@5.1.0(eslint@8.57.1))(eslint-plugin-react@7.37.2(eslint@8.57.1))(eslint@8.57.1):
     dependencies:
       eslint: 8.57.1
       eslint-plugin-simple-import-sort: 12.0.0(eslint@8.57.1)
@@ -5374,21 +5382,21 @@ snapshots:
       '@typescript-eslint/eslint-plugin': 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
       '@typescript-eslint/parser': 7.18.0(eslint@8.57.1)(typescript@5.7.2)
       eslint-plugin-react: 7.37.2(eslint@8.57.1)
-      eslint-plugin-react-hooks: 4.6.2(eslint@8.57.1)
+      eslint-plugin-react-hooks: 5.1.0(eslint@8.57.1)
 
-  eslint-plugin-react-compiler@0.0.0-experimental-c8b3f72-20240517(eslint@8.57.1):
+  eslint-plugin-react-compiler@19.0.0-beta-df7b47d-20241124(eslint@8.57.1):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/parser': 7.26.3
-      '@babel/plugin-proposal-private-methods': 7.18.6(@babel/core@7.26.0)
+      '@babel/plugin-transform-private-methods': 7.25.9(@babel/core@7.26.0)
       eslint: 8.57.1
-      hermes-parser: 0.20.1
+      hermes-parser: 0.25.1
       zod: 3.23.8
       zod-validation-error: 3.4.0(zod@3.23.8)
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-react-hooks@4.6.2(eslint@8.57.1):
+  eslint-plugin-react-hooks@5.1.0(eslint@8.57.1):
     dependencies:
       eslint: 8.57.1
 
@@ -5604,13 +5612,13 @@ snapshots:
       cross-spawn: 7.0.3
       signal-exit: 4.1.0
 
-  framer-motion@11.0.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  framer-motion@11.0.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       tslib: 2.6.2
     optionalDependencies:
       '@emotion/is-prop-valid': 0.8.8
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
 
   from2@2.3.0:
     dependencies:
@@ -5841,11 +5849,11 @@ snapshots:
       property-information: 6.5.0
       space-separated-tokens: 2.0.2
 
-  hermes-estree@0.20.1: {}
+  hermes-estree@0.25.1: {}
 
-  hermes-parser@0.20.1:
+  hermes-parser@0.25.1:
     dependencies:
-      hermes-estree: 0.20.1
+      hermes-estree: 0.25.1
 
   homedir-polyfill@1.0.3:
     dependencies:
@@ -6591,39 +6599,38 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  react-compiler-runtime@19.0.0-beta-df7b47d-20241124(react@18.3.1):
+  react-compiler-runtime@19.0.0-beta-df7b47d-20241124(react@19.0.0):
     dependencies:
-      react: 18.3.1
+      react: 19.0.0
 
-  react-dom@18.3.1(react@18.3.1):
+  react-dom@19.0.0(react@19.0.0):
     dependencies:
-      loose-envify: 1.4.0
-      react: 18.3.1
-      scheduler: 0.23.2
+      react: 19.0.0
+      scheduler: 0.25.0
 
   react-is@16.13.1: {}
 
   react-is@18.3.1: {}
 
-  react-leaflet@4.2.1(leaflet@1.9.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@react-leaflet/core': 2.1.0(leaflet@1.9.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      leaflet: 1.9.4
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+  react-is@19.0.0: {}
 
-  react-refractor@2.2.0(react@18.3.1):
+  react-leaflet@4.2.1(leaflet@1.9.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
-      react: 18.3.1
+      '@react-leaflet/core': 2.1.0(leaflet@1.9.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      leaflet: 1.9.4
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
+  react-refractor@2.2.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
       refractor: 3.6.0
       unist-util-filter: 2.0.3
       unist-util-visit-parents: 3.1.1
 
   react-refresh@0.14.2: {}
 
-  react@18.3.1:
-    dependencies:
-      loose-envify: 1.4.0
+  react@19.0.0: {}
 
   read-pkg@5.2.0:
     dependencies:
@@ -6815,9 +6822,7 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  scheduler@0.23.2:
-    dependencies:
-      loose-envify: 1.4.0
+  scheduler@0.25.0: {}
 
   semver@5.7.2: {}
 
@@ -7013,7 +7018,7 @@ snapshots:
     dependencies:
       js-tokens: 9.0.0
 
-  styled-components@6.1.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  styled-components@6.1.13(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@emotion/is-prop-valid': 1.2.2
       '@emotion/unitless': 0.8.1
@@ -7021,8 +7026,8 @@ snapshots:
       css-to-react-native: 3.2.0
       csstype: 3.1.3
       postcss: 8.4.38
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
       shallowequal: 1.1.0
       stylis: 4.3.2
       tslib: 2.6.2
@@ -7187,9 +7192,9 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  use-effect-event@1.0.2(react@18.3.1):
+  use-effect-event@1.0.2(react@19.0.0):
     dependencies:
-      react: 18.3.1
+      react: 19.0.0
 
   user-home@2.0.0:
     dependencies:

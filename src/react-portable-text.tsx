@@ -17,7 +17,7 @@ import type {
   PortableTextSpan,
   TypedObject,
 } from '@portabletext/types'
-import {type ReactNode, useMemo} from 'react'
+import {type JSX, type ReactNode, useMemo} from 'react'
 
 import {defaultComponents} from './components/defaults'
 import {mergeComponents} from './components/merge'
