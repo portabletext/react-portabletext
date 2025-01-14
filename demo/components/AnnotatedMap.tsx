@@ -1,9 +1,8 @@
 import 'leaflet/dist/leaflet.css'
 
-import {useEffect, useState} from 'react'
+import {Suspense, use} from 'react'
 
 import {PortableTextTypeComponent} from '../../src'
-import type {ReducedLeafletApi} from './Leaflet'
 
 export interface Geopoint {
   _type: 'geopoint'
@@ -25,20 +24,10 @@ export interface AnnotatedMapBlock {
   markers?: MapMarker[]
 }
 
-export const AnnotatedMap: PortableTextTypeComponent<AnnotatedMapBlock> = ({value}) => {
-  const [Leaflet, setLeaflet] = useState<ReducedLeafletApi | undefined>(undefined)
+const promise = import('./Leaflet').then((leafletApi) => leafletApi.default)
 
-  useEffect(() => {
-    import('./Leaflet').then((leafletApi) => setLeaflet(leafletApi.default))
-  }, [Leaflet, setLeaflet])
-
-  if (!Leaflet) {
-    return (
-      <div className="annotated-map loading">
-        <div>Loading map…</div>
-      </div>
-    )
-  }
+const AnnotatedMapComponent: PortableTextTypeComponent<AnnotatedMapBlock> = ({value}) => {
+  const Leaflet = use(promise)
 
   return (
     <Leaflet.MapContainer
@@ -57,5 +46,19 @@ export const AnnotatedMap: PortableTextTypeComponent<AnnotatedMapBlock> = ({valu
         </Leaflet.Marker>
       ))}
     </Leaflet.MapContainer>
+  )
+}
+
+export const AnnotatedMap: PortableTextTypeComponent<AnnotatedMapBlock> = (props) => {
+  return (
+    <Suspense
+      fallback={
+        <div className="annotated-map loading">
+          <div>Loading map…</div>
+        </div>
+      }
+    >
+      <AnnotatedMapComponent {...props} />
+    </Suspense>
   )
 }

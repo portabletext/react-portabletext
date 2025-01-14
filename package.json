@@ -38,12 +38,12 @@
     "build": "pkg-utils build --strict --check --clean",
     "build:demo": "vite build demo --config=./vite.config.demo.ts --base=/react-portabletext/",
     "clean": "rimraf dist coverage demo/dist .nyc_output",
-    "dev": "vite demo",
+    "dev": "vite demo --config=./vite.config.ts --base=/react-portabletext/",
     "format": "prettier --write --cache --ignore-unknown .",
     "lint": "eslint .",
     "prepare": "husky install",
     "prepublishOnly": "run-s build lint type-check",
-    "start": "vite demo",
+    "start": "pnpm dev",
     "test": "vitest",
     "type-check": "tsc --noEmit"
   },
@@ -85,7 +85,12 @@
       "prettier"
     ],
     "rules": {
-      "react-compiler/react-compiler": "error",
+      "react-compiler/react-compiler": [
+        "error",
+        {
+          "__unstable_donotuse_reportAllBailouts": true
+        }
+      ],
       "react/prop-types": "off"
     },
     "ignorePatterns": [
@@ -94,23 +99,25 @@
   },
   "dependencies": {
     "@portabletext/toolkit": "^2.0.16",
-    "@portabletext/types": "^2.0.13"
+    "@portabletext/types": "^2.0.13",
+    "react-compiler-runtime": "experimental"
   },
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
-    "@sanity/pkg-utils": "^6.11.14",
-    "@sanity/ui": "^2.9.1",
+    "@portabletext/editor": "^1.21.5",
+    "@sanity/pkg-utils": "^6.12.2",
+    "@sanity/ui": "^2.10.12",
     "@types/leaflet": "^1.9.15",
-    "@types/react": "^19.0.1",
-    "@types/react-dom": "^19.0.1",
-    "@types/refractor": "^3.4.1",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "@types/refractor": "^4.0.0",
     "@types/ws": "^8.5.13",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@vitejs/plugin-react": "^4.3.4",
-    "babel-plugin-react-compiler": "19.0.0-beta-df7b47d-20241124",
+    "babel-plugin-react-compiler": "experimental",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "esbuild": "^0.24.0",
@@ -119,30 +126,30 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-sanity": "^7.1.3",
     "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-react-compiler": "19.0.0-beta-df7b47d-20241124",
+    "eslint-plugin-react-compiler": "experimental",
     "eslint-plugin-react-hooks": "^5.1.0",
     "husky": "^8.0.3",
     "leaflet": "^1.9.4",
     "npm-run-all2": "^5.0.2",
     "prettier": "^3.4.2",
     "prettier-plugin-packagejson": "^2.5.6",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-is": "^19.0.0",
-    "react-leaflet": "^4.2.1",
-    "react-refractor": "^2.2.0",
+    "react": "experimental",
+    "react-dom": "experimental",
+    "react-is": "experimental",
+    "react-leaflet": "^5.0.0",
+    "react-refractor": "^3.1.1",
     "refractor": "^4.8.1",
     "rimraf": "^5.0.1",
     "rollup-plugin-visualizer": "^5.12.0",
     "styled-components": "^6.1.13",
-    "typescript": "^5.7.2",
+    "typescript": "5.7.2",
     "vite": "^5.4.11",
     "vitest": "^1.6.0"
   },
   "peerDependencies": {
     "react": "^17 || ^18 || >=19.0.0-0"
   },
-  "packageManager": "pnpm@9.4.0",
+  "packageManager": "pnpm@9.15.1",
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
   },

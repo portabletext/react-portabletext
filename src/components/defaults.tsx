@@ -1,5 +1,5 @@
 import type {PortableTextBlockStyle} from '@portabletext/types'
-import type {JSX} from 'react'
+import {type JSX} from 'react'
 
 import type {PortableTextBlockComponent, PortableTextReactComponents} from '../types'
 import {DefaultListItem, defaultLists} from './list'

@@ -1,4 +1,11 @@
-import type {ToolkitNestedPortableTextSpan, ToolkitTextNode} from '@portabletext/toolkit'
+/// <reference types="react/experimental" />
+
+import type {
+  ToolkitNestedPortableTextSpan,
+  ToolkitPortableTextDirectList,
+  ToolkitPortableTextHtmlList,
+  ToolkitTextNode,
+} from '@portabletext/toolkit'
 import {
   buildMarksTree,
   isPortableTextBlock,
@@ -17,7 +24,13 @@ import type {
   PortableTextSpan,
   TypedObject,
 } from '@portabletext/types'
-import {type JSX, type ReactNode, useMemo} from 'react'
+import {
+  type JSX,
+  type ReactNode,
+  unstable_ViewTransition as ViewTransition,
+  useId,
+  useMemo,
+} from 'react'
 
 import {defaultComponents} from './components/defaults'
 import {mergeComponents} from './components/merge'
@@ -44,7 +57,10 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   components: componentOverrides,
   listNestingMode,
   onMissingComponent: missingComponentHandler = printWarning,
+  render = defaultRender,
 }: PortableTextProps<B>): JSX.Element {
+  // make the id safef for view transition names: https://github.com/facebook/react/pull/32001
+  const id = useId().replace(/:(.*?):/g, '\u00AB$1\u00BB')
   const handleMissingComponent = missingComponentHandler || noop
   const blocks = Array.isArray(input) ? input : [input]
   const nested = nestLists(blocks, listNestingMode || LIST_NEST_MODE_HTML)
@@ -55,20 +71,41 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
       : defaultComponents
   }, [componentOverrides])
 
-  const renderNode = useMemo(
-    () => getNodeRenderer(components, handleMissingComponent),
-    [components, handleMissingComponent],
-  )
-  const rendered = nested.map((node, index) =>
-    renderNode({node: node, index, isInline: false, renderNode}),
-  )
+  const renderNode = useRenderNode(components, handleMissingComponent, id)
+  const rendered = useRendered<B>(nested, renderNode)
 
+  return render(rendered)
+}
+
+function useRenderNode(
+  components: PortableTextReactComponents,
+  handleMissingComponent: MissingComponentHandler,
+  id: string,
+) {
+  return useMemo(
+    () => getNodeRenderer(components, handleMissingComponent, id),
+    [components, handleMissingComponent, id],
+  )
+}
+
+function defaultRender(rendered: Iterable<ReactNode>): JSX.Element {
   return <>{rendered}</>
+}
+
+function useRendered<B extends TypedObject = PortableTextBlock>(
+  nested: (B | ToolkitPortableTextHtmlList | ToolkitPortableTextDirectList)[],
+  renderNode: NodeRenderer,
+) {
+  return useMemo(
+    () => nested.map((node, index) => renderNode({node: node, index, isInline: false, renderNode})),
+    [nested, renderNode],
+  )
 }
 
 const getNodeRenderer = (
   components: PortableTextReactComponents,
   handleMissingComponent: MissingComponentHandler,
+  id: string,
 ): NodeRenderer => {
   function renderNode<N extends TypedObject>(options: Serializable<N>): ReactNode {
     const {node, index, isInline} = options
@@ -159,9 +196,11 @@ const getNodeRenderer = (
     }
 
     return (
-      <List key={key} value={node} index={index} isInline={false} renderNode={renderNode}>
-        {children}
-      </List>
+      <ViewTransition key={key} name={`${id}_${key}`}>
+        <List key={key} value={node} index={index} isInline={false} renderNode={renderNode}>
+          {children}
+        </List>
+      </ViewTransition>
     )
   }
 
@@ -205,7 +244,11 @@ const getNodeRenderer = (
       })
     }
 
-    return <Block key={key} {...props} value={props.node} renderNode={renderNode} />
+    return (
+      <ViewTransition key={key} name={`${id}_${node._type}_${key}`}>
+        <Block key={key} {...props} value={props.node} renderNode={renderNode} />
+      </ViewTransition>
+    )
   }
 
   function renderText(node: ToolkitTextNode, key: string) {

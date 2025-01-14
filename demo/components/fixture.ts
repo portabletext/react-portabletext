@@ -1,7 +1,8 @@
 import type {PortableTextBlock} from '@portabletext/types'
+import {keyGenerator} from '@portabletext/editor'
 
-import type {AnnotatedMapBlock} from './components/AnnotatedMap'
-import type {CodeBlock} from './components/Code'
+import type {AnnotatedMapBlock} from './AnnotatedMap'
+import type {CodeBlock} from './Code'
 
 const exampleCode = `
 import {PortableText, PortableTextTypeComponent} from '@portabletext/react'
@@ -17,87 +18,111 @@ const Code: PortableTextComponent<CodeBlock> = ({value}) => {
 }
 `.trim()
 
+const keys = {
+  d3f: keyGenerator(),
+  d4tl1nk: keyGenerator(),
+  b34n: keyGenerator(),
+  sp33ch: keyGenerator(),
+  p17ch: keyGenerator(),
+}
+
 export const blocks: (PortableTextBlock | CodeBlock | AnnotatedMapBlock)[] = [
   {
     _type: 'block',
-    _key: 'head',
+    _key: keyGenerator(),
     style: 'h1',
     markDefs: [],
-    children: [{_type: 'span', text: '@portabletext/react demo'}],
+    children: [{_type: 'span', _key: keyGenerator(), text: '@portabletext/react demo'}],
   },
   {
     _type: 'block',
-    _key: 'text-format-header',
+    _key: keyGenerator(),
     style: 'h2',
-    children: [{_type: 'span', _key: 'a', text: 'Text formatting'}],
+    children: [{_type: 'span', _key: keyGenerator(), text: 'Text formatting'}],
   },
   {
     _type: 'block',
-    _key: 'text-formatting',
-    markDefs: [{_type: 'link', _key: 'd4tl1nk', href: 'https://portabletext.org/'}],
+    _key: keyGenerator(),
+    markDefs: [{_type: 'link', _key: keys.d4tl1nk, href: 'https://portabletext.org/'}],
     children: [
-      {_type: 'span', _key: 'a', text: 'Plain, '},
-      {_type: 'span', _key: 'b', text: 'emphasized, ', marks: ['em']},
-      {_type: 'span', _key: 'c', text: 'linked', marks: ['d4tl1nk']},
-      {_type: 'span', _key: 'd', text: ' and ', marks: ['em']},
-      {_type: 'span', _key: 'e', text: 'strong', marks: ['strong']},
-      {_type: 'span', _key: 'f', text: ' text, that can also be ', marks: []},
-      {_type: 'span', _key: 'g', text: 'combined', marks: ['em', 'strong', 'd4tl1nk']},
-      {_type: 'span', _key: 'g', text: '. Obviously it also supports ', marks: []},
-      {_type: 'span', _key: 'h', text: 'inline code', marks: ['code']},
-      {_type: 'span', _key: 'i', text: ', '},
-      {_type: 'span', _key: 'j', text: 'underlined text', marks: ['underline']},
-      {_type: 'span', _key: 'k', text: ' and '},
-      {_type: 'span', _key: 'l', text: 'strike-through', marks: ['strike-through']},
-      {_type: 'span', _key: 'm', text: '.'},
+      {_type: 'span', _key: keyGenerator(), text: 'Plain, '},
+      {_type: 'span', _key: keyGenerator(), text: 'emphasized, ', marks: ['em']},
+      {_type: 'span', _key: keyGenerator(), text: 'linked', marks: [keys.d4tl1nk]},
+      {_type: 'span', _key: keyGenerator(), text: ' and ', marks: ['em']},
+      {_type: 'span', _key: keyGenerator(), text: 'strong', marks: ['strong']},
+      {_type: 'span', _key: keyGenerator(), text: ' text, that can also be ', marks: []},
+      {
+        _type: 'span',
+        _key: keyGenerator(),
+        text: 'combined',
+        marks: ['em', 'strong', keys.d4tl1nk],
+      },
+      {_type: 'span', _key: keyGenerator(), text: '. Obviously it also supports ', marks: []},
+      {_type: 'span', _key: keyGenerator(), text: 'inline code', marks: ['code']},
+      {_type: 'span', _key: keyGenerator(), text: ', '},
+      {_type: 'span', _key: keyGenerator(), text: 'underlined text', marks: ['underline']},
+      {_type: 'span', _key: keyGenerator(), text: ' and '},
+      {_type: 'span', _key: keyGenerator(), text: 'strike-through', marks: ['strike-through']},
+      {_type: 'span', _key: keyGenerator(), text: '.'},
     ],
   },
   {
     _type: 'block',
-    _key: 'text-annotations',
+    _key: keyGenerator(),
     markDefs: [
       {
         _type: 'definition',
-        _key: 'd3f',
+        _key: keys.d3f,
         details: 'a statement of the exact meaning of a word, especially in a dictionary.',
       },
-      {_type: 'characterReference', _key: 'b34n', characterId: 'nedStark'},
-      {_type: 'speech', _key: 'sp33ch', pitch: 1},
-      {_type: 'speech', _key: 'p17ch', pitch: 1.5},
+      {_type: 'characterReference', _key: keys.b34n, characterId: 'nedStark'},
+      {_type: 'speech', _key: keys.sp33ch, pitch: 1},
+      {_type: 'speech', _key: keys.p17ch, pitch: 1.5},
     ],
     children: [
       {
         _type: 'span',
-        _key: 'a',
+        _key: keyGenerator(),
         text: 'But aside from that, it also supports completely custom annotations - be it structured references to ',
       },
-      {_type: 'span', _key: 'b', text: 'book/movie characters', marks: ['b34n']},
-      {_type: 'span', _key: 'c', text: ', term '},
-      {_type: 'span', _key: 'd', text: 'definitions', marks: ['d3f']},
-      {_type: 'span', _key: 'e', text: ', '},
-      {_type: 'span', _key: 'f', text: 'speech synthesis controls', marks: ['sp33ch']},
-      {_type: 'span', _key: 'g', text: ' '},
-      {_type: 'span', _key: 'h', text: '(configurable)', marks: ['p17ch']},
-      {_type: 'span', _key: 'i', text: ' or some other fun and creative use case.'},
+      {_type: 'span', _key: keyGenerator(), text: 'book/movie characters', marks: [keys.b34n]},
+      {_type: 'span', _key: keyGenerator(), text: ', term '},
+      {_type: 'span', _key: keyGenerator(), text: 'definitions', marks: [keys.d3f]},
+      {_type: 'span', _key: keyGenerator(), text: ', '},
+      {
+        _type: 'span',
+        _key: keyGenerator(),
+        text: 'speech synthesis controls',
+        marks: [keys.sp33ch],
+      },
+      {_type: 'span', _key: keyGenerator(), text: ' '},
+      {_type: 'span', _key: keyGenerator(), text: '(configurable)', marks: [keys.p17ch]},
+      {_type: 'span', _key: keyGenerator(), text: ' or some other fun and creative use case.'},
     ],
   },
   {
     _type: 'block',
-    _key: 'inline-objects',
+    _key: keyGenerator(),
     style: 'normal',
     children: [
-      {_type: 'span', text: 'Blocks can also contain "'},
-      {_type: 'span', text: 'inline objects', marks: ['em']},
+      {_type: 'span', _key: keyGenerator(), text: 'Blocks can also contain "'},
+      {_type: 'span', _key: keyGenerator(), text: 'inline objects', marks: ['em']},
       {
         _type: 'span',
+        _key: keyGenerator(),
         text: '", which contain user-defined data. Maybe you want to represent a price in a given currency, but be able to get a live exchange rate in the users local currency? In January 2022, a Whopper was about ',
       },
       {
         _type: 'currencyAmount',
+        _key: keyGenerator(),
         currency: 'USD',
         amount: 5,
       },
-      {_type: 'span', text: ' at your local Burger King restaurant in Miami.'},
+      {
+        _type: 'span',
+        _key: keyGenerator(),
+        text: ' at your local Burger King restaurant in Miami.',
+      },
     ],
   },
   {
@@ -559,3 +584,6 @@ export const blocks: (PortableTextBlock | CodeBlock | AnnotatedMapBlock)[] = [
     children: [{_type: 'span', text: 'Pippi'}],
   },
 ]
+
+// @TODO remove this workaround
+blocks.length = 5

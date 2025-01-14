@@ -11,7 +11,7 @@ import type {
   PortableTextListItemType,
   TypedObject,
 } from '@portabletext/types'
-import type {ComponentType, ReactNode} from 'react'
+import type {ComponentType, ReactNode, JSX} from 'react'
 
 /**
  * Properties for the Portable Text react component
@@ -47,6 +47,12 @@ export interface PortableTextProps<
    * You rarely (if ever) need/want to customize this
    */
   listNestingMode?: ToolkitListNestMode
+
+  /**
+   * Customize how the rendered result is rendered, by default they're wrapped in a fragment:
+   * @defaultValue: `render={(rendered) => <>{rendered}</>}`
+   */
+  render?: (rendered: Iterable<ReactNode>) => JSX.Element
 }
 
 /**
@@ -227,6 +233,11 @@ export interface PortableTextComponentProps<T> {
    * to use this.
    */
   renderNode: NodeRenderer
+
+  /**
+   * A unique CSS View Transition name to be used with React.ViewTransition, if `_key` is available
+   */
+  viewTransitionName?: string
 }
 
 /**

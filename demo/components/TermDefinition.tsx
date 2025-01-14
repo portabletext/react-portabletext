@@ -12,21 +12,31 @@ export const TermDefinition: PortableTextMarkComponent<DefinitionMark> = ({value
   const [isOpen, setOpen] = useState(false)
   const handleOpen = useCallback(() => setOpen(true), [setOpen])
   const handleClose = useCallback(() => setOpen(false), [setOpen])
+  const [referenceElement, setReferenceElement] = useState<HTMLSpanElement | null>(null)
   return (
-    <Popover
-      open={isOpen}
-      padding={2}
-      portal
-      placement="top"
-      content={
-        <Text size={2} style={{maxWidth: '260px'}}>
-          {value?.details}
-        </Text>
-      }
-    >
-      <span style={{textDecoration: 'underline'}} onMouseOver={handleOpen} onMouseOut={handleClose}>
+    <>
+      <span
+        ref={setReferenceElement}
+        style={{textDecoration: 'underline'}}
+        onMouseOver={handleOpen}
+        onMouseOut={handleClose}
+      >
         {children}
       </span>
-    </Popover>
+      {isOpen && (
+        <Popover
+          open
+          referenceElement={referenceElement}
+          padding={2}
+          portal
+          placement="top"
+          content={
+            <Text size={2} style={{maxWidth: '260px'}}>
+              {value?.details}
+            </Text>
+          }
+        />
+      )}
+    </>
   )
 }

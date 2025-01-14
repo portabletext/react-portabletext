@@ -22,7 +22,7 @@ jobs:
           app-id: ${{ secrets.ECOSCRIPT_APP_ID }}
           private-key: ${{ secrets.ECOSCRIPT_APP_PRIVATE_KEY }}
       # This action will create a release PR when regular conventional commits are pushed to main, it'll also detect if a release PR is merged and npm publish should happen
-      - uses: google-github-actions/release-please-action@v3
+      - uses: googleapis/release-please-action@v4
         id: release
         with:
           release-type: node
@@ -30,33 +30,33 @@ jobs:
 
       # Publish to NPM on new releases
       - uses: actions/checkout@v4
-        if: ${{ steps.release.outputs.releases_created }}
-      - uses: pnpm/action-setup@v2
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
+      - uses: pnpm/action-setup@v4
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
       - uses: actions/setup-node@v4
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
         with:
           cache: pnpm
           node-version: lts/*
           registry-url: 'https://registry.npmjs.org'
-      - run: corepack enable && pnpm --version && pnpm install
-        if: ${{ steps.release.outputs.releases_created }}
+      - run: pnpm install
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
       - name: Set publishing config
         run: pnpm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
       # Release Please has already incremented versions and published tags, so we just
       # need to publish the new version to npm here
       - run: pnpm publish
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
         env:
           NPM_CONFIG_PROVENANCE: true
       # Publish to GitHub Pages
       - run: pnpm build:demo
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
       - uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
         with:
           github_token: ${{ steps.generate-token.outputs.token }}
           publish_dir: ./demo/dist
