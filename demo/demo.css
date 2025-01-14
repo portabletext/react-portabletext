@@ -2,9 +2,13 @@ body {
   font-family: sans-serif;
 }
 
-#demo-root {
-  max-width: 700px;
+#root {
+  height: 100vh;
+  height: 100dvh;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 code {

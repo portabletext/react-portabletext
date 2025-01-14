@@ -23,8 +23,10 @@ export default defineConfig({
   },
 
   babel: {
+    reactCompiler: true,
     plugins: ['@babel/plugin-proposal-object-rest-spread'],
   },
+  reactCompilerOptions: {target: '17'},
 
   tsconfig: 'tsconfig.dist.json',
 })

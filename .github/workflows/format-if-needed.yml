@@ -18,10 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
+          cache: pnpm
           node-version: lts/*
-      - run: corepack enable && pnpm --version
       - run: pnpm install --ignore-scripts
       - run: pnpm format
       - run: git restore .github/workflows CHANGELOG.md
@@ -30,7 +31,7 @@ jobs:
         with:
           app-id: ${{ secrets.ECOSCRIPT_APP_ID }}
           private-key: ${{ secrets.ECOSCRIPT_APP_PRIVATE_KEY }}
-      - uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6
+      - uses: peter-evans/create-pull-request@5e914681df9dc83aa4e4905692ca88beb2f9e91f # v7
         with:
           author: github-actions <41898282+github-actions[bot]@users.noreply.github.com>
           body: I ran `pnpm format` 🧑‍💻
@@ -38,5 +39,6 @@ jobs:
           commit-message: 'chore(format): 🤖 ✨'
           delete-branch: true
           labels: 🤖 bot
+          sign-commits: true
           title: 'chore(format): 🤖 ✨'
           token: ${{ steps.generate-token.outputs.token }}

@@ -1,0 +1,148 @@
+[role='textbox'] {
+  counter-reset: list-level-1 list-level-2 list-level-3 list-level-4
+    list-level-5 list-level-6 list-level-7 list-level-8 list-level-9
+    list-level-10;
+}
+
+[role='textbox'] > :not(.pt-list-item-number) {
+  counter-set: list-level-1 list-level-2 list-level-3 list-level-4 list-level-5
+    list-level-6 list-level-7 list-level-8 list-level-9 list-level-10;
+}
+
+.pt-list-item {
+  position: relative;
+}
+.pt-list-item:before {
+  position: absolute;
+}
+.pt-list-item-bullet:before {
+  content: '●';
+}
+.pt-list-item-number:before {
+  content: counter(list-level-1) '.';
+}
+
+.pt-list-item-level-1 {
+  padding-left: 16px;
+  counter-increment: list-level-1;
+}
+.pt-list-item-level-1:before {
+  left: 0;
+}
+
+.pt-list-item-level-2 {
+  padding-left: 24px;
+  counter-increment: list-level-2;
+}
+.pt-list-item-level-2:before {
+  left: 8px;
+}
+.pt-list-item-number.pt-list-item-level-2:before {
+  content: counter(list-level-2) '.';
+}
+.pt-list-item-bullet.pt-list-item-level-2:before {
+  content: '○';
+}
+
+.pt-list-item-level-3 {
+  padding-left: 32px;
+  counter-increment: list-level-3;
+}
+.pt-list-item-level-3:before {
+  left: 16px;
+}
+.pt-list-item-number.pt-list-item-level-3:before {
+  content: counter(list-level-3) '.';
+}
+.pt-list-item-bullet.pt-list-item-level-3:before {
+  content: '■';
+}
+
+.pt-list-item-level-4 {
+  padding-left: 40px;
+  counter-increment: list-level-4;
+}
+.pt-list-item-level-4:before {
+  left: 24px;
+}
+.pt-list-item-number.pt-list-item-level-4:before {
+  content: counter(list-level-4) '.';
+}
+
+.pt-list-item-level-5 {
+  padding-left: 48px;
+  counter-increment: list-level-5;
+}
+.pt-list-item-level-5:before {
+  left: 30px;
+}
+.pt-list-item-number.pt-list-item-level-5:before {
+  content: counter(list-level-5) '.';
+}
+.pt-list-item-bullet.pt-list-item-level-5:before {
+  content: '○';
+}
+
+.pt-list-item-level-6 {
+  padding-left: 56px;
+  counter-increment: list-level-6;
+}
+.pt-list-item-level-6:before {
+  left: 36px;
+}
+.pt-list-item-number.pt-list-item-level-6:before {
+  content: counter(list-level-6) '.';
+}
+.pt-list-item-bullet.pt-list-item-level-6:before {
+  content: '■';
+}
+
+.pt-list-item-level-7 {
+  padding-left: 64px;
+  counter-increment: list-level-7;
+}
+.pt-list-item-level-7:before {
+  left: 44px;
+}
+.pt-list-item-number.pt-list-item-level-7:before {
+  content: counter(list-level-7) '.';
+}
+
+.pt-list-item-level-8 {
+  padding-left: 72px;
+  counter-increment: list-level-8;
+}
+.pt-list-item-level-8:before {
+  left: 52px;
+}
+.pt-list-item-number.pt-list-item-level-8:before {
+  content: counter(list-level-8) '.';
+}
+.pt-list-item-bullet.pt-list-item-level-8:before {
+  content: '○';
+}
+
+.pt-list-item-level-9 {
+  padding-left: 80px;
+  counter-increment: list-level-9;
+}
+.pt-list-item-level-9:before {
+  left: 60px;
+}
+.pt-list-item-number.pt-list-item-level-9:before {
+  content: counter(list-level-9) '.';
+}
+.pt-list-item-bullet.pt-list-item-level-9:before {
+  content: '■';
+}
+
+.pt-list-item-level-10 {
+  padding-left: 88px;
+  counter-increment: list-level-10;
+}
+.pt-list-item-level-10:before {
+  left: 68px;
+}
+.pt-list-item-number.pt-list-item-level-10:before {
+  content: counter(list-level-10) '.';
+}

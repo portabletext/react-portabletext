@@ -1,6 +1,6 @@
 import './Code.css'
 
-import Refractor from 'react-refractor'
+import {Refractor, registerLanguage} from 'react-refractor'
 import typescript from 'refractor/lang/typescript'
 
 import type {PortableTextComponent} from '../../src'
@@ -13,7 +13,7 @@ if (typeof window !== 'undefined') {
   prismWindow.Prism.manual = true
 }
 
-Refractor.registerLanguage(typescript)
+registerLanguage(typescript)
 
 export interface CodeBlock {
   _type: 'code'
