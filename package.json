@@ -104,7 +104,7 @@
     "esbuild": "^0.25.9",
     "esbuild-register": "^3.6.0",
     "eslint": "^8.57.1",
-    "eslint-config-prettier": "^9.1.2",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-config-sanity": "^7.1.4",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
