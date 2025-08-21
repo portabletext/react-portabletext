@@ -110,7 +110,7 @@
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
     "eslint-plugin-react-hooks": "^5.2.0",
     "leaflet": "^1.9.4",
-    "npm-run-all2": "^5.0.2",
+    "npm-run-all2": "^8.0.4",
     "prettier": "^3.6.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
