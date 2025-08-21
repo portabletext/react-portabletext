@@ -1,5 +1,13 @@
 # @portabletext/react
 
+## 4.0.0
+
+### Major Changes
+
+- [`e246b4b`](https://github.com/portabletext/react-portabletext/commit/e246b4b96b715a2882ea69a51f812a8be12a441b) Thanks [@stipsan](https://github.com/stipsan)! - Drop support for Sanity Studio v2
+
+- [`213afc6`](https://github.com/portabletext/react-portabletext/commit/213afc62e8a114ab605c05c8dbf959ee887c2647) Thanks [@stipsan](https://github.com/stipsan)! - Drop support for react 17, new baseline is 18.3 or later, or 19
+
 ## 3.2.4
 
 ### Patch Changes
