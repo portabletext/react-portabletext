@@ -1,5 +1,13 @@
 # @portabletext/react
 
+## 3.2.3
+
+### Patch Changes
+
+- [#198](https://github.com/portabletext/react-portabletext/pull/198) [`2c36798`](https://github.com/portabletext/react-portabletext/commit/2c36798f54d56172143f6a65701d140f5254c798) Thanks [@renovate](https://github.com/apps/renovate)! - fix(deps): update dependency @portabletext/toolkit to ^2.0.18
+
+- [`e03756d`](https://github.com/portabletext/react-portabletext/commit/e03756dec0a4ce455cafe1a170b038b2e7142132) Thanks [@stipsan](https://github.com/stipsan)! - fix(deps): update dependency @portabletext/types to ^2.0.14
+
 ## 3.2.2
 
 ### Patch Changes
