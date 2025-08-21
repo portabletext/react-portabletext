@@ -1,5 +1,11 @@
 # @portabletext/react
 
+## 3.2.2
+
+### Patch Changes
+
+- [`0a33f02`](https://github.com/portabletext/react-portabletext/commit/0a33f02d2399e85d57b63c042780d54a0a5cc3df) Thanks [@stipsan](https://github.com/stipsan)! - Update LICENSE year to 2025
+
 ## [3.2.1](https://github.com/portabletext/react-portabletext/compare/v3.2.0...v3.2.1) (2025-02-06)
 
 ### Bug Fixes
