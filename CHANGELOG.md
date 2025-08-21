@@ -1,5 +1,11 @@
 # @portabletext/react
 
+## 4.0.1
+
+### Patch Changes
+
+- [#222](https://github.com/portabletext/react-portabletext/pull/222) [`66beabe`](https://github.com/portabletext/react-portabletext/commit/66beabeafb689c18c992aa80699cd875f0d55a70) Thanks [@stipsan](https://github.com/stipsan)! - allow react 18.2
+
 ## 4.0.0
 
 ### Major Changes
