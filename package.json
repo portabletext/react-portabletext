@@ -121,7 +121,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-is": "^19.0.0",
-    "react-leaflet": "^4.2.1",
+    "react-leaflet": "^5.0.0",
     "react-refractor": "^2.2.0",
     "refractor": "^4.8.1",
     "rimraf": "^5.0.1",
