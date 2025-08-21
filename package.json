@@ -99,7 +99,7 @@
     "@types/ws": "^8.18.1",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
-    "@vitejs/plugin-react": "^4.7.0",
+    "@vitejs/plugin-react": "^5.0.1",
     "babel-plugin-react-compiler": "19.1.0-rc.2",
     "esbuild": "^0.25.9",
     "esbuild-register": "^3.6.0",
