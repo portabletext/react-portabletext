@@ -122,7 +122,7 @@
     "react-dom": "^19.0.0",
     "react-is": "^19.0.0",
     "react-leaflet": "^4.2.1",
-    "react-refractor": "^2.2.0",
+    "react-refractor": "^4.0.0",
     "refractor": "^4.8.1",
     "rimraf": "^5.0.1",
     "rollup-plugin-visualizer": "^5.14.0",
