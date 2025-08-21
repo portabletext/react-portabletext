@@ -1,5 +1,5 @@
 ---
-"@portabletext/react": patch
+'@portabletext/react': patch
 ---
 
 allow react 18.2
