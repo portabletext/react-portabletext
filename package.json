@@ -95,7 +95,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.6",
-    "@sanity/pkg-utils": "^6.13.4",
+    "@sanity/pkg-utils": "^8.0.3",
     "@sanity/ui": "^2.13.0",
     "@types/leaflet": "^1.9.16",
     "@types/react": "^19.0.8",
