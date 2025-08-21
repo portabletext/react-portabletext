@@ -41,16 +41,10 @@
     "dev": "vite demo",
     "format": "prettier --write --cache --ignore-unknown .",
     "lint": "eslint .",
-    "prepare": "husky install",
     "prepublishOnly": "run-s build lint type-check",
     "start": "vite demo",
     "test": "vitest",
     "type-check": "tsc --noEmit"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
   },
   "lint-staged": {
     "*": [
@@ -98,8 +92,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
-    "@commitlint/cli": "^19.7.1",
-    "@commitlint/config-conventional": "^19.7.1",
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.6",
     "@sanity/pkg-utils": "^6.13.4",
     "@sanity/ui": "^2.13.0",
     "@types/leaflet": "^1.9.16",
@@ -111,8 +105,6 @@
     "@typescript-eslint/parser": "^7.18.0",
     "@vitejs/plugin-react": "^4.3.4",
     "babel-plugin-react-compiler": "19.0.0-beta-df7b47d-20241124",
-    "commitizen": "^4.3.1",
-    "cz-conventional-changelog": "^3.3.0",
     "esbuild": "^0.25.0",
     "esbuild-register": "^3.6.0",
     "eslint": "^8.57.1",
@@ -121,7 +113,6 @@
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-compiler": "19.0.0-beta-df7b47d-20241124",
     "eslint-plugin-react-hooks": "^5.1.0",
-    "husky": "^8.0.3",
     "leaflet": "^1.9.4",
     "npm-run-all2": "^5.0.2",
     "prettier": "^3.5.1",
