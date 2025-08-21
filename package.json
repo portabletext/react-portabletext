@@ -96,7 +96,7 @@
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.6",
     "@sanity/pkg-utils": "^6.13.4",
-    "@sanity/ui": "^2.13.0",
+    "@sanity/ui": "^3.0.7",
     "@types/leaflet": "^1.9.16",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
