@@ -14,6 +14,7 @@ export const TermDefinition: PortableTextMarkComponent<DefinitionMark> = ({value
   const handleClose = useCallback(() => setOpen(false), [setOpen])
   return (
     <Popover
+      animate
       open={isOpen}
       padding={2}
       portal
