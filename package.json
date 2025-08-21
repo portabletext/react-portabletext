@@ -42,6 +42,7 @@
     "format": "prettier --write --cache --ignore-unknown .",
     "lint": "eslint .",
     "prepublishOnly": "run-s build lint type-check",
+    "release": "changeset publish",
     "start": "vite demo",
     "test": "vitest",
     "type-check": "tsc --noEmit"
