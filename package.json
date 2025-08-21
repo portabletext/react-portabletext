@@ -83,11 +83,10 @@
     ]
   },
   "dependencies": {
-    "@portabletext/toolkit": "^2.0.18",
+    "@portabletext/toolkit": "^3.0.0",
     "@portabletext/types": "^2.0.15"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.6",
     "@sanity/browserslist-config": "^1.0.5",
