@@ -38,12 +38,12 @@
     "build": "pkg-utils build --strict --check --clean",
     "build:demo": "vite build demo --config=./vite.config.demo.ts --base=/react-portabletext/",
     "clean": "rimraf dist coverage demo/dist .nyc_output",
-    "dev": "vite demo",
+    "dev": "vite demo --config=./vite.config.demo.ts",
     "format": "prettier --write --cache --ignore-unknown .",
     "lint": "eslint .",
     "prepublishOnly": "run-s build lint type-check",
     "release": "changeset publish",
-    "start": "vite demo --config=./vite.config.demo.ts",
+    "start": "pnpm dev",
     "test": "vitest",
     "type-check": "tsc --noEmit"
   },
@@ -52,16 +52,11 @@
       "prettier --write --cache --ignore-unknown"
     ]
   },
-  "browserslist": "extends @sanity/browserslist-config",
-  "prettier": {
-    "bracketSpacing": false,
-    "plugins": [
-      "prettier-plugin-packagejson"
-    ],
-    "printWidth": 100,
-    "semi": false,
-    "singleQuote": true
-  },
+  "browserslist": [
+    "extends @sanity/browserslist-config",
+    "node 14"
+  ],
+  "prettier": "@sanity/prettier-config",
   "eslintConfig": {
     "parserOptions": {
       "ecmaFeatures": {
@@ -89,13 +84,15 @@
   },
   "dependencies": {
     "@portabletext/toolkit": "^2.0.18",
-    "@portabletext/types": "^2.0.14"
+    "@portabletext/types": "^2.0.15"
   },
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.6",
+    "@sanity/browserslist-config": "^1.0.5",
     "@sanity/pkg-utils": "^8.0.3",
+    "@sanity/prettier-config": "^2.0.1",
     "@sanity/ui": "^3.0.7",
     "@types/leaflet": "^1.9.20",
     "@types/react": "^19.1.10",
@@ -115,8 +112,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "leaflet": "^1.9.4",
     "npm-run-all2": "^5.0.2",
-    "prettier": "^3.5.1",
-    "prettier-plugin-packagejson": "^2.5.8",
+    "prettier": "^3.6.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-is": "^19.1.1",
@@ -127,8 +123,8 @@
     "rollup-plugin-visualizer": "^5.14.0",
     "styled-components": "npm:@sanity/css-in-js@6.1.18-33",
     "typescript": "5.9.2",
-    "vite": "^5.4.14",
-    "vitest": "^1.6.1"
+    "vite": "^7.1.3",
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "react": "^17 || ^18 || >=19.0.0-0"
