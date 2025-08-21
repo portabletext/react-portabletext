@@ -1,5 +1,11 @@
 # @portabletext/react
 
+## 3.2.4
+
+### Patch Changes
+
+- [`0b5e64e`](https://github.com/portabletext/react-portabletext/commit/0b5e64e3a038e89ec002d9aa1d44a2845f9d6ad2) Thanks [@stipsan](https://github.com/stipsan)! - Update @portabletext/types to ^2.0.15
+
 ## 3.2.3
 
 ### Patch Changes
