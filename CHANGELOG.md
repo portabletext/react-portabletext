@@ -1,5 +1,11 @@
 # @portabletext/react
 
+## 4.0.2
+
+### Patch Changes
+
+- [#167](https://github.com/portabletext/react-portabletext/pull/167) [`cbdfe8d`](https://github.com/portabletext/react-portabletext/commit/cbdfe8d6b13230242606429f2e01bcbb8ff32865) Thanks [@AidanLaycock](https://github.com/AidanLaycock)! - Update Readme to include TS imports
+
 ## 4.0.1
 
 ### Patch Changes
