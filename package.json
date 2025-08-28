@@ -1,6 +1,6 @@
 {
   "name": "@portabletext/react",
-  "version": "3.0.18",
+  "version": "4.0.1",
   "description": "Render Portable Text with React",
   "keywords": [
     "portable-text"
@@ -35,40 +35,28 @@
     "src"
   ],
   "scripts": {
-    "build": "run-s clean pkg:build pkg:check",
+    "build": "pkg-utils build --strict --check --clean",
     "build:demo": "vite build demo --config=./vite.config.demo.ts --base=/react-portabletext/",
     "clean": "rimraf dist coverage demo/dist .nyc_output",
-    "dev": "vite demo",
+    "dev": "vite demo --config=./vite.config.demo.ts",
     "format": "prettier --write --cache --ignore-unknown .",
     "lint": "eslint .",
-    "pkg:build": "pkg-utils build --strict",
-    "pkg:check": "pkg-utils --strict",
-    "prepare": "husky install",
     "prepublishOnly": "run-s build lint type-check",
-    "start": "vite demo",
+    "release": "changeset publish",
+    "start": "pnpm dev",
     "test": "vitest",
     "type-check": "tsc --noEmit"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
   },
   "lint-staged": {
     "*": [
       "prettier --write --cache --ignore-unknown"
     ]
   },
-  "browserslist": "extends @sanity/browserslist-config",
-  "prettier": {
-    "bracketSpacing": false,
-    "plugins": [
-      "prettier-plugin-packagejson"
-    ],
-    "printWidth": 100,
-    "semi": false,
-    "singleQuote": true
-  },
+  "browserslist": [
+    "extends @sanity/browserslist-config",
+    "node 14"
+  ],
+  "prettier": "@sanity/prettier-config",
   "eslintConfig": {
     "parserOptions": {
       "ecmaFeatures": {
@@ -77,6 +65,9 @@
       "ecmaVersion": 9,
       "sourceType": "module"
     },
+    "plugins": [
+      "react-compiler"
+    ],
     "extends": [
       "sanity",
       "sanity/react",
@@ -84,6 +75,7 @@
       "prettier"
     ],
     "rules": {
+      "react-compiler/react-compiler": "error",
       "react/prop-types": "off"
     },
     "ignorePatterns": [
@@ -91,54 +83,52 @@
     ]
   },
   "dependencies": {
-    "@portabletext/toolkit": "^2.0.15",
-    "@portabletext/types": "^2.0.13"
+    "@portabletext/toolkit": "^3.0.0",
+    "@portabletext/types": "^2.0.15"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
-    "@commitlint/cli": "^19.2.1",
-    "@commitlint/config-conventional": "^19.1.0",
-    "@sanity/pkg-utils": "^6.4.1",
-    "@sanity/ui": "^2.1.2",
-    "@types/leaflet": "^1.9.9",
-    "@types/react": "^18.2.75",
-    "@types/react-dom": "^18.2.24",
-    "@types/refractor": "^3.4.1",
-    "@types/ws": "^8.5.10",
-    "@typescript-eslint/eslint-plugin": "^7.6.0",
-    "@typescript-eslint/parser": "^7.6.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0",
-    "esbuild": "^0.20.2",
-    "esbuild-register": "^3.5.0",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-config-sanity": "^7.1.2",
-    "eslint-plugin-react": "^7.34.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "husky": "^8.0.3",
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.6",
+    "@sanity/browserslist-config": "^1.0.5",
+    "@sanity/pkg-utils": "^8.1.1",
+    "@sanity/prettier-config": "^2.0.1",
+    "@sanity/ui": "^3.0.8",
+    "@types/leaflet": "^1.9.20",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.8",
+    "@types/ws": "^8.18.1",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@vitejs/plugin-react": "^5.0.2",
+    "babel-plugin-react-compiler": "19.1.0-rc.2",
+    "esbuild": "^0.25.9",
+    "esbuild-register": "^3.6.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-config-sanity": "^7.1.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-compiler": "19.1.0-rc.2",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "leaflet": "^1.9.4",
-    "npm-run-all2": "^5.0.2",
-    "prettier": "^3.2.5",
-    "prettier-plugin-packagejson": "^2.4.14",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-is": "^18.2.0",
-    "react-leaflet": "^4.2.1",
-    "react-refractor": "^2.1.7",
-    "refractor": "^4.8.1",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "^3.6.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-is": "^19.1.1",
+    "react-leaflet": "^5.0.0",
+    "react-refractor": "^4.0.0",
+    "refractor": "^5.0.0",
     "rimraf": "^5.0.1",
-    "rollup-plugin-visualizer": "^5.12.0",
-    "styled-components": "^6.1.8",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.8",
-    "vitest": "^1.4.0"
+    "rollup-plugin-visualizer": "^6.0.3",
+    "styled-components": "npm:@sanity/css-in-js@6.1.19",
+    "typescript": "5.9.2",
+    "vite": "^7.1.3",
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "react": "^17 || ^18"
+    "react": "^18.2 || ^19"
   },
-  "packageManager": "pnpm@8.15.6",
+  "packageManager": "pnpm@10.15.0",
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
   },

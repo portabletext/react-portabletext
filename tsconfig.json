@@ -5,6 +5,7 @@
     "rootDir": ".",
     "outDir": "./dist",
 
+    "jsx": "react-jsx",
     "lib": ["ES2016", "DOM"],
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,

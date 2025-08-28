@@ -54,7 +54,7 @@ export const CharacterReference: PortableTextMarkComponent<CharacterReferenceMar
   }
 
   return (
-    <Tooltip content={<CharacterCard {...data} />} open portal>
+    <Tooltip animate content={<CharacterCard {...data} />} open portal>
       <a href={`#/pretend-this-works/${id}`} style={{whiteSpace: 'nowrap'}} onClick={handleClick}>
         {children}
       </a>

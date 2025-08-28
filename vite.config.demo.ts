@@ -7,7 +7,7 @@ const pkg = require('./package.json')
 
 export default defineConfig({
   plugins: [
-    react(),
+    react({babel: {plugins: [['babel-plugin-react-compiler', {target: '19'}]]}}),
     visualizer({
       filename: path.join(__dirname, 'demo', 'dist', 'stats.html'),
       gzipSize: true,
