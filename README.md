@@ -173,10 +173,10 @@ const components: PortableTextComponents = {
 An object of React components that renders portable text blocks with different `style` properties. The object has the shape `{styleName: ReactComponent}`, where `styleName` is the value set in individual `style` attributes on blocks (`normal` being the default).
 
 ```tsx
-import { PortableText, PortableTextReactComponents } from "@portabletext/react";
+import {PortableText, PortableTextReactComponents} from '@portabletext/react'
 
 // `components` object you'll pass to PortableText
-const components:Partial<PortableTextReactComponents> = {
+const components: Partial<PortableTextReactComponents> = {
   block: {
     // Ex. 1: customizing common block types
     h1: ({children}) => <h1 className="text-2xl">{children}</h1>,
