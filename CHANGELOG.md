@@ -1,5 +1,11 @@
 # @portabletext/react
 
+## 4.0.3
+
+### Patch Changes
+
+- [#232](https://github.com/portabletext/react-portabletext/pull/232) [`a5faf34`](https://github.com/portabletext/react-portabletext/commit/a5faf34e1ca4b15b7712f8135229c6bf120378b0) Thanks [@renovate](https://github.com/apps/renovate)! - fix(deps): update dependency @portabletext/toolkit to ^3.0.1
+
 ## 4.0.2
 
 ### Patch Changes
