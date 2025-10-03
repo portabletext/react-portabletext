@@ -179,6 +179,7 @@ import {PortableText, PortableTextReactComponents} from '@portabletext/react'
 const components: Partial<PortableTextReactComponents> = {
   block: {
     // Ex. 1: customizing common block types
+    normal: ({children}) => <p className="text-sm">{children}</p>,
     h1: ({children}) => <h1 className="text-2xl">{children}</h1>,
     blockquote: ({children}) => <blockquote className="border-l-purple-500">{children}</blockquote>,
 
