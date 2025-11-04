@@ -52,10 +52,7 @@
       "oxfmt"
     ]
   },
-  "browserslist": [
-    "extends @sanity/browserslist-config",
-    "node 14"
-  ],
+  "browserslist": "extends @sanity/browserslist-config",
   "dependencies": {
     "@portabletext/toolkit": "^3.0.1",
     "@portabletext/types": "^2.0.15"
@@ -97,7 +94,7 @@
   },
   "packageManager": "pnpm@10.15.1",
   "engines": {
-    "node": "^14.13.1 || >=16.0.0"
+    "node": ">=20.19 <22 || >=22.12"
   },
   "publishConfig": {
     "access": "public"
