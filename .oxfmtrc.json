@@ -6,7 +6,7 @@
   "bracketSpacing": false,
   "ignorePatterns": [
     "dist/**",
-    "docs/**",
+    "demo/dist/**",
     "pnpm-lock.yaml",
     ".changeset/*.md"
   ]

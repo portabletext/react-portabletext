@@ -3,7 +3,7 @@
   "ignorePatterns": [
     "dist/**",
     "coverage/**",
-    "docs/**",
+    "demo/dist/**",
     ".nyc_output/**"
   ],
   "plugins": ["eslint", "typescript", "unicorn", "react", "react-perf", "oxc", "import"],
