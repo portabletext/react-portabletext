@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@portabletext/toolkit':
-        specifier: ^3.0.1
-        version: 3.0.1
+        specifier: ^4.0.0
+        version: 4.0.0
       '@portabletext/types':
         specifier: ^3.0.0
         version: 3.0.0
@@ -722,13 +722,9 @@ packages:
     resolution: {integrity: sha512-c83qWb22rNRuB0UaVCI0uRPNRr8Z0FWnEIvT47jiHAmOIUHbBOg5XvV7pM5x+rKn9HRpjxquDbXYSXr3fAKFcw==}
     engines: {node: '>=12'}
 
-  '@portabletext/toolkit@3.0.1':
-    resolution: {integrity: sha512-z8NGqxKxfP0zuC58hPe8+xFC17qSbQ3nC9DgZmhrr7NUFaENJ6vAHJBsH5QzT7nKUjj++dTn+i4O2Uz9cqiGjA==}
-    engines: {node: ^14.13.1 || >=16.0.0}
-
-  '@portabletext/types@2.0.15':
-    resolution: {integrity: sha512-2e6i2gSQsrA/5OL5Gm4/9bxB9MNO73Fa47zj+0mT93xkoQUCGCWX5fZh1YBJ86hszaRYlqvqG08oULxvvPPp/Q==}
-    engines: {node: ^14.13.1 || >=16.0.0 || >=18.0.0}
+  '@portabletext/toolkit@4.0.0':
+    resolution: {integrity: sha512-Jj/QIy3vzZCNcxiUGM7KjGhUhyVjch+9pOzotWRARPNe07R6nbF/cRsKL70q5Xizf+6PVtFYwks4CSXKInC+wg==}
+    engines: {node: '>=20.19 <22 || >=22.12'}
 
   '@portabletext/types@3.0.0':
     resolution: {integrity: sha512-7U8+bFcnguNtXr4rwMDj0EvJJDRzLaaof2mQqCjUcqxuuJpAppFaATZgrKmPI1uBgtFMi4unk1nIaOOmLHrX8Q==}
@@ -3465,11 +3461,9 @@ snapshots:
       '@pnpm/network.ca-file': 1.0.2
       config-chain: 1.1.13
 
-  '@portabletext/toolkit@3.0.1':
+  '@portabletext/toolkit@4.0.0':
     dependencies:
-      '@portabletext/types': 2.0.15
-
-  '@portabletext/types@2.0.15': {}
+      '@portabletext/types': 3.0.0
 
   '@portabletext/types@3.0.0': {}
 
