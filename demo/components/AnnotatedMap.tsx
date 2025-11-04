@@ -1,39 +1,37 @@
 // oxlint-disable-next-line no-unassigned-import
-import "leaflet/dist/leaflet.css";
+import 'leaflet/dist/leaflet.css'
 
-import { Suspense, use, useState } from "react";
+import {Suspense, use, useState} from 'react'
 
-import { PortableTextTypeComponent } from "../../src";
-import type { ReducedLeafletApi } from "./Leaflet";
+import {PortableTextTypeComponent} from '../../src'
+import type {ReducedLeafletApi} from './Leaflet'
 
 export interface Geopoint {
-  _type: "geopoint";
-  lat: number;
-  lng: number;
+  _type: 'geopoint'
+  lat: number
+  lng: number
 }
 
 export interface MapMarker {
-  _type: "mapMarker";
-  _key: string;
-  position: Geopoint;
-  title: string;
-  description?: string;
+  _type: 'mapMarker'
+  _key: string
+  position: Geopoint
+  title: string
+  description?: string
 }
 
 export interface AnnotatedMapBlock {
-  _type: "annotatedMap";
-  center?: Geopoint;
-  markers?: MapMarker[];
+  _type: 'annotatedMap'
+  center?: Geopoint
+  markers?: MapMarker[]
 }
 
 function getLeaflet() {
-  return import("./Leaflet").then((module) => module.default);
+  return import('./Leaflet').then((module) => module.default)
 }
 
-export const AnnotatedMap: PortableTextTypeComponent<AnnotatedMapBlock> = ({
-  value,
-}) => {
-  const [leafletPromise] = useState(() => getLeaflet());
+export const AnnotatedMap: PortableTextTypeComponent<AnnotatedMapBlock> = ({value}) => {
+  const [leafletPromise] = useState(() => getLeaflet())
 
   return (
     <Suspense
@@ -45,17 +43,17 @@ export const AnnotatedMap: PortableTextTypeComponent<AnnotatedMapBlock> = ({
     >
       <AnnotatedMapContent leafletPromise={leafletPromise} value={value} />
     </Suspense>
-  );
-};
+  )
+}
 
 function AnnotatedMapContent({
   leafletPromise,
   value,
 }: {
-  leafletPromise: Promise<ReducedLeafletApi>;
-  value: AnnotatedMapBlock;
+  leafletPromise: Promise<ReducedLeafletApi>
+  value: AnnotatedMapBlock
 }) {
-  const Leaflet = use(leafletPromise);
+  const Leaflet = use(leafletPromise)
   return (
     <Leaflet.MapContainer
       center={value.center || [51.505, -0.09]}
@@ -73,5 +71,5 @@ function AnnotatedMapContent({
         </Leaflet.Marker>
       ))}
     </Leaflet.MapContainer>
-  );
+  )
 }
