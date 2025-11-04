@@ -1,5 +1,17 @@
 # @portabletext/react
 
+## 5.0.0
+
+### Major Changes
+
+- [#241](https://github.com/portabletext/react-portabletext/pull/241) [`4297499`](https://github.com/portabletext/react-portabletext/commit/4297499a5d79822c316ff2c91dcea796175549e5) Thanks [@stipsan](https://github.com/stipsan)! - CJS exports removed
+
+- [`f8901ea`](https://github.com/portabletext/react-portabletext/commit/f8901eae8c26ee4c298d7a0e14a026d4c99f0252) Thanks [@stipsan](https://github.com/stipsan)! - Support for node versions older than v20.19 dropped
+
+- [#246](https://github.com/portabletext/react-portabletext/pull/246) [`ecbb6b7`](https://github.com/portabletext/react-portabletext/commit/ecbb6b7870d89dd645f9826aef45b2d00f4e8d06) Thanks [@renovate](https://github.com/apps/renovate)! - fix(deps): update dependency @portabletext/toolkit to v4
+
+- [#247](https://github.com/portabletext/react-portabletext/pull/247) [`4efd54e`](https://github.com/portabletext/react-portabletext/commit/4efd54e92ff0c79f0b158d048848d7d94dd56bdc) Thanks [@renovate](https://github.com/apps/renovate)! - fix(deps): update dependency @portabletext/types to v3
+
 ## 4.0.3
 
 ### Patch Changes
