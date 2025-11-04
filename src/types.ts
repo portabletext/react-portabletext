@@ -11,7 +11,7 @@ import type {
   PortableTextListItemType,
   TypedObject,
 } from '@portabletext/types'
-import type {ComponentType, ReactNode} from 'react'
+import type { ComponentType, ReactNode } from 'react'
 
 /**
  * Properties for the Portable Text react component
@@ -124,8 +124,8 @@ export interface PortableTextReactComponents {
    * Can also be set to a single React component, which would handle block styles of _any_ type.
    */
   block:
-    | Record<PortableTextBlockStyle, PortableTextBlockComponent | undefined>
-    | PortableTextBlockComponent
+  | Record<PortableTextBlockStyle, PortableTextBlockComponent | undefined>
+  | PortableTextBlockComponent
 
   /**
    * Object of React components used to render lists of different types (bulleted vs numbered,
@@ -138,8 +138,8 @@ export interface PortableTextReactComponents {
    * Can also be set to a single React component, which would handle lists of _any_ type.
    */
   list:
-    | Record<PortableTextListItemType, PortableTextListComponent | undefined>
-    | PortableTextListComponent
+  | Record<PortableTextListItemType, PortableTextListComponent | undefined>
+  | PortableTextListComponent
 
   /**
    * Object of React components used to render different list item styles.
@@ -150,14 +150,14 @@ export interface PortableTextReactComponents {
    * Can also be set to a single React component, which would handle list items of _any_ type.
    */
   listItem:
-    | Record<PortableTextListItemType, PortableTextListItemComponent | undefined>
-    | PortableTextListItemComponent
+  | Record<PortableTextListItemType, PortableTextListItemComponent | undefined>
+  | PortableTextListItemComponent
 
   /**
    * Component to use for rendering "hard breaks", eg `\n` inside of text spans
    * Will by default render a `<br />`. Pass `false` to render as-is (`\n`)
    */
-  hardBreak: ComponentType<{}> | false
+  hardBreak: ComponentType | false
 
   /**
    * React component used when encountering a mark type there is no registered component for
@@ -275,7 +275,7 @@ export interface PortableTextMarkComponentProps<M extends TypedObject = Arbitrar
  * Any node type that we can't identify - eg it has an `_type`,
  * but we don't know anything about its other properties
  */
-export type UnknownNodeType = {[key: string]: unknown; _type: string} | TypedObject
+export type UnknownNodeType = { [key: string]: unknown; _type: string } | TypedObject
 
 /**
  * Function that renders any node that might appear in a portable text array or block,
@@ -287,7 +287,7 @@ export type NodeType = 'block' | 'mark' | 'blockStyle' | 'listStyle' | 'listItem
 
 export type MissingComponentHandler = (
   message: string,
-  options: {type: string; nodeType: NodeType},
+  options: { type: string; nodeType: NodeType },
 ) => void
 
 export interface Serializable<T> {
