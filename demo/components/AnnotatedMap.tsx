@@ -1,3 +1,4 @@
+// oxlint-disable-next-line no-unassigned-import
 import 'leaflet/dist/leaflet.css'
 
 import {useEffect, useState} from 'react'

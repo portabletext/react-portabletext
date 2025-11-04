@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {Fragment} from 'react'
 import ReactDOM from 'react-dom/server'
 import {test} from 'vitest'
@@ -172,7 +170,11 @@ test('can nest marks correctly in block/marks context', ({expect}) => {
         localCurrency: ({value}) => {
           // in the real world we'd look up the users local currency,
           // do some rate calculations and render the result. Obviously.
-          const rates: Record<string, number> = {USD: 8.82, DKK: 1.35, EUR: 10.04}
+          const rates: Record<string, number> = {
+            USD: 8.82,
+            DKK: 1.35,
+            EUR: 10.04,
+          }
           const rate = rates[value.sourceCurrency] || 1
           return <span className="currency">~{Math.round(value.sourceAmount * rate)} NOK</span>
         },
@@ -187,7 +189,11 @@ test('can render inline block with text property', ({expect}) => {
   const {input, output} = fixtures.inlineBlockWithText
   const result = render({
     value: input,
-    components: {types: {button: (props) => <button type="button">{props.value.text}</button>}},
+    components: {
+      types: {
+        button: (props) => <button type="button">{props.value.text}</button>,
+      },
+    },
   })
   expect(result).toEqual(output)
 })
@@ -208,7 +214,11 @@ test('can render custom list item styles with provided list style component', ({
   const {input} = fixtures.customListItemType
   const result = render({
     value: input,
-    components: {list: {square: ({children}) => <ul className="list-squared">{children}</ul>}},
+    components: {
+      list: {
+        square: ({children}) => <ul className="list-squared">{children}</ul>,
+      },
+    },
   })
   expect(result).toBe(
     '<ul class="list-squared"><li>Square 1</li><li>Square 2<ul><li>Dat disc</li></ul></li><li>Square 3</li></ul>',
@@ -315,10 +325,12 @@ test('can specify custom component for custom block types with children', ({expe
 
 test('can specify custom components for custom marks', ({expect}) => {
   const {input, output} = fixtures.customMarks
-  const highlight: PortableTextMarkComponent<{_type: 'highlight'; thickness: number}> = ({
-    value,
-    children,
-  }) => <span style={{border: `${value?.thickness}px solid`}}>{children}</span>
+  const highlight: PortableTextMarkComponent<{
+    _type: 'highlight'
+    thickness: number
+  }> = ({value, children}) => (
+    <span style={{border: `${value?.thickness}px solid`}}>{children}</span>
+  )
 
   const result = render({value: input, components: {marks: {highlight}}})
   expect(result).toEqual(output)

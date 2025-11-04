@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import ReactDOM from 'react-dom/server'
 import {test} from 'vitest'
 
@@ -28,7 +27,7 @@ test('never mutates input', ({expect}) => {
         value: passedInput as any,
         components,
       })
-    } catch (error) {
+    } catch {
       // ignore
     }
     expect(originalInput).toStrictEqual(passedInput)

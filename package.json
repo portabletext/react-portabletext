@@ -39,8 +39,8 @@
     "build:demo": "vite build demo --config=./vite.config.demo.ts --base=/react-portabletext/",
     "clean": "rimraf dist coverage demo/dist .nyc_output",
     "dev": "vite demo --config=./vite.config.demo.ts",
-    "format": "prettier --write --cache --ignore-unknown .",
-    "lint": "eslint .",
+    "format": "oxfmt .",
+    "lint": "oxlint --deny-warnings --report-unused-disable-directives --type-aware",
     "prepublishOnly": "run-s build lint type-check",
     "release": "changeset publish",
     "start": "pnpm dev",
@@ -49,39 +49,13 @@
   },
   "lint-staged": {
     "*": [
-      "prettier --write --cache --ignore-unknown"
+      "oxfmt"
     ]
   },
   "browserslist": [
     "extends @sanity/browserslist-config",
     "node 14"
   ],
-  "prettier": "@sanity/prettier-config",
-  "eslintConfig": {
-    "parserOptions": {
-      "ecmaFeatures": {
-        "modules": true
-      },
-      "ecmaVersion": 9,
-      "sourceType": "module"
-    },
-    "plugins": [
-      "react-compiler"
-    ],
-    "extends": [
-      "sanity",
-      "sanity/react",
-      "sanity/typescript",
-      "prettier"
-    ],
-    "rules": {
-      "react-compiler/react-compiler": "error",
-      "react/prop-types": "off"
-    },
-    "ignorePatterns": [
-      "dist/**/"
-    ]
-  },
   "dependencies": {
     "@portabletext/toolkit": "^3.0.1",
     "@portabletext/types": "^2.0.15"
@@ -91,27 +65,20 @@
     "@changesets/cli": "^2.29.7",
     "@sanity/browserslist-config": "^1.0.5",
     "@sanity/pkg-utils": "^8.1.28",
-    "@sanity/prettier-config": "^2.0.1",
     "@sanity/ui": "^3.1.11",
     "@types/leaflet": "^1.9.21",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@types/ws": "^8.18.1",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
     "@vitejs/plugin-react": "^5.1.0",
-    "babel-plugin-react-compiler": "19.1.0-rc.3",
+    "babel-plugin-react-compiler": "1.0.0",
     "esbuild": "^0.25.11",
     "esbuild-register": "^3.6.0",
-    "eslint": "^8.57.1",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-config-sanity": "^7.1.4",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-compiler": "19.1.0-rc.2",
-    "eslint-plugin-react-hooks": "^5.2.0",
     "leaflet": "^1.9.4",
     "npm-run-all2": "^8.0.4",
-    "prettier": "^3.6.2",
+    "oxfmt": "^0.9.0",
+    "oxlint": "^1.25.0",
+    "oxlint-tsgolint": "^0.5.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-is": "^19.2.0",
