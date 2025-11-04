@@ -55,7 +55,7 @@
   "browserslist": "extends @sanity/browserslist-config",
   "dependencies": {
     "@portabletext/toolkit": "^3.0.1",
-    "@portabletext/types": "^2.0.15"
+    "@portabletext/types": "^3.0.0"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.1",
