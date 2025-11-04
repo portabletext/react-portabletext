@@ -58,7 +58,7 @@
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.7",
     "@sanity/browserslist-config": "^1.0.5",
-    "@sanity/pkg-utils": "^8.1.28",
+    "@sanity/pkg-utils": "^9.0.1",
     "@sanity/ui": "^3.1.11",
     "@types/leaflet": "^1.9.21",
     "@types/react": "^19.2.2",
