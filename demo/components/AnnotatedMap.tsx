@@ -1,6 +1,7 @@
+// oxlint-disable-next-line no-unassigned-import
 import 'leaflet/dist/leaflet.css'
 
-import {useEffect, useState} from 'react'
+import {Suspense, use, useState} from 'react'
 
 import {PortableTextTypeComponent} from '../../src'
 import type {ReducedLeafletApi} from './Leaflet'
@@ -25,21 +26,34 @@ export interface AnnotatedMapBlock {
   markers?: MapMarker[]
 }
 
+function getLeaflet() {
+  return import('./Leaflet').then((module) => module.default)
+}
+
 export const AnnotatedMap: PortableTextTypeComponent<AnnotatedMapBlock> = ({value}) => {
-  const [Leaflet, setLeaflet] = useState<ReducedLeafletApi | undefined>(undefined)
+  const [leafletPromise] = useState(() => getLeaflet())
 
-  useEffect(() => {
-    import('./Leaflet').then((leafletApi) => setLeaflet(leafletApi.default))
-  }, [Leaflet, setLeaflet])
+  return (
+    <Suspense
+      fallback={
+        <div className="annotated-map loading">
+          <div>Loading map…</div>
+        </div>
+      }
+    >
+      <AnnotatedMapContent leafletPromise={leafletPromise} value={value} />
+    </Suspense>
+  )
+}
 
-  if (!Leaflet) {
-    return (
-      <div className="annotated-map loading">
-        <div>Loading map…</div>
-      </div>
-    )
-  }
-
+function AnnotatedMapContent({
+  leafletPromise,
+  value,
+}: {
+  leafletPromise: Promise<ReducedLeafletApi>
+  value: AnnotatedMapBlock
+}) {
+  const Leaflet = use(leafletPromise)
   return (
     <Leaflet.MapContainer
       center={value.center || [51.505, -0.09]}

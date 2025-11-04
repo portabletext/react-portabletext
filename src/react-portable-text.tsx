@@ -10,13 +10,7 @@ import {
   nestLists,
   spanToPlainText,
 } from '@portabletext/toolkit'
-import type {
-  PortableTextBlock,
-  PortableTextListItemBlock,
-  PortableTextMarkDefinition,
-  PortableTextSpan,
-  TypedObject,
-} from '@portabletext/types'
+import type {PortableTextBlock, PortableTextListItemBlock, TypedObject} from '@portabletext/types'
 import {type JSX, type ReactNode, useMemo} from 'react'
 
 import {defaultComponents} from './components/defaults'
@@ -105,12 +99,7 @@ const getNodeRenderer = (
     return node._type in components.types
   }
 
-  /* eslint-disable react/jsx-no-bind */
-  function renderListItem(
-    node: PortableTextListItemBlock<PortableTextMarkDefinition, PortableTextSpan>,
-    index: number,
-    key: string,
-  ) {
+  function renderListItem(node: PortableTextListItemBlock, index: number, key: string) {
     const tree = serializeBlock({node, index, isInline: false, renderNode})
     const renderer = components.listItem
     const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
@@ -127,9 +116,13 @@ const getNodeRenderer = (
     let children = tree.children
     if (node.style && node.style !== 'normal') {
       // Wrap any other style in whatever the block serializer says to use
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const {listItem, ...blockNode} = node
-      children = renderNode({node: blockNode, index, isInline: false, renderNode})
+      const {listItem: _listItem, ...blockNode} = node
+      children = renderNode({
+        node: blockNode,
+        index,
+        isInline: false,
+        renderNode,
+      })
     }
 
     return (
@@ -155,7 +148,10 @@ const getNodeRenderer = (
 
     if (List === components.unknownList) {
       const style = node.listItem || 'bullet'
-      handleMissingComponent(unknownListStyleWarning(style), {nodeType: 'listStyle', type: style})
+      handleMissingComponent(unknownListStyleWarning(style), {
+        nodeType: 'listStyle',
+        type: style,
+      })
     }
 
     return (
@@ -169,11 +165,19 @@ const getNodeRenderer = (
     const {markDef, markType, markKey} = node
     const Span = components.marks[markType] || components.unknownMark
     const children = node.children.map((child, childIndex) =>
-      renderNode({node: child, index: childIndex, isInline: true, renderNode}),
+      renderNode({
+        node: child,
+        index: childIndex,
+        isInline: true,
+        renderNode,
+      }),
     )
 
     if (Span === components.unknownMark) {
-      handleMissingComponent(unknownMarkWarning(markType), {nodeType: 'mark', type: markType})
+      handleMissingComponent(unknownMarkWarning(markType), {
+        nodeType: 'mark',
+        type: markType,
+      })
     }
 
     return (
@@ -191,8 +195,12 @@ const getNodeRenderer = (
   }
 
   function renderBlock(node: PortableTextBlock, index: number, key: string, isInline: boolean) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const {_key, ...props} = serializeBlock({node, index, isInline, renderNode})
+    const {_key, ...props} = serializeBlock({
+      node,
+      index,
+      isInline,
+      renderNode,
+    })
     const style = props.node.style || 'normal'
     const handler =
       typeof components.block === 'function' ? components.block : components.block[style]
@@ -225,7 +233,10 @@ const getNodeRenderer = (
       renderNode,
     }
 
-    handleMissingComponent(unknownTypeWarning(node._type), {nodeType: 'block', type: node._type})
+    handleMissingComponent(unknownTypeWarning(node._type), {
+      nodeType: 'block',
+      type: node._type,
+    })
 
     const UnknownType = components.unknownType
     return <UnknownType key={key} {...nodeOptions} />
@@ -242,7 +253,6 @@ const getNodeRenderer = (
     const Node = components.types[node._type]
     return Node ? <Node key={key} {...nodeOptions} /> : null
   }
-  /* eslint-enable react/jsx-no-bind */
 
   return renderNode
 }

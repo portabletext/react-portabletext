@@ -29,7 +29,7 @@ jobs:
           node-version: lts/*
       - run: pnpm install
       - run: pnpm type-check
-      - run: pnpm lint
+      - run: pnpm lint -f github
       - run: pnpm build
 
   test:

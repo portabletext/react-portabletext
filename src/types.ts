@@ -76,15 +76,13 @@ export type PortableTextListItemComponent = PortableTextComponent<PortableTextLi
  *
  * @template M The mark type we expect
  */
-export type PortableTextMarkComponent<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  M extends TypedObject = any,
-> = ComponentType<PortableTextMarkComponentProps<M>>
+export type PortableTextMarkComponent<M extends TypedObject = any> = ComponentType<
+  PortableTextMarkComponentProps<M>
+>
 
-export type PortableTextTypeComponent<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  V extends TypedObject = any,
-> = ComponentType<PortableTextTypeComponentProps<V>>
+export type PortableTextTypeComponent<V extends TypedObject = any> = ComponentType<
+  PortableTextTypeComponentProps<V>
+>
 
 /**
  * Object defining the different React components to use for rendering various aspects
@@ -159,9 +157,7 @@ export interface PortableTextReactComponents {
    * Component to use for rendering "hard breaks", eg `\n` inside of text spans
    * Will by default render a `<br />`. Pass `false` to render as-is (`\n`)
    */
-  // @TODO find a better way to handle this
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  hardBreak: ComponentType<{}> | false
+  hardBreak: ComponentType | false
 
   /**
    * React component used when encountering a mark type there is no registered component for

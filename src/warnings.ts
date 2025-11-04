@@ -17,5 +17,6 @@ export const unknownListItemStyleWarning = (listStyle: string): string =>
   getTemplate(`list item style "${listStyle}"`, 'listItem')
 
 export function printWarning(message: string): void {
+  // oxlint-disable-next-line no-console
   console.warn(message)
 }

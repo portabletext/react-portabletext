@@ -1,3 +1,4 @@
+// oxlint-disable-next-line no-unassigned-import
 import './Code.css'
 
 import {Refractor, registerLanguage} from 'react-refractor'
@@ -7,7 +8,6 @@ import type {PortableTextComponent} from '../../src'
 
 // Prism auto-highlights, but we only want the API, so we need to set it to manual mode
 if (typeof window !== 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const prismWindow = window as any
   prismWindow.Prism = prismWindow.Prism || {}
   prismWindow.Prism.manual = true

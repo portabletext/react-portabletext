@@ -1,0 +1,32 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": [
+    "dist/**",
+    "coverage/**",
+    "demo/dist/**",
+    ".nyc_output/**"
+  ],
+  "plugins": ["eslint", "typescript", "unicorn", "react", "react-perf", "oxc", "import"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "no-console": "error",
+    "no-array-sort": "off",
+    "rules-of-hooks": "error",
+    "react-in-jsx-scope": "off",
+    // @TODO these rules should be enabled, and the violations fixed
+    "no-unsafe-type-assertion": "off"
+  },
+  "overrides": [
+    {
+      "files": ["test/**"],
+      "rules": {
+        "no-console": "off",
+        "no-unsafe-type-assertion": "off",
+        "consistent-function-scoping": "off"
+      }
+    }
+  ]
+}

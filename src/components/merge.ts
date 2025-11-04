@@ -4,8 +4,14 @@ export function mergeComponents(
   parent: PortableTextReactComponents,
   overrides: PortableTextComponents,
 ): PortableTextReactComponents {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {block, list, listItem, marks, types, ...rest} = overrides
+  const {
+    block: _block,
+    list: _list,
+    listItem: _listItem,
+    marks: _marks,
+    types: _types,
+    ...rest
+  } = overrides
   // @todo figure out how to not `as ...` these
   return {
     ...parent,
