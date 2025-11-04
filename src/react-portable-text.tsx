@@ -10,13 +10,7 @@ import {
   nestLists,
   spanToPlainText,
 } from '@portabletext/toolkit'
-import type {
-  PortableTextBlock,
-  PortableTextListItemBlock,
-  PortableTextMarkDefinition,
-  PortableTextSpan,
-  TypedObject,
-} from '@portabletext/types'
+import type {PortableTextBlock, PortableTextListItemBlock, TypedObject} from '@portabletext/types'
 import {type JSX, type ReactNode, useMemo} from 'react'
 
 import {defaultComponents} from './components/defaults'
