@@ -1,6 +1,6 @@
 {
   "name": "@portabletext/react",
-  "version": "4.0.3",
+  "version": "5.0.0",
   "description": "Render Portable Text with React",
   "keywords": [
     "portable-text"
