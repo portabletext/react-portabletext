@@ -84,6 +84,11 @@ export type PortableTextTypeComponent<V extends TypedObject = any> = ComponentTy
   PortableTextTypeComponentProps<V>
 >
 
+type LooseRecord<K extends string, V> =
+  Record<string, V> & {
+    [P in K]?: V; // autocompleted keys
+  };
+
 /**
  * Object defining the different React components to use for rendering various aspects
  * of Portable Text and user-provided types, where only the overrides needs to be provided.
@@ -124,7 +129,7 @@ export interface PortableTextReactComponents {
    * Can also be set to a single React component, which would handle block styles of _any_ type.
    */
   block:
-    | Record<PortableTextBlockStyle, PortableTextBlockComponent | undefined>
+    | LooseRecord<PortableTextBlockStyle, PortableTextBlockComponent | undefined>
     | PortableTextBlockComponent
 
   /**
@@ -138,7 +143,7 @@ export interface PortableTextReactComponents {
    * Can also be set to a single React component, which would handle lists of _any_ type.
    */
   list:
-    | Record<PortableTextListItemType, PortableTextListComponent | undefined>
+    | LooseRecord<PortableTextListItemType, PortableTextListComponent | undefined>
     | PortableTextListComponent
 
   /**
@@ -150,7 +155,7 @@ export interface PortableTextReactComponents {
    * Can also be set to a single React component, which would handle list items of _any_ type.
    */
   listItem:
-    | Record<PortableTextListItemType, PortableTextListItemComponent | undefined>
+    | LooseRecord<PortableTextListItemType, PortableTextListItemComponent | undefined>
     | PortableTextListItemComponent
 
   /**

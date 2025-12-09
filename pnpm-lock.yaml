@@ -12,8 +12,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       '@portabletext/types':
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^4.0.0
+        version: 4.0.0
     devDependencies:
       '@changesets/changelog-github':
         specifier: ^0.5.2
@@ -884,6 +884,10 @@ packages:
 
   '@portabletext/types@3.0.0':
     resolution: {integrity: sha512-7U8+bFcnguNtXr4rwMDj0EvJJDRzLaaof2mQqCjUcqxuuJpAppFaATZgrKmPI1uBgtFMi4unk1nIaOOmLHrX8Q==}
+    engines: {node: '>=20.19 <22 || >=22.12'}
+
+  '@portabletext/types@4.0.0':
+    resolution: {integrity: sha512-mEoN82OQckrshqRx8idp+x8B/OpMfUMSjQp1w1wZFM3hf8cplGhK59Sa/UuGU6XdgAnFq90vJtnj5ejOmZmhvw==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
   '@react-leaflet/core@3.0.0':
@@ -3693,6 +3697,8 @@ snapshots:
       '@portabletext/types': 3.0.0
 
   '@portabletext/types@3.0.0': {}
+
+  '@portabletext/types@4.0.0': {}
 
   '@react-leaflet/core@3.0.0(leaflet@1.9.4)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
