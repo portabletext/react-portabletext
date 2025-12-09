@@ -1,9 +1,8 @@
+import {type PortableTextComponents, PortableText} from '@portabletext/react'
 import {studioTheme, ThemeProvider} from '@sanity/ui'
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 
-import {PortableTextComponents} from '../src'
-import {PortableText} from '../src/react-portable-text'
 import {AnnotatedMap} from './components/AnnotatedMap'
 import {CharacterReference} from './components/CharacterReference'
 import {Code} from './components/Code'

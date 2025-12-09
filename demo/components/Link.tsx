@@ -1,4 +1,4 @@
-import {PortableTextMarkComponent} from '../../src'
+import {type PortableTextMarkComponent} from '@portabletext/react'
 
 interface LinkMark {
   _type: 'link'

@@ -1,6 +1,6 @@
-import {useCallback} from 'react'
+import type {PortableTextMarkComponent} from '@portabletext/react'
 
-import type {PortableTextMarkComponent} from '../../src'
+import {useCallback} from 'react'
 
 interface SpeechSynthesisMark {
   _type: 'speech'

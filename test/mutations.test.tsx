@@ -1,9 +1,11 @@
+import {
+  PortableText,
+  type PortableTextProps,
+  type PortableTextReactComponents,
+} from '@portabletext/react'
 import ReactDOM from 'react-dom/server'
 import {test} from 'vitest'
 
-import type {PortableTextProps, PortableTextReactComponents} from '../src/types'
-
-import {PortableText} from '../src/react-portable-text'
 import * as fixtures from './fixtures'
 
 const render = (props: PortableTextProps) =>

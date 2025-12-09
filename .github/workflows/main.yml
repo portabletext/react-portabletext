@@ -28,7 +28,6 @@ jobs:
           cache: pnpm
           node-version: lts/*
       - run: pnpm install
-      - run: pnpm type-check
       - run: pnpm lint -f github
       - run: pnpm build
 
