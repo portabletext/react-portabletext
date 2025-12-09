@@ -4,10 +4,5 @@
   "semi": false,
   "singleQuote": true,
   "bracketSpacing": false,
-  "ignorePatterns": [
-    "dist/**",
-    "demo/dist/**",
-    "pnpm-lock.yaml",
-    ".changeset/*.md"
-  ]
+  "ignorePatterns": ["dist/**", "demo/dist/**", "pnpm-lock.yaml", ".changeset/*.md"]
 }
