@@ -11,6 +11,7 @@
     "no-console": "error",
     "no-array-sort": "off",
     "rules-of-hooks": "error",
+    "react/jsx-key": "error",
     "react-in-jsx-scope": "off",
     // @TODO these rules should be enabled, and the violations fixed
     "no-unsafe-type-assertion": "off"
@@ -30,7 +31,8 @@
       "rules": {
         "jsx-no-new-object-as-prop": "off",
         "jsx-no-new-array-as-prop": "off",
-        "jsx-no-jsx-as-prop": "off"
+        "jsx-no-jsx-as-prop": "off",
+        "jsx-no-new-function-as-prop": "off",
       }
     }
   ]

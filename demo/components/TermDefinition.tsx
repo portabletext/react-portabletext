@@ -1,7 +1,7 @@
 import type {PortableTextMarkComponent} from '@portabletext/react'
 
 import {Popover, Text} from '@sanity/ui'
-import {useCallback, useState} from 'react'
+import {useState} from 'react'
 
 interface DefinitionMark {
   _type: 'definition'
@@ -10,8 +10,6 @@ interface DefinitionMark {
 
 export const TermDefinition: PortableTextMarkComponent<DefinitionMark> = ({value, children}) => {
   const [isOpen, setOpen] = useState(false)
-  const handleOpen = useCallback(() => setOpen(true), [setOpen])
-  const handleClose = useCallback(() => setOpen(false), [setOpen])
   return (
     <Popover
       animate
@@ -25,7 +23,7 @@ export const TermDefinition: PortableTextMarkComponent<DefinitionMark> = ({value
         </Text>
       }
     >
-      <span style={{textDecoration: 'underline'}} onMouseOver={handleOpen} onMouseOut={handleClose}>
+      <span style={{textDecoration: 'underline'}} onMouseOver={() => setOpen(true)} onMouseOut={() => setOpen(false)}>
         {children}
       </span>
     </Popover>
