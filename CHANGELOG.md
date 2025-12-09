@@ -1,5 +1,15 @@
 # @portabletext/react
 
+## 6.0.0
+
+### Major Changes
+
+- [#262](https://github.com/portabletext/react-portabletext/pull/262) [`7fb298b`](https://github.com/portabletext/react-portabletext/commit/7fb298b3167044b266e28d739ac87919bf461071) Thanks [@renovate](https://github.com/apps/renovate)! - fix(deps): update dependency @portabletext/types to v4
+
+### Patch Changes
+
+- [#266](https://github.com/portabletext/react-portabletext/pull/266) [`2877ea0`](https://github.com/portabletext/react-portabletext/commit/2877ea073d0b0f3170a98e16c56abdbefe9cc438) Thanks [@renovate](https://github.com/apps/renovate)! - fix(deps): update dependency @portabletext/toolkit to v5
+
 ## 5.0.0
 
 ### Major Changes
