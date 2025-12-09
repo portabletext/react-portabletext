@@ -62,10 +62,10 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   return <>{rendered}</>
 }
 
-const getNodeRenderer = (
+function getNodeRenderer (
   components: PortableTextReactComponents,
   handleMissingComponent: MissingComponentHandler,
-): NodeRenderer => {
+): NodeRenderer {
   function renderNode<N extends TypedObject>(options: Serializable<N>): ReactNode {
     const {node, index, isInline} = options
     const key = node._key || `node-${index}`
