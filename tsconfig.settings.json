@@ -23,6 +23,6 @@
     "skipLibCheck": true,
 
     // Module resolution
-    "allowSyntheticDefaultImports": true
-  }
+    "allowSyntheticDefaultImports": true,
+  },
 }

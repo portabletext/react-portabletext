@@ -1,11 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "ignorePatterns": [
-    "dist/**",
-    "coverage/**",
-    "demo/dist/**",
-    ".nyc_output/**"
-  ],
+  "ignorePatterns": ["dist/**", "coverage/**", "demo/dist/**", ".nyc_output/**"],
   "plugins": ["eslint", "typescript", "unicorn", "react", "react-perf", "oxc", "import"],
   "categories": {
     "correctness": "error",
