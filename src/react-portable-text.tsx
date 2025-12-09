@@ -203,11 +203,12 @@ function RenderList({
     })
   }
 
-  return (
+  return useMemo(
+    () => (
     <List value={node} index={index} isInline={false} renderNode={renderNode}>
       {children}
     </List>
-  )
+  ), [children, index, List, node, renderNode])
 }
 
 function RenderListItem({
@@ -248,10 +249,13 @@ function RenderListItem({
     })
   }
 
-  return (
-    <Li value={node} index={index} isInline={false} renderNode={renderNode}>
-      {children}
-    </Li>
+  return useMemo(
+    () => (
+      <Li value={node} index={index} isInline={false} renderNode={renderNode}>
+        {children}
+      </Li>
+    ),
+    [children, index, Li, node, renderNode],
   )
 }
 
@@ -284,16 +288,19 @@ function RenderSpan({
     })
   }
 
-  return (
-    <Span
-      text={spanToPlainText(node)}
-      value={markDef}
-      markType={markType}
-      markKey={markKey}
-      renderNode={renderNode}
-    >
-      {children}
-    </Span>
+  return useMemo(
+    () => (
+      <Span
+        text={spanToPlainText(node)}
+        value={markDef}
+        markType={markType}
+        markKey={markKey}
+        renderNode={renderNode}
+      >
+        {children}
+      </Span>
+    ),
+    [children, markDef, markKey, markType, node, renderNode, Span],
   )
 }
 
@@ -311,9 +318,11 @@ function RenderCustomBlock({
   isInline: boolean
 }) {
   const Node = components.types[node._type]
-  return Node ? (
-    <Node value={node} isInline={isInline} index={index} renderNode={renderNode} />
-  ) : null
+  return useMemo(
+    () =>
+      Node ? <Node value={node} isInline={isInline} index={index} renderNode={renderNode} /> : null,
+    [index, isInline, node, Node, renderNode],
+  )
 }
 
 function RenderBlock({

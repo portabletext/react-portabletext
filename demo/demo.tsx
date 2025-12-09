@@ -1,8 +1,12 @@
-import {type PortableTextBlock, type PortableTextComponents, PortableText} from '@portabletext/react-latest'
+import {
+  type PortableTextBlock,
+  type PortableTextComponents,
+  PortableText,
+} from '@portabletext/react'
+import {createClient} from '@sanity/client'
 import {studioTheme, ThemeProvider} from '@sanity/ui'
 import {StrictMode, Suspense, use, useEffect, useState} from 'react'
 import {createRoot} from 'react-dom/client'
-import {createClient} from '@sanity/client'
 
 import {AnnotatedMap} from './components/AnnotatedMap'
 import {CharacterReference} from './components/CharacterReference'
@@ -49,8 +53,17 @@ const ptComponents: PortableTextComponents = {
   },
 }
 
-const client = createClient({projectId: 'ppsg7ml5', dataset: 'test', apiVersion: '2025-12-09', useCdn: true, perspective: 'published'})
-const promise = client.fetch<PortableTextBlock[]>(`*[_type == "simpleBlock" && _id == $id][0].body`, {id: '6468a09e-ce29-48d3-8b36-4b058366e6b5'})
+const client = createClient({
+  projectId: 'ppsg7ml5',
+  dataset: 'test',
+  apiVersion: '2025-12-09',
+  useCdn: true,
+  perspective: 'published',
+})
+const promise = client.fetch<PortableTextBlock[]>(
+  `*[_type == "simpleBlock" && _id == $id][0].body`,
+  {id: '6468a09e-ce29-48d3-8b36-4b058366e6b5'},
+)
 
 function Demo() {
   const blocks = use(promise)
@@ -62,7 +75,7 @@ function Demo() {
       // setCount(count + 100)
       return undefined
     }
-    const raf = requestAnimationFrame(() => setCount( count + 30))
+    const raf = requestAnimationFrame(() => setCount(count + 30))
     return () => cancelAnimationFrame(raf)
   }, [showingEverything, count])
   return <PortableText value={blocksToShow} components={ptComponents} />
