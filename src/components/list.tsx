@@ -1,5 +1,3 @@
-'use no memo'
-
 import type {PortableTextListComponent, PortableTextListItemComponent} from '../types'
 
 const DefaultNumberList: PortableTextListComponent = ({children}) => <ol>{children}</ol>

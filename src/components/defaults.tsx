@@ -1,5 +1,3 @@
-'use no memo'
-
 import type {PortableTextBlockStyle} from '@portabletext/types'
 import type {JSX} from 'react'
 

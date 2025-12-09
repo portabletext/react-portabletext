@@ -1,5 +1,3 @@
-'use no memo'
-
 import type {TypedObject} from '@portabletext/types'
 
 import type {PortableTextMarkComponent} from '../types'

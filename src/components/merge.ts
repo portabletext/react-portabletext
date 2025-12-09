@@ -1,5 +1,3 @@
-'use no memo'
-
 import type {PortableTextComponents, PortableTextReactComponents} from '../types'
 
 export function mergeComponents(

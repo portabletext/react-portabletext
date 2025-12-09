@@ -1,5 +1,3 @@
-'use no memo'
-
 import type {ToolkitNestedPortableTextSpan} from '@portabletext/toolkit'
 import type {PortableTextBlock, PortableTextListItemBlock, TypedObject} from '@portabletext/types'
 
@@ -205,10 +203,12 @@ function RenderList({
 
   return useMemo(
     () => (
-    <List value={node} index={index} isInline={false} renderNode={renderNode}>
-      {children}
-    </List>
-  ), [children, index, List, node, renderNode])
+      <List value={node} index={index} isInline={false} renderNode={renderNode}>
+        {children}
+      </List>
+    ),
+    [children, index, List, node, renderNode],
+  )
 }
 
 function RenderListItem({
