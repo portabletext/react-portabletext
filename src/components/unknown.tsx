@@ -1,3 +1,5 @@
+'use no memo'
+
 import type {PortableTextReactComponents} from '../types'
 
 import {unknownTypeWarning} from '../warnings'

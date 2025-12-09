@@ -1,3 +1,5 @@
+'use no memo'
+
 import type {PortableTextBlockStyle} from '@portabletext/types'
 import type {JSX} from 'react'
 
@@ -16,7 +18,9 @@ import {
 const DefaultHardBreak = (): JSX.Element => <br />
 
 const DefaultParagraph: PortableTextBlockComponent = ({children}) => <p>{children}</p>
-const DefaultBlockquote: PortableTextBlockComponent = ({children}) => <blockquote>{children}</blockquote>
+const DefaultBlockquote: PortableTextBlockComponent = ({children}) => (
+  <blockquote>{children}</blockquote>
+)
 const DefaultH1: PortableTextBlockComponent = ({children}) => <h1>{children}</h1>
 const DefaultH2: PortableTextBlockComponent = ({children}) => <h2>{children}</h2>
 const DefaultH3: PortableTextBlockComponent = ({children}) => <h3>{children}</h3>
@@ -24,10 +28,7 @@ const DefaultH4: PortableTextBlockComponent = ({children}) => <h4>{children}</h4
 const DefaultH5: PortableTextBlockComponent = ({children}) => <h5>{children}</h5>
 const DefaultH6: PortableTextBlockComponent = ({children}) => <h6>{children}</h6>
 
-const defaultBlockStyles: Record<
-  PortableTextBlockStyle,
-  PortableTextBlockComponent | undefined
-> = {
+const defaultBlockStyles: Record<PortableTextBlockStyle, PortableTextBlockComponent | undefined> = {
   normal: DefaultParagraph,
   blockquote: DefaultBlockquote,
   h1: DefaultH1,

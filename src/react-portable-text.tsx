@@ -1,4 +1,6 @@
-import type {ToolkitNestedPortableTextSpan, ToolkitTextNode} from '@portabletext/toolkit'
+'use no memo'
+
+import type {ToolkitNestedPortableTextSpan} from '@portabletext/toolkit'
 import type {PortableTextBlock, PortableTextListItemBlock, TypedObject} from '@portabletext/types'
 
 import {
@@ -139,7 +141,12 @@ function getNodeRenderer(
     }
 
     if (isPortableTextToolkitTextNode(node)) {
-      return <RenderText key={key} components={components} node={node} />
+      if (node.text === '\n') {
+        const HardBreak = components.hardBreak
+        return HardBreak ? <HardBreak key={key} /> : '\n'
+      }
+
+      return node.text
     }
 
     return (
@@ -342,26 +349,19 @@ function RenderBlock({
     })
   }
 
-  return (
-    <Block index={block.index} isInline={block.isInline} value={block.node} renderNode={renderNode}>
-      {block.children}
-    </Block>
+  return useMemo(
+    () => (
+      <Block
+        index={block.index}
+        isInline={block.isInline}
+        value={block.node}
+        renderNode={renderNode}
+      >
+        {block.children}
+      </Block>
+    ),
+    [block.index, block.children, block.isInline, block.node, Block, renderNode],
   )
-}
-
-function RenderText({
-  components,
-  node,
-}: {
-  components: PortableTextReactComponents
-  node: ToolkitTextNode
-}) {
-  if (node.text === '\n') {
-    const HardBreak = components.hardBreak
-    return HardBreak ? <HardBreak /> : '\n'
-  }
-
-  return node.text
 }
 
 function RenderUnknownType({
@@ -385,7 +385,10 @@ function RenderUnknownType({
   })
 
   const UnknownType = components.unknownType
-  return <UnknownType value={node} isInline={isInline} index={index} renderNode={renderNode} />
+  return useMemo(
+    () => <UnknownType value={node} isInline={isInline} index={index} renderNode={renderNode} />,
+    [index, isInline, node, renderNode, UnknownType],
+  )
 }
 
 function serializeBlock(options: Serializable<PortableTextBlock>): SerializedBlock {
