@@ -47,7 +47,7 @@
     ]
   },
   "dependencies": {
-    "@portabletext/toolkit": "^4.0.0",
+    "@portabletext/toolkit": "^5.0.0",
     "@portabletext/types": "^4.0.0"
   },
   "devDependencies": {
