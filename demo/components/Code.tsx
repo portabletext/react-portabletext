@@ -1,6 +1,5 @@
 // oxlint-disable-next-line no-unassigned-import
 import './Code.css'
-
 import {Refractor, registerLanguage} from 'react-refractor'
 import typescript from 'refractor/typescript'
 
