@@ -1,4 +1,6 @@
 import type {ToolkitNestedPortableTextSpan, ToolkitTextNode} from '@portabletext/toolkit'
+import type {PortableTextBlock, PortableTextListItemBlock, TypedObject} from '@portabletext/types'
+
 import {
   buildMarksTree,
   isPortableTextBlock,
@@ -10,11 +12,8 @@ import {
   nestLists,
   spanToPlainText,
 } from '@portabletext/toolkit'
-import type {PortableTextBlock, PortableTextListItemBlock, TypedObject} from '@portabletext/types'
 import {type JSX, type ReactNode, useMemo} from 'react'
 
-import {defaultComponents} from './components/defaults'
-import {mergeComponents} from './components/merge'
 import type {
   MissingComponentHandler,
   NodeRenderer,
@@ -24,6 +23,9 @@ import type {
   Serializable,
   SerializedBlock,
 } from './types'
+
+import {defaultComponents} from './components/defaults'
+import {mergeComponents} from './components/merge'
 import {
   printWarning,
   unknownBlockStyleWarning,
