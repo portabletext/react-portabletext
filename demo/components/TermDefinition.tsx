@@ -23,7 +23,11 @@ export const TermDefinition: PortableTextMarkComponent<DefinitionMark> = ({value
         </Text>
       }
     >
-      <span style={{textDecoration: 'underline'}} onMouseOver={() => setOpen(true)} onMouseOut={() => setOpen(false)}>
+      <span
+        style={{textDecoration: 'underline'}}
+        onMouseOver={() => setOpen(true)}
+        onMouseOut={() => setOpen(false)}
+      >
         {children}
       </span>
     </Popover>

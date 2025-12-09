@@ -77,6 +77,7 @@
     "refractor": "^5.0.0",
     "rimraf": "^5.0.1",
     "rollup-plugin-visualizer": "^6.0.5",
+    "@portabletext/react-latest": "npm:@portabletext/react@latest",
     "styled-components": "npm:@sanity/css-in-js@6.1.26",
     "tsdown": "^0.17.2",
     "typescript": "5.9.3",

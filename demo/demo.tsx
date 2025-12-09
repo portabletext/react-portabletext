@@ -1,6 +1,6 @@
 import {type PortableTextComponents, PortableText} from '@portabletext/react'
 import {studioTheme, ThemeProvider} from '@sanity/ui'
-import {StrictMode} from 'react'
+import {StrictMode, useEffect, useState} from 'react'
 import {createRoot} from 'react-dom/client'
 
 import {AnnotatedMap} from './components/AnnotatedMap'
@@ -49,7 +49,15 @@ const ptComponents: PortableTextComponents = {
 }
 
 function Demo() {
-  return <PortableText value={blocks} components={ptComponents} />
+  const [count, setCount] = useState(0)
+  const showingEverything = count >= blocks.length
+  const blocksToShow = showingEverything ? blocks : blocks.slice(0, count)
+  useEffect(() => {
+    if (!showingEverything) {
+      setCount(count + 1)
+    }
+  }, [showingEverything, count])
+  return <PortableText value={blocksToShow} components={ptComponents} />
 }
 
 const root = createRoot(document.getElementById('demo-root')!)

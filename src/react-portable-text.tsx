@@ -42,8 +42,11 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   onMissingComponent: missingComponentHandler = printWarning,
 }: PortableTextProps<B>): ReactNode {
   const handleMissingComponent = missingComponentHandler || noop
-  const blocks = useMemo(() => Array.isArray(input) ? input : [input], [input])
-  const nested = useMemo(() => nestLists(blocks, listNestingMode || LIST_NEST_MODE_HTML), [blocks, listNestingMode])
+  const blocks = useMemo(() => (Array.isArray(input) ? input : [input]), [input])
+  const nested = useMemo(
+    () => nestLists(blocks, listNestingMode || LIST_NEST_MODE_HTML),
+    [blocks, listNestingMode],
+  )
 
   const components = useMemo(() => {
     return componentOverrides
@@ -300,15 +303,10 @@ function RenderCustomBlock({
   index: number
   isInline: boolean
 }) {
-  const nodeOptions = {
-    value: node,
-    isInline,
-    index,
-    renderNode,
-  }
-
   const Node = components.types[node._type]
-  return Node ? <Node {...nodeOptions} /> : null
+  return Node ? (
+    <Node value={node} isInline={isInline} index={index} renderNode={renderNode} />
+  ) : null
 }
 
 function RenderBlock({
@@ -326,13 +324,13 @@ function RenderBlock({
   index: number
   isInline: boolean
 }) {
-  const {_key, ...props} = serializeBlock({
+  const block = serializeBlock({
     node,
     index,
     isInline,
     renderNode,
   })
-  const style = props.node.style || 'normal'
+  const style = block.node.style || 'normal'
   const handler =
     typeof components.block === 'function' ? components.block : components.block[style]
   const Block = handler || components.unknownBlockStyle
@@ -344,7 +342,11 @@ function RenderBlock({
     })
   }
 
-  return <Block {...props} value={props.node} renderNode={renderNode} />
+  return (
+    <Block index={block.index} isInline={block.isInline} value={block.node} renderNode={renderNode}>
+      {block.children}
+    </Block>
+  )
 }
 
 function RenderText({
@@ -377,20 +379,13 @@ function RenderUnknownType({
   index: number
   isInline: boolean
 }) {
-  const nodeOptions = {
-    value: node,
-    isInline,
-    index,
-    renderNode,
-  }
-
   handleMissingComponent(unknownTypeWarning(node._type), {
     nodeType: 'block',
     type: node._type,
   })
 
   const UnknownType = components.unknownType
-  return <UnknownType {...nodeOptions} />
+  return <UnknownType value={node} isInline={isInline} index={index} renderNode={renderNode} />
 }
 
 function serializeBlock(options: Serializable<PortableTextBlock>): SerializedBlock {
