@@ -84,10 +84,9 @@ export type PortableTextTypeComponent<V extends TypedObject = any> = ComponentTy
   PortableTextTypeComponentProps<V>
 >
 
-type LooseRecord<K extends string, V> =
-  Record<string, V> & {
-    [P in K]?: V; // autocompleted keys
-  };
+type LooseRecord<K extends string, V> = Record<string, V> & {
+  [P in K]?: V // autocompleted keys
+}
 
 /**
  * Object defining the different React components to use for rendering various aspects
