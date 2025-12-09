@@ -2,10 +2,10 @@ import {
   type PortableTextBlock,
   type PortableTextComponents,
   PortableText,
-} from '@portabletext/react'
+} from '@portabletext/react-latest'
 import {createClient} from '@sanity/client'
 import {studioTheme, ThemeProvider} from '@sanity/ui'
-import {StrictMode, Suspense, use, useEffect, useState} from 'react'
+import {startTransition, StrictMode, Suspense, use, useEffect, useState} from 'react'
 import {createRoot} from 'react-dom/client'
 
 import {AnnotatedMap} from './components/AnnotatedMap'
@@ -67,7 +67,7 @@ const promise = client.fetch<PortableTextBlock[]>(
 
 function Demo() {
   const blocks = use(promise)
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(blocks.length - 10)
   const showingEverything = count >= blocks.length
   const blocksToShow = showingEverything ? blocks : blocks.slice(0, count)
   useEffect(() => {
@@ -75,7 +75,7 @@ function Demo() {
       // setCount(count + 100)
       return undefined
     }
-    const raf = requestAnimationFrame(() => setCount(count + 30))
+    const raf = requestAnimationFrame(() => startTransition(() => setCount(count + 1)))
     return () => cancelAnimationFrame(raf)
   }, [showingEverything, count])
   return <PortableText value={blocksToShow} components={ptComponents} />
