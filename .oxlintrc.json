@@ -4,6 +4,7 @@
   "plugins": ["eslint", "typescript", "unicorn", "react", "react-perf", "oxc", "import"],
   "categories": {
     "correctness": "error",
+    "perf": "error",
     "suspicious": "warn"
   },
   "rules": {
@@ -20,7 +21,16 @@
       "rules": {
         "no-console": "off",
         "no-unsafe-type-assertion": "off",
-        "consistent-function-scoping": "off"
+        "consistent-function-scoping": "off",
+        "jsx-no-new-object-as-prop": "off"
+      }
+    },
+    {
+      "files": ["demo/**"],
+      "rules": {
+        "jsx-no-new-object-as-prop": "off",
+        "jsx-no-new-array-as-prop": "off",
+        "jsx-no-jsx-as-prop": "off"
       }
     }
   ]
