@@ -1,7 +1,7 @@
-import {Avatar, Box, Flex, Stack, Text, Tooltip} from '@sanity/ui'
-import {MouseEventHandler} from 'react'
+import type {PortableTextMarkComponent} from '@portabletext/react'
 
-import type {PortableTextMarkComponent} from '../../src'
+import {Avatar, Box, Flex, Stack, Text, Tooltip} from '@sanity/ui'
+import {type MouseEventHandler} from 'react'
 
 interface CharacterDefinition {
   name: string

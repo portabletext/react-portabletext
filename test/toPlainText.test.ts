@@ -1,6 +1,6 @@
+import {toPlainText} from '@portabletext/react'
 import {test} from 'vitest'
 
-import {toPlainText} from '../src'
 import * as fixtures from './fixtures'
 
 test('can extract text from all fixtures without crashing', ({expect}) => {

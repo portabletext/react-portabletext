@@ -1,7 +1,7 @@
+import type {PortableTextMarkComponent} from '@portabletext/react'
+
 import {Popover, Text} from '@sanity/ui'
 import {useCallback, useState} from 'react'
-
-import type {PortableTextMarkComponent} from '../../src'
 
 interface DefinitionMark {
   _type: 'definition'

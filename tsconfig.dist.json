@@ -1,13 +1,4 @@
 {
-  "extends": "./tsconfig.settings",
+  "extends": ["./tsconfig.json", "@sanity/tsconfig/isolated-declarations"],
   "include": ["./src"],
-  "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "./dist",
-
-    "jsx": "preserve",
-    "lib": ["ES2016", "DOM"],
-    "noUncheckedIndexedAccess": true,
-    "forceConsistentCasingInFileNames": true,
-  },
 }

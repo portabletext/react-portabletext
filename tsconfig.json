@@ -1,14 +1,9 @@
 {
-  "extends": "./tsconfig.settings",
-  "include": ["./demo", "./package.config.ts", "./package.json", "./src", "./test"],
+  "extends": "@sanity/tsconfig/strictest",
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "./dist",
 
-    "jsx": "react-jsx",
-    "lib": ["ES2016", "DOM"],
     "noUncheckedIndexedAccess": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
   },
 }

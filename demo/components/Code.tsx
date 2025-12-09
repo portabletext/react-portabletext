@@ -1,9 +1,9 @@
 // oxlint-disable-next-line no-unassigned-import
 import './Code.css'
+import type {PortableTextComponent} from '@portabletext/react'
+
 import {Refractor, registerLanguage} from 'react-refractor'
 import typescript from 'refractor/typescript'
-
-import type {PortableTextComponent} from '../../src'
 
 // Prism auto-highlights, but we only want the API, so we need to set it to manual mode
 if (typeof window !== 'undefined') {

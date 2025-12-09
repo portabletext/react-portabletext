@@ -18,27 +18,24 @@
   "sideEffects": false,
   "type": "module",
   "exports": {
-    ".": {
-      "source": "./src/index.ts",
-      "default": "./dist/index.js"
-    },
+    ".": "./src/index.ts",
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "!dist/stats.html",
-    "src"
+    "!dist/stats.html"
   ],
   "scripts": {
-    "build": "pkg-utils build --strict --check --clean",
+    "build": "tsdown",
+    "prebuild:demo": "pnpm clean",
     "build:demo": "vite build demo --config=./vite.config.demo.ts --base=/react-portabletext/",
     "clean": "rimraf dist coverage demo/dist .nyc_output",
     "dev": "vite demo --config=./vite.config.demo.ts",
     "format": "oxfmt .",
-    "lint": "oxlint --deny-warnings --report-unused-disable-directives --type-aware",
-    "prepublishOnly": "run-s build lint type-check",
+    "lint": "oxlint --type-aware --type-check --deny-warnings --report-unused-disable-directives",
+    "prepublishOnly": "pnpm build",
     "release": "changeset publish",
     "start": "pnpm dev",
     "test": "vitest",
@@ -49,7 +46,6 @@
       "oxfmt"
     ]
   },
-  "browserslist": "extends @sanity/browserslist-config",
   "dependencies": {
     "@portabletext/toolkit": "^4.0.0",
     "@portabletext/types": "^4.0.0"
@@ -57,15 +53,15 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.2",
     "@changesets/cli": "^2.29.8",
-    "@sanity/browserslist-config": "^1.0.5",
-    "@sanity/pkg-utils": "^9.2.3",
+    "@sanity/tsconfig": "^2.0.0",
+    "@sanity/tsdown-config": "^0.4.0",
     "@sanity/ui": "^3.1.11",
     "@types/leaflet": "^1.9.21",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@types/ws": "^8.18.1",
     "@vitejs/plugin-react": "^5.1.2",
-    "babel-plugin-react-compiler": "1.0.0",
+    "babel-plugin-react-compiler": "^1.0.0",
     "esbuild": "^0.27.1",
     "esbuild-register": "^3.6.0",
     "leaflet": "^1.9.4",
@@ -82,6 +78,7 @@
     "rimraf": "^5.0.1",
     "rollup-plugin-visualizer": "^6.0.5",
     "styled-components": "npm:@sanity/css-in-js@6.1.26",
+    "tsdown": "^0.17.2",
     "typescript": "5.9.3",
     "vite": "^7.2.7",
     "vitest": "^4.0.15"
@@ -93,7 +90,11 @@
   "engines": {
     "node": ">=20.19 <22 || >=22.12"
   },
+  "module": "./dist/index.js",
   "publishConfig": {
-    "access": "public"
+    "exports": {
+      ".": "./dist/index.js",
+      "./package.json": "./package.json"
+    }
   }
 }

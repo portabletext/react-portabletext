@@ -1,4 +1,4 @@
-import type {PortableTextTypeComponent} from '../../src'
+import type {PortableTextTypeComponent} from '@portabletext/react'
 
 const style = {background: '#eee'}
 

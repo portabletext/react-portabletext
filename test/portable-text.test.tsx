@@ -1,14 +1,14 @@
+import {
+  PortableText,
+  type MissingComponentHandler,
+  type PortableTextMarkComponent,
+  type PortableTextProps,
+  type PortableTextReactComponents,
+} from '@portabletext/react'
 import {Fragment} from 'react'
 import ReactDOM from 'react-dom/server'
 import {test} from 'vitest'
 
-import {PortableText} from '../src/react-portable-text'
-import {
-  MissingComponentHandler,
-  PortableTextMarkComponent,
-  PortableTextProps,
-  PortableTextReactComponents,
-} from '../src/types'
 import * as fixtures from './fixtures'
 
 const render = (props: PortableTextProps) =>
@@ -272,7 +272,7 @@ test('can specify custom component for custom block types', ({expect}) => {
         value: {
           _key: '9a15ea2ed8a2',
           _type: 'code',
-          code: input[0]?.code,
+          code: input[0]?.['code'],
           language: 'javascript',
         },
         index: 0,

@@ -1,4 +1,4 @@
-import {PortableTextBlockComponent, toPlainText} from '../../src'
+import {type PortableTextBlockComponent, toPlainText} from '@portabletext/react'
 
 /**
  * This is obviously extremely simplistic, you'd want to use something "proper"

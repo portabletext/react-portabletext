@@ -1,10 +1,9 @@
 // oxlint-disable-next-line no-unassigned-import
 import 'leaflet/dist/leaflet.css'
+import {type PortableTextTypeComponent} from '@portabletext/react'
 import {Suspense, use, useState} from 'react'
 
 import type {ReducedLeafletApi} from './Leaflet'
-
-import {PortableTextTypeComponent} from '../../src'
 
 export interface Geopoint {
   _type: 'geopoint'
