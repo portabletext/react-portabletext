@@ -64,7 +64,7 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@types/ws": "^8.18.1",
-    "@vitejs/plugin-react": "^5.1.1",
+    "@vitejs/plugin-react": "^5.1.2",
     "babel-plugin-react-compiler": "1.0.0",
     "esbuild": "^0.27.1",
     "esbuild-register": "^3.6.0",
@@ -83,7 +83,7 @@
     "rollup-plugin-visualizer": "^6.0.5",
     "styled-components": "npm:@sanity/css-in-js@6.1.26",
     "typescript": "5.9.3",
-    "vite": "^7.2.6",
+    "vite": "^7.2.7",
     "vitest": "^4.0.15"
   },
   "peerDependencies": {
