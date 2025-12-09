@@ -7,7 +7,7 @@ import typescript from 'refractor/typescript'
 
 // Prism auto-highlights, but we only want the API, so we need to set it to manual mode
 if (typeof window !== 'undefined') {
-  const prismWindow = window as any
+  const prismWindow = window as Window & {Prism?: {manual?: boolean}}
   prismWindow.Prism = prismWindow.Prism || {}
   prismWindow.Prism.manual = true
 }
