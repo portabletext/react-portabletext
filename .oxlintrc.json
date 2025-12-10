@@ -4,12 +4,14 @@
   "plugins": ["eslint", "typescript", "unicorn", "react", "react-perf", "oxc", "import"],
   "categories": {
     "correctness": "error",
+    "perf": "error",
     "suspicious": "warn"
   },
   "rules": {
     "no-console": "error",
     "no-array-sort": "off",
     "rules-of-hooks": "error",
+    "react/jsx-key": "error",
     "react-in-jsx-scope": "off",
     // @TODO these rules should be enabled, and the violations fixed
     "no-unsafe-type-assertion": "off"
@@ -20,7 +22,18 @@
       "rules": {
         "no-console": "off",
         "no-unsafe-type-assertion": "off",
-        "consistent-function-scoping": "off"
+        "consistent-function-scoping": "off",
+        "jsx-no-new-object-as-prop": "off",
+        "jsx-no-new-array-as-prop": "off"
+      }
+    },
+    {
+      "files": ["demo/**"],
+      "rules": {
+        "jsx-no-new-object-as-prop": "off",
+        "jsx-no-new-array-as-prop": "off",
+        "jsx-no-jsx-as-prop": "off",
+        "jsx-no-new-function-as-prop": "off"
       }
     }
   ]

@@ -1,7 +1,5 @@
 import type {PortableTextMarkComponent} from '@portabletext/react'
 
-import {useCallback} from 'react'
-
 interface SpeechSynthesisMark {
   _type: 'speech'
   pitch?: number
@@ -15,15 +13,17 @@ export const SpeechSynthesis: PortableTextMarkComponent<SpeechSynthesisMark> = (
   value,
 }) => {
   const pitch = value?.pitch || 1
-  const handleSynthesis = useCallback(() => {
-    const msg = new SpeechSynthesisUtterance()
-    msg.text = text
-    msg.pitch = pitch
-    window.speechSynthesis.speak(msg)
-  }, [text, pitch])
 
   return (
-    <button type="button" onClick={handleSynthesis}>
+    <button
+      type="button"
+      onClick={() => {
+        const msg = new SpeechSynthesisUtterance()
+        msg.text = text
+        msg.pitch = pitch
+        window.speechSynthesis.speak(msg)
+      }}
+    >
       {children}
     </button>
   )

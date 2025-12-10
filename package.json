@@ -29,6 +29,7 @@
     "!dist/stats.html"
   ],
   "scripts": {
+    "benchmark": "pnpm test bench",
     "build": "tsdown",
     "prebuild:demo": "pnpm clean",
     "build:demo": "vite build demo --config=./vite.config.demo.ts --base=/react-portabletext/",
@@ -54,9 +55,11 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.2",
     "@changesets/cli": "^2.29.8",
+    "@portabletext/react-latest": "npm:@portabletext/react@latest",
     "@sanity/tsconfig": "^2.0.0",
     "@sanity/tsdown-config": "^0.4.0",
     "@sanity/ui": "^3.1.11",
+    "@testing-library/react": "^16.3.0",
     "@types/leaflet": "^1.9.21",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
@@ -65,6 +68,7 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "esbuild": "^0.27.1",
     "esbuild-register": "^3.6.0",
+    "happy-dom": "^20.0.11",
     "leaflet": "^1.9.4",
     "oxfmt": "^0.17.0",
     "oxlint": "^1.32.0",
