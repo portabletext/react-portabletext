@@ -23,7 +23,8 @@
         "no-console": "off",
         "no-unsafe-type-assertion": "off",
         "consistent-function-scoping": "off",
-        "jsx-no-new-object-as-prop": "off"
+        "jsx-no-new-object-as-prop": "off",
+        "jsx-no-new-array-as-prop": "off"
       }
     },
     {
