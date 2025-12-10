@@ -21,14 +21,14 @@ describe('initial render', () => {
   bench(
     'src',
     () => {
-      render(<PortableText value={data} />, {reactStrictMode: true})
+      render(<PortableText value={data} />)
     },
     {teardown: cleanup},
   )
   bench(
     '@portabletext/react@latest',
     () => {
-      render(<PortableTextLatest value={data} />, {reactStrictMode: true})
+      render(<PortableTextLatest value={data} />)
     },
     {teardown: cleanup},
   )
@@ -42,24 +42,24 @@ describe('rerender', () => {
       rerender(<PortableText value={[...data]} />)
     },
     {
-      throws: true,
       setup: () => {
-        const result = render(<PortableText value={data} />, {reactStrictMode: true})
+        const result = render(<PortableText value={data} />)
         rerender = result.rerender
       },
+      teardown: cleanup,
     },
   )
   bench(
     '@portabletext/react@latest',
     () => {
-      rerender(<PortableText value={[...data]} />)
+      rerender(<PortableTextLatest value={[...data]} />)
     },
     {
-      throws: true,
       setup: () => {
-        const result = render(<PortableTextLatest value={data} />, {reactStrictMode: true})
+        const result = render(<PortableTextLatest value={data} />)
         rerender = result.rerender
       },
+      teardown: cleanup,
     },
   )
 })

@@ -56,7 +56,6 @@
     "@changesets/changelog-github": "^0.5.2",
     "@changesets/cli": "^2.29.8",
     "@portabletext/react-latest": "npm:@portabletext/react@latest",
-    "@sanity/client": "^7.13.1",
     "@sanity/tsconfig": "^2.0.0",
     "@sanity/tsdown-config": "^0.4.0",
     "@sanity/ui": "^3.1.11",

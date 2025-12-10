@@ -1,4 +1,4 @@
-import type {ToolkitNestedPortableTextSpan} from '@portabletext/toolkit'
+import type {ToolkitNestedPortableTextSpan, ToolkitTextNode} from '@portabletext/toolkit'
 import type {PortableTextBlock, PortableTextListItemBlock, TypedObject} from '@portabletext/types'
 
 import {
@@ -53,11 +53,11 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
       ? mergeComponents(defaultComponents, componentOverrides)
       : defaultComponents
   }, [componentOverrides])
-
   const renderNode = useMemo(
     () => getNodeRenderer(components, handleMissingComponent),
     [components, handleMissingComponent],
   )
+
   return useMemo(
     () => nested.map((node, index) => renderNode({node: node, index, isInline: false, renderNode})),
     [nested, renderNode],
@@ -74,6 +74,7 @@ function getNodeRenderer(
     const key = node._key || `node-${index}`
 
     if (isPortableTextToolkitList(node)) {
+      // return renderList(node, index, key)
       return (
         <RenderList
           key={key}
@@ -87,19 +88,21 @@ function getNodeRenderer(
     }
 
     if (isPortableTextListItemBlock(node)) {
-      return (
-        <RenderListItem
-          key={key}
-          renderNode={renderNode}
-          components={components}
-          handleMissingComponent={handleMissingComponent}
-          node={node}
-          index={index}
-        />
-      )
+      return renderListItem(node, index, key)
+      // return (
+      //   <RenderListItem
+      //     key={key}
+      //     renderNode={renderNode}
+      //     components={components}
+      //     handleMissingComponent={handleMissingComponent}
+      //     node={node}
+      //     index={index}
+      //   />
+      // )
     }
 
     if (isPortableTextToolkitSpan(node)) {
+      // return renderSpan(node, index, key)
       return (
         <RenderSpan
           key={key}
@@ -112,19 +115,21 @@ function getNodeRenderer(
     }
 
     if (hasCustomComponentForNode(node)) {
-      return (
-        <RenderCustomBlock
-          key={key}
-          renderNode={renderNode}
-          components={components}
-          node={node}
-          index={index}
-          isInline={isInline}
-        />
-      )
+      return renderCustomBlock(node, index, key, isInline)
+      // return (
+      //   <RenderCustomBlock
+      //     key={key}
+      //     renderNode={renderNode}
+      //     components={components}
+      //     node={node}
+      //     index={index}
+      //     isInline={isInline}
+      //   />
+      // )
     }
 
     if (isPortableTextBlock(node)) {
+      // return renderBlock(node, index, key, isInline)
       return (
         <RenderBlock
           key={key}
@@ -139,29 +144,174 @@ function getNodeRenderer(
     }
 
     if (isPortableTextToolkitTextNode(node)) {
-      if (node.text === '\n') {
-        const HardBreak = components.hardBreak
-        return HardBreak ? <HardBreak key={key} /> : '\n'
-      }
+      return renderText(node, key)
+      // if (node.text === '\n') {
+      //   const HardBreak = components.hardBreak
+      //   return HardBreak ? <HardBreak key={key} /> : '\n'
+      // }
 
-      return node.text
+      // return node.text
+    }
+
+    return renderUnknownType(node, index, key, isInline)
+    // return (
+    //   <RenderUnknownType
+    //     key={key}
+    //     renderNode={renderNode}
+    //     components={components}
+    //     handleMissingComponent={handleMissingComponent}
+    //     node={node}
+    //     index={index}
+    //     isInline={isInline}
+    //   />
+    // )
+  }
+
+  // function renderList(node: ReactPortableTextList, index: number, key: string) {
+  //   const children = node.children.map((child, childIndex) =>
+  //     renderNode({
+  //       node: child._key ? child : {...child, _key: `li-${index}-${childIndex}`},
+  //       index: childIndex,
+  //       isInline: false,
+  //       renderNode,
+  //     }),
+  //   )
+
+  //   const component = components.list
+  //   const handler = typeof component === 'function' ? component : component[node.listItem]
+  //   const List = handler || components.unknownList
+
+  //   if (List === components.unknownList) {
+  //     const style = node.listItem || 'bullet'
+  //     handleMissingComponent(unknownListStyleWarning(style), {
+  //       nodeType: 'listStyle',
+  //       type: style,
+  //     })
+  //   }
+
+  //   return (
+  //     <List key={key} value={node} index={index} isInline={false} renderNode={renderNode}>
+  //       {children}
+  //     </List>
+  //   )
+  // }
+
+  function renderListItem(node: PortableTextListItemBlock, index: number, key: string) {
+    const tree = serializeBlock({node, index, isInline: false, renderNode})
+    const renderer = components.listItem
+    const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
+    const Li = handler || components.unknownListItem
+
+    if (Li === components.unknownListItem) {
+      const style = node.listItem || 'bullet'
+      handleMissingComponent(unknownListItemStyleWarning(style), {
+        type: style,
+        nodeType: 'listItemStyle',
+      })
+    }
+
+    let children = tree.children
+    if (node.style && node.style !== 'normal') {
+      // Wrap any other style in whatever the block serializer says to use
+      const {listItem: _listItem, ...blockNode} = node
+      children = renderNode({
+        node: blockNode,
+        index,
+        isInline: false,
+        renderNode,
+      })
     }
 
     return (
-      <RenderUnknownType
-        key={key}
-        renderNode={renderNode}
-        components={components}
-        handleMissingComponent={handleMissingComponent}
-        node={node}
-        index={index}
-        isInline={isInline}
-      />
+      <Li key={key} value={node} index={index} isInline={false} renderNode={renderNode}>
+        {children}
+      </Li>
     )
   }
 
+  // function renderSpan(node: ToolkitNestedPortableTextSpan, _index: number, key: string) {
+  //   const {markDef, markType, markKey} = node
+  //   const Span = components.marks[markType] || components.unknownMark
+  //   const children = node.children.map((child, childIndex) =>
+  //     renderNode({
+  //       node: child,
+  //       index: childIndex,
+  //       isInline: true,
+  //       renderNode,
+  //     }),
+  //   )
+
+  //   if (Span === components.unknownMark) {
+  //     handleMissingComponent(unknownMarkWarning(markType), {
+  //       nodeType: 'mark',
+  //       type: markType,
+  //     })
+  //   }
+
+  //   return (
+  //     <Span
+  //       key={key}
+  //       text={spanToPlainText(node)}
+  //       value={markDef}
+  //       markType={markType}
+  //       markKey={markKey}
+  //       renderNode={renderNode}
+  //     >
+  //       {children}
+  //     </Span>
+  //   )
+  // }
+
+
   function hasCustomComponentForNode(node: TypedObject): boolean {
     return node._type in components.types
+  }
+
+  function renderCustomBlock(node: TypedObject, index: number, key: string, isInline: boolean) {
+    const Node = components.types[node._type]
+    return Node ? <Node key={key} value={node} isInline={isInline} index={index} renderNode={renderNode} /> : null
+  }
+
+
+  // function renderBlock(node: PortableTextBlock, index: number, key: string, isInline: boolean) {
+  //   const block = serializeBlock({
+  //     node,
+  //     index,
+  //     isInline,
+  //     renderNode,
+  //   })
+  //   const style = block.node.style || 'normal'
+  //   const handler =
+  //     typeof components.block === 'function' ? components.block : components.block[style]
+  //   const Block = handler || components.unknownBlockStyle
+
+  //   if (Block === components.unknownBlockStyle) {
+  //     handleMissingComponent(unknownBlockStyleWarning(style), {
+  //       nodeType: 'blockStyle',
+  //       type: style,
+  //     })
+  //   }
+
+  //   return <Block key={key} isInline={block.isInline} index={block.index} value={block.node} renderNode={renderNode}>{block.children}</Block>
+  // }
+
+  function renderText(node: ToolkitTextNode, key: string) {
+    if (node.text === '\n') {
+      const HardBreak = components.hardBreak
+      return HardBreak ? <HardBreak key={key} /> : '\n'
+    }
+
+    return node.text
+  }
+
+  function renderUnknownType(node: TypedObject, index: number, key: string, isInline: boolean) {
+    handleMissingComponent(unknownTypeWarning(node._type), {
+      nodeType: 'block',
+      type: node._type,
+    })
+
+    const UnknownType = components.unknownType
+    return <UnknownType key={key} value={node} isInline={isInline} index={index} renderNode={renderNode} />
   }
 
   return renderNode
@@ -211,53 +361,53 @@ function RenderList({
   )
 }
 
-function RenderListItem({
-  renderNode,
-  components,
-  handleMissingComponent,
-  node,
-  index,
-}: {
-  components: PortableTextReactComponents
-  handleMissingComponent: MissingComponentHandler
-  renderNode: NodeRenderer
-  node: PortableTextListItemBlock
-  index: number
-}) {
-  const tree = serializeBlock({node, index, isInline: false, renderNode})
-  const renderer = components.listItem
-  const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
-  const Li = handler || components.unknownListItem
+// function RenderListItem({
+//   renderNode,
+//   components,
+//   handleMissingComponent,
+//   node,
+//   index,
+// }: {
+//   components: PortableTextReactComponents
+//   handleMissingComponent: MissingComponentHandler
+//   renderNode: NodeRenderer
+//   node: PortableTextListItemBlock
+//   index: number
+// }) {
+//   const tree = serializeBlock({node, index, isInline: false, renderNode})
+//   const renderer = components.listItem
+//   const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
+//   const Li = handler || components.unknownListItem
 
-  if (Li === components.unknownListItem) {
-    const style = node.listItem || 'bullet'
-    handleMissingComponent(unknownListItemStyleWarning(style), {
-      type: style,
-      nodeType: 'listItemStyle',
-    })
-  }
+//   if (Li === components.unknownListItem) {
+//     const style = node.listItem || 'bullet'
+//     handleMissingComponent(unknownListItemStyleWarning(style), {
+//       type: style,
+//       nodeType: 'listItemStyle',
+//     })
+//   }
 
-  let children = tree.children
-  if (node.style && node.style !== 'normal') {
-    // Wrap any other style in whatever the block serializer says to use
-    const {listItem: _listItem, ...blockNode} = node
-    children = renderNode({
-      node: blockNode,
-      index,
-      isInline: false,
-      renderNode,
-    })
-  }
+//   let children = tree.children
+//   if (node.style && node.style !== 'normal') {
+//     // Wrap any other style in whatever the block serializer says to use
+//     const {listItem: _listItem, ...blockNode} = node
+//     children = renderNode({
+//       node: blockNode,
+//       index,
+//       isInline: false,
+//       renderNode,
+//     })
+//   }
 
-  return useMemo(
-    () => (
-      <Li value={node} index={index} isInline={false} renderNode={renderNode}>
-        {children}
-      </Li>
-    ),
-    [children, index, Li, node, renderNode],
-  )
-}
+//   return useMemo(
+//     () => (
+//       <Li value={node} index={index} isInline={false} renderNode={renderNode}>
+//         {children}
+//       </Li>
+//     ),
+//     [children, index, Li, node, renderNode],
+//   )
+// }
 
 function RenderSpan({
   renderNode,
@@ -304,26 +454,26 @@ function RenderSpan({
   )
 }
 
-function RenderCustomBlock({
-  renderNode,
-  components,
-  node,
-  index,
-  isInline,
-}: {
-  renderNode: NodeRenderer
-  components: PortableTextReactComponents
-  node: TypedObject
-  index: number
-  isInline: boolean
-}) {
-  const Node = components.types[node._type]
-  return useMemo(
-    () =>
-      Node ? <Node value={node} isInline={isInline} index={index} renderNode={renderNode} /> : null,
-    [index, isInline, node, Node, renderNode],
-  )
-}
+// function RenderCustomBlock({
+//   renderNode,
+//   components,
+//   node,
+//   index,
+//   isInline,
+// }: {
+//   renderNode: NodeRenderer
+//   components: PortableTextReactComponents
+//   node: TypedObject
+//   index: number
+//   isInline: boolean
+// }) {
+//   const Node = components.types[node._type]
+//   return useMemo(
+//     () =>
+//       Node ? <Node value={node} isInline={isInline} index={index} renderNode={renderNode} /> : null,
+//     [index, isInline, node, Node, renderNode],
+//   )
+// }
 
 function RenderBlock({
   renderNode,
@@ -373,32 +523,32 @@ function RenderBlock({
   )
 }
 
-function RenderUnknownType({
-  renderNode,
-  components,
-  handleMissingComponent,
-  node,
-  index,
-  isInline,
-}: {
-  renderNode: NodeRenderer
-  components: PortableTextReactComponents
-  handleMissingComponent: MissingComponentHandler
-  node: TypedObject
-  index: number
-  isInline: boolean
-}) {
-  handleMissingComponent(unknownTypeWarning(node._type), {
-    nodeType: 'block',
-    type: node._type,
-  })
+// function RenderUnknownType({
+//   renderNode,
+//   components,
+//   handleMissingComponent,
+//   node,
+//   index,
+//   isInline,
+// }: {
+//   renderNode: NodeRenderer
+//   components: PortableTextReactComponents
+//   handleMissingComponent: MissingComponentHandler
+//   node: TypedObject
+//   index: number
+//   isInline: boolean
+// }) {
+//   handleMissingComponent(unknownTypeWarning(node._type), {
+//     nodeType: 'block',
+//     type: node._type,
+//   })
 
-  const UnknownType = components.unknownType
-  return useMemo(
-    () => <UnknownType value={node} isInline={isInline} index={index} renderNode={renderNode} />,
-    [index, isInline, node, renderNode, UnknownType],
-  )
-}
+//   const UnknownType = components.unknownType
+//   return useMemo(
+//     () => <UnknownType value={node} isInline={isInline} index={index} renderNode={renderNode} />,
+//     [index, isInline, node, renderNode, UnknownType],
+//   )
+// }
 
 function serializeBlock(options: Serializable<PortableTextBlock>): SerializedBlock {
   const {node, index, isInline, renderNode} = options
