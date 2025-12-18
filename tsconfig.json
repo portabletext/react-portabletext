@@ -5,6 +5,6 @@
     "rootDir": ".",
     "outDir": "./dist",
 
-    "noUncheckedIndexedAccess": true,
-  },
+    "noUncheckedIndexedAccess": true
+  }
 }
