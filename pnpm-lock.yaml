@@ -22,14 +22,14 @@ importers:
         specifier: ^2.29.8
         version: 2.29.8(@types/node@24.10.2)
       '@sanity/tsconfig':
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.1.0
+        version: 2.1.0
       '@sanity/tsdown-config':
-        specifier: ^0.4.0
-        version: 0.4.0(tsdown@0.17.2(publint@0.3.15)(typescript@5.9.3))(typescript@5.9.3)
+        specifier: ^0.4.2
+        version: 0.4.2(tsdown@0.17.2(publint@0.3.16)(typescript@5.9.3))(typescript@5.9.3)
       '@sanity/ui':
         specifier: ^3.1.11
-        version: 3.1.11(@emotion/is-prop-valid@1.4.0)(@sanity/css-in-js@6.1.26(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react-is@19.2.1)(react@19.2.1)
+        version: 3.1.11(@emotion/is-prop-valid@1.4.0)(@sanity/css-in-js@6.1.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react-is@19.2.3)(react@19.2.3)
       '@types/leaflet':
         specifier: ^1.9.21
         version: 1.9.21
@@ -58,29 +58,29 @@ importers:
         specifier: ^1.9.4
         version: 1.9.4
       oxfmt:
-        specifier: ^0.17.0
-        version: 0.17.0
+        specifier: ^0.18.0
+        version: 0.18.0
       oxlint:
-        specifier: ^1.32.0
-        version: 1.32.0(oxlint-tsgolint@0.8.4)
+        specifier: ^1.33.0
+        version: 1.33.0(oxlint-tsgolint@0.9.1)
       oxlint-tsgolint:
-        specifier: ^0.8.4
-        version: 0.8.4
+        specifier: ^0.9.1
+        version: 0.9.1
       react:
-        specifier: ^19.2.1
-        version: 19.2.1
+        specifier: ^19.2.3
+        version: 19.2.3
       react-dom:
-        specifier: ^19.2.1
-        version: 19.2.1(react@19.2.1)
+        specifier: ^19.2.3
+        version: 19.2.3(react@19.2.3)
       react-is:
-        specifier: ^19.2.1
-        version: 19.2.1
+        specifier: ^19.2.3
+        version: 19.2.3
       react-leaflet:
         specifier: ^5.0.0
-        version: 5.0.0(leaflet@1.9.4)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+        version: 5.0.0(leaflet@1.9.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       react-refractor:
         specifier: ^4.0.0
-        version: 4.0.0(react@19.2.1)
+        version: 4.0.0(react@19.2.3)
       refractor:
         specifier: ^5.0.0
         version: 5.0.0
@@ -92,10 +92,10 @@ importers:
         version: 6.0.5(rolldown@1.0.0-beta.53)(rollup@4.53.3)
       styled-components:
         specifier: npm:@sanity/css-in-js@6.1.26
-        version: '@sanity/css-in-js@6.1.26(react-dom@19.2.1(react@19.2.1))(react@19.2.1)'
+        version: '@sanity/css-in-js@6.1.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3)'
       tsdown:
         specifier: ^0.17.2
-        version: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+        version: 0.17.2(publint@0.3.16)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -657,113 +657,113 @@ packages:
   '@oxc-project/types@0.101.0':
     resolution: {integrity: sha512-nuFhqlUzJX+gVIPPfuE6xurd4lST3mdcWOhyK/rZO0B9XWMKm79SuszIQEnSMmmDhq1DC8WWVYGVd+6F93o1gQ==}
 
-  '@oxfmt/darwin-arm64@0.17.0':
-    resolution: {integrity: sha512-OMv0tOb+xiwSZKjYbM6TwMSP5QwFJlBGQmEsk98QJ30sHhdyC//0UvGKuR0KZuzZW4E0+k0rHDmos1Z5DmBEkA==}
+  '@oxfmt/darwin-arm64@0.18.0':
+    resolution: {integrity: sha512-Dp3mOFUtLtG/0eDclI3rx2be5FEnUxh2T6zlq7Zx5Q1c+DS9LJF8H97nQx+O/OU+o0e0J90kN8Msf9v3j7Hhsg==}
     cpu: [arm64]
     os: [darwin]
 
-  '@oxfmt/darwin-x64@0.17.0':
-    resolution: {integrity: sha512-trzidyzryKIdL/cLCYU9IwprgJegVBUrz1rqzOMe5is+qdgH/RxTCvhYUNFzxRHpil3g4QUYd2Ja831tc5Nehg==}
+  '@oxfmt/darwin-x64@0.18.0':
+    resolution: {integrity: sha512-Oe3KS4tdfLq+f1Ebje7D9BF7/0xmBYSMN6dWatSko1xfvu8oCZzKcNCcbwz0a8rBnoH/BnIiGFUEbgJDnA/JLQ==}
     cpu: [x64]
     os: [darwin]
 
-  '@oxfmt/linux-arm64-gnu@0.17.0':
-    resolution: {integrity: sha512-KlwzidgvHznbUaaglZT1goTS30osTV553pfbKve9B1PyTDkluNDfm/polOaf3SVLN7wL/NNLFZRMupvJ1eJXAw==}
+  '@oxfmt/linux-arm64-gnu@0.18.0':
+    resolution: {integrity: sha512-zW9z8LrAgL9bswgsaFOnQmoImCbq9YQST8B15FAoTeZYr9sb/VfdD6/PQEBLCptYlFmoTvmDNHjppi9g61NwHQ==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxfmt/linux-arm64-musl@0.17.0':
-    resolution: {integrity: sha512-+tbYJTocF4BNLaQQbc/xrBWTNgiU6zmYeF4NvRDxuuQjDOnmUZPn0EED3PZBRJyg4/YllhplHDo8x+gfcb9G3A==}
+  '@oxfmt/linux-arm64-musl@0.18.0':
+    resolution: {integrity: sha512-mFnpcasZZv1s/+6YDPradhIgR2G7GWr+mnzgJMIKQOJAtX3b0vzG+FE4f7hDIZPEUhC0hvZSd8f31FjAtrX0aQ==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxfmt/linux-x64-gnu@0.17.0':
-    resolution: {integrity: sha512-pEmv7zJIw2HpnA4Tn1xrfJNGi2wOH2+usT14Pkvf/c5DdB+pOir6k/5jzfe70+V3nEtmtV9Lm+spndN/y6+X7A==}
+  '@oxfmt/linux-x64-gnu@0.18.0':
+    resolution: {integrity: sha512-G1AXQNHVkPgVgRrAvDYdNi0x3gkvVyEmpL6WLMwoSjMnwYWQLt5/jrndHbS2Db8/CcmMo6VPP8lUQGvM4TRVaQ==}
     cpu: [x64]
     os: [linux]
 
-  '@oxfmt/linux-x64-musl@0.17.0':
-    resolution: {integrity: sha512-+DrFSCZWyFdtEAWR5xIBTV8GX0RA9iB+y7ZlJPRAXrNG8TdBY9vc7/MIGolIgrkMPK4mGMn07YG/qEyPY+iKaw==}
+  '@oxfmt/linux-x64-musl@0.18.0':
+    resolution: {integrity: sha512-M/KEIMHDr5lcK9gDxgIGr9xVwX7Pfl3PZs+6e8SySuckMgoJMkee6uWxhMdxws3dfU94saAkVmNQzM2+l3hvtA==}
     cpu: [x64]
     os: [linux]
 
-  '@oxfmt/win32-arm64@0.17.0':
-    resolution: {integrity: sha512-FoUZRR7mVpTYIaY/qz2BYwzqMnL+HsUxmMWAIy6nl29UEkDgxNygULJ4rIGY4/Axne41fhtldLrSGBOpwNm3jA==}
+  '@oxfmt/win32-arm64@0.18.0':
+    resolution: {integrity: sha512-LunuNBTLOgfkYFjiHOeNHD/Ii5paO/GVyNPSEYBwEPULbdeMGnjHqxzQHLGU8QIQjwu55mp4uuBP0DAXTli2TQ==}
     cpu: [arm64]
     os: [win32]
 
-  '@oxfmt/win32-x64@0.17.0':
-    resolution: {integrity: sha512-fBIcUpHmCwf3leWlo0cYwLb9Pd2mzxQlZYJX9dD9nylPvsxOnsy9fmsaflpj34O0JbQJN3Y0SRkoaCcHHlxFww==}
+  '@oxfmt/win32-x64@0.18.0':
+    resolution: {integrity: sha512-0kJJwn4FPeGJ4uV6ofOCiY+oBKWg+RWpRjYc9bywTjDbxWR6JAqtuXkiARCJej8UD/rJeXnHYTF78sFALkwZyA==}
     cpu: [x64]
     os: [win32]
 
-  '@oxlint-tsgolint/darwin-arm64@0.8.4':
-    resolution: {integrity: sha512-aygL+K1tOIDXkGncB8q6DbwQjK6CD81sfsUNmhQUcYNNgpOAc88BWyCR3Si8/nlu4sQOdydmfjeVJqJsHaQUxQ==}
+  '@oxlint-tsgolint/darwin-arm64@0.9.1':
+    resolution: {integrity: sha512-vk+8kChWqN+F+QUOvp4/6jDTlDCzXPgYGkxdi6EOUSOmCP1ix0uYOlIi/ytH2imXmC8YfPgLR/1BhqbsuDKuew==}
     cpu: [arm64]
     os: [darwin]
 
-  '@oxlint-tsgolint/darwin-x64@0.8.4':
-    resolution: {integrity: sha512-rc4iOtwir3eK+f4eh8EzYyVvtwNlkIP+7WkVfkFydNJ1wzzrAZvn2TT1C9U6vcFaaDp2aDM3jie3ZwmMghQxbA==}
+  '@oxlint-tsgolint/darwin-x64@0.9.1':
+    resolution: {integrity: sha512-yXmqr7El17+Oo56fWkPdUluU8d0jWxwRwAe1QZ0Xprxul9FHJeR/O2oYuBUngvCi02dbt0VZlwgJXcljQEdHlQ==}
     cpu: [x64]
     os: [darwin]
 
-  '@oxlint-tsgolint/linux-arm64@0.8.4':
-    resolution: {integrity: sha512-Wbdr640YAG7++2GAeHGDDijA69XwC3xQRp4hgaz6wR+JK6VWXQpeaHKW8v9axNLH9AVlnjUbEpZSh2MPkOpF3Q==}
+  '@oxlint-tsgolint/linux-arm64@0.9.1':
+    resolution: {integrity: sha512-ukLb35BHSsxXaVEe8eIvYXMTxOdv8K4CySmtkWyc0pJT0q8zh85by1bsREWAP2hZc0wN0ClHjZHPdKY3958Jwg==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxlint-tsgolint/linux-x64@0.8.4':
-    resolution: {integrity: sha512-nWg57xz4xA++COoEb26RnwiMOOA+wfzipOSfqz/xSCwEXQDKryXfYMl7no7a3MsneHP2f4/JbOrDHbYishm3rw==}
+  '@oxlint-tsgolint/linux-x64@0.9.1':
+    resolution: {integrity: sha512-kkxSS/meANLun4dHep2wnfvo8OHJKgdxzuY3RoooSWorVqw3/K5Qttmo0OQFt7UNq/oisn0YTaNhV28S0nAWyQ==}
     cpu: [x64]
     os: [linux]
 
-  '@oxlint-tsgolint/win32-arm64@0.8.4':
-    resolution: {integrity: sha512-LwRTv/30zlms4BaJrfW+ZnihdIvOku0Rrdo0FfMwSt7HlYfZdoB1yibTkC8yLfRlnbxyR0d57AQPjRasKAgyyQ==}
+  '@oxlint-tsgolint/win32-arm64@0.9.1':
+    resolution: {integrity: sha512-F9tiZZRn3x+kjXJC8GAE5C5xkvD8b8unoFeh7mS5W4USAH8+AzYydzLev5rAW2uXdOqtkO30EJl0ygl68Zlb8w==}
     cpu: [arm64]
     os: [win32]
 
-  '@oxlint-tsgolint/win32-x64@0.8.4':
-    resolution: {integrity: sha512-jg2OezQ4Wwe+B3bOAUWH3CQdu/r5XtYwG/mwmgueL4KLmbJyO47w40hjBESHHgD8057BuHhJrf7lZpZN80bdzw==}
+  '@oxlint-tsgolint/win32-x64@0.9.1':
+    resolution: {integrity: sha512-DKTBgKUbycKNYgpWpglEHzkgiNVSG1rZmfiqw7w31keAq8q7avNGhz2WNmsRvXh8IGNw1PMb7vgxwUK8eyXIeg==}
     cpu: [x64]
     os: [win32]
 
-  '@oxlint/darwin-arm64@1.32.0':
-    resolution: {integrity: sha512-yrqPmZYu5Qb+49h0P5EXVIq8VxYkDDM6ZQrWzlh16+UGFcD8HOXs4oF3g9RyfaoAbShLCXooSQsM/Ifwx8E/eQ==}
+  '@oxlint/darwin-arm64@1.33.0':
+    resolution: {integrity: sha512-PmEQDLHAxiAdyttQ1ZWXd+5VpHLbHf3FTMJL9bg5TZamDnhNiW/v0Pamv3MTAdymnoDI3H8IVLAN/SAseV/adw==}
     cpu: [arm64]
     os: [darwin]
 
-  '@oxlint/darwin-x64@1.32.0':
-    resolution: {integrity: sha512-pQRZrJG/2nAKc3IuocFbaFFbTDlQsjz2WfivRsMn0hw65EEsSuM84WMFMiAfLpTGyTICeUtHZLHlrM5lzVr36A==}
+  '@oxlint/darwin-x64@1.33.0':
+    resolution: {integrity: sha512-2R9aH3kR0X2M30z5agGikv3tfNTi8/uLhU5/tYktu33VGUXpbf0OLZSlD25UEuwOKAlf3RVtzV5oDyjoq93JuQ==}
     cpu: [x64]
     os: [darwin]
 
-  '@oxlint/linux-arm64-gnu@1.32.0':
-    resolution: {integrity: sha512-tyomSmU2DzwcTmbaWFmStHgVfRmJDDvqcIvcw4fRB1YlL2Qg/XaM4NJ0m2bdTap38gxD5FSxSgCo0DkQ8GTolg==}
+  '@oxlint/linux-arm64-gnu@1.33.0':
+    resolution: {integrity: sha512-yb/k8GaMDgnX2LyO6km33kKItZ/n573SlbiHBBFU2HmeU7tzEHL5jHkHQXXcysUkapmqHd7UsDhOZDqPmXaQRg==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxlint/linux-arm64-musl@1.32.0':
-    resolution: {integrity: sha512-0W46dRMaf71OGE4+Rd+GHfS1uF/UODl5Mef6871pMhN7opPGfTI2fKJxh9VzRhXeSYXW/Z1EuCq9yCfmIJq+5Q==}
+  '@oxlint/linux-arm64-musl@1.33.0':
+    resolution: {integrity: sha512-03pt9IO1C4ZfVOW6SQiOK26mzklAhLM3Kc79OXpX1kgZRlxk+rvFoMhlgCOzn7tEdrEgbePkBoxNnwDnJDFqJQ==}
     cpu: [arm64]
     os: [linux]
 
-  '@oxlint/linux-x64-gnu@1.32.0':
-    resolution: {integrity: sha512-5+6myVCBOMvM62rDB9T3CARXUvIwhGqte6E+HoKRwYaqsxGUZ4bh3pItSgSFwHjLGPrvADS11qJUkk39eQQBzQ==}
+  '@oxlint/linux-x64-gnu@1.33.0':
+    resolution: {integrity: sha512-Z7ImLWM50FoVXzYvyxUQ+QwBkBfRyK4YdLEGonyAGMp7iT3DksonDaTK9ODnJ1qHyAyAZCvuqXD7AEDsDvzDbA==}
     cpu: [x64]
     os: [linux]
 
-  '@oxlint/linux-x64-musl@1.32.0':
-    resolution: {integrity: sha512-qwQlwYYgVIC6ScjpUwiKKNyVdUlJckrfwPVpIjC9mvglIQeIjKuuyaDxUZWIOc/rEzeCV/tW6tcbehLkfEzqsw==}
+  '@oxlint/linux-x64-musl@1.33.0':
+    resolution: {integrity: sha512-idb55Uzu5kkqqpMiVUfI9nP7zOqPZinQKsIRQAIU40wILcf/ijvhNZKIu3ucDMmye0n6IWOaSnxIRL5W2fNoUQ==}
     cpu: [x64]
     os: [linux]
 
-  '@oxlint/win32-arm64@1.32.0':
-    resolution: {integrity: sha512-7qYZF9CiXGtdv8Z/fBkgB5idD2Zokht67I5DKWH0fZS/2R232sDqW2JpWVkXltk0+9yFvmvJ0ouJgQRl9M3S2g==}
+  '@oxlint/win32-arm64@1.33.0':
+    resolution: {integrity: sha512-wKKFt7cubfrLelNzdmDsNSmtBrlSUe1fWus587+uSxDZdpFbQ7liU0gsUlCbcHvym0H1Tc2O3K3cnLrgQORLPQ==}
     cpu: [arm64]
     os: [win32]
 
-  '@oxlint/win32-x64@1.32.0':
-    resolution: {integrity: sha512-XW1xqCj34MEGJlHteqasTZ/LmBrwYIgluhNW0aP+XWkn90+stKAq3W/40dvJKbMK9F7o09LPCuMVtUW7FIUuiA==}
+  '@oxlint/win32-x64@1.33.0':
+    resolution: {integrity: sha512-ReyR8rNHjKNnO7dxGny9RCPELRAdhm3y780FNBcA07E1wvxSCkB+Mn5db0Pa5bRmxrsU/MTZ/aaBFa+ERXDdXw==}
     cpu: [x64]
     os: [win32]
 
@@ -1000,18 +1000,18 @@ packages:
     peerDependencies:
       react: ^18.3 || ^19.0.0-0
 
-  '@sanity/parse-package-json@1.0.1':
-    resolution: {integrity: sha512-5En7CKBvSC+L2UNHg1mWhenUT8XMiCCPaf6tQ3PkvMzB4oZ6Z2WARct317MXOAo9u5gPkRq7rWxGjBbL+ZdA/Q==}
+  '@sanity/parse-package-json@2.0.0':
+    resolution: {integrity: sha512-C3gK7+Y/lGP1FV7YZ6WniFwXnROf/upgNXpMmJDty2aD2G2a/6XvQWBhy2qr8LEQyxNoU1qgEWatD31GGG6f6w==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
-  '@sanity/tsconfig@2.0.0':
-    resolution: {integrity: sha512-t3VkUo8Sz4g6TjffUTDXzDCghs+MelX+lTJHNPK+Htjrcv/+VJSfHZhp4Zi4GuKjmdd3VzCtFb37S7R42qpppw==}
+  '@sanity/tsconfig@2.1.0':
+    resolution: {integrity: sha512-Cnz0EycMsfeILkxL/gYzzfPs511OzP3sjQxU4XkDtujdiFAc+bteMYXi4/SJ83m98cXLum63HbHDk+he6AbbIA==}
 
-  '@sanity/tsdown-config@0.4.0':
-    resolution: {integrity: sha512-O/JJ53xv0vJpB/yx97BFuTUTjlUuQDl5iCDzjwSLiHKVwsT1mOydbQkHHbtC8Na4PMufgycaAGpK06xkhuOEEA==}
+  '@sanity/tsdown-config@0.4.2':
+    resolution: {integrity: sha512-kR+CwlVmaQe/FnYi1ncHQQtNnFLAiJd2M2sYnjDuCwg6imc2NIbLhCkB2FMz2LK8LMn4vnJ8pWlKbrLnjJy1DQ==}
     engines: {node: '>=20.19 <22 || >=22.12'}
     peerDependencies:
-      tsdown: ^0.17.0
+      tsdown: ^0.17
       typescript: 5.8.x || 5.9.x
 
   '@sanity/ui@3.1.11':
@@ -1612,21 +1612,21 @@ packages:
   outdent@0.5.0:
     resolution: {integrity: sha512-/jHxFIzoMXdqPzTaCpFzAAWhpkSjZPF4Vsn6jAfNpmbH/ymsmd7Qc6VE9BGn0L6YMj6uwpQLxCECpus4ukKS9Q==}
 
-  oxfmt@0.17.0:
-    resolution: {integrity: sha512-12Rmq2ub61rUZ3Pqnsvmo99rRQ6hQJwQsjnFnbvXYLMrlIsWT6SFVsrjAkBBrkXXSHv8ePIpKQ0nZph5KDrOqw==}
+  oxfmt@0.18.0:
+    resolution: {integrity: sha512-XqVS+LQi7ARsFlIftB69+jGN2qQaJNBjQU2b9ZQYt+iaUV9digh+dBIsU0isQIZhaQ1ihxGFfsTYQXE/Oak8Qw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
-  oxlint-tsgolint@0.8.4:
-    resolution: {integrity: sha512-0eyQ83M0JpeA8a4SPk61xwxBw+N9jMolDCLmzoD9J8HcL3BGTEcOLb5Ud7nCcmM3hSYzO91RqNPHayESG+os2A==}
+  oxlint-tsgolint@0.9.1:
+    resolution: {integrity: sha512-w1lIvUDkkiAPFyo268SFGrdh1LQ3Lcs1XShES7I4X75TliQA0os5XJ5hNZ4lYsSevqcofgEtq4xq7rBumv69iQ==}
     hasBin: true
 
-  oxlint@1.32.0:
-    resolution: {integrity: sha512-HYDQCga7flsdyLMUIxTgSnEx5KBxpP9VINB8NgO+UjV80xBiTQXyVsvjtneMT3ZBLMbL0SlG/Dm03XQAsEshMA==}
+  oxlint@1.33.0:
+    resolution: {integrity: sha512-4WCL0K8jiOshwJ8WrVk35VAuVaZHC0iX6asjKsrENOrynkAAGcTLLx0Urf0eXZ1Tq7r+qAe3Z9EyHMFPzVyUkg==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
-      oxlint-tsgolint: '>=0.8.1'
+      oxlint-tsgolint: '>=0.9.0'
     peerDependenciesMeta:
       oxlint-tsgolint:
         optional: true
@@ -1709,8 +1709,8 @@ packages:
   property-information@7.1.0:
     resolution: {integrity: sha512-TwEZ+X+yCJmYfL7TPUOcvBZ4QfoT5YenQiJuX//0th53DE6w0xxLEtfK3iyryQFddXuvkIk51EEgrJQ0WJkOmQ==}
 
-  publint@0.3.15:
-    resolution: {integrity: sha512-xPbRAPW+vqdiaKy5sVVY0uFAu3LaviaPO3pZ9FaRx59l9+U/RKR1OEbLhkug87cwiVKxPXyB4txsv5cad67u+A==}
+  publint@0.3.16:
+    resolution: {integrity: sha512-MFqyfRLAExPVZdTQFwkAQELzA8idyXzROVOytg6nEJ/GEypXBUmMGrVaID8cTuzRS1U5L8yTOdOJtMXgFUJAeA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -1728,13 +1728,13 @@ packages:
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0 || ^0.0.0-experimental
 
-  react-dom@19.2.1:
-    resolution: {integrity: sha512-ibrK8llX2a4eOskq1mXKu/TGZj9qzomO+sNfO98M6d9zIPOEhlBkMkBUBLd1vgS0gQsLDBzA+8jJBVXDnfHmJg==}
+  react-dom@19.2.3:
+    resolution: {integrity: sha512-yELu4WmLPw5Mr/lmeEpox5rw3RETacE++JgHqQzd2dg+YbJuat3jH4ingc+WPZhxaoFzdv9y33G+F7Nl5O0GBg==}
     peerDependencies:
-      react: ^19.2.1
+      react: ^19.2.3
 
-  react-is@19.2.1:
-    resolution: {integrity: sha512-L7BnWgRbMwzMAubQcS7sXdPdNLmKlucPlopgAzx7FtYbksWZgEWiuYM5x9T6UqS2Ne0rsgQTq5kY2SGqpzUkYA==}
+  react-is@19.2.3:
+    resolution: {integrity: sha512-qJNJfu81ByyabuG7hPFEbXqNcWSU3+eVus+KJs+0ncpGfMyYdvSmxiJxbWR65lYi1I+/0HBcliO029gc4F+PnA==}
 
   react-leaflet@5.0.0:
     resolution: {integrity: sha512-CWbTpr5vcHw5bt9i4zSlPEVQdTVcML390TjeDG0cK59z1ylexpqC6M1PJFjV8jD7CF+ACBFsLIDs6DRMoLEofw==}
@@ -1753,8 +1753,8 @@ packages:
     resolution: {integrity: sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw==}
     engines: {node: '>=0.10.0'}
 
-  react@19.2.1:
-    resolution: {integrity: sha512-DGrYcCWK7tvYMnWh79yrPHt+vdx9tY+1gPZa7nJQtO/p8bLTDaHp4dzwEhQB7pZ4Xe3ok4XKuEPrVuc+wlpkmw==}
+  react@19.2.3:
+    resolution: {integrity: sha512-Ku/hhYbVjOQnXDZFv2+RibmLFGwFdeeKHFcOTlrt7xplBnya5OGn/hIRDsqDiSUcfORsDC7MPxwork8jBwsIWA==}
     engines: {node: '>=0.10.0'}
 
   read-yaml-file@1.1.0:
@@ -1929,6 +1929,10 @@ packages:
   tinyglobby@0.2.15:
     resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
     engines: {node: '>=12.0.0'}
+
+  tinypool@2.0.0:
+    resolution: {integrity: sha512-/RX9RzeH2xU5ADE7n2Ykvmi9ED3FBGPAjw9u3zucrNNaEBIO0HPSYgL0NT7+3p147ojeSdaVu08F6hjpv31HJg==}
+    engines: {node: ^20.0.0 || >=22.0.0}
 
   tinyrainbow@3.0.3:
     resolution: {integrity: sha512-PSkbLUoxOFRzJYjjxHJt9xro7D+iilgMX/C9lawzVuYiIdcihh9DXmVibBe8lmcFrRi/VzlPjBxbN7rH24q8/Q==}
@@ -2598,11 +2602,11 @@ snapshots:
       '@floating-ui/core': 1.7.3
       '@floating-ui/utils': 0.2.10
 
-  '@floating-ui/react-dom@2.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@floating-ui/react-dom@2.1.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
     dependencies:
       '@floating-ui/dom': 1.7.4
-      react: 19.2.1
-      react-dom: 19.2.1(react@19.2.1)
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
 
   '@floating-ui/utils@0.2.10': {}
 
@@ -2680,70 +2684,70 @@ snapshots:
 
   '@oxc-project/types@0.101.0': {}
 
-  '@oxfmt/darwin-arm64@0.17.0':
+  '@oxfmt/darwin-arm64@0.18.0':
     optional: true
 
-  '@oxfmt/darwin-x64@0.17.0':
+  '@oxfmt/darwin-x64@0.18.0':
     optional: true
 
-  '@oxfmt/linux-arm64-gnu@0.17.0':
+  '@oxfmt/linux-arm64-gnu@0.18.0':
     optional: true
 
-  '@oxfmt/linux-arm64-musl@0.17.0':
+  '@oxfmt/linux-arm64-musl@0.18.0':
     optional: true
 
-  '@oxfmt/linux-x64-gnu@0.17.0':
+  '@oxfmt/linux-x64-gnu@0.18.0':
     optional: true
 
-  '@oxfmt/linux-x64-musl@0.17.0':
+  '@oxfmt/linux-x64-musl@0.18.0':
     optional: true
 
-  '@oxfmt/win32-arm64@0.17.0':
+  '@oxfmt/win32-arm64@0.18.0':
     optional: true
 
-  '@oxfmt/win32-x64@0.17.0':
+  '@oxfmt/win32-x64@0.18.0':
     optional: true
 
-  '@oxlint-tsgolint/darwin-arm64@0.8.4':
+  '@oxlint-tsgolint/darwin-arm64@0.9.1':
     optional: true
 
-  '@oxlint-tsgolint/darwin-x64@0.8.4':
+  '@oxlint-tsgolint/darwin-x64@0.9.1':
     optional: true
 
-  '@oxlint-tsgolint/linux-arm64@0.8.4':
+  '@oxlint-tsgolint/linux-arm64@0.9.1':
     optional: true
 
-  '@oxlint-tsgolint/linux-x64@0.8.4':
+  '@oxlint-tsgolint/linux-x64@0.9.1':
     optional: true
 
-  '@oxlint-tsgolint/win32-arm64@0.8.4':
+  '@oxlint-tsgolint/win32-arm64@0.9.1':
     optional: true
 
-  '@oxlint-tsgolint/win32-x64@0.8.4':
+  '@oxlint-tsgolint/win32-x64@0.9.1':
     optional: true
 
-  '@oxlint/darwin-arm64@1.32.0':
+  '@oxlint/darwin-arm64@1.33.0':
     optional: true
 
-  '@oxlint/darwin-x64@1.32.0':
+  '@oxlint/darwin-x64@1.33.0':
     optional: true
 
-  '@oxlint/linux-arm64-gnu@1.32.0':
+  '@oxlint/linux-arm64-gnu@1.33.0':
     optional: true
 
-  '@oxlint/linux-arm64-musl@1.32.0':
+  '@oxlint/linux-arm64-musl@1.33.0':
     optional: true
 
-  '@oxlint/linux-x64-gnu@1.32.0':
+  '@oxlint/linux-x64-gnu@1.33.0':
     optional: true
 
-  '@oxlint/linux-x64-musl@1.32.0':
+  '@oxlint/linux-x64-musl@1.33.0':
     optional: true
 
-  '@oxlint/win32-arm64@1.32.0':
+  '@oxlint/win32-arm64@1.33.0':
     optional: true
 
-  '@oxlint/win32-x64@1.32.0':
+  '@oxlint/win32-x64@1.33.0':
     optional: true
 
   '@pkgjs/parseargs@0.11.0':
@@ -2761,11 +2765,11 @@ snapshots:
     dependencies:
       quansync: 1.0.0
 
-  '@react-leaflet/core@3.0.0(leaflet@1.9.4)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@react-leaflet/core@3.0.0(leaflet@1.9.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
     dependencies:
       leaflet: 1.9.4
-      react: 19.2.1
-      react-dom: 19.2.1(react@19.2.1)
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
 
   '@rolldown/binding-android-arm64@1.0.0-beta.53':
     optional: true
@@ -2878,49 +2882,49 @@ snapshots:
 
   '@sanity/color@3.0.6': {}
 
-  '@sanity/css-in-js@6.1.26(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@sanity/css-in-js@6.1.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
     dependencies:
       '@emotion/is-prop-valid': 1.4.0
       '@emotion/unitless': 0.10.0
       '@types/stylis': 4.2.7
       csstype: 3.2.3
-      react: 19.2.1
-      react-dom: 19.2.1(react@19.2.1)
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
       shallowequal: 1.1.0
       stylis: 4.3.6
 
-  '@sanity/icons@3.7.4(react@19.2.1)':
+  '@sanity/icons@3.7.4(react@19.2.3)':
     dependencies:
-      react: 19.2.1
+      react: 19.2.3
 
-  '@sanity/parse-package-json@1.0.1':
+  '@sanity/parse-package-json@2.0.0':
     dependencies:
       zod: 4.1.13
 
-  '@sanity/tsconfig@2.0.0': {}
+  '@sanity/tsconfig@2.1.0': {}
 
-  '@sanity/tsdown-config@0.4.0(tsdown@0.17.2(publint@0.3.15)(typescript@5.9.3))(typescript@5.9.3)':
+  '@sanity/tsdown-config@0.4.2(tsdown@0.17.2(publint@0.3.16)(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
-      '@sanity/parse-package-json': 1.0.1
-      publint: 0.3.15
-      tsdown: 0.17.2(publint@0.3.15)(typescript@5.9.3)
+      '@sanity/parse-package-json': 2.0.0
+      publint: 0.3.16
+      tsdown: 0.17.2(publint@0.3.16)(typescript@5.9.3)
       typescript: 5.9.3
 
-  '@sanity/ui@3.1.11(@emotion/is-prop-valid@1.4.0)(@sanity/css-in-js@6.1.26(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react-is@19.2.1)(react@19.2.1)':
+  '@sanity/ui@3.1.11(@emotion/is-prop-valid@1.4.0)(@sanity/css-in-js@6.1.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react-is@19.2.3)(react@19.2.3)':
     dependencies:
-      '@floating-ui/react-dom': 2.1.6(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@floating-ui/react-dom': 2.1.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@juggle/resize-observer': 3.4.0
       '@sanity/color': 3.0.6
-      '@sanity/icons': 3.7.4(react@19.2.1)
+      '@sanity/icons': 3.7.4(react@19.2.3)
       csstype: 3.2.3
-      motion: 12.23.25(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
-      react: 19.2.1
-      react-compiler-runtime: 1.0.0(react@19.2.1)
-      react-dom: 19.2.1(react@19.2.1)
-      react-is: 19.2.1
-      react-refractor: 4.0.0(react@19.2.1)
-      styled-components: '@sanity/css-in-js@6.1.26(react-dom@19.2.1(react@19.2.1))(react@19.2.1)'
-      use-effect-event: 2.0.3(react@19.2.1)
+      motion: 12.23.25(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      react: 19.2.3
+      react-compiler-runtime: 1.0.0(react@19.2.3)
+      react-dom: 19.2.3(react@19.2.3)
+      react-is: 19.2.3
+      react-refractor: 4.0.0(react@19.2.3)
+      styled-components: '@sanity/css-in-js@6.1.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3)'
+      use-effect-event: 2.0.3(react@19.2.3)
     transitivePeerDependencies:
       - '@emotion/is-prop-valid'
 
@@ -3293,15 +3297,15 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
-  framer-motion@12.23.25(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
+  framer-motion@12.23.25(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
       motion-dom: 12.23.23
       motion-utils: 12.23.6
       tslib: 2.8.1
     optionalDependencies:
       '@emotion/is-prop-valid': 1.4.0
-      react: 19.2.1
-      react-dom: 19.2.1(react@19.2.1)
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
 
   fs-extra@7.0.1:
     dependencies:
@@ -3471,14 +3475,14 @@ snapshots:
 
   motion-utils@12.23.6: {}
 
-  motion@12.23.25(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
+  motion@12.23.25(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
-      framer-motion: 12.23.25(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      framer-motion: 12.23.25(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       tslib: 2.8.1
     optionalDependencies:
       '@emotion/is-prop-valid': 1.4.0
-      react: 19.2.1
-      react-dom: 19.2.1(react@19.2.1)
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
 
   mri@1.2.0: {}
 
@@ -3502,37 +3506,39 @@ snapshots:
 
   outdent@0.5.0: {}
 
-  oxfmt@0.17.0:
+  oxfmt@0.18.0:
+    dependencies:
+      tinypool: 2.0.0
     optionalDependencies:
-      '@oxfmt/darwin-arm64': 0.17.0
-      '@oxfmt/darwin-x64': 0.17.0
-      '@oxfmt/linux-arm64-gnu': 0.17.0
-      '@oxfmt/linux-arm64-musl': 0.17.0
-      '@oxfmt/linux-x64-gnu': 0.17.0
-      '@oxfmt/linux-x64-musl': 0.17.0
-      '@oxfmt/win32-arm64': 0.17.0
-      '@oxfmt/win32-x64': 0.17.0
+      '@oxfmt/darwin-arm64': 0.18.0
+      '@oxfmt/darwin-x64': 0.18.0
+      '@oxfmt/linux-arm64-gnu': 0.18.0
+      '@oxfmt/linux-arm64-musl': 0.18.0
+      '@oxfmt/linux-x64-gnu': 0.18.0
+      '@oxfmt/linux-x64-musl': 0.18.0
+      '@oxfmt/win32-arm64': 0.18.0
+      '@oxfmt/win32-x64': 0.18.0
 
-  oxlint-tsgolint@0.8.4:
+  oxlint-tsgolint@0.9.1:
     optionalDependencies:
-      '@oxlint-tsgolint/darwin-arm64': 0.8.4
-      '@oxlint-tsgolint/darwin-x64': 0.8.4
-      '@oxlint-tsgolint/linux-arm64': 0.8.4
-      '@oxlint-tsgolint/linux-x64': 0.8.4
-      '@oxlint-tsgolint/win32-arm64': 0.8.4
-      '@oxlint-tsgolint/win32-x64': 0.8.4
+      '@oxlint-tsgolint/darwin-arm64': 0.9.1
+      '@oxlint-tsgolint/darwin-x64': 0.9.1
+      '@oxlint-tsgolint/linux-arm64': 0.9.1
+      '@oxlint-tsgolint/linux-x64': 0.9.1
+      '@oxlint-tsgolint/win32-arm64': 0.9.1
+      '@oxlint-tsgolint/win32-x64': 0.9.1
 
-  oxlint@1.32.0(oxlint-tsgolint@0.8.4):
+  oxlint@1.33.0(oxlint-tsgolint@0.9.1):
     optionalDependencies:
-      '@oxlint/darwin-arm64': 1.32.0
-      '@oxlint/darwin-x64': 1.32.0
-      '@oxlint/linux-arm64-gnu': 1.32.0
-      '@oxlint/linux-arm64-musl': 1.32.0
-      '@oxlint/linux-x64-gnu': 1.32.0
-      '@oxlint/linux-x64-musl': 1.32.0
-      '@oxlint/win32-arm64': 1.32.0
-      '@oxlint/win32-x64': 1.32.0
-      oxlint-tsgolint: 0.8.4
+      '@oxlint/darwin-arm64': 1.33.0
+      '@oxlint/darwin-x64': 1.33.0
+      '@oxlint/linux-arm64-gnu': 1.33.0
+      '@oxlint/linux-arm64-musl': 1.33.0
+      '@oxlint/linux-x64-gnu': 1.33.0
+      '@oxlint/linux-x64-musl': 1.33.0
+      '@oxlint/win32-arm64': 1.33.0
+      '@oxlint/win32-x64': 1.33.0
+      oxlint-tsgolint: 0.9.1
 
   p-filter@2.1.0:
     dependencies:
@@ -3599,7 +3605,7 @@ snapshots:
 
   property-information@7.1.0: {}
 
-  publint@0.3.15:
+  publint@0.3.16:
     dependencies:
       '@publint/pack': 0.1.2
       package-manager-detector: 1.6.0
@@ -3612,34 +3618,34 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-compiler-runtime@1.0.0(react@19.2.1):
+  react-compiler-runtime@1.0.0(react@19.2.3):
     dependencies:
-      react: 19.2.1
+      react: 19.2.3
 
-  react-dom@19.2.1(react@19.2.1):
+  react-dom@19.2.3(react@19.2.3):
     dependencies:
-      react: 19.2.1
+      react: 19.2.3
       scheduler: 0.27.0
 
-  react-is@19.2.1: {}
+  react-is@19.2.3: {}
 
-  react-leaflet@5.0.0(leaflet@1.9.4)(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
+  react-leaflet@5.0.0(leaflet@1.9.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
-      '@react-leaflet/core': 3.0.0(leaflet@1.9.4)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@react-leaflet/core': 3.0.0(leaflet@1.9.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       leaflet: 1.9.4
-      react: 19.2.1
-      react-dom: 19.2.1(react@19.2.1)
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
 
-  react-refractor@4.0.0(react@19.2.1):
+  react-refractor@4.0.0(react@19.2.3):
     dependencies:
-      react: 19.2.1
+      react: 19.2.3
       refractor: 5.0.0
       unist-util-filter: 5.0.1
       unist-util-visit-parents: 6.0.2
 
   react-refresh@0.18.0: {}
 
-  react@19.2.1: {}
+  react@19.2.3: {}
 
   read-yaml-file@1.1.0:
     dependencies:
@@ -3823,6 +3829,8 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
 
+  tinypool@2.0.0: {}
+
   tinyrainbow@3.0.3: {}
 
   to-regex-range@5.0.1:
@@ -3833,7 +3841,7 @@ snapshots:
 
   tree-kill@1.2.2: {}
 
-  tsdown@0.17.2(publint@0.3.15)(typescript@5.9.3):
+  tsdown@0.17.2(publint@0.3.16)(typescript@5.9.3):
     dependencies:
       ansis: 4.2.0
       cac: 6.7.14
@@ -3850,7 +3858,7 @@ snapshots:
       unconfig-core: 7.4.2
       unrun: 0.2.19
     optionalDependencies:
-      publint: 0.3.15
+      publint: 0.3.16
       typescript: 5.9.3
     transitivePeerDependencies:
       - '@ts-macro/tsc'
@@ -3897,9 +3905,9 @@ snapshots:
       escalade: 3.2.0
       picocolors: 1.1.1
 
-  use-effect-event@2.0.3(react@19.2.1):
+  use-effect-event@2.0.3(react@19.2.3):
     dependencies:
-      react: 19.2.1
+      react: 19.2.3
 
   vite@7.2.7(@types/node@24.10.2):
     dependencies:
