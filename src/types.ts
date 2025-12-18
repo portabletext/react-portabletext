@@ -281,10 +281,10 @@ export interface PortableTextMarkComponentProps<M extends TypedObject = Arbitrar
  */
 export type UnknownNodeType =
   | {
-      _type: string;
-      [key: string]: unknown;
+      _type: string
+      [key: string]: unknown
     }
-  | TypedObject;
+  | TypedObject
 
 /**
  * Function that renders any node that might appear in a portable text array or block,
