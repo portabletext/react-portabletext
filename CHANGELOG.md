@@ -1,5 +1,11 @@
 # @portabletext/react
 
+## 6.0.1
+
+### Patch Changes
+
+- [#281](https://github.com/portabletext/react-portabletext/pull/281) [`a684e18`](https://github.com/portabletext/react-portabletext/commit/a684e18f694f4b4c9a3b7c819017529d39225941) Thanks [@renovate](https://github.com/apps/renovate)! - fix(deps): update dependency @portabletext/types to ^4.0.1
+
 ## 6.0.0
 
 ### Major Changes
