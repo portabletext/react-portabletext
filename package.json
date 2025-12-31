@@ -9,25 +9,31 @@
   "bugs": {
     "url": "https://github.com/portabletext/react-portabletext/issues"
   },
+  "license": "MIT",
+  "author": "Sanity.io <hello@sanity.io>",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/portabletext/react-portabletext.git"
   },
-  "author": "Sanity.io <hello@sanity.io>",
-  "license": "MIT",
-  "sideEffects": false,
+  "files": [
+    "dist",
+    "!dist/stats.html"
+  ],
   "type": "module",
+  "sideEffects": false,
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
     "./package.json": "./package.json"
   },
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "!dist/stats.html",
-    "dist"
-  ],
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./package.json": "./package.json"
+    }
+  },
   "scripts": {
     "build": "tsdown",
     "prebuild:demo": "pnpm clean",
@@ -41,11 +47,6 @@
     "start": "pnpm dev",
     "test": "vitest",
     "type-check": "tsc --noEmit"
-  },
-  "lint-staged": {
-    "*": [
-      "oxfmt"
-    ]
   },
   "dependencies": {
     "@portabletext/toolkit": "^5.0.0",
@@ -86,14 +87,13 @@
   "peerDependencies": {
     "react": "^18.2 || ^19"
   },
-  "packageManager": "pnpm@10.27.0",
+  "lint-staged": {
+    "*": [
+      "oxfmt"
+    ]
+  },
   "engines": {
     "node": ">=20.19 <22 || >=22.12"
   },
-  "publishConfig": {
-    "exports": {
-      ".": "./dist/index.js",
-      "./package.json": "./package.json"
-    }
-  }
+  "packageManager": "pnpm@10.27.0"
 }
