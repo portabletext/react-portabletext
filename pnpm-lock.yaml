@@ -89,7 +89,7 @@ importers:
         version: 5.0.10
       rollup-plugin-visualizer:
         specifier: ^6.0.5
-        version: 6.0.5(rolldown@1.0.0-beta.59)(rollup@4.56.0)
+        version: 6.0.11(rolldown@1.0.0-beta.59)(rollup@4.56.0)
       styled-components:
         specifier: npm:@sanity/css-in-js@6.2.1
         version: '@sanity/css-in-js@6.2.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)'
@@ -1785,8 +1785,8 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
-  rollup-plugin-visualizer@6.0.5:
-    resolution: {integrity: sha512-9+HlNgKCVbJDs8tVtjQ43US12eqaiHyyiLMdBwQ7vSZPiHMysGNo2E88TAp1si5wx8NAoYriI2A5kuKfIakmJg==}
+  rollup-plugin-visualizer@6.0.11:
+    resolution: {integrity: sha512-TBwVHVY7buHjIKVLqr9scTVFwqZqMXINcCphPwIWKPDCOBIa+jCQfafvbjRJDZgXdq/A996Dy6yGJ/+/NtAXDQ==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -3656,7 +3656,7 @@ snapshots:
       '@rolldown/binding-win32-arm64-msvc': 1.0.0-beta.60
       '@rolldown/binding-win32-x64-msvc': 1.0.0-beta.60
 
-  rollup-plugin-visualizer@6.0.5(rolldown@1.0.0-beta.59)(rollup@4.56.0):
+  rollup-plugin-visualizer@6.0.11(rolldown@1.0.0-beta.59)(rollup@4.56.0):
     dependencies:
       open: 8.4.2
       picomatch: 4.0.3
