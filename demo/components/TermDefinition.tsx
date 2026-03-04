@@ -1,5 +1,4 @@
 import type {PortableTextMarkComponent} from '@portabletext/react'
-
 import {Popover, Text} from '@sanity/ui'
 import {useCallback, useState} from 'react'
 

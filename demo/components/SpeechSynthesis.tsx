@@ -1,5 +1,4 @@
 import type {PortableTextMarkComponent} from '@portabletext/react'
-
 import {useCallback} from 'react'
 
 interface SpeechSynthesisMark {
