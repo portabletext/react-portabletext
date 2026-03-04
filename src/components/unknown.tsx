@@ -1,5 +1,4 @@
 import type {PortableTextReactComponents} from '../types'
-
 import {unknownTypeWarning} from '../warnings'
 
 const hidden = {display: 'none'}
