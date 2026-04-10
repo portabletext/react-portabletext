@@ -11,5 +11,5 @@ permissions:
 
 jobs:
   if-needed:
-    uses: portabletext/.github/.github/workflows/format.yml@main
+    uses: portabletext/.github/.github/workflows/format.yml@4d2d3a00346a628ab7dd0aa163a389e17b023157 # main
     secrets: inherit
