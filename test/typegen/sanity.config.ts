@@ -132,10 +132,10 @@ const author = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {source: 'name'},
+      name: 'avatar',
+      title: 'Avatar',
+      type: 'image',
+      options: {hotspot: true},
     }),
     defineField({
       name: 'bio',

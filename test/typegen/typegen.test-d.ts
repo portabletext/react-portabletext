@@ -33,13 +33,13 @@ const client = createClient({
 // do not explicitly type the return of `fetchPost` or `fetchAuthor` as we rely on inference and client overloading
 async function fetchPost(slug: string) {
   const postQuery = defineQuery(
-    `*[_type == "post" && slug.current == $slug][0]{title,author->{name},content}`,
+    `*[_type == "post" && slug.current == $slug][0]{title,author->{name,avatar},content}`,
   )
   return await client.fetch(postQuery, {slug})
 }
 
 async function fetchAuthor(id: string) {
-  const authorQuery = defineQuery(`*[_type == "author" && _id == $id][0]{name,bio}`)
+  const authorQuery = defineQuery(`*[_type == "author" && _id == $id][0]{name,avatar,bio}`)
   return await client.fetch(authorQuery, {id})
 }
 

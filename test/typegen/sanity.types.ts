@@ -106,7 +106,13 @@ export type Author = {
   _updatedAt: string;
   _rev: string;
   name?: string;
-  slug?: Slug;
+  avatar?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   bio?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -249,11 +255,18 @@ export type AllSanitySchemaTypes =
 
 // Source: typegen.test-d.ts
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug][0]{title,author->{name},content}
+// Query: *[_type == "post" && slug.current == $slug][0]{title,author->{name,avatar},content}
 export type PostQueryResult = {
   title: string | null;
   author: {
     name: string | null;
+    avatar: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
   } | null;
   content: Array<
     | {
@@ -302,9 +315,16 @@ export type PostQueryResult = {
 
 // Source: typegen.test-d.ts
 // Variable: authorQuery
-// Query: *[_type == "author" && _id == $id][0]{name,bio}
+// Query: *[_type == "author" && _id == $id][0]{name,avatar,bio}
 export type AuthorQueryResult = {
   name: string | null;
+  avatar: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
   bio: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -329,7 +349,7 @@ export type AuthorQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "post" && slug.current == $slug][0]{title,author->{name},content}': PostQueryResult;
-    '*[_type == "author" && _id == $id][0]{name,bio}': AuthorQueryResult;
+    '*[_type == "post" && slug.current == $slug][0]{title,author->{name,avatar},content}': PostQueryResult;
+    '*[_type == "author" && _id == $id][0]{name,avatar,bio}': AuthorQueryResult;
   }
 }
