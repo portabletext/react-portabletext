@@ -54,10 +54,10 @@
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.6.0",
-    "@changesets/cli": "^2.30.0",
+    "@changesets/cli": "^2.31.0",
     "@sanity/client": "^7.22.0",
     "@sanity/tsconfig": "^2.1.0",
-    "@sanity/tsdown-config": "^0.5.8",
+    "@sanity/tsdown-config": "^0.6.1",
     "@sanity/ui": "^3.1.14",
     "@types/leaflet": "^1.9.21",
     "@types/react": "^19.2.14",
@@ -69,9 +69,9 @@
     "esbuild-register": "^3.6.0",
     "groq": "^5.23.0",
     "leaflet": "^1.9.4",
-    "oxfmt": "^0.44.0",
-    "oxlint": "^1.59.0",
-    "oxlint-tsgolint": "^0.20.0",
+    "oxfmt": "^0.47.0",
+    "oxlint": "^1.62.0",
+    "oxlint-tsgolint": "^0.22.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-is": "^19.2.5",
@@ -82,10 +82,10 @@
     "rollup-plugin-visualizer": "^7.0.1",
     "sanity": "^5.23.0",
     "styled-components": "npm:@sanity/css-in-js@6.2.1",
-    "tsdown": "^0.21.7",
+    "tsdown": "^0.21.10",
     "typescript": "5.9.3",
     "vite": "^7.3.1",
-    "vitest": "^4.1.2"
+    "vitest": "^4.1.5"
   },
   "peerDependencies": {
     "react": "^18.2 || ^19"
