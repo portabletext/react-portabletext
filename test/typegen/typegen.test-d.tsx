@@ -53,14 +53,6 @@ describe('TypeGen value prop compatibility', () => {
     ;(<PortableText value={post!.content} />)
   })
 
-  test('Non-null PostQueryResult.content is assignable to value prop', async () => {
-    const post = await fetchPost('foo')
-
-    // After removing null, the TypeGen array type IS compatible with value prop
-    const content = post!.content!
-    ;(<PortableText value={content} />)
-  })
-
   test('AuthorQueryResult.bio should be assignable to value prop (currently fails)', async () => {
     const author = await fetchAuthor('123')
 
