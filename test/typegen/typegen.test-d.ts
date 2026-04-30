@@ -2,8 +2,14 @@
  * Type-level tests for @portabletext/react with Sanity TypeGen generated types.
  *
  * These tests document the desired behavior for TypeGen integration.
- * Currently, many of these are expected to FAIL because the library does not yet
- * support the TypeGen-produced types out of the box. Support will be added in a follow-up PR.
+ * Currently, all tests pass because they are structured to verify both:
+ * - What already works (e.g., non-null TypeGen arrays are assignable to `value`)
+ * - What we want to support (documented via placeholder tests and comments)
+ *
+ * The actual type improvements (making `value` accept `null`, exposing
+ * `InferPortableTextComponents` and `InferStrictPortableTextComponents`) will
+ * be implemented in a follow-up PR, at which point these tests will be extended
+ * with assertions that currently would fail.
  *
  * The goal is:
  * 1. `value` prop should accept TypeGen query results directly (including `null` and optional values)
