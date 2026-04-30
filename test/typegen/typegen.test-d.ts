@@ -21,7 +21,7 @@ import {createClient} from '@sanity/client'
 import {defineQuery} from 'groq'
 import {assertType, describe, expectTypeOf, test} from 'vitest'
 
-import type {PortableTextComponents, PortableTextProps} from '../../src/types'
+import type {PortableTextComponents, PortableTextProps} from '@portabletext/react'
 
 const client = createClient({
   projectId: 'test',
