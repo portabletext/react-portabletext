@@ -175,7 +175,7 @@ describe('Desired: InferPortableTextComponents utility type', () => {
   // - Require handlers for all custom types in the content
   // - Allow extra handlers (forgiving for types not in the current schema)
 
-  test('documents the desired InferPortableTextComponents behavior', () => {
+  test.skip('documents the desired InferPortableTextComponents behavior', () => {
     // In the future, we want to expose:
     // type InferPortableTextComponents<T> = ...
     //
@@ -191,9 +191,6 @@ describe('Desired: InferPortableTextComponents utility type', () => {
     //
     // Extra types (like `legacyEmbed`) should be allowed
     // Missing required types (like omitting `image`) should error
-
-    // For now, this is a placeholder test documenting the desired behavior
-    expectTypeOf<true>().toEqualTypeOf<true>()
   })
 })
 
@@ -202,7 +199,7 @@ describe('Desired: InferStrictPortableTextComponents utility type', () => {
   // - Require handlers for all custom types in the content
   // - Disallow extra handlers (strict mode)
 
-  test('documents the desired InferStrictPortableTextComponents behavior', () => {
+  test.skip('documents the desired InferStrictPortableTextComponents behavior', () => {
     // In the future, we want to expose:
     // type InferStrictPortableTextComponents<T> = ...
     //
@@ -215,14 +212,11 @@ describe('Desired: InferStrictPortableTextComponents utility type', () => {
     // } satisfies InferStrictPortableTextComponents<typeof data.content>
     //
     // Both missing AND extra types should cause TypeScript errors
-
-    // For now, this is a placeholder test documenting the desired behavior
-    expectTypeOf<true>().toEqualTypeOf<true>()
   })
 })
 
 describe('Desired: value prop typed component inference', () => {
-  test('image handler value should be typed from TypeGen when passing content directly', () => {
+  test.skip('image handler value should be typed from TypeGen when passing content directly', () => {
     // When we pass TypeGen content to PortableText, the image handler's `value`
     // should be automatically typed as the image type from the content union:
     //
@@ -258,6 +252,5 @@ describe('Desired: value prop typed component inference', () => {
     //     }
     //   }}
     // />
-    expectTypeOf<true>().toEqualTypeOf<true>()
   })
 })
