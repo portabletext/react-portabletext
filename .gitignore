@@ -54,3 +54,4 @@ jspm_packages
 
 .yalc
 yalc.lock
+package-lock.json

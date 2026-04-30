@@ -24,7 +24,7 @@ export interface PortableTextProps<
   /**
    * One or more blocks to render
    */
-  value: B | B[]
+  value: B | B[] | null | undefined
 
   /**
    * React components to use for rendering

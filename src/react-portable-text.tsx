@@ -40,7 +40,14 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   onMissingComponent: missingComponentHandler = printWarning,
 }: PortableTextProps<B>): JSX.Element {
   const handleMissingComponent = missingComponentHandler || noop
-  const blocks = Array.isArray(input) ? input : [input]
+  let blocks: B[]
+  if (Array.isArray(input)) {
+    blocks = input
+  } else if (input == null) {
+    blocks = []
+  } else {
+    blocks = [input]
+  }
   const nested = nestLists(blocks, listNestingMode || LIST_NEST_MODE_HTML)
 
   const components = useMemo(() => {
