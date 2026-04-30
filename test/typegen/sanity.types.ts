@@ -247,37 +247,13 @@ export type AllSanitySchemaTypes =
   | SanityImageAsset
   | Geopoint;
 
-// Source: queries.ts
+// Source: typegen.test-d.ts
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug][0]{title,author->,content}
+// Query: *[_type == "post" && slug.current == $slug][0]{title,author->{name},content}
 export type PostQueryResult = {
   title: string | null;
   author: {
-    _id: string;
-    _type: "author";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    name?: string;
-    slug?: Slug;
-    bio?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal";
-      listItem?: never;
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
+    name: string | null;
   } | null;
   content: Array<
     | {
@@ -324,9 +300,9 @@ export type PostQueryResult = {
   > | null;
 } | null;
 
-// Source: queries.ts
+// Source: typegen.test-d.ts
 // Variable: authorQuery
-// Query: *[_type == "author" && slug.current == $slug][0]{name,bio}
+// Query: *[_type == "author" && _id == $id][0]{name,bio}
 export type AuthorQueryResult = {
   name: string | null;
   bio: Array<{
@@ -353,7 +329,7 @@ export type AuthorQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "post" && slug.current == $slug][0]{title,author->,content}': PostQueryResult;
-    '*[_type == "author" && slug.current == $slug][0]{name,bio}': AuthorQueryResult;
+    '*[_type == "post" && slug.current == $slug][0]{title,author->{name},content}': PostQueryResult;
+    '*[_type == "author" && _id == $id][0]{name,bio}': AuthorQueryResult;
   }
 }

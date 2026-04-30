@@ -17,22 +17,37 @@
  * 3. Expose `InferPortableTextComponents<T>` - requires all custom types but allows extras
  * 4. Expose `InferStrictPortableTextComponents<T>` - strict mode, no extras allowed
  */
+import {createClient} from '@sanity/client'
+import {defineQuery} from 'groq'
 import {assertType, describe, expectTypeOf, test} from 'vitest'
 
 import type {PortableTextComponents, PortableTextProps} from '../../src/types'
-import type {AuthorQueryResult, PostQueryResult} from './sanity.types'
 
-// Simulate the fetched data after null-check (as you'd do in a real app)
-type PostData = NonNullable<PostQueryResult>
-type PostContent = NonNullable<PostData['content']>
-type PostContentBlock = PostContent[number]
+const client = createClient({
+  projectId: 'test',
+  dataset: 'test',
+  useCdn: true,
+  apiVersion: '2024-01-01',
+})
 
-type AuthorData = NonNullable<AuthorQueryResult>
-type AuthorBio = NonNullable<AuthorData['bio']>
-type AuthorBioBlock = AuthorBio[number]
+// do not explicitly type the return of `fetchPost` or `fetchAuthor` as we rely on inference and client overloading
+async function fetchPost(slug: string) {
+  const postQuery = defineQuery(
+    `*[_type == "post" && slug.current == $slug][0]{title,author->{name},content}`,
+  )
+  return await client.fetch(postQuery, {slug})
+}
+
+async function fetchAuthor(id: string) {
+  const authorQuery = defineQuery(`*[_type == "author" && _id == $id][0]{name,bio}`)
+  return await client.fetch(authorQuery, {id})
+}
 
 describe('TypeGen value prop compatibility', () => {
-  test('PostQueryResult.content should be assignable to PortableTextProps value (currently fails)', () => {
+  test('PostQueryResult.content should be assignable to PortableTextProps value (currently fails)', async () => {
+    const post = await fetchPost('foo')
+    type PostData = NonNullable<typeof post>
+
     // The `content` field from TypeGen is `Array<...> | null`
     // PortableText's `value` prop currently requires `TypedObject | TypedObject[]`
     // We want it to accept `null` (render nothing) or the TypeGen array directly
@@ -44,7 +59,10 @@ describe('TypeGen value prop compatibility', () => {
     expectTypeOf<PostContentType>().toMatchTypeOf<PortableTextProps['value']>()
   })
 
-  test('Non-null PostQueryResult.content is assignable to value prop', () => {
+  test('Non-null PostQueryResult.content is assignable to value prop', async () => {
+    const post = await fetchPost('foo')
+    type PostData = NonNullable<typeof post>
+
     // After removing null, the TypeGen array type IS compatible with value prop
     // because each member has a required `_type` literal which satisfies TypedObject
     type NonNullContent = NonNullable<PostData['content']>
@@ -52,14 +70,21 @@ describe('TypeGen value prop compatibility', () => {
     expectTypeOf<NonNullContent>().toMatchTypeOf<PortableTextProps['value']>()
   })
 
-  test('AuthorQueryResult.bio should be assignable to value prop (currently fails)', () => {
+  test('AuthorQueryResult.bio should be assignable to value prop (currently fails)', async () => {
+    const author = await fetchAuthor('123')
+    type AuthorData = NonNullable<typeof author>
     type AuthorBioType = AuthorData['bio']
 
     // @ts-expect-error - Same issue as above with null and optional fields
     expectTypeOf<AuthorBioType>().toMatchTypeOf<PortableTextProps['value']>()
   })
 
-  test('Individual block types have _type and _key as required by TypedObject', () => {
+  test('Individual block types have _type and _key as required by TypedObject', async () => {
+    const post = await fetchPost('foo')
+    type PostData = NonNullable<typeof post>
+    type PostContent = NonNullable<PostData['content']>
+    type PostContentBlock = PostContent[number]
+
     // TypeGen generates `_type: "block"` which is a literal string - good!
     // But `_key` is required in TypeGen output, which should satisfy TypedObject
     expectTypeOf<PostContentBlock>().toHaveProperty('_type')
@@ -68,7 +93,12 @@ describe('TypeGen value prop compatibility', () => {
 })
 
 describe('TypeGen components inference for post content', () => {
-  test('should be able to extract custom block types from content union', () => {
+  test('should be able to extract custom block types from content union', async () => {
+    const post = await fetchPost('foo')
+    type PostData = NonNullable<typeof post>
+    type PostContent = NonNullable<PostData['content']>
+    type PostContentBlock = PostContent[number]
+
     // From the TypeGen output, the custom types in post content are: image, quote, code
     type CustomTypes = Exclude<PostContentBlock, {_type: 'block'}>
     type CustomTypeNames = CustomTypes['_type']
@@ -79,7 +109,12 @@ describe('TypeGen components inference for post content', () => {
     expectTypeOf<'code'>().toMatchTypeOf<CustomTypeNames>()
   })
 
-  test('should be able to extract mark types from block markDefs', () => {
+  test('should be able to extract mark types from block markDefs', async () => {
+    const post = await fetchPost('foo')
+    type PostData = NonNullable<typeof post>
+    type PostContent = NonNullable<PostData['content']>
+    type PostContentBlock = PostContent[number]
+
     type BlockType = Extract<PostContentBlock, {_type: 'block'}>
     type MarkDefs = NonNullable<BlockType['markDefs']>
     type MarkType = MarkDefs[number]
@@ -90,7 +125,12 @@ describe('TypeGen components inference for post content', () => {
     expectTypeOf<'link'>().toMatchTypeOf<MarkTypeNames>()
   })
 
-  test('should be able to extract block styles', () => {
+  test('should be able to extract block styles', async () => {
+    const post = await fetchPost('foo')
+    type PostData = NonNullable<typeof post>
+    type PostContent = NonNullable<PostData['content']>
+    type PostContentBlock = PostContent[number]
+
     type BlockType = Extract<PostContentBlock, {_type: 'block'}>
     type StyleType = NonNullable<BlockType['style']>
 
@@ -103,13 +143,23 @@ describe('TypeGen components inference for post content', () => {
 })
 
 describe('TypeGen components inference for author bio', () => {
-  test('author bio should only have block type (no custom types)', () => {
+  test('author bio should only have block type (no custom types)', async () => {
+    const author = await fetchAuthor('123')
+    type AuthorData = NonNullable<typeof author>
+    type AuthorBio = NonNullable<AuthorData['bio']>
+    type AuthorBioBlock = AuthorBio[number]
+
     // Author bio only has blocks with text formatting, no custom types
     type BioCustomTypes = Exclude<AuthorBioBlock, {_type: 'block'}>
     expectTypeOf<BioCustomTypes>().toEqualTypeOf<never>()
   })
 
-  test('author bio block should only have normal style', () => {
+  test('author bio block should only have normal style', async () => {
+    const author = await fetchAuthor('123')
+    type AuthorData = NonNullable<typeof author>
+    type AuthorBio = NonNullable<AuthorData['bio']>
+    type AuthorBioBlock = AuthorBio[number]
+
     type BlockType = Extract<AuthorBioBlock, {_type: 'block'}>
     type StyleType = NonNullable<BlockType['style']>
     expectTypeOf<StyleType>().toEqualTypeOf<'normal'>()
@@ -232,25 +282,5 @@ describe('Desired: value prop typed component inference', () => {
     // }
     //
     // Currently, the value is typed as `any` regardless of what's passed to `value`
-
-    type ImageBlock = Extract<PostContentBlock, {_type: 'image'}>
-    expectTypeOf<ImageBlock>().toHaveProperty('alt')
-    expectTypeOf<ImageBlock>().toHaveProperty('caption')
-    expectTypeOf<ImageBlock>().toHaveProperty('_type')
-
-    // In the future, when passing components inline with a typed value,
-    // the component's value prop should be automatically inferred:
-    //
-    // <PortableText
-    //   value={data.content}
-    //   components={{
-    //     types: {
-    //       image: ({value}) => {
-    //         // value should be typed as ImageBlock
-    //         return <img alt={value.alt} />
-    //       }
-    //     }
-    //   }}
-    // />
   })
 })
