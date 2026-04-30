@@ -21,7 +21,7 @@ import {createClient} from '@sanity/client'
 import {defineQuery} from 'groq'
 import {assertType, describe, expectTypeOf, test} from 'vitest'
 
-import type {PortableTextComponents, PortableTextProps} from '@portabletext/react'
+import {PortableText} from '@portabletext/react'
 
 const client = createClient({
   projectId: 'test',
@@ -44,39 +44,31 @@ async function fetchAuthor(id: string) {
 }
 
 describe('TypeGen value prop compatibility', () => {
-  test('PostQueryResult.content should be assignable to PortableTextProps value (currently fails)', async () => {
+  test('PostQueryResult.content should be assignable to PortableText value (currently fails)', async () => {
     const post = await fetchPost('foo')
-    type PostData = NonNullable<typeof post>
 
     // The `content` field from TypeGen is `Array<...> | null`
     // PortableText's `value` prop currently requires `TypedObject | TypedObject[]`
     // We want it to accept `null` (render nothing) or the TypeGen array directly
-    type PostContentType = PostData['content']
 
-    // This is the key test: can we pass TypeGen output directly?
     // @ts-expect-error - Currently fails because `value` doesn't accept `null`
     // In the future, this should work without the ts-expect-error
-    expectTypeOf<PostContentType>().toMatchTypeOf<PortableTextProps['value']>()
+    ;(<PortableText value={post!.content} />)
   })
 
   test('Non-null PostQueryResult.content is assignable to value prop', async () => {
     const post = await fetchPost('foo')
-    type PostData = NonNullable<typeof post>
 
     // After removing null, the TypeGen array type IS compatible with value prop
-    // because each member has a required `_type` literal which satisfies TypedObject
-    type NonNullContent = NonNullable<PostData['content']>
-
-    expectTypeOf<NonNullContent>().toMatchTypeOf<PortableTextProps['value']>()
+    const content = post!.content!
+    ;(<PortableText value={content} />)
   })
 
   test('AuthorQueryResult.bio should be assignable to value prop (currently fails)', async () => {
     const author = await fetchAuthor('123')
-    type AuthorData = NonNullable<typeof author>
-    type AuthorBioType = AuthorData['bio']
 
     // @ts-expect-error - Same issue as above with null and optional fields
-    expectTypeOf<AuthorBioType>().toMatchTypeOf<PortableTextProps['value']>()
+    ;(<PortableText value={author!.bio} />)
   })
 
   test('Individual block types have _type and _key as required by TypedObject', async () => {
@@ -167,56 +159,79 @@ describe('TypeGen components inference for author bio', () => {
 })
 
 describe('Desired: PortableText component with TypeGen types', () => {
-  test('should accept components.types matching custom types in content (currently fails)', () => {
-    // This test documents the desired behavior where defining components
-    // for custom types that exist in the content should be type-safe
+  test('should infer custom types in components.types from post content (currently not inferred)', async () => {
+    const post = await fetchPost('foo')
+    const content = post!.content!
 
-    // Ideally, when passing TypeGen content to PortableText, the `components.types`
-    // should autocomplete with 'image', 'quote', 'code'
-    const _components: Partial<PortableTextComponents> = {
-      types: {
-        image: ({value}) => {
-          // value should ideally be typed as the image block type from TypeGen
-          // Currently it's typed as `any` from PortableTextTypeComponent
-          assertType<{_type: string}>(value)
-          return null
-        },
-        quote: ({value}) => {
-          assertType<{_type: string}>(value)
-          return null
-        },
-        code: ({value}) => {
-          assertType<{_type: string}>(value)
-          return null
-        },
-      },
-    }
-
-    // Verify the components object is valid
-    expectTypeOf(_components).toMatchTypeOf<Partial<PortableTextComponents>>()
+    // When passing TypeGen content to PortableText, the `components.types`
+    // should autocomplete with 'image', 'quote', 'code' from the content union.
+    // Currently PortableText doesn't infer component types from the value prop.
+    ;(
+      <PortableText
+        value={content}
+        components={{
+          types: {
+            image: ({value}) => {
+              assertType<{_type: string}>(value)
+              return null
+            },
+            quote: ({value}) => {
+              assertType<{_type: string}>(value)
+              return null
+            },
+            code: ({value}) => {
+              assertType<{_type: string}>(value)
+              return null
+            },
+          },
+        }}
+      />
+    )
   })
 
-  test('defining a type handler for a type NOT in content should be allowed by default', () => {
+  test('author bio should not offer image/quote/code in components.types (currently not inferred)', async () => {
+    const author = await fetchAuthor('123')
+    const bio = author!.bio!
+
+    // Since author bio only has block type (no custom types),
+    // components.types should not autocomplete with 'image', 'quote', 'code'
+    ;(
+      <PortableText
+        value={bio}
+        components={{
+          types: {},
+        }}
+      />
+    )
+  })
+
+  test('defining a type handler for a type NOT in content should be allowed by default', async () => {
+    const post = await fetchPost('foo')
+    const content = post!.content!
+
     // For the "forgiving" default behavior:
     // If I define a handler for a type that doesn't exist in the content,
     // TypeScript should NOT error. This supports the case where:
     // - Old content might still have that type
     // - The handler is shared across multiple content types
-    const _components: Partial<PortableTextComponents> = {
-      types: {
-        image: ({value}) => {
-          assertType<{_type: string}>(value)
-          return null
-        },
-        // This type doesn't exist in our schema but should be allowed
-        legacyEmbed: ({value}) => {
-          assertType<{_type: string}>(value)
-          return null
-        },
-      },
-    }
-
-    expectTypeOf(_components).toMatchTypeOf<Partial<PortableTextComponents>>()
+    ;(
+      <PortableText
+        value={content}
+        components={{
+          types: {
+            image: ({value}) => {
+              assertType<{_type: string}>(value)
+              return null
+            },
+            // This type doesn't exist in our schema but should be allowed
+            legacyEmbed: ({value}) => {
+              assertType<{_type: string}>(value)
+              return null
+            },
+          },
+        }}
+      />
+    )
   })
 })
 
