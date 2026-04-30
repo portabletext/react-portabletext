@@ -63,6 +63,7 @@ const post = defineType({
           name: 'image',
           type: 'image',
           title: 'Image',
+          options: {hotspot: true},
           fields: [
             defineField({
               name: 'alt',
