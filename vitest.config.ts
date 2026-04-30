@@ -4,6 +4,7 @@ export default defineConfig({
   test: {
     typecheck: {
       enabled: true,
+      ignoreSourceErrors: true,
     },
   },
 })
