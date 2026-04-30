@@ -46,7 +46,6 @@
     "release": "changeset publish",
     "start": "pnpm dev",
     "test": "vitest",
-    "test:typegen": "vitest --run --config vitest.config.typegen.ts",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
