@@ -1,6 +1,12 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "ignorePatterns": ["dist/**", "coverage/**", "demo/dist/**", ".nyc_output/**", "test/typegen/sanity.types.ts"],
+  "ignorePatterns": [
+    "dist/**",
+    "coverage/**",
+    "demo/dist/**",
+    ".nyc_output/**",
+    "test/typegen/sanity.types.ts"
+  ],
   "plugins": ["eslint", "typescript", "unicorn", "react", "react-perf", "oxc", "import"],
   "categories": {
     "correctness": "error",

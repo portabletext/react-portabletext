@@ -1,3 +1,4 @@
+import {PortableText} from '@portabletext/react'
 /**
  * Type-level tests for @portabletext/react with Sanity TypeGen generated types.
  *
@@ -20,8 +21,6 @@
 import {createClient} from '@sanity/client'
 import {defineQuery} from 'groq'
 import {assertType, describe, expectTypeOf, test} from 'vitest'
-
-import {PortableText} from '@portabletext/react'
 
 const client = createClient({
   projectId: 'test',
@@ -50,13 +49,13 @@ describe('TypeGen value prop compatibility', () => {
     // The `content` field from TypeGen is `Array<...> | null`
     // PortableText's `value` prop accepts `null` (renders nothing) and the TypeGen array directly
 
-    ;(<PortableText value={post!.content} />)
+    ;<PortableText value={post!.content} />
   })
 
   test('AuthorQueryResult.bio should be assignable to value prop (currently fails)', async () => {
     const author = await fetchAuthor('123')
 
-    ;(<PortableText value={author!.bio} />)
+    ;<PortableText value={author!.bio} />
   })
 
   test('Individual block types have _type and _key as required by TypedObject', async () => {
@@ -154,27 +153,25 @@ describe('Desired: PortableText component with TypeGen types', () => {
     // When passing TypeGen content to PortableText, the `components.types`
     // should autocomplete with 'image', 'quote', 'code' from the content union.
     // Currently PortableText doesn't infer component types from the value prop.
-    ;(
-      <PortableText
-        value={content}
-        components={{
-          types: {
-            image: ({value}) => {
-              assertType<{_type: string}>(value)
-              return null
-            },
-            quote: ({value}) => {
-              assertType<{_type: string}>(value)
-              return null
-            },
-            code: ({value}) => {
-              assertType<{_type: string}>(value)
-              return null
-            },
+    ;<PortableText
+      value={content}
+      components={{
+        types: {
+          image: ({value}) => {
+            assertType<{_type: string}>(value)
+            return null
           },
-        }}
-      />
-    )
+          quote: ({value}) => {
+            assertType<{_type: string}>(value)
+            return null
+          },
+          code: ({value}) => {
+            assertType<{_type: string}>(value)
+            return null
+          },
+        },
+      }}
+    />
   })
 
   test('author bio should not offer image/quote/code in components.types (currently not inferred)', async () => {
@@ -183,14 +180,12 @@ describe('Desired: PortableText component with TypeGen types', () => {
 
     // Since author bio only has block type (no custom types),
     // components.types should not autocomplete with 'image', 'quote', 'code'
-    ;(
-      <PortableText
-        value={bio}
-        components={{
-          types: {},
-        }}
-      />
-    )
+    ;<PortableText
+      value={bio}
+      components={{
+        types: {},
+      }}
+    />
   })
 
   test('defining a type handler for a type NOT in content should be allowed by default', async () => {
@@ -202,24 +197,22 @@ describe('Desired: PortableText component with TypeGen types', () => {
     // TypeScript should NOT error. This supports the case where:
     // - Old content might still have that type
     // - The handler is shared across multiple content types
-    ;(
-      <PortableText
-        value={content}
-        components={{
-          types: {
-            image: ({value}) => {
-              assertType<{_type: string}>(value)
-              return null
-            },
-            // This type doesn't exist in our schema but should be allowed
-            legacyEmbed: ({value}) => {
-              assertType<{_type: string}>(value)
-              return null
-            },
+    ;<PortableText
+      value={content}
+      components={{
+        types: {
+          image: ({value}) => {
+            assertType<{_type: string}>(value)
+            return null
           },
-        }}
-      />
-    )
+          // This type doesn't exist in our schema but should be allowed
+          legacyEmbed: ({value}) => {
+            assertType<{_type: string}>(value)
+            return null
+          },
+        },
+      }}
+    />
   })
 })
 
