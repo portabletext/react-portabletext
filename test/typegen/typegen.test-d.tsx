@@ -48,11 +48,8 @@ describe('TypeGen value prop compatibility', () => {
     const post = await fetchPost('foo')
 
     // The `content` field from TypeGen is `Array<...> | null`
-    // PortableText's `value` prop currently requires `TypedObject | TypedObject[]`
-    // We want it to accept `null` (render nothing) or the TypeGen array directly
+    // PortableText's `value` prop accepts `null` (renders nothing) and the TypeGen array directly
 
-    // @ts-expect-error - Currently fails because `value` doesn't accept `null`
-    // In the future, this should work without the ts-expect-error
     ;(<PortableText value={post!.content} />)
   })
 
@@ -67,7 +64,6 @@ describe('TypeGen value prop compatibility', () => {
   test('AuthorQueryResult.bio should be assignable to value prop (currently fails)', async () => {
     const author = await fetchAuthor('123')
 
-    // @ts-expect-error - Same issue as above with null and optional fields
     ;(<PortableText value={author!.bio} />)
   })
 
