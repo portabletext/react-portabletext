@@ -5,5 +5,11 @@
   "singleQuote": true,
   "bracketSpacing": false,
   "experimentalSortImports": {},
-  "ignorePatterns": ["dist/**", "demo/dist/**", "pnpm-lock.yaml", ".changeset/*.md", "test/typegen/sanity.types.ts"]
+  "ignorePatterns": [
+    "dist/**",
+    "demo/dist/**",
+    "pnpm-lock.yaml",
+    ".changeset/*.md",
+    "test/typegen/sanity.types.ts"
+  ]
 }
