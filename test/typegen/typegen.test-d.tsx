@@ -83,9 +83,9 @@ describe('TypeGen components inference for post content', () => {
     type CustomTypeNames = CustomTypes['_type']
 
     // Verify the union contains the expected types
-    expectTypeOf<'image'>().toMatchTypeOf<CustomTypeNames>()
-    expectTypeOf<'quote'>().toMatchTypeOf<CustomTypeNames>()
-    expectTypeOf<'code'>().toMatchTypeOf<CustomTypeNames>()
+    expectTypeOf<'image'>().toExtend<CustomTypeNames>()
+    expectTypeOf<'quote'>().toExtend<CustomTypeNames>()
+    expectTypeOf<'code'>().toExtend<CustomTypeNames>()
   })
 
   test('should be able to extract mark types from block markDefs', async () => {
@@ -101,7 +101,7 @@ describe('TypeGen components inference for post content', () => {
     // The only annotation mark in post content is 'link'
     expectTypeOf<MarkType>().toHaveProperty('_type')
     type MarkTypeNames = MarkType['_type']
-    expectTypeOf<'link'>().toMatchTypeOf<MarkTypeNames>()
+    expectTypeOf<'link'>().toExtend<MarkTypeNames>()
   })
 
   test('should be able to extract block styles', async () => {
@@ -114,10 +114,10 @@ describe('TypeGen components inference for post content', () => {
     type StyleType = NonNullable<BlockType['style']>
 
     // Post content supports: normal, h2, h3, blockquote
-    expectTypeOf<'normal'>().toMatchTypeOf<StyleType>()
-    expectTypeOf<'h2'>().toMatchTypeOf<StyleType>()
-    expectTypeOf<'h3'>().toMatchTypeOf<StyleType>()
-    expectTypeOf<'blockquote'>().toMatchTypeOf<StyleType>()
+    expectTypeOf<'normal'>().toExtend<StyleType>()
+    expectTypeOf<'h2'>().toExtend<StyleType>()
+    expectTypeOf<'h3'>().toExtend<StyleType>()
+    expectTypeOf<'blockquote'>().toExtend<StyleType>()
   })
 })
 
