@@ -34,6 +34,7 @@ const post = defineType({
             {title: 'H2', value: 'h2'},
             {title: 'H3', value: 'h3'},
             {title: 'Quote', value: 'blockquote'},
+            {title: 'Lead', value: 'lead'},
           ],
           marks: {
             decorators: [
@@ -56,8 +57,24 @@ const post = defineType({
                   }),
                 ],
               },
+              {
+                name: 'glossaryTerm',
+                type: 'object',
+                title: 'Glossary Term',
+                fields: [
+                  defineField({
+                    name: 'term',
+                    type: 'string',
+                    title: 'Term',
+                  }),
+                ],
+              },
             ],
           },
+          lists: [
+            {title: 'Checklist', value: 'checklist'},
+            {title: 'Steps', value: 'steps'},
+          ],
         }),
         defineArrayMember({
           name: 'image',
@@ -172,12 +189,53 @@ const author = defineType({
   ],
 })
 
+const category = defineType({
+  name: 'category',
+  title: 'Category',
+  type: 'document',
+  fields: [
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'block',
+          styles: [{title: 'Normal', value: 'normal'}],
+          marks: {
+            decorators: [{title: 'Emphasis', value: 'em'}],
+            annotations: [],
+          },
+          lists: [],
+        }),
+        defineArrayMember({
+          name: 'featuredPost',
+          title: 'Featured Post',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'post',
+              type: 'reference',
+              to: [{type: 'post'}],
+            }),
+          ],
+        }),
+      ],
+    }),
+  ],
+})
+
 export default defineConfig({
   name: 'default',
   title: 'Typegen Test',
   projectId: 'test-project',
   dataset: 'production',
   schema: {
-    types: [post, author],
+    types: [post, author, category],
   },
 })

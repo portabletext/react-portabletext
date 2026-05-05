@@ -15,6 +15,43 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type PostReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "post";
+};
+
+export type Category = {
+  _id: string;
+  _type: "category";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal";
+        listItem?: never;
+        markDefs?: null;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        post?: PostReference;
+        _type: "featuredPost";
+        _key: string;
+      }
+  >;
+};
+
 export type AuthorReference = {
   _ref: string;
   _type: "reference";
@@ -46,13 +83,20 @@ export type Post = {
           _type: "span";
           _key: string;
         }>;
-        style?: "normal" | "h2" | "h3" | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
+        style?: "normal" | "h2" | "h3" | "blockquote" | "lead";
+        listItem?: "checklist" | "steps";
+        markDefs?: Array<
+          | {
+              href?: string;
+              _type: "link";
+              _key: string;
+            }
+          | {
+              term?: string;
+              _type: "glossaryTerm";
+              _key: string;
+            }
+        >;
         level?: number;
         _type: "block";
         _key: string;
@@ -237,6 +281,8 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+  | PostReference
+  | Category
   | AuthorReference
   | SanityImageAssetReference
   | Post
@@ -253,7 +299,7 @@ export type AllSanitySchemaTypes =
   | SanityImageAsset
   | Geopoint;
 
-// Source: typegen.test-d.ts
+// Source: typegen.test-d.tsx
 // Variable: postQuery
 // Query: *[_type == "post" && slug.current == $slug][0]{title,author->{name,avatar},content}
 export type PostQueryResult = {
@@ -276,13 +322,20 @@ export type PostQueryResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "blockquote" | "h2" | "h3" | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
+        style?: "blockquote" | "h2" | "h3" | "lead" | "normal";
+        listItem?: "checklist" | "steps";
+        markDefs?: Array<
+          | {
+              term?: string;
+              _type: "glossaryTerm";
+              _key: string;
+            }
+          | {
+              href?: string;
+              _type: "link";
+              _key: string;
+            }
+        >;
         level?: number;
         _type: "block";
         _key: string;
@@ -313,7 +366,7 @@ export type PostQueryResult = {
   > | null;
 } | null;
 
-// Source: typegen.test-d.ts
+// Source: typegen.test-d.tsx
 // Variable: authorQuery
 // Query: *[_type == "author" && _id == $id][0]{name,avatar,bio}
 export type AuthorQueryResult = {
@@ -345,11 +398,156 @@ export type AuthorQueryResult = {
   }> | null;
 } | null;
 
+// Source: typegen.test-d.tsx
+// Variable: categoryQuery
+// Query: *[_type == "category" && _id == $id][0]{title,description[]{    ...,    _type == "featuredPost" => {      ...,      post->{title,author->{name,"avatar":avatar.asset->url},"slug":slug.current}    }  }}
+export type CategoryQueryResult = {
+  title: string | null;
+  description: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal";
+        listItem?: never;
+        markDefs?: null;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        post: {
+          title: string | null;
+          author: {
+            name: string | null;
+            avatar: string | null;
+          } | null;
+          slug: string | null;
+        } | null;
+        _type: "featuredPost";
+        _key: string;
+      }
+  > | null;
+} | null;
+
+// Source: typegen.test-d.tsx
+// Variable: mockQuery
+// Query: *[_type in ["author", "category", "post"]]{      _type == "author" => {bio},      _type == "category" => {        description[]{          ...,          _type == "featuredPost" => {            ...,            post->{title,author->{name,"avatar":avatar.asset->url},"slug":slug.current}          }        }      },      _type == "post" => {content},    }
+export type MockQueryResult = Array<
+  | {
+      bio: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal";
+        listItem?: never;
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }> | null;
+    }
+  | {
+      content: Array<
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "lead" | "normal";
+            listItem?: "checklist" | "steps";
+            markDefs?: Array<
+              | {
+                  term?: string;
+                  _type: "glossaryTerm";
+                  _key: string;
+                }
+              | {
+                  href?: string;
+                  _type: "link";
+                  _key: string;
+                }
+            >;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            language?: string;
+            code?: string;
+            filename?: string;
+            _type: "code";
+            _key: string;
+          }
+        | {
+            asset?: SanityImageAssetReference;
+            media?: unknown;
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            alt?: string;
+            caption?: string;
+            _type: "image";
+            _key: string;
+          }
+        | {
+            text?: string;
+            attribution?: string;
+            _type: "quote";
+            _key: string;
+          }
+      > | null;
+    }
+  | {
+      description: Array<
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "normal";
+            listItem?: never;
+            markDefs?: null;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            post: {
+              title: string | null;
+              author: {
+                name: string | null;
+                avatar: string | null;
+              } | null;
+              slug: string | null;
+            } | null;
+            _type: "featuredPost";
+            _key: string;
+          }
+      > | null;
+    }
+>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "post" && slug.current == $slug][0]{title,author->{name,avatar},content}': PostQueryResult;
     '*[_type == "author" && _id == $id][0]{name,avatar,bio}': AuthorQueryResult;
+    '*[_type == "category" && _id == $id][0]{title,description[]{\n    ...,\n    _type == "featuredPost" => {\n      ...,\n      post->{title,author->{name,"avatar":avatar.asset->url},"slug":slug.current}\n    }\n  }}': CategoryQueryResult;
+    '*[_type in ["author", "category", "post"]]{\n      _type == "author" => {bio},\n      _type == "category" => {\n        description[]{\n          ...,\n          _type == "featuredPost" => {\n            ...,\n            post->{title,author->{name,"avatar":avatar.asset->url},"slug":slug.current}\n          }\n        }\n      },\n      _type == "post" => {content},\n    }': MockQueryResult;
   }
 }

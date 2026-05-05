@@ -24,6 +24,9 @@ importers:
       '@sanity/client':
         specifier: ^7.22.0
         version: 7.22.0
+      '@sanity/image-url':
+        specifier: ^2.1.1
+        version: 2.1.1
       '@sanity/tsconfig':
         specifier: ^2.1.0
         version: 2.1.0

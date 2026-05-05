@@ -1,6 +1,6 @@
 import type {TypedObject} from '@portabletext/types'
 
-import type {PortableTextMarkComponent} from '../types'
+import type {DefaultPortableTextMark, PortableTextMarkComponent} from '../types'
 
 interface DefaultLink extends TypedObject {
   _type: 'link'
@@ -13,7 +13,7 @@ const link: PortableTextMarkComponent<DefaultLink> = ({children, value}) => (
 
 const underlineStyle = {textDecoration: 'underline'}
 
-export const defaultMarks: Record<string, PortableTextMarkComponent | undefined> = {
+export const defaultMarks: Record<DefaultPortableTextMark, PortableTextMarkComponent> = {
   em: ({children}) => <em>{children}</em>,
   strong: ({children}) => <strong>{children}</strong>,
   code: ({children}) => <code>{children}</code>,
