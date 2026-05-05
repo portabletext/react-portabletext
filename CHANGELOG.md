@@ -1,5 +1,11 @@
 # @portabletext/react
 
+## 6.1.0
+
+### Minor Changes
+
+- [#306](https://github.com/portabletext/react-portabletext/pull/306) [`ad886e6`](https://github.com/portabletext/react-portabletext/commit/ad886e68c278b9fd694a17fb3c07e167a7fb300f) Thanks [@copilot-swe-agent](https://github.com/apps/copilot-swe-agent)! - The `value` prop now accepts `null | undefined`, and handles it appropriately, to reduce friction when using `<PortableText>` with [Sanity TypeGen](https://www.sanity.io/docs/apis-and-sdks/sanity-typegen)
+
 ## 6.0.3
 
 ### Patch Changes
