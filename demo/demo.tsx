@@ -1,5 +1,6 @@
 import {type PortableTextComponents, PortableText} from '@portabletext/react'
-import {studioTheme, ThemeProvider} from '@sanity/ui'
+import {ThemeProvider} from '@sanity/ui'
+import {buildTheme} from '@sanity/ui/theme'
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 
@@ -55,7 +56,7 @@ function Demo() {
 const root = createRoot(document.getElementById('demo-root')!)
 root.render(
   <StrictMode>
-    <ThemeProvider theme={studioTheme}>
+    <ThemeProvider theme={buildTheme()}>
       <Demo />
     </ThemeProvider>
   </StrictMode>,

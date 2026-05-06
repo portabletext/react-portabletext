@@ -192,27 +192,27 @@ describe('PortableText component with TypeGen types', () => {
         block: {
           normal: ({value}) => {
             expectTypeOf(value.style).toEqualTypeOf<'normal' | undefined>()
-            expectTypeOf(value).toMatchTypeOf<PortableTextComponentProps<BlockType>['value']>()
+            expectTypeOf(value).toExtend<PortableTextComponentProps<BlockType>['value']>()
             return null
           },
           h2: ({value}) => {
             expectTypeOf(value.style).toEqualTypeOf<'h2' | undefined>()
-            expectTypeOf(value).toMatchTypeOf<PortableTextComponentProps<BlockType>['value']>()
+            expectTypeOf(value).toExtend<PortableTextComponentProps<BlockType>['value']>()
             return null
           },
           h3: ({value}) => {
             expectTypeOf(value.style).toEqualTypeOf<'h3' | undefined>()
-            expectTypeOf(value).toMatchTypeOf<PortableTextComponentProps<BlockType>['value']>()
+            expectTypeOf(value).toExtend<PortableTextComponentProps<BlockType>['value']>()
             return null
           },
           blockquote: ({value}) => {
             expectTypeOf(value.style).toEqualTypeOf<'blockquote' | undefined>()
-            expectTypeOf(value).toMatchTypeOf<PortableTextComponentProps<BlockType>['value']>()
+            expectTypeOf(value).toExtend<PortableTextComponentProps<BlockType>['value']>()
             return null
           },
           lead: ({value}) => {
             expectTypeOf(value.style).toEqualTypeOf<'lead' | undefined>()
-            expectTypeOf(value).toMatchTypeOf<PortableTextComponentProps<BlockType>['value']>()
+            expectTypeOf(value).toExtend<PortableTextComponentProps<BlockType>['value']>()
             return null
           },
         },
@@ -229,8 +229,8 @@ describe('PortableText component with TypeGen types', () => {
     type BlockType = Extract<PostContentBlock, {_type: 'block'}>
     type ListItemType = NonNullable<BlockType['listItem']>
 
-    expectTypeOf<'checklist'>().toMatchTypeOf<ListItemType>()
-    expectTypeOf<'steps'>().toMatchTypeOf<ListItemType>()
+    expectTypeOf<'checklist'>().toExtend<ListItemType>()
+    expectTypeOf<'steps'>().toExtend<ListItemType>()
 
     // When passing TypeGen content to PortableText, `components.list` and
     // `components.listItem` should autocomplete with the block listItem union.
@@ -254,12 +254,12 @@ describe('PortableText component with TypeGen types', () => {
         listItem: {
           checklist: ({value}) => {
             expectTypeOf(value.listItem).toEqualTypeOf<'checklist'>()
-            expectTypeOf(value).toMatchTypeOf<PortableTextComponentProps<BlockType>['value']>()
+            expectTypeOf(value).toExtend<PortableTextComponentProps<BlockType>['value']>()
             return null
           },
           steps: ({value}) => {
             expectTypeOf(value.listItem).toEqualTypeOf<'steps'>()
-            expectTypeOf(value).toMatchTypeOf<PortableTextComponentProps<BlockType>['value']>()
+            expectTypeOf(value).toExtend<PortableTextComponentProps<BlockType>['value']>()
             return null
           },
           legacyList: ({value}) => {
@@ -346,7 +346,7 @@ describe('PortableText component with TypeGen types', () => {
         block: {
           normal: ({value}) => {
             expectTypeOf(value.style).toEqualTypeOf<'normal' | undefined>()
-            expectTypeOf(value).toMatchTypeOf<PortableTextComponentProps<BlockType>['value']>()
+            expectTypeOf(value).toExtend<PortableTextComponentProps<BlockType>['value']>()
             return null
           },
           h2: ({value}) => {
@@ -472,7 +472,7 @@ describe('InferStrictComponents utility type', () => {
         // Default block styles are handled by default, so only `lead` is required.
         lead: ({value}) => {
           expectTypeOf(value.style).toEqualTypeOf<'lead' | undefined>()
-          expectTypeOf(value).toMatchTypeOf<PortableTextComponentProps<BlockType>['value']>()
+          expectTypeOf(value).toExtend<PortableTextComponentProps<BlockType>['value']>()
           return null
         },
       },
@@ -758,7 +758,7 @@ describe('InferStrictComponents utility type', () => {
       block: {
         normal: ({value}) => {
           expectTypeOf(value.style).toEqualTypeOf<'normal' | undefined>()
-          expectTypeOf(value).toMatchTypeOf<PortableTextComponentProps<BlockType>['value']>()
+          expectTypeOf(value).toExtend<PortableTextComponentProps<BlockType>['value']>()
           return null
         },
         // @ts-expect-error `h1` is not in the content type union
@@ -790,29 +790,29 @@ describe('InferValue utility type', () => {
     type PortableTextItem = PortableTextValue[number]
     type TypeNames = PortableTextItem['_type']
 
-    expectTypeOf<'block'>().toMatchTypeOf<TypeNames>()
-    expectTypeOf<'image'>().toMatchTypeOf<TypeNames>()
-    expectTypeOf<'quote'>().toMatchTypeOf<TypeNames>()
-    expectTypeOf<'code'>().toMatchTypeOf<TypeNames>()
-    expectTypeOf<'featuredPost'>().toMatchTypeOf<TypeNames>()
+    expectTypeOf<'block'>().toExtend<TypeNames>()
+    expectTypeOf<'image'>().toExtend<TypeNames>()
+    expectTypeOf<'quote'>().toExtend<TypeNames>()
+    expectTypeOf<'code'>().toExtend<TypeNames>()
+    expectTypeOf<'featuredPost'>().toExtend<TypeNames>()
 
     type CustomTypes = Exclude<PortableTextItem, {_type: 'block'}>
     expectTypeOf<Extract<CustomTypes, {_type: 'featuredPost'}>>().toHaveProperty('post')
 
     type BlockType = Extract<PortableTextItem, {_type: 'block'}>
     type StyleType = NonNullable<BlockType['style']>
-    expectTypeOf<'normal'>().toMatchTypeOf<StyleType>()
-    expectTypeOf<'lead'>().toMatchTypeOf<StyleType>()
+    expectTypeOf<'normal'>().toExtend<StyleType>()
+    expectTypeOf<'lead'>().toExtend<StyleType>()
 
     type ListItemType = NonNullable<BlockType['listItem']>
-    expectTypeOf<'checklist'>().toMatchTypeOf<ListItemType>()
-    expectTypeOf<'steps'>().toMatchTypeOf<ListItemType>()
+    expectTypeOf<'checklist'>().toExtend<ListItemType>()
+    expectTypeOf<'steps'>().toExtend<ListItemType>()
 
     type MarkDefs = NonNullable<BlockType['markDefs']>
     type MarkType = MarkDefs[number]
     type MarkTypeNames = MarkType['_type']
-    expectTypeOf<'link'>().toMatchTypeOf<MarkTypeNames>()
-    expectTypeOf<'glossaryTerm'>().toMatchTypeOf<MarkTypeNames>()
+    expectTypeOf<'link'>().toExtend<MarkTypeNames>()
+    expectTypeOf<'glossaryTerm'>().toExtend<MarkTypeNames>()
   })
 
   test('works as input to InferStrictComponents and PortableText', () => {
@@ -867,7 +867,7 @@ describe('InferValue utility type', () => {
       block: {
         lead: ({value}) => {
           expectTypeOf(value.style).toEqualTypeOf<'lead' | undefined>()
-          expectTypeOf(value).toMatchTypeOf<PortableTextComponentProps<BlockType>['value']>()
+          expectTypeOf(value).toExtend<PortableTextComponentProps<BlockType>['value']>()
           return null
         },
       },

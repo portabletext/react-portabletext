@@ -31,7 +31,7 @@ function CharacterCard({name, image, description}: CharacterDefinition) {
         <Avatar alt={name} color="magenta" src={image} size={2} />
       </Box>
       <Box flex={1}>
-        <Stack padding={2} space={2}>
+        <Stack padding={2} gap={2}>
           <Text weight="bold">{name}</Text>
           <Text size={1}>{description}</Text>
         </Stack>
