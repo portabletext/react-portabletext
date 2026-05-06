@@ -21,8 +21,6 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./src/index.ts",
@@ -46,7 +44,8 @@
     "release": "changeset publish",
     "start": "pnpm dev",
     "test": "vitest",
-    "type-check": "tsc --noEmit"
+    "typegen": "(cd test/typegen && sanity schema extract && sanity typegen generate)",
+    "type-check": "tsc --noEmit -p tsconfig.dist.json"
   },
   "dependencies": {
     "@portabletext/toolkit": "^5.0.2",
@@ -56,6 +55,7 @@
     "@changesets/changelog-github": "^0.6.0",
     "@changesets/cli": "^2.31.0",
     "@sanity/client": "^7.22.0",
+    "@sanity/image-url": "^2.1.1",
     "@sanity/tsconfig": "^2.1.0",
     "@sanity/tsdown-config": "^0.6.1",
     "@sanity/ui": "^3.1.14",

@@ -22,7 +22,11 @@ Migrating from [@sanity/block-content-to-react](https://www.npmjs.com/package/@s
   - [unknown components](#unknownMark)
 - [Disable warnings / Handling unknown types](#disabling-warnings--handling-unknown-types)
 - [Rendering Plain Text](#rendering-plain-text)
-- [Typing Portable Text](#typing-portable-text)
+- [Sanity TypeGen Compatibility](#sanity-typegen-compatibility)
+  - [A re-usable `CustomPortableText` component](#a-re-usable-customportabletext-component)
+  - [Choosing what to feed `InferValue<T>`](#choosing-what-to-feed-infervaluet)
+  - [`InferComponents` vs `InferStrictComponents`](#infercomponents-vs-inferstrictcomponents)
+- [Manually Typing Portable Text](#manually-typing-portable-text)
 
 ## Installation
 
@@ -112,7 +116,7 @@ const SampleImageComponent = ({value, isInline}) => {
         .fit('max')
         .auto('format')
         .url()}
-      alt={value.alt || ' '}
+      alt={value.alt || ''}
       loading="lazy"
       style={{
         // Display alongside text if image appears inside a block text span
@@ -150,7 +154,7 @@ The component also receives a `children` prop that should (usually) be returned 
 // `components` object you'll pass to PortableText w/ optional TS definition
 import {PortableTextComponents} from '@portabletext/react'
 
-const components: PortableTextComponents = {
+const components = {
   marks: {
     // Ex. 1: custom renderer for the em / italics decorator
     em: ({children}) => <em className="text-gray-600 font-semibold">{children}</em>,
@@ -165,7 +169,7 @@ const components: PortableTextComponents = {
       )
     },
   },
-}
+} satisfies PortableTextComponents
 ```
 
 ### `block`
@@ -176,7 +180,7 @@ An object of React components that renders portable text blocks with different `
 import {PortableText, PortableTextReactComponents} from '@portabletext/react'
 
 // `components` object you'll pass to PortableText
-const components: Partial<PortableTextReactComponents> = {
+const components = {
   block: {
     // Ex. 1: customizing common block types
     normal: ({children}) => <p className="text-sm">{children}</p>,
@@ -188,7 +192,7 @@ const components: Partial<PortableTextReactComponents> = {
       <h2 className="text-lg text-primary text-purple-700">{children}</h2>
     ),
   },
-}
+} satisfies Partial<PortableTextReactComponents>
 ```
 
 The `block` object can also be set to a single React component, which would handle block styles of _any_ type.
@@ -314,16 +318,178 @@ const LinkableHeader = ({children, value}) => {
   return <h2 id={slug}>{children}</h2>
 }
 
-const components: PortableTextComponents = {
+const components = {
   block: {
     h2: LinkableHeader,
   },
+} satisfies PortableTextComponents
+```
+
+## Sanity TypeGen Compatibility
+
+When you use [Sanity TypeGen](https://www.sanity.io/docs/apis-and-sdks/sanity-typegen), `@portabletext/react` infers everything for you - which custom types, marks, block styles, and list styles your handlers receive, and what shape their `value` props have - directly from your queries. No manual generics or hand-written type unions needed.
+
+The library exposes three utility types to make this ergonomic:
+
+- `InferValue<T>` - derives a Portable Text array value type from any TypeGen query result type.
+- `InferComponents<T>` - forgiving component map type, mirrors the inline `components` prop inference.
+- `InferStrictComponents<T>` - strict component map type, requires inferred handlers and rejects unknown ones.
+
+### A re-usable `CustomPortableText` component
+
+This is the recommended pattern for a single Portable Text renderer that you reuse across your app. `InferValue<SanityQueries[keyof SanityQueries]>` collects every Portable Text item shape returned by every registered TypeGen query into an array value type, and `InferStrictComponents` forces you to define a handler for each of them.
+
+```tsx
+import type { SanityQueries} from '@sanity/client'
+import {createImageUrlBuilder} from '@sanity/image-url'
+import {
+  PortableText,
+  type InferStrictComponents,
+  type InferValue,
+} from '@portabletext/react'
+
+const builder = createImageUrlBuilder(...)
+
+// Array value type for every Portable Text item shape across all registered queries.
+type PortableTextValue = InferValue<SanityQueries[keyof SanityQueries]>
+
+export function CustomPortableText({value}: {value: PortableTextValue}) {
+  const components = {
+    types: {
+      // `value` is fully typed from the inferred image variant.
+      image: ({value}) => <img src={builder.image(value).url()} alt={value.alt || ''} />,
+    },
+    // Add `types`, `marks`, `block`, `list` etc. handlers as your schema requires.
+  } satisfies InferStrictComponents<PortableTextValue>
+  //   ^ TypeScript errors when the schema gains a custom type, block, mark, or list
+  //     style without a matching handler defined here.
+
+  return <PortableText components={components} value={value} />
 }
 ```
 
-## Typing Portable Text
+You can drop this component in anywhere a TypeGen-typed Portable Text array shows up:
 
-Portable Text data can be typed using the `@portabletext/types` package.
+```tsx
+import {createClient} from '@sanity/client'
+import {defineQuery} from 'groq'
+
+const client = createClient(...)
+
+
+export default async function Page({slug}: {slug: string}) {
+  const postQuery = defineQuery(`*[_type == "post" && slug.current == $slug][0]{title,content}`)
+  const data = await client.fetch(postQuery, {slug})
+
+  if (!data) return notFound()
+
+  return (
+    <article>
+      <h1>{data.title}</h1>
+      {Array.isArray(data.content) && <CustomPortableText value={data.content} />}
+    </article>
+  )
+}
+```
+
+### Choosing what to feed `InferValue<T>`
+
+`InferValue<T>` is meant for re-usable wrapper components that accept Portable Text via a `value` prop. You feed it a TypeGen-generated _query_ result type (or union of them) so the component covers every shape it might be asked to render. It returns the array value type directly, so `type PortableTextValue = InferValue<...>` can be used as the `value` prop type without adding `[]` yourself.
+
+> Feed `InferValue` query result types, not Sanity schema types. Schema types describe how content is **stored** in Sanity, not how it's **queried**. For example, an `inlineAuthor` value with an `author` reference is stored as `{_type: 'inlineAuthor', author: {_ref: string, _type: 'reference'}}`, but a query that follows the reference with `author->` will return `{_type: 'inlineAuthor', author: {_id: string, _type: 'author', ...}}`. Always type from query results.
+
+There are three common strategies:
+
+**Preferred: every registered query**
+
+```tsx
+import {type SanityQueries} from '@sanity/client'
+
+type PortableTextValue = InferValue<SanityQueries[keyof SanityQueries]>
+```
+
+This auto-updates as you add or remove queries, so you don't have to come back and adjust the prop type later. Requires `overloadClientMethods` in `sanity.cli.ts#typegen` (on by default).
+
+**Fallback: specific named queries**
+
+If `SanityQueries[keyof SanityQueries]` produces too large a union and slows down type-checking, narrow it to the specific query results that contain Portable Text fields:
+
+```tsx
+import type {AuthorQueryResult, PostQueryResult} from './sanity.types'
+
+type PortableTextValue = InferValue<AuthorQueryResult | PostQueryResult>
+```
+
+You'll have to keep this union in sync as you add or change queries; that trade-off is the cost of skipping the wide one.
+
+**Alternative: a scoped mock query**
+
+You can define a focused GROQ query inside `CustomPortableText` purely for type generation. TypeGen registers it in `SanityQueries` like any other, but you only feed _its_ result type into `InferValue`, keeping the union tight:
+
+```tsx
+import {type SanityQueries} from '@sanity/client'
+import {defineQuery} from 'groq'
+
+const mockQuery = defineQuery(`*[_type in ["author", "category", "post"]]{
+  _type == "author" => {bio},
+  _type == "category" => {description},
+  _type == "post" => {content},
+}`)
+
+function CustomPortableText({value}: {value: InferValue<SanityQueries[typeof mockQuery]>}) {
+  // ...
+}
+```
+
+Use this when `SanityQueries[keyof SanityQueries]` is too slow but you don't want to maintain a hand-written union of named query results either.
+
+**Don't combine** the mock query with `SanityQueries[keyof SanityQueries]` - the mock query gets added to `SanityQueries` and bloats the union you're trying to avoid. Pick one strategy or the other.
+
+### `InferComponents` vs `InferStrictComponents`
+
+Both utilities derive component handler types from a value type. They differ in how strict they are.
+
+**`InferComponents<T>`** - forgiving. Mirrors the same inference behavior as inlining `components` directly on `<PortableText>`:
+
+- All handlers are optional.
+- Extra handlers for types not present in `T` are allowed (they fall back to `any`).
+- Best for: incremental migration, partial coverage, schemas that change often.
+
+```tsx
+import {PortableText, type InferComponents} from '@portabletext/react'
+
+const components = {
+  types: {
+    image: ({value}) => <img src={builder.image(value).url()} alt={value.alt || ''} />,
+    // Optional: legacy types not in the current schema are allowed.
+  },
+} satisfies InferComponents<typeof data.content>
+```
+
+**`InferStrictComponents<T>`** - strict. Treats your schema as the contract:
+
+- Custom types, marks, block styles, and list styles inferred from `T` are **required**.
+- Handlers for keys that aren't inferred from `T` are **rejected**.
+- Default handlers (`em`, `strong`, `link`, `normal`, `h1`-`h6`, `bullet`, `number`, etc.) remain optional - the library renders them by default.
+- Best for: production-grade renderers where missing or stale handlers should fail TypeScript.
+
+```tsx
+import {PortableText, type InferStrictComponents} from '@portabletext/react'
+
+const components = {
+  types: {
+    image: ({value}) => <img src={builder.image(value).url()} alt={value.alt || ''} />,
+    // Omit `image` and TypeScript errors.
+    // Add `legacyEmbed` and TypeScript errors.
+  },
+} satisfies InferStrictComponents<typeof data.content>
+```
+
+Pick `InferComponents` when you want flexibility, and `InferStrictComponents` when you want TypeScript to scream the moment your schema and your renderer go out of sync.
+
+## Manually Typing Portable Text
+
+If you're not using Sanity TypeGen, Portable Text data can be typed using the [`@portabletext/types`](https://www.npmjs.com/package/@portabletext/types) package.
 
 ### Basic usage
 
