@@ -1,0 +1,27 @@
+name: Publish Pull Requests with pkg.pr.new
+
+permissions:
+  pull-requests: write
+
+on:
+  pull_request:
+    types: [opened, synchronize, labeled]
+
+jobs:
+  publish:
+    if: >
+      github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'trigger: preview')
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+
+      - name: Install project dependencies
+        run: npm install
+      - name: Build package
+        run: npm run build
+      - name: Publish to pkg.pr.new
+        run: npx pkg-pr-new publish --no-template
