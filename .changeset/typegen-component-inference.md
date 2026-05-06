@@ -2,7 +2,7 @@
 "@portabletext/react": minor
 ---
 
-# TypeGen-aware Portable Text components
+TypeGen-aware Portable Text components
 
 `<PortableText>` now infers the shape of every component handler from the `value` prop. When you pass a value typed by [Sanity TypeGen](https://www.sanity.io/docs/apis-and-sdks/sanity-typegen), `components.types`, `components.marks`, `components.block`, `components.list`, and `components.listItem` all receive precise `value` props for the exact content the query returned.
 
@@ -12,7 +12,7 @@ Three new utility types ship with this feature:
 - `InferStrictComponents<T>` - strict variant that requires a handler for every inferred custom type, mark, block style, and list style, and rejects handlers that aren't in the schema (and therefore not visible to TypeGen).
 - `InferValue<T>` - derives a Portable Text array value type from any TypeGen query result type, useful for re-usable wrapper components.
 
-## Schema
+#### Schema
 
 Every example below assumes the same `sanity.config.ts`:
 
@@ -50,7 +50,7 @@ export default defineConfig({
 })
 ```
 
-## Before: hand-typing handlers
+#### Before: hand-typing handlers
 
 Previously, every handler had to be typed by hand to mirror the generated query shape:
 
@@ -118,7 +118,7 @@ export default async function Page({slug}: {slug: string}) {
 }
 ```
 
-## After: automatic inference
+#### After: automatic inference
 
 Now the same handler is fully typed straight from `data.content`:
 
@@ -162,7 +162,7 @@ export default async function Page({slug}: {slug: string}) {
 }
 ```
 
-## `InferComponents`: hoisting components without losing inference
+#### `InferComponents`: hoisting components without losing inference
 
 Move the `components` map out of JSX and keep the same inferred handler types:
 
@@ -202,7 +202,7 @@ export default async function Page({slug}: {slug: string}) {
 }
 ```
 
-## `InferStrictComponents` + `InferValue`: a strict, re-usable wrapper
+#### `InferStrictComponents` + `InferValue`: a strict, re-usable wrapper
 
 `InferValue<SanityQueries[keyof SanityQueries]>` collects every Portable Text item shape from every registered TypeGen query into an array value type, and `InferStrictComponents` requires a handler for each of them. Together they're perfect for a single `CustomPortableText` you reuse across the app:
 
