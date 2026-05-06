@@ -1,6 +1,6 @@
 {
   "name": "@portabletext/react",
-  "version": "6.1.0",
+  "version": "6.2.0",
   "description": "Render Portable Text with React",
   "keywords": [
     "portable-text"
@@ -99,5 +99,5 @@
   "engines": {
     "node": ">=20.19 <22 || >=22.12"
   },
-  "packageManager": "pnpm@10.33.2"
+  "packageManager": "pnpm@10.33.3"
 }
