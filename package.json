@@ -82,7 +82,7 @@
     "rimraf": "^5.0.1",
     "rollup-plugin-visualizer": "^7.0.1",
     "sanity": "^6.5.0",
-    "styled-components": "npm:@sanity/css-in-js@6.2.1",
+    "styled-components": "^6.1.19",
     "tsdown": "^0.22.13",
     "typescript": "5.9.3",
     "vite": "^8.0.13",
