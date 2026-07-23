@@ -8,13 +8,13 @@ import type {
   ReactPortableTextList,
 } from '../types'
 
-export function DefaultNumberList({
+function DefaultNumberList({
   children,
 }: PortableTextComponentProps<ReactPortableTextList>): JSX.Element {
   return <ol>{children}</ol>
 }
 
-export function DefaultBulletList({
+function DefaultBulletList({
   children,
 }: PortableTextComponentProps<ReactPortableTextList>): JSX.Element {
   return <ul>{children}</ul>

@@ -14,27 +14,27 @@ interface DefaultLinkMark extends TypedObject {
 
 const underlineStyle = {textDecoration: 'underline'}
 
-export function DefaultEm({children}: PortableTextMarkComponentProps): JSX.Element {
+function DefaultEm({children}: PortableTextMarkComponentProps): JSX.Element {
   return <em>{children}</em>
 }
 
-export function DefaultStrong({children}: PortableTextMarkComponentProps): JSX.Element {
+function DefaultStrong({children}: PortableTextMarkComponentProps): JSX.Element {
   return <strong>{children}</strong>
 }
 
-export function DefaultCode({children}: PortableTextMarkComponentProps): JSX.Element {
+function DefaultCode({children}: PortableTextMarkComponentProps): JSX.Element {
   return <code>{children}</code>
 }
 
-export function DefaultUnderline({children}: PortableTextMarkComponentProps): JSX.Element {
+function DefaultUnderline({children}: PortableTextMarkComponentProps): JSX.Element {
   return <span style={underlineStyle}>{children}</span>
 }
 
-export function DefaultStrikeThrough({children}: PortableTextMarkComponentProps): JSX.Element {
+function DefaultStrikeThrough({children}: PortableTextMarkComponentProps): JSX.Element {
   return <del>{children}</del>
 }
 
-export function DefaultLink({
+function DefaultLink({
   children,
   value,
 }: PortableTextMarkComponentProps<DefaultLinkMark>): JSX.Element {

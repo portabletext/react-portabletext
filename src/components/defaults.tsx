@@ -21,39 +21,35 @@ export function DefaultHardBreak(): JSX.Element {
   return <br />
 }
 
-export function DefaultNormal({
-  children,
-}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
+function DefaultNormal({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
   return <p>{children}</p>
 }
 
-export function DefaultBlockquote({
-  children,
-}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
+function DefaultBlockquote({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
   return <blockquote>{children}</blockquote>
 }
 
-export function DefaultH1({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
+function DefaultH1({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
   return <h1>{children}</h1>
 }
 
-export function DefaultH2({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
+function DefaultH2({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
   return <h2>{children}</h2>
 }
 
-export function DefaultH3({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
+function DefaultH3({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
   return <h3>{children}</h3>
 }
 
-export function DefaultH4({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
+function DefaultH4({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
   return <h4>{children}</h4>
 }
 
-export function DefaultH5({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
+function DefaultH5({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
   return <h5>{children}</h5>
 }
 
-export function DefaultH6({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
+function DefaultH6({children}: PortableTextComponentProps<PortableTextBlock>): JSX.Element {
   return <h6>{children}</h6>
 }
 
