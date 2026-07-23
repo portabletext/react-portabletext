@@ -11,7 +11,7 @@ import {
   spanToPlainText,
 } from '@portabletext/toolkit'
 import type {PortableTextBlock, PortableTextListItemBlock, TypedObject} from '@portabletext/types'
-import {type JSX, type ReactNode, useMemo} from 'react'
+import type {JSX, ReactNode} from 'react'
 
 import {defaultComponents} from './components/defaults'
 import {mergeComponents} from './components/merge'
@@ -50,16 +50,13 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   }
   const nested = nestLists(blocks, listNestingMode || LIST_NEST_MODE_HTML)
 
-  const components = useMemo(() => {
-    return componentOverrides
-      ? mergeComponents(defaultComponents, componentOverrides)
-      : defaultComponents
-  }, [componentOverrides])
+  // No manual memoization: the compiled (`default` condition) build gets React Compiler
+  // auto-memoization, and the uncompiled `react-server` build renders exactly once anyway.
+  const components = componentOverrides
+    ? mergeComponents(defaultComponents, componentOverrides)
+    : defaultComponents
 
-  const renderNode = useMemo(
-    () => getNodeRenderer(components, handleMissingComponent),
-    [components, handleMissingComponent],
-  )
+  const renderNode = getNodeRenderer(components, handleMissingComponent)
   const rendered = nested.map((node, index) =>
     renderNode({node: node, index, isInline: false, renderNode}),
   )

@@ -5,7 +5,10 @@
     "coverage/**",
     "demo/dist/**",
     ".nyc_output/**",
-    "test/typegen/sanity.types.ts"
+    "test/typegen/sanity.types.ts",
+    // The Next.js integration fixture resolves `next` types from its own node_modules, which
+    // only exist while `pnpm test:next` runs - type-aware linting can't see them from the root
+    "test/next-app/**"
   ],
   "plugins": ["eslint", "typescript", "unicorn", "react", "react-perf", "oxc", "import"],
   "categories": {

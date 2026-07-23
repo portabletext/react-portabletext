@@ -1,3 +1,10 @@
+# Migrating to @portabletext/react v7
+
+v7 has no API changes — `<PortableText>` accepts the same props and renders the same output as v6. What changed is how the library is built, and which React versions it supports:
+
+- **React 19 is required.** The published client build is optimized with [React Compiler](https://react.dev/learn/react-compiler), whose runtime (`react/compiler-runtime`) only exists in React 19. If you're on React 18, stay on `@portabletext/react@6`.
+- **React Server Components keep working — without the compiler overhead.** The package now publishes two entrypoints via export conditions: server components resolve an uncompiled build (the `react-server` condition) since [RSC refuses to load React Compiler output](https://github.com/facebook/react/issues/31702), while client components and SSR resolve the compiled one. Bundlers and runtimes pick the right build automatically; there is nothing to configure.
+
 # Migrating to @portabletext/react v2
 
 `@portabletext/react@1` allowed configuring custom components through React context. In v2, this functionality has been removed in order to allow using the component with [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) (RSC).
