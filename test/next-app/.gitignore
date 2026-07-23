@@ -1,0 +1,6 @@
+# Everything in here is produced by `pnpm test:next` (see run.mjs)
+node_modules
+.next
+next-env.d.ts
+pnpm-lock.yaml
+portabletext-react.tgz

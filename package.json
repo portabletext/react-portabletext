@@ -48,6 +48,7 @@
     "release": "changeset publish",
     "start": "pnpm dev",
     "test": "vitest",
+    "test:next": "node test/next-app/run.mjs",
     "typegen": "(cd test/typegen && sanity schema extract && sanity typegen generate)",
     "type-check": "tsc --noEmit -p tsconfig.dist.json"
   },
