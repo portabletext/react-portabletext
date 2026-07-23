@@ -17,6 +17,7 @@
     "no-array-sort": "off",
     "rules-of-hooks": "error",
     "react-in-jsx-scope": "off",
+    "react/react-compiler": "error",
     "no-deprecated": "error",
     // @TODO these rules should be enabled, and the violations fixed
     "no-unsafe-type-assertion": "off",
