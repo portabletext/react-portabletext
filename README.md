@@ -10,6 +10,7 @@ Migrating from [@sanity/block-content-to-react](https://www.npmjs.com/package/@s
 
 - [Installation](#installation)
 - [Basic usage](#basic-usage)
+- [React Server Components](#react-server-components)
 - [Styling](#styling-the-output)
 - [Customizing components](#customizing-components)
 - [Available components](#available-components)
@@ -44,6 +45,10 @@ import {PortableText} from '@portabletext/react'
   components={/* optional object of custom components to use */}
 />
 ```
+
+## React Server Components
+
+`<PortableText>` renders in both worlds without configuration: use it directly in a React Server Component, or in a file with a `'use client'` directive. The package publishes two builds selected automatically through export conditions — client components and SSR load a build optimized with [React Compiler](https://react.dev/learn/react-compiler), while server components load an uncompiled build through the `react-server` condition ([React Compiler output can't load in server components](https://github.com/facebook/react/issues/31702), and since server components render exactly once, memoization couldn't pay off there anyway).
 
 ## Styling the output
 
