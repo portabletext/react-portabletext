@@ -1,5 +1,11 @@
 # @portabletext/react
 
+## 7.0.1
+
+### Patch Changes
+
+- [#336](https://github.com/portabletext/react-portabletext/pull/336) [`282c73d`](https://github.com/portabletext/react-portabletext/commit/282c73da64689c90efbee69b0f66e5076cb7abb1) Thanks [@stipsan](https://github.com/stipsan)! - Give default Portable Text components proper function names for React DevTools and React Compiler coverage.
+
 ## 7.0.0
 
 ### Major Changes
