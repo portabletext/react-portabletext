@@ -31,6 +31,21 @@ jobs:
       - run: pnpm lint -f github
       - run: pnpm build
 
+  test-next:
+    runs-on: ubuntu-latest
+    name: Next.js RSC integration
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v7
+        with:
+          cache: pnpm
+          node-version: lts/*
+      - run: pnpm install
+      # Packs the library with `pnpm pack`, installs the tarball into test/next-app (a
+      # next@preview app) and asserts a pure RSC route and a 'use client' route both render
+      - run: pnpm test:next
+
   test:
     runs-on: ${{ matrix.platform }}
     name: Node.js ${{ matrix.node-version }} / ${{ matrix.platform }}
