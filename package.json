@@ -84,7 +84,7 @@
     "sanity": "^6.5.0",
     "styled-components": "^6.4.4",
     "tsdown": "^0.22.13",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "vite": "^8.1.5",
     "vitest": "^4.1.10"
   },
