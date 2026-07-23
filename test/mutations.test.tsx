@@ -27,7 +27,7 @@ test('never mutates input', ({expect}) => {
     const passedInput = fixture.input
     try {
       render({
-        value: passedInput as any,
+        value: passedInput,
         components,
       })
     } catch {

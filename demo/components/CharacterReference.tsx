@@ -28,7 +28,7 @@ function CharacterCard({name, image, description}: CharacterDefinition) {
   return (
     <Flex padding={2} style={{maxWidth: '320px'}} align="center">
       <Box flex={0.25}>
-        <Avatar alt={name} color="magenta" src={image} size={2} />
+        <Avatar color="magenta" src={image} size={2} title={name} />
       </Box>
       <Box flex={1}>
         <Stack padding={2} gap={2}>
