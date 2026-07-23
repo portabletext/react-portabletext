@@ -1,5 +1,23 @@
 # @portabletext/react
 
+## 7.0.0
+
+### Major Changes
+
+- [#333](https://github.com/portabletext/react-portabletext/pull/333) [`87a9b1e`](https://github.com/portabletext/react-portabletext/commit/87a9b1ec0a83638ad523d53dd41501333281fb93) Thanks [@stipsan](https://github.com/stipsan)! - `<PortableText>` now ships as two builds selected by export conditions: the `default` build is optimized with [React Compiler](https://react.dev/learn/react-compiler) auto-memoization, and an uncompiled build serves the `react-server` condition, since React Server Components refuse to load compiled output ([facebook/react#31702](https://github.com/facebook/react/issues/31702)):
+
+  ```json
+  ".": {
+    "types": "./dist/index.d.ts",
+    "react-server": "./dist/index.react-server.js",
+    "default": "./dist/index.js"
+  }
+  ```
+
+  There are no API changes. Client components and SSR get the compiled build, with finer-grained memoization than the manual `useMemo` calls it replaces, and server components render the same source uncompiled — they render exactly once, so memoization can never pay off there.
+
+  **BREAKING**: React 19 is now required (`peerDependencies.react` is `^19`) — the compiled build loads `react/compiler-runtime`, which only exists in React 19. Stay on `@portabletext/react@6` if you are on React 18.
+
 ## 6.2.0
 
 ### Minor Changes
@@ -9,6 +27,7 @@
   `<PortableText>` now infers the shape of every component handler from the `value` prop. When you pass a value typed by [Sanity TypeGen](https://www.sanity.io/docs/apis-and-sdks/sanity-typegen), `components.types`, `components.marks`, `components.block`, `components.list`, and `components.listItem` all receive precise `value` props for the exact content the query returned.
 
   Three new utility types ship with this feature:
+
   - `InferComponents<T>` - same inference as the inline `components` prop, for hoisting components out of JSX.
   - `InferStrictComponents<T>` - strict variant that requires a handler for every inferred custom type, mark, block style, and list style, and rejects handlers that aren't in the schema (and therefore not visible to TypeGen).
   - `InferValue<T>` - derives a Portable Text array value type from any TypeGen query result type, useful for re-usable wrapper components.
@@ -19,28 +38,33 @@
 
   ```ts
   // sanity.config.ts
-  import {defineArrayMember, defineConfig, defineField, defineType} from 'sanity'
+  import {
+    defineArrayMember,
+    defineConfig,
+    defineField,
+    defineType,
+  } from "sanity";
 
   export default defineConfig({
-    name: 'default',
-    projectId: 'abc123',
-    dataset: 'production',
+    name: "default",
+    projectId: "abc123",
+    dataset: "production",
     schema: {
       types: [
         defineType({
-          name: 'post',
-          type: 'document',
+          name: "post",
+          type: "document",
           fields: [
-            defineField({name: 'title', type: 'string'}),
+            defineField({ name: "title", type: "string" }),
             defineField({
-              name: 'content',
-              type: 'array',
+              name: "content",
+              type: "array",
               of: [
-                defineArrayMember({type: 'block'}),
+                defineArrayMember({ type: "block" }),
                 defineArrayMember({
-                  type: 'image',
-                  options: {hotspot: true},
-                  fields: [defineField({name: 'alt', type: 'string'})],
+                  type: "image",
+                  options: { hotspot: true },
+                  fields: [defineField({ name: "alt", type: "string" })],
                 }),
               ],
             }),
@@ -48,7 +72,7 @@
         }),
       ],
     },
-  })
+  });
   ```
 
   #### Before: hand-typing handlers
@@ -57,24 +81,26 @@
 
   ```tsx
   // app/[slug]/page.tsx
-  import {createClient} from '@sanity/client'
-  import {createImageUrlBuilder} from '@sanity/image-url'
-  import {PortableText} from '@portabletext/react'
-  import {defineQuery} from 'groq'
+  import { createClient } from "@sanity/client";
+  import { createImageUrlBuilder } from "@sanity/image-url";
+  import { PortableText } from "@portabletext/react";
+  import { defineQuery } from "groq";
 
   const client = createClient({
-    projectId: 'abc123',
-    dataset: 'production',
+    projectId: "abc123",
+    dataset: "production",
     useCdn: true,
-    apiVersion: '2026-05-04',
-  })
-  const builder = createImageUrlBuilder(client)
+    apiVersion: "2026-05-04",
+  });
+  const builder = createImageUrlBuilder(client);
 
-  export default async function Page({slug}: {slug: string}) {
-    const query = defineQuery(`*[_type == "post" && slug.current == $slug][0]{title,content}`)
-    const data = await client.fetch(query, {slug})
+  export default async function Page({ slug }: { slug: string }) {
+    const query = defineQuery(
+      `*[_type == "post" && slug.current == $slug][0]{title,content}`
+    );
+    const data = await client.fetch(query, { slug });
 
-    if (!data) return notFound()
+    if (!data) return notFound();
 
     return (
       <article>
@@ -87,35 +113,37 @@
               }: {
                 value: {
                   asset?: {
-                    _ref: string
-                    _type: 'reference'
-                    _weak?: boolean
-                  }
+                    _ref: string;
+                    _type: "reference";
+                    _weak?: boolean;
+                  };
                   hotspot?: {
-                    _type: 'sanity.imageHotspot'
-                    x?: number
-                    y?: number
-                    height?: number
-                    width?: number
-                  }
+                    _type: "sanity.imageHotspot";
+                    x?: number;
+                    y?: number;
+                    height?: number;
+                    width?: number;
+                  };
                   crop?: {
-                    _type: 'sanity.imageCrop'
-                    top?: number
-                    bottom?: number
-                    left?: number
-                    right?: number
-                  }
-                  alt?: string
-                  _type: 'image'
-                  _key: string
-                }
-              }) => <img src={builder.image(value).url()} alt={value.alt || ''} />,
+                    _type: "sanity.imageCrop";
+                    top?: number;
+                    bottom?: number;
+                    left?: number;
+                    right?: number;
+                  };
+                  alt?: string;
+                  _type: "image";
+                  _key: string;
+                };
+              }) => (
+                <img src={builder.image(value).url()} alt={value.alt || ""} />
+              ),
             },
           }}
           value={data.content}
         />
       </article>
-    )
+    );
   }
   ```
 
@@ -125,24 +153,26 @@
 
   ```tsx
   // app/[slug]/page.tsx
-  import {createClient} from '@sanity/client'
-  import {createImageUrlBuilder} from '@sanity/image-url'
-  import {PortableText} from '@portabletext/react'
-  import {defineQuery} from 'groq'
+  import { createClient } from "@sanity/client";
+  import { createImageUrlBuilder } from "@sanity/image-url";
+  import { PortableText } from "@portabletext/react";
+  import { defineQuery } from "groq";
 
   const client = createClient({
-    projectId: 'abc123',
-    dataset: 'production',
+    projectId: "abc123",
+    dataset: "production",
     useCdn: true,
-    apiVersion: '2026-05-04',
-  })
-  const builder = createImageUrlBuilder(client)
+    apiVersion: "2026-05-04",
+  });
+  const builder = createImageUrlBuilder(client);
 
-  export default async function Page({slug}: {slug: string}) {
-    const query = defineQuery(`*[_type == "post" && slug.current == $slug][0]{title,content}`)
-    const data = await client.fetch(query, {slug})
+  export default async function Page({ slug }: { slug: string }) {
+    const query = defineQuery(
+      `*[_type == "post" && slug.current == $slug][0]{title,content}`
+    );
+    const data = await client.fetch(query, { slug });
 
-    if (!data) return notFound()
+    if (!data) return notFound();
 
     return (
       <article>
@@ -151,13 +181,15 @@
           components={{
             types: {
               // value is fully typed from the query result, no annotation needed
-              image: ({value}) => <img src={builder.image(value).url()} alt={value.alt || ''} />,
+              image: ({ value }) => (
+                <img src={builder.image(value).url()} alt={value.alt || ""} />
+              ),
             },
           }}
           value={data.content}
         />
       </article>
-    )
+    );
   }
   ```
 
@@ -167,37 +199,41 @@
 
   ```tsx
   // app/[slug]/page.tsx
-  import {createClient} from '@sanity/client'
-  import {createImageUrlBuilder} from '@sanity/image-url'
-  import {PortableText, type InferComponents} from '@portabletext/react'
-  import {defineQuery} from 'groq'
+  import { createClient } from "@sanity/client";
+  import { createImageUrlBuilder } from "@sanity/image-url";
+  import { PortableText, type InferComponents } from "@portabletext/react";
+  import { defineQuery } from "groq";
 
   const client = createClient({
-    projectId: 'abc123',
-    dataset: 'production',
+    projectId: "abc123",
+    dataset: "production",
     useCdn: true,
-    apiVersion: '2026-05-04',
-  })
-  const builder = createImageUrlBuilder(client)
+    apiVersion: "2026-05-04",
+  });
+  const builder = createImageUrlBuilder(client);
 
-  export default async function Page({slug}: {slug: string}) {
-    const query = defineQuery(`*[_type == "post" && slug.current == $slug][0]{title,content}`)
-    const data = await client.fetch(query, {slug})
+  export default async function Page({ slug }: { slug: string }) {
+    const query = defineQuery(
+      `*[_type == "post" && slug.current == $slug][0]{title,content}`
+    );
+    const data = await client.fetch(query, { slug });
 
-    if (!data) return notFound()
+    if (!data) return notFound();
 
     const components = {
       types: {
-        image: ({value}) => <img src={builder.image(value).url()} alt={value.alt || ''} />,
+        image: ({ value }) => (
+          <img src={builder.image(value).url()} alt={value.alt || ""} />
+        ),
       },
-    } satisfies InferComponents<typeof data.content>
+    } satisfies InferComponents<typeof data.content>;
 
     return (
       <article>
         <h1>{data.title}</h1>
         <PortableText components={components} value={data.content} />
       </article>
-    )
+    );
   }
   ```
 
@@ -207,46 +243,56 @@
 
   ```tsx
   // app/[slug]/page.tsx
-  import {createClient, type SanityQueries} from '@sanity/client'
-  import {createImageUrlBuilder} from '@sanity/image-url'
-  import {PortableText, type InferStrictComponents, type InferValue} from '@portabletext/react'
-  import {defineQuery} from 'groq'
+  import { createClient, type SanityQueries } from "@sanity/client";
+  import { createImageUrlBuilder } from "@sanity/image-url";
+  import {
+    PortableText,
+    type InferStrictComponents,
+    type InferValue,
+  } from "@portabletext/react";
+  import { defineQuery } from "groq";
 
   const client = createClient({
-    projectId: 'abc123',
-    dataset: 'production',
+    projectId: "abc123",
+    dataset: "production",
     useCdn: true,
-    apiVersion: '2026-05-04',
-  })
-  const builder = createImageUrlBuilder(client)
+    apiVersion: "2026-05-04",
+  });
+  const builder = createImageUrlBuilder(client);
 
   // Array value type for every Portable Text item shape across all registered queries.
-  type PortableTextValue = InferValue<SanityQueries[keyof SanityQueries]>
+  type PortableTextValue = InferValue<SanityQueries[keyof SanityQueries]>;
 
-  function CustomPortableText({value}: {value: PortableTextValue}) {
+  function CustomPortableText({ value }: { value: PortableTextValue }) {
     const components = {
       types: {
-        image: ({value}) => <img src={builder.image(value).url()} alt={value.alt || ''} />,
+        image: ({ value }) => (
+          <img src={builder.image(value).url()} alt={value.alt || ""} />
+        ),
       },
-    } satisfies InferStrictComponents<PortableTextValue>
+    } satisfies InferStrictComponents<PortableTextValue>;
     //   ^ TypeScript errors when the schema gains a custom type, mark, or list
     //     style without a matching handler defined here
 
-    return <PortableText components={components} value={value} />
+    return <PortableText components={components} value={value} />;
   }
 
-  export default async function Page({slug}: {slug: string}) {
-    const query = defineQuery(`*[_type == "post" && slug.current == $slug][0]{title,content}`)
-    const data = await client.fetch(query, {slug})
+  export default async function Page({ slug }: { slug: string }) {
+    const query = defineQuery(
+      `*[_type == "post" && slug.current == $slug][0]{title,content}`
+    );
+    const data = await client.fetch(query, { slug });
 
-    if (!data) return notFound()
+    if (!data) return notFound();
 
     return (
       <article>
         <h1>{data.title}</h1>
-        {Array.isArray(data.content) && <CustomPortableText value={data.content} />}
+        {Array.isArray(data.content) && (
+          <CustomPortableText value={data.content} />
+        )}
       </article>
-    )
+    );
   }
   ```
 
