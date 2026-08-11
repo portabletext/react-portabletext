@@ -92,6 +92,12 @@ test('builds weirdly complex lists without any issues', ({expect}) => {
   expect(result).toEqual(output)
 })
 
+test('builds lists that start deeper than level 1 and skip levels', ({expect}) => {
+  const {input, output} = fixtures.skippedListLevels
+  const result = render({value: input})
+  expect(result).toEqual(output)
+})
+
 test('renders all default block styles', ({expect}) => {
   const {input, output} = fixtures.allDefaultBlockStyles
   const result = render({value: input})

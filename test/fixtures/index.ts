@@ -29,6 +29,7 @@ import overrideDefaultMarks from './053-override-default-marks'
 import listIssue from './060-list-issue'
 import missingMarkComponent from './061-missing-mark-component'
 import customBlockTypeWithChildren from './062-custom-block-type-with-children'
+import skippedListLevels from './063-skipped-list-levels'
 
 export {
   allBasicMarks,
@@ -61,5 +62,6 @@ export {
   overrideDefaultMarks,
   plainHeaderBlock,
   singleSpan,
+  skippedListLevels,
   styledListItems,
 }
