@@ -346,8 +346,13 @@ export default {
     '</li>',
     '<li>',
     'All the way back',
+    // Level 1 -> 3 skips a level, so an empty list item holds the generated level 2 list
+    '<ul>',
+    '<li>',
     '<ul>',
     '<li>Skip a step</li>',
+    '</ul>',
+    '</li>',
     '</ul>',
     '</li>',
     '</ul>',
