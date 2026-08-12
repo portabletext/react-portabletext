@@ -1,5 +1,76 @@
 # @portabletext/react
 
+## 8.0.0
+
+### Major Changes
+
+- [`dec0351`](https://github.com/portabletext/react-portabletext/commit/dec035175a7f3e9314f64d90cf576ed2e6d4fed5) Thanks [@rexxars](https://github.com/rexxars)! - Node.js 22.12 or later is now required
+
+  The previous range also allowed Node.js 20.19 and later. Node.js 20 reached end of life in April 2026, so it is no longer supported here.
+
+  If you build or server-render on Node.js 20, upgrade to 22.12 or later before taking this version. Installing on an older release will fail the `engines` check. Nothing changes for browsers or for bundled output.
+
+- [`dec0351`](https://github.com/portabletext/react-portabletext/commit/dec035175a7f3e9314f64d90cf576ed2e6d4fed5) Thanks [@rexxars](https://github.com/rexxars)! - Lists now nest as deeply as their `level` says they do
+
+  #### When you will see a difference
+
+  Only when your content has a list item that starts deeper than level 1, or that jumps more than one level at a time, such as going straight from level 1 to level 3. Lists that start at level 1 and change one level at a time render exactly as before.
+
+  Portable Text stores list nesting as a flat `level` number on each block, and an editor lets an author produce both of those shapes. Previously the rendered nesting could be shallower than `level` said, and an item returning to a shallower level could start a new list instead of continuing the one it belonged to, which restarts the numbering of an `<ol>`.
+
+  #### What changes
+
+  Two list items, the first at level 3 and the second at level 1, used to render as two unrelated lists:
+
+  ```html
+  <ul>
+    <li>Level 3</li>
+  </ul>
+  <ul>
+    <li>Level 1</li>
+  </ul>
+  ```
+
+  They now render as one list, three levels deep, with the second item as a sibling at the top:
+
+  ```html
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li>Level 3</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Level 1</li>
+  </ul>
+  ```
+
+  The levels nobody authored have to be filled with something, and HTML can only put a list inside a list item, so they become empty list items. A browser draws a bullet or a number for each of them.
+
+  #### What you may need to do
+
+  Snapshot tests covering lists that start deep or skip levels will need updating.
+
+  If the empty markers are visible somewhere you do not want them, the durable fix is the content itself, since a list skipping from level 1 to level 3 usually means an authoring mistake. To hide them in the meantime, target list items whose only child is a nested list:
+
+  ```css
+  li:has(> ul:only-child),
+  li:has(> ol:only-child) {
+    list-style: none;
+  }
+  ```
+
+  Note that in an `<ol>` this hides the number but the item still counts, so the numbering of the items after it is unchanged.
+
+  #### If you render to something other than HTML
+
+  Ignore this part if your lists render as `<ul>`, `<ol>` and `<li>`, which is the default.
+
+  If you have replaced the `list` and `listItem` components with something that has no equivalent of HTML's restriction, such as React Native views or a custom layout component, you can pass `listNestingMode="direct"` to `<PortableText />`. A deeper list is then nested straight inside its parent list rather than inside the preceding list item, so the levels nobody authored are filled with a bare list and never draw a marker. In both modes, nesting depth now matches `level`, so a component can indent by either one and get the same result.
+
 ## 7.0.1
 
 ### Patch Changes
@@ -44,28 +115,33 @@
 
   ```ts
   // sanity.config.ts
-  import {defineArrayMember, defineConfig, defineField, defineType} from 'sanity'
+  import {
+    defineArrayMember,
+    defineConfig,
+    defineField,
+    defineType,
+  } from "sanity";
 
   export default defineConfig({
-    name: 'default',
-    projectId: 'abc123',
-    dataset: 'production',
+    name: "default",
+    projectId: "abc123",
+    dataset: "production",
     schema: {
       types: [
         defineType({
-          name: 'post',
-          type: 'document',
+          name: "post",
+          type: "document",
           fields: [
-            defineField({name: 'title', type: 'string'}),
+            defineField({ name: "title", type: "string" }),
             defineField({
-              name: 'content',
-              type: 'array',
+              name: "content",
+              type: "array",
               of: [
-                defineArrayMember({type: 'block'}),
+                defineArrayMember({ type: "block" }),
                 defineArrayMember({
-                  type: 'image',
-                  options: {hotspot: true},
-                  fields: [defineField({name: 'alt', type: 'string'})],
+                  type: "image",
+                  options: { hotspot: true },
+                  fields: [defineField({ name: "alt", type: "string" })],
                 }),
               ],
             }),
@@ -73,7 +149,7 @@
         }),
       ],
     },
-  })
+  });
   ```
 
   #### Before: hand-typing handlers
@@ -82,24 +158,26 @@
 
   ```tsx
   // app/[slug]/page.tsx
-  import {createClient} from '@sanity/client'
-  import {createImageUrlBuilder} from '@sanity/image-url'
-  import {PortableText} from '@portabletext/react'
-  import {defineQuery} from 'groq'
+  import { createClient } from "@sanity/client";
+  import { createImageUrlBuilder } from "@sanity/image-url";
+  import { PortableText } from "@portabletext/react";
+  import { defineQuery } from "groq";
 
   const client = createClient({
-    projectId: 'abc123',
-    dataset: 'production',
+    projectId: "abc123",
+    dataset: "production",
     useCdn: true,
-    apiVersion: '2026-05-04',
-  })
-  const builder = createImageUrlBuilder(client)
+    apiVersion: "2026-05-04",
+  });
+  const builder = createImageUrlBuilder(client);
 
-  export default async function Page({slug}: {slug: string}) {
-    const query = defineQuery(`*[_type == "post" && slug.current == $slug][0]{title,content}`)
-    const data = await client.fetch(query, {slug})
+  export default async function Page({ slug }: { slug: string }) {
+    const query = defineQuery(
+      `*[_type == "post" && slug.current == $slug][0]{title,content}`
+    );
+    const data = await client.fetch(query, { slug });
 
-    if (!data) return notFound()
+    if (!data) return notFound();
 
     return (
       <article>
@@ -112,35 +190,37 @@
               }: {
                 value: {
                   asset?: {
-                    _ref: string
-                    _type: 'reference'
-                    _weak?: boolean
-                  }
+                    _ref: string;
+                    _type: "reference";
+                    _weak?: boolean;
+                  };
                   hotspot?: {
-                    _type: 'sanity.imageHotspot'
-                    x?: number
-                    y?: number
-                    height?: number
-                    width?: number
-                  }
+                    _type: "sanity.imageHotspot";
+                    x?: number;
+                    y?: number;
+                    height?: number;
+                    width?: number;
+                  };
                   crop?: {
-                    _type: 'sanity.imageCrop'
-                    top?: number
-                    bottom?: number
-                    left?: number
-                    right?: number
-                  }
-                  alt?: string
-                  _type: 'image'
-                  _key: string
-                }
-              }) => <img src={builder.image(value).url()} alt={value.alt || ''} />,
+                    _type: "sanity.imageCrop";
+                    top?: number;
+                    bottom?: number;
+                    left?: number;
+                    right?: number;
+                  };
+                  alt?: string;
+                  _type: "image";
+                  _key: string;
+                };
+              }) => (
+                <img src={builder.image(value).url()} alt={value.alt || ""} />
+              ),
             },
           }}
           value={data.content}
         />
       </article>
-    )
+    );
   }
   ```
 
@@ -150,24 +230,26 @@
 
   ```tsx
   // app/[slug]/page.tsx
-  import {createClient} from '@sanity/client'
-  import {createImageUrlBuilder} from '@sanity/image-url'
-  import {PortableText} from '@portabletext/react'
-  import {defineQuery} from 'groq'
+  import { createClient } from "@sanity/client";
+  import { createImageUrlBuilder } from "@sanity/image-url";
+  import { PortableText } from "@portabletext/react";
+  import { defineQuery } from "groq";
 
   const client = createClient({
-    projectId: 'abc123',
-    dataset: 'production',
+    projectId: "abc123",
+    dataset: "production",
     useCdn: true,
-    apiVersion: '2026-05-04',
-  })
-  const builder = createImageUrlBuilder(client)
+    apiVersion: "2026-05-04",
+  });
+  const builder = createImageUrlBuilder(client);
 
-  export default async function Page({slug}: {slug: string}) {
-    const query = defineQuery(`*[_type == "post" && slug.current == $slug][0]{title,content}`)
-    const data = await client.fetch(query, {slug})
+  export default async function Page({ slug }: { slug: string }) {
+    const query = defineQuery(
+      `*[_type == "post" && slug.current == $slug][0]{title,content}`
+    );
+    const data = await client.fetch(query, { slug });
 
-    if (!data) return notFound()
+    if (!data) return notFound();
 
     return (
       <article>
@@ -176,13 +258,15 @@
           components={{
             types: {
               // value is fully typed from the query result, no annotation needed
-              image: ({value}) => <img src={builder.image(value).url()} alt={value.alt || ''} />,
+              image: ({ value }) => (
+                <img src={builder.image(value).url()} alt={value.alt || ""} />
+              ),
             },
           }}
           value={data.content}
         />
       </article>
-    )
+    );
   }
   ```
 
@@ -192,37 +276,41 @@
 
   ```tsx
   // app/[slug]/page.tsx
-  import {createClient} from '@sanity/client'
-  import {createImageUrlBuilder} from '@sanity/image-url'
-  import {PortableText, type InferComponents} from '@portabletext/react'
-  import {defineQuery} from 'groq'
+  import { createClient } from "@sanity/client";
+  import { createImageUrlBuilder } from "@sanity/image-url";
+  import { PortableText, type InferComponents } from "@portabletext/react";
+  import { defineQuery } from "groq";
 
   const client = createClient({
-    projectId: 'abc123',
-    dataset: 'production',
+    projectId: "abc123",
+    dataset: "production",
     useCdn: true,
-    apiVersion: '2026-05-04',
-  })
-  const builder = createImageUrlBuilder(client)
+    apiVersion: "2026-05-04",
+  });
+  const builder = createImageUrlBuilder(client);
 
-  export default async function Page({slug}: {slug: string}) {
-    const query = defineQuery(`*[_type == "post" && slug.current == $slug][0]{title,content}`)
-    const data = await client.fetch(query, {slug})
+  export default async function Page({ slug }: { slug: string }) {
+    const query = defineQuery(
+      `*[_type == "post" && slug.current == $slug][0]{title,content}`
+    );
+    const data = await client.fetch(query, { slug });
 
-    if (!data) return notFound()
+    if (!data) return notFound();
 
     const components = {
       types: {
-        image: ({value}) => <img src={builder.image(value).url()} alt={value.alt || ''} />,
+        image: ({ value }) => (
+          <img src={builder.image(value).url()} alt={value.alt || ""} />
+        ),
       },
-    } satisfies InferComponents<typeof data.content>
+    } satisfies InferComponents<typeof data.content>;
 
     return (
       <article>
         <h1>{data.title}</h1>
         <PortableText components={components} value={data.content} />
       </article>
-    )
+    );
   }
   ```
 
@@ -232,46 +320,56 @@
 
   ```tsx
   // app/[slug]/page.tsx
-  import {createClient, type SanityQueries} from '@sanity/client'
-  import {createImageUrlBuilder} from '@sanity/image-url'
-  import {PortableText, type InferStrictComponents, type InferValue} from '@portabletext/react'
-  import {defineQuery} from 'groq'
+  import { createClient, type SanityQueries } from "@sanity/client";
+  import { createImageUrlBuilder } from "@sanity/image-url";
+  import {
+    PortableText,
+    type InferStrictComponents,
+    type InferValue,
+  } from "@portabletext/react";
+  import { defineQuery } from "groq";
 
   const client = createClient({
-    projectId: 'abc123',
-    dataset: 'production',
+    projectId: "abc123",
+    dataset: "production",
     useCdn: true,
-    apiVersion: '2026-05-04',
-  })
-  const builder = createImageUrlBuilder(client)
+    apiVersion: "2026-05-04",
+  });
+  const builder = createImageUrlBuilder(client);
 
   // Array value type for every Portable Text item shape across all registered queries.
-  type PortableTextValue = InferValue<SanityQueries[keyof SanityQueries]>
+  type PortableTextValue = InferValue<SanityQueries[keyof SanityQueries]>;
 
-  function CustomPortableText({value}: {value: PortableTextValue}) {
+  function CustomPortableText({ value }: { value: PortableTextValue }) {
     const components = {
       types: {
-        image: ({value}) => <img src={builder.image(value).url()} alt={value.alt || ''} />,
+        image: ({ value }) => (
+          <img src={builder.image(value).url()} alt={value.alt || ""} />
+        ),
       },
-    } satisfies InferStrictComponents<PortableTextValue>
+    } satisfies InferStrictComponents<PortableTextValue>;
     //   ^ TypeScript errors when the schema gains a custom type, mark, or list
     //     style without a matching handler defined here
 
-    return <PortableText components={components} value={value} />
+    return <PortableText components={components} value={value} />;
   }
 
-  export default async function Page({slug}: {slug: string}) {
-    const query = defineQuery(`*[_type == "post" && slug.current == $slug][0]{title,content}`)
-    const data = await client.fetch(query, {slug})
+  export default async function Page({ slug }: { slug: string }) {
+    const query = defineQuery(
+      `*[_type == "post" && slug.current == $slug][0]{title,content}`
+    );
+    const data = await client.fetch(query, { slug });
 
-    if (!data) return notFound()
+    if (!data) return notFound();
 
     return (
       <article>
         <h1>{data.title}</h1>
-        {Array.isArray(data.content) && <CustomPortableText value={data.content} />}
+        {Array.isArray(data.content) && (
+          <CustomPortableText value={data.content} />
+        )}
       </article>
-    )
+    );
   }
   ```
 
