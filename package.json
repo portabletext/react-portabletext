@@ -17,7 +17,7 @@
   },
   "files": [
     "dist",
-    "!dist/stats.html"
+    "!dist/analyze-data.json"
   ],
   "type": "module",
   "sideEffects": false,
@@ -85,7 +85,7 @@
     "react-refractor": "^4.0.0",
     "refractor": "^5.0.0",
     "rimraf": "^5.0.1",
-    "rollup-plugin-visualizer": "^7.0.1",
+    "rolldown": "~1.1.5",
     "sanity": "^6.6.0",
     "styled-components": "^6.4.4",
     "tsdown": "^0.22.14",
