@@ -20,7 +20,18 @@
     "no-array-sort": "off",
     "rules-of-hooks": "error",
     "react-in-jsx-scope": "off",
-    "react/react-compiler": "error",
+    // React Compiler: recommended/correctness rules are on via categories.
+    // Enable remaining rules from https://oxc.rs/blog/2026-08-18-react-compiler-support
+    "react/unsupported-syntax": "error",
+    "react/no-deriving-state-in-effects": "error",
+    "react/invariant": "error",
+    "react/rule-suppression": "error",
+    "react/syntax": "error",
+    "react/todo": "error",
+    "react/capitalized-calls": "error",
+    "react/exhaustive-effect-dependencies": "error",
+    "react/hooks": "error",
+    "react/memo-dependencies": "error",
     "no-deprecated": "error",
     // @TODO these rules should be enabled, and the violations fixed
     "no-unsafe-type-assertion": "off",
