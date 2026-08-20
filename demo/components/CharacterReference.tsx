@@ -1,5 +1,6 @@
 import type {PortableTextMarkComponent} from '@portabletext/react'
-import {Avatar, Box, Flex, Stack, Text, Tooltip} from '@sanity/ui'
+import {Avatar, Box, Flex, Stack, Text} from '@sanity/ui'
+import {Tooltip} from '@sanity/ui/tooltip'
 import {type MouseEventHandler} from 'react'
 
 interface CharacterDefinition {
