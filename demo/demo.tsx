@@ -1,6 +1,9 @@
 import {type PortableTextComponents, PortableText} from '@portabletext/react'
 import {ThemeProvider} from '@sanity/ui'
 import {buildTheme} from '@sanity/ui/theme'
+
+// oxlint-disable-next-line no-unassigned-import
+import '@sanity/ui/styles.css'
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 
