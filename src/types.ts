@@ -317,10 +317,9 @@ type StrictPortableTextMarkComponents<B extends TypedObject> =
             Extract<PortableTextMarkType<B>, {_type: Type}>
           >
         } & {
-          [Type in Extract<
-            DefaultPortableTextMark,
-            PortableTextMarkTypeName<B>
-          >]?: PortableTextMarkComponent<Extract<PortableTextMarkType<B>, {_type: Type}>>
+          [
+            Type in Extract<DefaultPortableTextMark, PortableTextMarkTypeName<B>>
+          ]?: PortableTextMarkComponent<Extract<PortableTextMarkType<B>, {_type: Type}>>
         }
 
 type StrictPortableTextMarkComponentOverrides<B extends TypedObject> =
@@ -338,10 +337,9 @@ type StrictPortableTextBlockComponents<B extends TypedObject> =
             PortableTextBlockForStyle<B, Style>
           >
         } & {
-          [Style in Extract<
-            DefaultPortableTextBlockStyle,
-            PortableTextBlockStyleName<B>
-          >]?: PortableTextComponent<PortableTextBlockForStyle<B, Style>>
+          [
+            Style in Extract<DefaultPortableTextBlockStyle, PortableTextBlockStyleName<B>>
+          ]?: PortableTextComponent<PortableTextBlockForStyle<B, Style>>
         }
 
 type StrictPortableTextBlockComponentOverrides<B extends TypedObject> =
@@ -359,10 +357,9 @@ type StrictPortableTextListComponents<B extends TypedObject> =
             PortableTextListForItem<ListItem>
           >
         } & {
-          [ListItem in Extract<
-            DefaultPortableTextListItem,
-            PortableTextListItemName<B>
-          >]?: PortableTextComponent<PortableTextListForItem<ListItem>>
+          [
+            ListItem in Extract<DefaultPortableTextListItem, PortableTextListItemName<B>>
+          ]?: PortableTextComponent<PortableTextListForItem<ListItem>>
         }
 
 type StrictPortableTextListComponentOverrides<B extends TypedObject> =
