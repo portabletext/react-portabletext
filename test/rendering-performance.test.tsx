@@ -1,4 +1,4 @@
-import {PortableText, type PortableTextProps} from '@portabletext/react'
+import {defaultComponents, PortableText, type PortableTextProps} from '@portabletext/react'
 import {buildMarksTree, spanToPlainText} from '@portabletext/toolkit'
 import type {PortableTextBlock} from '@portabletext/types'
 import {renderToStaticMarkup} from 'react-dom/server'
@@ -135,4 +135,54 @@ test('preserves aggregate text for custom and unknown marks', () => {
   expect(texts).toContain('a\nb')
   expect(texts.join('')).not.toContain('Excluded')
   expect(spanToPlainText).toHaveBeenCalled()
+})
+
+test('custom block and list item overrides still receive their full props', () => {
+  const value = {...block('Content'), listItem: 'bullet', style: 'h2'}
+  const heading = vi.fn(({children}) => <h2 className="custom">{children}</h2>)
+  const listItem = vi.fn(({children}) => <li className="custom">{children}</li>)
+  expect(render({value, components: {block: {h2: heading}, listItem}})).toBe(
+    '<ul><li class="custom"><h2 class="custom">Content</h2></li></ul>',
+  )
+  expect(listItem.mock.calls[0]?.[0]).toMatchObject({value, index: 0, isInline: false})
+  expect(heading.mock.calls[0]?.[0]).toMatchObject({
+    value: {style: 'h2', children: value.children},
+    index: 0,
+    isInline: false,
+    renderNode: expect.any(Function),
+  })
+})
+
+test('native default block fast paths follow component identity, not the style name', () => {
+  const defaults = defaultComponents.block
+  if (typeof defaults === 'function') throw new Error('Expected default style map')
+  expect(
+    render({
+      value: {...block('Heading'), style: 'custom'},
+      components: {block: {custom: defaults.h3}},
+    }),
+  ).toBe('<h3>Heading</h3>')
+})
+
+test('custom nested marks receive identical complete text including newlines', () => {
+  const text = 'Nested\ntext'
+  const inspect = vi.fn(({children}) => <mark>{children}</mark>)
+  render({
+    value: block(text, ['outer', 'inner', 'strong']),
+    components: {marks: {outer: inspect, inner: inspect}},
+  })
+  expect(inspect).toHaveBeenCalledTimes(2)
+  for (const [props] of inspect.mock.calls) expect(props).toMatchObject({text})
+})
+
+test('empty and malformed span marks do not incorrectly take the fast path', () => {
+  const value = block('Text')
+  value.children[0]!.marks = [42]
+  const onMissingComponent = vi.fn()
+  render({value, onMissingComponent})
+  expect(buildMarksTree).toHaveBeenCalledTimes(1)
+  expect(onMissingComponent).toHaveBeenCalledWith(expect.any(String), {
+    type: 'span',
+    nodeType: 'block',
+  })
 })

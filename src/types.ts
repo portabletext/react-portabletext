@@ -23,6 +23,9 @@ export interface PortableTextProps<
 > {
   /**
    * One or more blocks to render
+   *
+   * Treat as immutable: replace edited blocks and retain unchanged block references
+   * to allow the compiled build to reuse their rendered output.
    */
   value: B | B[] | null | undefined
 

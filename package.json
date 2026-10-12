@@ -38,7 +38,10 @@
   },
   "scripts": {
     "analyze": "ENABLE_BUNDLE_ANALYZER=true pnpm build",
+    "bench": "pnpm build && NODE_ENV=production vitest bench --run",
+    "bench:browser": "vite preview test/performance --config test/performance/vite.config.ts --outDir ../../demo/dist/performance",
     "build": "tsdown",
+    "build:bench": "pnpm build && vite build test/performance --config test/performance/vite.config.ts --outDir ../../demo/dist/performance",
     "prebuild:demo": "pnpm clean",
     "build:demo": "vite build demo --config=./vite.config.demo.ts --base=/react-portabletext/",
     "clean": "rimraf dist coverage demo/dist .nyc_output",
