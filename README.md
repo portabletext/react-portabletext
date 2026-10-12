@@ -65,6 +65,17 @@ Marks-tree preparation is independent of presentation, so changing components ca
 
 Browser results report median synchronous render-and-commit time after warmup and custom-component render counts; they exclude paint, network loading, and input cloning. Small timings are sensitive to browser timer resolution. Compare the same fixtures, browser, and machine, and use a browser allocation/GC profile separately from timing runs to assess memory costs.
 
+Representative Linux/Chrome 154 production measurements (20 samples after 5 warmups):
+
+| Fixture / operation                |                       Before |                   After |
+| ---------------------------------- | ---------------------------: | ----------------------: |
+| Nested styled lists, default mount |                      18.8 ms |                  1.7 ms |
+| Marked paragraphs, edit one block  |   4.5 ms / 300 block renders | 0.2 ms / 1 block render |
+| Plain paragraphs, edit one block   | 1.1 ms / 1,000 block renders | 0.5 ms / 1 block render |
+| Plain paragraphs, default mount    |                       2.8 ms |                  3.4 ms |
+
+These are synthetic results, not universal speedup guarantees. Per-block bookkeeping can cost more on simple mounts or fully recreated documents. Generated nested-list items are not all reusable. In a separate allocation-sampling run of the full browser suite, estimated allocations fell from 8.8 GB to 1.6 GB and GC events from 290 to 71, largely because deeply styled lists no longer build discarded subtrees; these totals are not retained heap size.
+
 ## Styling the output
 
 The rendered HTML does not have any styling applied, so you will either render a parent container with a class name you can target in your CSS, or pass [custom components](#customizing-components) if you want to control the direct markup and CSS of each element.

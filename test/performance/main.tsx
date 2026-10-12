@@ -8,7 +8,7 @@ import type {PortableTextBlock} from '@portabletext/types'
 import {createContext, useContext, useState} from 'react'
 import {flushSync} from 'react-dom'
 import {createRoot, hydrateRoot} from 'react-dom/client'
-import {renderToStaticMarkup} from 'react-dom/server'
+import {renderToStaticMarkup, renderToString} from 'react-dom/server'
 
 import {cases, paragraph} from './cases'
 
@@ -163,7 +163,7 @@ async function checkUpdates() {
     flushSync(() => root.unmount())
   }
   const hydrationValue = cases['marks']!.slice(0, 2)
-  fixture.innerHTML = renderToStaticMarkup(<PortableText value={hydrationValue} />)
+  fixture.innerHTML = renderToString(<PortableText value={hydrationValue} />)
   const html = fixture.innerHTML
   const errors: unknown[] = []
   const hydrated = hydrateRoot(fixture, <PortableText value={hydrationValue} />, {
