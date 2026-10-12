@@ -12,8 +12,43 @@ permissions:
 
 jobs:
   release:
-    uses: portabletext/.github/.github/workflows/changesets.yml@a311e91e5c045a8986adf91bb0d3e35808e1704c # main
+    name: Create Release Pull Request or Publish to npm with Changesets
+    if: github.repository_owner == 'portabletext'
+    runs-on: ubuntu-latest
     permissions:
       contents: read # for checkout
       id-token: write # to enable use of OIDC for npm provenance
-    secrets: inherit
+    steps:
+      - uses: actions/create-github-app-token@v3
+        id: app-token
+        with:
+          client-id: ${{ vars.ECOSCRIPT_CLIENT_ID }}
+          private-key: ${{ secrets.ECOSCRIPT_APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          # Make sure the value of GITHUB_TOKEN will not be persisted in repo's config
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v7
+        with:
+          cache: pnpm
+          check-latest: true
+          node-version: lts/*
+        # temporary until setup-node action comes with npm version that contains oidc setup by default
+      - name: Update npm to use trusted publishing (OIDC)
+        # Pinned to npm 11: npm 12 fails to publish with provenance
+        # (`Cannot find module 'sigstore'` in `libnpmpublish/provenance.js`)
+        run: npm install -g npm@11
+      - run: pnpm install
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
+        with:
+          publish-script: pnpm release
+          # Release commits, the Version Packages PR, tags and GitHub releases are created
+          # through the GitHub API with the app token, so they are attributed to the app
+          # and signed by GitHub.
+          github-token: ${{ steps.app-token.outputs.token }}
+        env:
+          NPM_CONFIG_PROVENANCE: true
