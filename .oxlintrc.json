@@ -4,6 +4,7 @@
     "dist/**",
     "coverage/**",
     "demo/dist/**",
+    "test/performance/dist/**",
     ".nyc_output/**",
     "test/typegen/sanity.types.ts",
     // The Next.js integration fixture resolves `next` types from its own node_modules, which

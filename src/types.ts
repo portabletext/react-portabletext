@@ -24,8 +24,10 @@ export interface PortableTextProps<
   /**
    * One or more blocks to render
    *
-   * Treat as immutable: replace edited blocks and retain unchanged block references
-   * to allow the compiled build to reuse their rendered output.
+   * Treat as immutable: replace edited blocks and retain unchanged block references.
+   * Rendered-output reuse in the compiled build also requires stable `_key` values,
+   * components, onMissingComponent, and block indices. Insertions/deletions rerender
+   * following blocks whose indices shift; recreating every block forfeits reuse.
    */
   value: B | B[] | null | undefined
 

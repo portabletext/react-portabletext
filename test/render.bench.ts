@@ -3,12 +3,12 @@ import {pathToFileURL} from 'node:url'
 
 import {createElement} from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
-import {bench, describe, expect} from 'vitest'
+import {beforeAll, bench, describe, expect} from 'vitest'
 
 import {cases} from './performance/cases'
 
 // Benchmark built artifacts, not the source export used by the ordinary unit tests.
-const entries = [
+const entries: Array<[string, string]> = [
   ['current SSR', resolve('dist/index.js')],
   ['current server entry', resolve('dist/index.react-server.js')],
 ]
@@ -22,22 +22,24 @@ if (baseline) {
 
 for (const [name, value] of Object.entries(cases)) {
   describe(name, async () => {
-    let reference: string | undefined
+    const renders: Array<() => string> = []
     for (const [label, path] of entries) {
       const {PortableText} = (await import(
-        /* @vite-ignore */ pathToFileURL(path!).href
+        /* @vite-ignore */ pathToFileURL(path).href
       )) as typeof import('../src')
       const render = () => renderToStaticMarkup(createElement(PortableText, {value}))
-      const html = render()
-      reference ??= html
-      expect(html).toBe(reference)
+      renders.push(render)
       bench(
-        label!,
+        label,
         () => {
           render()
         },
         {time: 1000, warmupTime: 200},
       )
     }
+    beforeAll(() => {
+      const reference = renders[0]?.()
+      for (const render of renders) expect(render()).toBe(reference)
+    })
   })
 }

@@ -53,28 +53,11 @@ import {PortableText} from '@portabletext/react'
 
 ## Rendering performance
 
-The compiled build reuses unchanged blocks even when the containing `value` array changes. Treat values as immutable: replace edited blocks and their children, retain unchanged block objects, and use stable `_key` values. Recreating every block forfeits this reuse. Keep `components` and `onMissingComponent` referentially stable as well.
+The compiled build can reuse unchanged blocks when the containing `value` array changes. Treat values as immutable: replace edited blocks and their children, retain unchanged block objects, and use stable `_key` values. Keep `components` and `onMissingComponent` referentially stable as well. Recreating every block (for example after a refetch) or passing a new `components` object forfeits rendered-output reuse. A block's index must also stay the same: inserting or deleting a block rerenders subsequent blocks whose indices shift.
 
-Marks-tree preparation is independent of presentation, so changing components can reuse prepared content. List nesting still processes a changed document, and generated list containers and items containing nested lists may need rebuilding. Context consumers inside custom components continue to update normally. The server-component build uses the same rendering fast paths without React memoization hooks or cross-request caches.
+Marks-tree preparation is independent of presentation, so changing components can reuse prepared content. List nesting still processes a changed document, and generated list containers and items containing nested lists may need rebuilding. Context consumers inside custom components continue to update normally. Missing-component callbacks are not repeated for reused output. The server-component build uses the same rendering fast paths without React memoization hooks or cross-request caches.
 
-### Running the benchmarks
-
-- `pnpm bench` measures first-render static markup from both production entry points and checks their output matches.
-- `pnpm build:bench && pnpm bench:browser` serves a production-browser benchmark page. Click **Run benchmarks and regression checks**. It checks block reuse, component/handler invalidation, context, keys, and list edits, then measures mounts and updates with identical props, new arrays, one edited block, recreated values, and changed components.
-- To compare an earlier build, set `PORTABLETEXT_BENCHMARK_BASELINE` to a directory containing its `index.js` and `index.react-server.js` when running `pnpm bench`. For the browser build, set `PORTABLETEXT_BENCHMARK_ENTRY` to the earlier build's absolute `index.js` path when running `pnpm build:bench`, then open the page with `?baseline`. That flag skips optimization-specific assertions, not output checks. The earlier artifacts must be able to resolve their dependencies.
-
-Browser results report median synchronous render-and-commit time after warmup and custom-component render counts; they exclude paint, network loading, and input cloning. Small timings are sensitive to browser timer resolution. Compare the same fixtures, browser, and machine, and use a browser allocation/GC profile separately from timing runs to assess memory costs.
-
-Representative Linux/Chrome 154 production measurements (20 samples after 5 warmups):
-
-| Fixture / operation                |                       Before |                   After |
-| ---------------------------------- | ---------------------------: | ----------------------: |
-| Nested styled lists, default mount |                      18.8 ms |                  1.7 ms |
-| Marked paragraphs, edit one block  |   4.5 ms / 300 block renders | 0.2 ms / 1 block render |
-| Plain paragraphs, edit one block   | 1.1 ms / 1,000 block renders | 0.5 ms / 1 block render |
-| Plain paragraphs, default mount    |                       2.8 ms |                  3.4 ms |
-
-These are synthetic results, not universal speedup guarantees. Per-block bookkeeping can cost more on simple mounts or fully recreated documents. Generated nested-list items are not all reusable. In a separate allocation-sampling run of the full browser suite, estimated allocations fell from 8.8 GB to 1.6 GB and GC events from 290 to 71, largely because deeply styled lists no longer build discarded subtrees; these totals are not retained heap size.
+Reuse trades per-block bookkeeping and component boundaries for cheaper structurally shared updates. It can slow simple paragraph/list mounts, fully recreated documents, and updates with new component maps; these costs also matter for read-only CMS content. See the [benchmark guide](test/performance/README.md) to measure the full matrix on your workload rather than assuming a universal speedup.
 
 ## Styling the output
 

@@ -1,6 +1,7 @@
 import {defaultComponents, PortableText, type PortableTextProps} from '@portabletext/react'
 import {buildMarksTree, spanToPlainText} from '@portabletext/toolkit'
 import type {PortableTextBlock} from '@portabletext/types'
+import {isValidElement, type ReactNode} from 'react'
 import {renderToStaticMarkup} from 'react-dom/server'
 import {beforeEach, expect, test, vi} from 'vitest'
 
@@ -82,7 +83,7 @@ test('retains custom toolkit text dispatch', () => {
       components: {types: {'@text': ({value}) => <i>{value.text}</i>}},
     }),
   ).toBe('<p><i>Text</i></p>')
-  expect(buildMarksTree).toHaveBeenCalledTimes(1)
+  expect(buildMarksTree).not.toHaveBeenCalled()
 })
 
 test.each([undefined, false, () => <hr />] as const)('retains hard-break behavior', (hardBreak) => {
@@ -98,11 +99,34 @@ test.each([undefined, false, () => <hr />] as const)('retains hard-break behavio
   expect(buildMarksTree).toHaveBeenCalledTimes(1)
 })
 
-test('does not aggregate unused plain text for built-in marks', () => {
+test('preserves aggregate text for built-in marks', () => {
   expect(render({value: block('Text', ['strong', 'em'])})).toBe(
     '<p><strong><em>Text</em></strong></p>',
   )
-  expect(spanToPlainText).not.toHaveBeenCalled()
+  expect(spanToPlainText).toHaveBeenCalledTimes(2)
+})
+
+test('built-in marks expose complete text through the public renderer', () => {
+  const value = block('Visible text', ['strong'])
+  render({
+    value: {_type: 'inspect'},
+    components: {
+      types: {
+        inspect: ({renderNode}) => {
+          const rendered = renderNode({node: value, index: 0, isInline: false, renderNode})
+          expect(isValidElement(rendered)).toBe(true)
+          if (isValidElement<{children: ReactNode[]}>(rendered)) {
+            const mark = rendered.props.children[0]
+            expect(isValidElement(mark)).toBe(true)
+            if (isValidElement<{text: string}>(mark)) {
+              expect(mark.props.text).toBe('Visible text')
+            }
+          }
+          return rendered
+        },
+      },
+    },
+  })
 })
 
 test('preserves aggregate text for custom and unknown marks', () => {
@@ -175,9 +199,12 @@ test('custom nested marks receive identical complete text including newlines', (
   for (const [props] of inspect.mock.calls) expect(props).toMatchObject({text})
 })
 
-test('empty and malformed span marks do not incorrectly take the fast path', () => {
+test.each([
+  {text: 'Text', marks: [42]},
+  {text: 42, marks: []},
+])('malformed spans do not take the fast path: %j', (span) => {
   const value = block('Text')
-  value.children[0]!.marks = [42]
+  value.children = [{_type: 'span', _key: 'span', ...span}]
   const onMissingComponent = vi.fn()
   render({value, onMissingComponent})
   expect(buildMarksTree).toHaveBeenCalledTimes(1)
@@ -185,4 +212,23 @@ test('empty and malformed span marks do not incorrectly take the fast path', () 
     type: 'span',
     nodeType: 'block',
   })
+})
+
+test('public renderNode ignores extra callback arguments from Array#map', () => {
+  expect(
+    render({
+      value: {_type: 'custom', _key: 'custom'},
+      components: {
+        types: {
+          custom: ({renderNode}) => (
+            <section>
+              {[block('First'), {...block('Second'), _key: 'second'}]
+                .map((node, index) => ({node, index, isInline: true, renderNode}))
+                .map(renderNode)}
+            </section>
+          ),
+        },
+      },
+    }),
+  ).toBe('<section><p>First</p><p>Second</p></section>')
 })
