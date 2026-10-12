@@ -3,6 +3,7 @@ import {
   buildMarksTree,
   isPortableTextBlock,
   isPortableTextListItemBlock,
+  isPortableTextSpan,
   isPortableTextToolkitList,
   isPortableTextToolkitSpan,
   isPortableTextToolkitTextNode,
@@ -13,11 +14,14 @@ import {
 import type {PortableTextBlock, PortableTextListItemBlock, TypedObject} from '@portabletext/types'
 import type {JSX, ReactNode} from 'react'
 
-import {defaultComponents} from './components/defaults'
+import {defaultBlockStyles, defaultComponents} from './components/defaults'
+import {DefaultListItem} from './components/list'
 import {mergeComponents} from './components/merge'
 import type {
+  DefaultPortableTextBlockStyle,
   MissingComponentHandler,
   NodeRenderer,
+  PortableTextComponents,
   PortableTextProps,
   PortableTextReactComponents,
   ReactPortableTextList,
@@ -33,6 +37,35 @@ import {
   unknownTypeWarning,
 } from './warnings'
 
+// Native default tags offset the extra component boundary used for block-level reuse.
+type BlockTag = Exclude<DefaultPortableTextBlockStyle, 'normal'> | 'p'
+const builtInBlocks = new Map(
+  Object.entries(defaultBlockStyles).map(([style, component]) => [
+    component,
+    (style === 'normal' ? 'p' : style) as BlockTag,
+  ]),
+)
+
+type BlockChildren = ReturnType<typeof buildMarksTree> | string
+type ClassifiedNode = (
+  | {kind: 'text'; node: ToolkitTextNode}
+  | {kind: 'list'; node: ReactPortableTextList}
+  | {kind: 'listItem'; node: PortableTextListItemBlock}
+  | {kind: 'span'; node: ToolkitNestedPortableTextSpan}
+  | {kind: 'block'; node: PortableTextBlock}
+  | {kind: 'custom' | 'unknown'; node: TypedObject}
+) & {block?: PortableTextBlock}
+
+interface Renderer {
+  renderNode: NodeRenderer
+  classify: (node: TypedObject) => ClassifiedNode
+  render: (
+    options: Serializable<TypedObject>,
+    classified: ClassifiedNode,
+    children?: BlockChildren,
+  ) => ReactNode
+}
+
 export function PortableText<B extends TypedObject = PortableTextBlock>({
   value: input,
   components: componentOverrides,
@@ -40,6 +73,25 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   onMissingComponent: missingComponentHandler = printWarning,
 }: PortableTextProps<B>): JSX.Element {
   const handleMissingComponent = missingComponentHandler || noop
+  const renderer = useRenderer(componentOverrides, handleMissingComponent)
+  const nested = useNestedBlocks(input, listNestingMode)
+  const rendered = nested.map((node, index) => (
+    <RenderedNode
+      key={node._key || `node-${index}`}
+      node={node}
+      index={index}
+      renderer={renderer}
+    />
+  ))
+
+  return <>{rendered}</>
+}
+
+function useNestedBlocks<B extends TypedObject>(
+  input: PortableTextProps<B>['value'],
+  listNestingMode: PortableTextProps<B>['listNestingMode'],
+) {
+  'use memo'
   let blocks: B[]
   if (Array.isArray(input)) {
     blocks = input
@@ -48,63 +100,118 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   } else {
     blocks = [input]
   }
-  const nested = nestLists(blocks, listNestingMode || LIST_NEST_MODE_HTML)
+  return nestLists(blocks, listNestingMode || LIST_NEST_MODE_HTML)
+}
 
-  // No manual memoization: the compiled (`default` condition) build gets React Compiler
-  // auto-memoization, and the uncompiled `react-server` build renders exactly once anyway.
-  const components = componentOverrides
-    ? mergeComponents(defaultComponents, componentOverrides)
-    : defaultComponents
+// Separate compiler scopes keep the renderer stable when only the document changes.
+// These helpers use no React hooks in the uncompiled react-server build.
+function useRenderer(
+  overrides: PortableTextComponents | undefined,
+  handleMissingComponent: MissingComponentHandler,
+): Renderer {
+  'use memo'
+  const components = overrides ? mergeComponents(defaultComponents, overrides) : defaultComponents
+  return getNodeRenderer(components, handleMissingComponent)
+}
 
-  const renderNode = getNodeRenderer(components, handleMissingComponent)
-  const rendered = nested.map((node, index) =>
-    renderNode({node: node, index, isInline: false, renderNode}),
-  )
+function RenderedNode({
+  node,
+  index,
+  renderer,
+}: Pick<Serializable<TypedObject>, 'node' | 'index'> & {renderer: Renderer}): ReactNode {
+  'use memo'
+  const classified = useClassifiedNode(node, renderer.classify)
+  const children = useBlockChildren(classified.block)
+  const {renderNode} = renderer
+  return renderer.render({node, index, isInline: false, renderNode}, classified, children)
+}
 
-  return <>{rendered}</>
+function useClassifiedNode(node: TypedObject, classify: Renderer['classify']): ClassifiedNode {
+  'use memo'
+  return classify(node)
+}
+
+function useBlockChildren(node: PortableTextBlock | undefined): BlockChildren | undefined {
+  'use memo'
+  return node ? prepareBlockChildren(node) : undefined
+}
+
+function prepareBlockChildren(node: PortableTextBlock): BlockChildren {
+  const first = node.children[0]
+  return node.children.length === 1 &&
+    first &&
+    isPortableTextSpan(first) &&
+    (!first.marks || first.marks.length === 0) &&
+    !first.text.includes('\n')
+    ? first.text
+    : buildMarksTree(node)
 }
 
 const getNodeRenderer = (
   components: PortableTextReactComponents,
   handleMissingComponent: MissingComponentHandler,
-): NodeRenderer => {
-  function renderNode<N extends TypedObject>(options: Serializable<N>): ReactNode {
-    const {node, index, isInline} = options
-    const key = node._key || `node-${index}`
-
+): Renderer => {
+  function classify(node: TypedObject): ClassifiedNode {
+    if (isPortableTextToolkitTextNode(node) && !hasCustomComponentForNode(node)) {
+      return {kind: 'text', node}
+    }
     if (isPortableTextToolkitList(node)) {
-      return renderList(node, index, key)
+      return {kind: 'list', node}
     }
-
-    if (isPortableTextListItemBlock(node)) {
-      return renderListItem(node, index, key)
+    if ('listItem' in node && isPortableTextListItemBlock(node)) {
+      const customStyledBlock =
+        node.style && node.style !== 'normal' && hasCustomComponentForNode(node)
+      return {kind: 'listItem', node, block: customStyledBlock ? undefined : node}
     }
-
     if (isPortableTextToolkitSpan(node)) {
-      return renderSpan(node, index, key)
+      return {kind: 'span', node}
     }
-
     if (hasCustomComponentForNode(node)) {
-      return renderCustomBlock(node, index, key, isInline)
+      return {kind: 'custom', node}
     }
-
     if (isPortableTextBlock(node)) {
-      return renderBlock(node, index, key, isInline)
+      return {kind: 'block', node, block: node}
     }
+    return {kind: 'unknown', node}
+  }
 
-    if (isPortableTextToolkitTextNode(node)) {
-      return renderText(node, key)
+  // Keep the public callback unary: Array#map supplies an index as its second argument.
+  const renderNode: NodeRenderer = (options) => render(options, classify(options.node))
+
+  function render(
+    {node, index, isInline}: Serializable<TypedObject>,
+    classified: ClassifiedNode,
+    children?: BlockChildren,
+  ): ReactNode {
+    const key = node._key || `node-${index}`
+    switch (classified.kind) {
+      case 'text':
+        return renderText(classified.node, key)
+      case 'list':
+        return renderList(classified.node, index, key)
+      case 'listItem':
+        return renderListItem(classified.node, index, key, children)
+      case 'span':
+        return renderSpan(classified.node, index, key)
+      case 'custom':
+        return renderCustomBlock(classified.node, index, key, isInline)
+      case 'block':
+        return renderBlock(classified.node, index, key, isInline, children)
+      default:
+        return renderUnknownType(classified.node, index, key, isInline)
     }
-
-    return renderUnknownType(node, index, key, isInline)
   }
 
   function hasCustomComponentForNode(node: TypedObject): boolean {
     return node._type in components.types
   }
 
-  function renderListItem(node: PortableTextListItemBlock, index: number, key: string) {
-    const tree = serializeBlock({node, index, isInline: false, renderNode})
+  function renderListItem(
+    node: PortableTextListItemBlock,
+    index: number,
+    key: string,
+    prepared?: BlockChildren,
+  ) {
     const renderer = components.listItem
     const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
     const Li = handler || components.unknownListItem
@@ -117,16 +224,25 @@ const getNodeRenderer = (
       })
     }
 
-    let children = tree.children
+    let children: ReactNode
     if (node.style && node.style !== 'normal') {
       // Wrap any other style in whatever the block serializer says to use
       const {listItem: _listItem, ...blockNode} = node
-      children = renderNode({
-        node: blockNode,
-        index,
-        isInline: false,
-        renderNode,
-      })
+      children = render(
+        {node: blockNode, index, isInline: false, renderNode},
+        classify(blockNode),
+        prepared,
+      )
+    } else {
+      children = serializeBlock(
+        {node, index, isInline: false, renderNode},
+        components,
+        prepared,
+      ).children
+    }
+
+    if (Li === DefaultListItem) {
+      return <li key={key}>{children}</li>
     }
 
     return (
@@ -137,14 +253,14 @@ const getNodeRenderer = (
   }
 
   function renderList(node: ReactPortableTextList, index: number, key: string) {
-    const children = node.children.map((child, childIndex) =>
-      renderNode({
-        node: child._key ? child : {...child, _key: `li-${index}-${childIndex}`},
-        index: childIndex,
-        isInline: false,
-        renderNode,
-      }),
-    )
+    const children = node.children.map((child, childIndex) => (
+      <RenderedNode
+        key={child._key || `li-${index}-${childIndex}`}
+        node={child._key ? child : {...child, _key: `li-${index}-${childIndex}`}}
+        index={childIndex}
+        renderer={renderer}
+      />
+    ))
 
     const component = components.list
     const handler = typeof component === 'function' ? component : component[node.listItem]
@@ -198,13 +314,18 @@ const getNodeRenderer = (
     )
   }
 
-  function renderBlock(node: PortableTextBlock, index: number, key: string, isInline: boolean) {
-    const {_key, ...props} = serializeBlock({
-      node,
-      index,
-      isInline,
-      renderNode,
-    })
+  function renderBlock(
+    node: PortableTextBlock,
+    index: number,
+    key: string,
+    isInline: boolean,
+    prepared?: BlockChildren,
+  ) {
+    const {_key, ...props} = serializeBlock(
+      {node, index, isInline, renderNode},
+      components,
+      prepared,
+    )
     const style = props.node.style || 'normal'
     const handler =
       typeof components.block === 'function' ? components.block : components.block[style]
@@ -215,6 +336,11 @@ const getNodeRenderer = (
         nodeType: 'blockStyle',
         type: style,
       })
+    }
+
+    const Tag = builtInBlocks.get(Block)
+    if (Tag) {
+      return <Tag key={key}>{props.children}</Tag>
     }
 
     return <Block key={key} {...props} value={props.node} renderNode={renderNode} />
@@ -258,15 +384,27 @@ const getNodeRenderer = (
     return Node ? <Node key={key} {...nodeOptions} /> : null
   }
 
-  return renderNode
+  const renderer = {renderNode, classify, render}
+  return renderer
 }
 
-function serializeBlock(options: Serializable<PortableTextBlock>): SerializedBlock {
+function serializeBlock(
+  options: Serializable<PortableTextBlock>,
+  components: PortableTextReactComponents,
+  prepared?: BlockChildren,
+): SerializedBlock {
   const {node, index, isInline, renderNode} = options
-  const tree = buildMarksTree(node)
-  const children = tree.map((child, i) =>
-    renderNode({node: child, isInline: true, index: i, renderNode}),
-  )
+  const tree = prepared ?? prepareBlockChildren(node)
+  // A prepared string is independent of presentation. Custom text renderers receive the
+  // same virtual node as buildMarksTree would produce, without rebuilding the marks tree.
+  const children =
+    typeof tree === 'string'
+      ? [
+          '@text' in components.types
+            ? renderNode({node: {_type: '@text', text: tree}, isInline: true, index: 0, renderNode})
+            : tree,
+        ]
+      : tree.map((child, i) => renderNode({node: child, isInline: true, index: i, renderNode}))
 
   return {
     _key: node._key || `block-${index}`,

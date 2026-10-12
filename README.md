@@ -11,6 +11,7 @@ Migrating from [@sanity/block-content-to-react](https://www.npmjs.com/package/@s
 - [Installation](#installation)
 - [Basic usage](#basic-usage)
 - [React Server Components](#react-server-components)
+- [Rendering performance](#rendering-performance)
 - [Styling](#styling-the-output)
 - [Customizing components](#customizing-components)
 - [Available components](#available-components)
@@ -49,6 +50,14 @@ import {PortableText} from '@portabletext/react'
 ## React Server Components
 
 `<PortableText>` renders in both worlds without configuration: use it directly in a React Server Component, or in a file with a `'use client'` directive. The package publishes two builds selected automatically through export conditions — client components and SSR load a build optimized with [React Compiler](https://react.dev/learn/react-compiler), while server components load an uncompiled build through the `react-server` condition ([React Compiler output can't load in server components](https://github.com/facebook/react/issues/31702), and since server components render exactly once, memoization couldn't pay off there anyway).
+
+## Rendering performance
+
+The compiled build can reuse unchanged blocks when the containing `value` array changes. Treat values as immutable: replace edited blocks and their children, retain unchanged block objects, and use stable `_key` values. Keep `components` and `onMissingComponent` referentially stable as well. Recreating every block (for example after a refetch) or passing a new `components` object forfeits rendered-output reuse. A block's index must also stay the same: inserting or deleting a block rerenders subsequent blocks whose indices shift.
+
+Marks-tree preparation is independent of presentation, so changing components can reuse prepared content. List nesting still processes a changed document, and generated list containers and items containing nested lists may need rebuilding. Context consumers inside custom components continue to update normally. Missing-component callbacks are not repeated for reused output. The server-component build uses the same rendering fast paths without React memoization hooks or cross-request caches.
+
+Reuse trades per-block bookkeeping and component boundaries for cheaper structurally shared updates. It can slow simple paragraph/list mounts, fully recreated documents, and updates with new component maps; these costs also matter for read-only CMS content. See the [benchmark guide](test/performance/README.md) to measure the full matrix on your workload rather than assuming a universal speedup.
 
 ## Styling the output
 

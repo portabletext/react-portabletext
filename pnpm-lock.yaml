@@ -60,6 +60,9 @@ importers:
       groq:
         specifier: ^6.12.0
         version: 6.12.0
+      jsdom:
+        specifier: 29.1.1
+        version: 29.1.1(@noble/hashes@2.3.0)
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4

@@ -48,6 +48,7 @@ jspm_packages
 # Compiled portable text library + demo
 /dist
 /demo/dist
+/test/performance/dist
 
 *.iml
 .idea/
