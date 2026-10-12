@@ -3,6 +3,7 @@ import {
   buildMarksTree,
   isPortableTextBlock,
   isPortableTextListItemBlock,
+  isPortableTextSpan,
   isPortableTextToolkitList,
   isPortableTextToolkitSpan,
   isPortableTextToolkitTextNode,
@@ -14,6 +15,7 @@ import type {PortableTextBlock, PortableTextListItemBlock, TypedObject} from '@p
 import type {JSX, ReactNode} from 'react'
 
 import {defaultComponents} from './components/defaults'
+import {defaultMarks} from './components/marks'
 import {mergeComponents} from './components/merge'
 import type {
   MissingComponentHandler,
@@ -32,6 +34,8 @@ import {
   unknownMarkWarning,
   unknownTypeWarning,
 } from './warnings'
+
+const builtInMarks = new Set(Object.values(defaultMarks))
 
 export function PortableText<B extends TypedObject = PortableTextBlock>({
   value: input,
@@ -104,7 +108,6 @@ const getNodeRenderer = (
   }
 
   function renderListItem(node: PortableTextListItemBlock, index: number, key: string) {
-    const tree = serializeBlock({node, index, isInline: false, renderNode})
     const renderer = components.listItem
     const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
     const Li = handler || components.unknownListItem
@@ -117,7 +120,7 @@ const getNodeRenderer = (
       })
     }
 
-    let children = tree.children
+    let children: ReactNode
     if (node.style && node.style !== 'normal') {
       // Wrap any other style in whatever the block serializer says to use
       const {listItem: _listItem, ...blockNode} = node
@@ -127,6 +130,8 @@ const getNodeRenderer = (
         isInline: false,
         renderNode,
       })
+    } else {
+      children = serializeBlock({node, index, isInline: false, renderNode}, components).children
     }
 
     return (
@@ -187,7 +192,7 @@ const getNodeRenderer = (
     return (
       <Span
         key={key}
-        text={spanToPlainText(node)}
+        text={builtInMarks.has(Span) ? '' : spanToPlainText(node)}
         value={markDef}
         markType={markType}
         markKey={markKey}
@@ -199,12 +204,7 @@ const getNodeRenderer = (
   }
 
   function renderBlock(node: PortableTextBlock, index: number, key: string, isInline: boolean) {
-    const {_key, ...props} = serializeBlock({
-      node,
-      index,
-      isInline,
-      renderNode,
-    })
+    const {_key, ...props} = serializeBlock({node, index, isInline, renderNode}, components)
     const style = props.node.style || 'normal'
     const handler =
       typeof components.block === 'function' ? components.block : components.block[style]
@@ -261,12 +261,24 @@ const getNodeRenderer = (
   return renderNode
 }
 
-function serializeBlock(options: Serializable<PortableTextBlock>): SerializedBlock {
+function serializeBlock(
+  options: Serializable<PortableTextBlock>,
+  components: PortableTextReactComponents,
+): SerializedBlock {
   const {node, index, isInline, renderNode} = options
-  const tree = buildMarksTree(node)
-  const children = tree.map((child, i) =>
-    renderNode({node: child, isInline: true, index: i, renderNode}),
-  )
+  const first = node.children[0]
+  // Keep the one-span case allocation-light, but preserve custom toolkit text renderers.
+  const children =
+    node.children.length === 1 &&
+    first &&
+    isPortableTextSpan(first) &&
+    (!first.marks || first.marks.length === 0) &&
+    !first.text.includes('\n') &&
+    !('@text' in components.types)
+      ? [first.text]
+      : buildMarksTree(node).map((child, i) =>
+          renderNode({node: child, isInline: true, index: i, renderNode}),
+        )
 
   return {
     _key: node._key || `block-${index}`,
