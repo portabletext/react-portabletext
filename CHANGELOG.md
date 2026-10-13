@@ -158,10 +158,10 @@
   Previously, every handler had to be typed by hand to mirror the generated query shape:
 
   ```tsx
+  import {PortableText} from '@portabletext/react'
   // app/[slug]/page.tsx
   import {createClient} from '@sanity/client'
   import {createImageUrlBuilder} from '@sanity/image-url'
-  import {PortableText} from '@portabletext/react'
   import {defineQuery} from 'groq'
 
   const client = createClient({
@@ -226,10 +226,10 @@
   Now the same handler is fully typed straight from `data.content`:
 
   ```tsx
+  import {PortableText} from '@portabletext/react'
   // app/[slug]/page.tsx
   import {createClient} from '@sanity/client'
   import {createImageUrlBuilder} from '@sanity/image-url'
-  import {PortableText} from '@portabletext/react'
   import {defineQuery} from 'groq'
 
   const client = createClient({
@@ -268,10 +268,10 @@
   Move the `components` map out of JSX and keep the same inferred handler types:
 
   ```tsx
+  import {PortableText, type InferComponents} from '@portabletext/react'
   // app/[slug]/page.tsx
   import {createClient} from '@sanity/client'
   import {createImageUrlBuilder} from '@sanity/image-url'
-  import {PortableText, type InferComponents} from '@portabletext/react'
   import {defineQuery} from 'groq'
 
   const client = createClient({
@@ -308,10 +308,10 @@
   `InferValue<SanityQueries[keyof SanityQueries]>` collects every Portable Text item shape from every registered TypeGen query into an array value type, and `InferStrictComponents` requires a handler for each of them. Together they're perfect for a single `CustomPortableText` you reuse across the app:
 
   ```tsx
+  import {PortableText, type InferStrictComponents, type InferValue} from '@portabletext/react'
   // app/[slug]/page.tsx
   import {createClient, type SanityQueries} from '@sanity/client'
   import {createImageUrlBuilder} from '@sanity/image-url'
-  import {PortableText, type InferStrictComponents, type InferValue} from '@portabletext/react'
   import {defineQuery} from 'groq'
 
   const client = createClient({
