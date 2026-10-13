@@ -107,8 +107,8 @@ Example of rendering a custom `image` object:
 
 ```jsx
 import {PortableText} from '@portabletext/react'
-import urlBuilder from '@sanity/image-url'
 import {getImageDimensions} from '@sanity/asset-utils'
+import urlBuilder from '@sanity/image-url'
 
 // Barebones lazy-loaded image component
 const SampleImageComponent = ({value, isInline}) => {
