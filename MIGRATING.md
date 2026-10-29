@@ -131,8 +131,8 @@ We've removed the only Sanity-specific part of the module, which was image handl
 We've seen the community have vastly different preferences on how images should be rendered, so having a generic image component included out of the box felt unnecessary.
 
 ```jsx
-import urlBuilder from '@sanity/image-url'
 import {getImageDimensions} from '@sanity/asset-utils'
+import urlBuilder from '@sanity/image-url'
 
 // Barebones lazy-loaded image component
 const SampleImageComponent = ({value}) => {
