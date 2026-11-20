@@ -3,7 +3,8 @@
   "version": "8.0.1",
   "description": "Render Portable Text with React",
   "keywords": [
-    "portable-text"
+    "portable-text",
+    "react"
   ],
   "homepage": "https://github.com/portabletext/react-portabletext#readme",
   "bugs": {
