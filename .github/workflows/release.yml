@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   release:
-    uses: portabletext/.github/.github/workflows/changesets.yml@10bcd356478bb0808d82eab98b15c099c8730888 # main
+    uses: portabletext/.github/.github/workflows/changesets.yml@0e4b137f87cbcd406b67c79ff6ba6e0e319df242 # main
     permissions:
       contents: read # for checkout
       id-token: write # to enable use of OIDC for npm provenance
