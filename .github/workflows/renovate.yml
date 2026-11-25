@@ -11,6 +11,6 @@ permissions:
 
 jobs:
   call:
-    uses: portabletext/.github/.github/workflows/changesets-from-conventional-commits.yml@10bcd356478bb0808d82eab98b15c099c8730888 # main
+    uses: portabletext/.github/.github/workflows/changesets-from-conventional-commits.yml@58ab2e10a3faf018b1eaba17434c18d51fb4c157 # main
     if: github.event.pull_request.user.login == 'renovate[bot]'
     secrets: inherit

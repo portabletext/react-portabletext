@@ -54,43 +54,43 @@
     "type-check": "tsc --noEmit -p tsconfig.dist.json"
   },
   "dependencies": {
-    "@portabletext/toolkit": "^6.0.0",
+    "@portabletext/toolkit": "^6.1.0",
     "@portabletext/types": "^4.0.2"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.7.0",
-    "@changesets/cli": "^2.31.1",
-    "@sanity/client": "^8.9.0",
-    "@sanity/image-url": "^2.1.1",
+    "@changesets/changelog-github": "^1.0.1",
+    "@changesets/cli": "^3.0.3",
+    "@sanity/client": "^8.17.0",
+    "@sanity/image-url": "^2.2.0",
     "@sanity/tsconfig": "^2.2.1",
-    "@sanity/tsdown-config": "^0.28.8",
-    "@sanity/ui": "^4.4.4",
+    "@sanity/tsdown-config": "^0.32.0",
+    "@sanity/ui": "^4.4.12",
     "@types/leaflet": "^1.9.22",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/ws": "^8.18.2",
-    "@vitejs/plugin-react": "^6.1.2",
+    "@vitejs/plugin-react": "^6.3.0",
     "esbuild": "^0.28.2",
     "esbuild-register": "^3.6.0",
-    "groq": "^6.18.0",
+    "groq": "^6.25.0",
     "leaflet": "^1.9.4",
-    "oxc-transform-react": "^0.153.0",
-    "oxfmt": "^0.72.0",
-    "oxlint": "^1.87.0",
-    "oxlint-tsgolint": "^7.0.2004",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
-    "react-is": "^19.3.0",
+    "oxc-transform-react": "^0.158.0",
+    "oxfmt": "^0.80.0",
+    "oxlint": "^1.95.0",
+    "oxlint-tsgolint": "^7.0.2008",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-is": "^19.3.1",
     "react-leaflet": "^5.0.0",
     "react-refractor": "^4.0.0",
     "refractor": "^5.0.0",
-    "rimraf": "^5.0.1",
-    "sanity": "^6.18.0",
-    "styled-components": "^6.5.3",
-    "tsdown": "^0.23.1",
+    "rimraf": "^6.1.4",
+    "sanity": "^6.25.0",
+    "styled-components": "^6.6.0",
+    "tsdown": "^0.23.7",
     "typescript": "7.0.2",
-    "vite": "^8.3.4",
-    "vitest": "^4.1.11"
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
   },
   "peerDependencies": {
     "react": "^19"
@@ -103,5 +103,5 @@
   "engines": {
     "node": ">=22.12"
   },
-  "packageManager": "pnpm@10.34.5"
+  "packageManager": "pnpm@12.23.0"
 }
