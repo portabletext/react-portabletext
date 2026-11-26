@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "@portabletext/toolkit": "^6.1.0",
-    "@portabletext/types": "^4.0.2"
+    "@portabletext/types": "^4.0.3"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.1",
