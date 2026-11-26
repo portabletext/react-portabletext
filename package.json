@@ -64,8 +64,8 @@
     "@sanity/client": "^8.17.0",
     "@sanity/image-url": "^2.2.0",
     "@sanity/tsconfig": "^2.2.1",
-    "@sanity/tsdown-config": "^0.32.0",
-    "@sanity/ui": "^4.4.12",
+    "@sanity/tsdown-config": "^0.33.0",
+    "@sanity/ui": "^4.4.13",
     "@types/leaflet": "^1.9.23",
     "@types/react": "^19.3.3",
     "@types/react-dom": "^19.3.0",
@@ -92,7 +92,7 @@
     "tsdown": "^0.23.7",
     "typescript": "7.0.2",
     "vite": "^8.3.8",
-    "vitest": "^5.1.1"
+    "vitest": "^5.1.2"
   },
   "peerDependencies": {
     "react": "^19"

@@ -3,3 +3,5 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - '@portabletext/*'
   - '@types/react@19.3.3'
+  - '@sanity/tsdown-config@0.33.0'
+  - '@sanity/ui@4.4.13'
