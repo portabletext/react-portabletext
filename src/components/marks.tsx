@@ -1,3 +1,4 @@
+import {uriLooksSafe} from '@portabletext/toolkit'
 import type {TypedObject} from '@portabletext/types'
 import type {JSX} from 'react'
 
@@ -38,7 +39,11 @@ function DefaultLink({
   children,
   value,
 }: PortableTextMarkComponentProps<DefaultLinkMark>): JSX.Element {
-  return <a href={value?.href}>{children}</a>
+  const href = value?.href
+  if (typeof href !== 'string' || !uriLooksSafe(href)) {
+    return <>{children}</>
+  }
+  return <a href={href}>{children}</a>
 }
 
 export const defaultMarks: Record<DefaultPortableTextMark, PortableTextMarkComponent> = {
