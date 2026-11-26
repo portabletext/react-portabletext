@@ -2,3 +2,4 @@ allowBuilds:
   esbuild: false
 minimumReleaseAgeExclude:
   - '@portabletext/*'
+  - '@types/react@19.3.3'
