@@ -3,6 +3,7 @@ import {
   buildMarksTree,
   isPortableTextBlock,
   isPortableTextListItemBlock,
+  isPortableTextSpan,
   isPortableTextToolkitList,
   isPortableTextToolkitSpan,
   isPortableTextToolkitTextNode,
@@ -17,7 +18,7 @@ import {defaultComponents} from './components/defaults'
 import {mergeComponents} from './components/merge'
 import type {
   MissingComponentHandler,
-  NodeRenderer,
+  PortableTextComponents,
   PortableTextProps,
   PortableTextReactComponents,
   ReactPortableTextList,
@@ -39,7 +40,7 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   listNestingMode,
   onMissingComponent: missingComponentHandler = printWarning,
 }: PortableTextProps<B>): JSX.Element {
-  const handleMissingComponent = missingComponentHandler || noop
+  const renderBlocks = useBlocksRenderer(componentOverrides, missingComponentHandler || noop)
   let blocks: B[]
   if (Array.isArray(input)) {
     blocks = input
@@ -50,24 +51,77 @@ export function PortableText<B extends TypedObject = PortableTextBlock>({
   }
   const nested = nestLists(blocks, listNestingMode || LIST_NEST_MODE_HTML)
 
-  // No manual memoization: the compiled (`default` condition) build gets React Compiler
-  // auto-memoization, and the uncompiled `react-server` build renders exactly once anyway.
+  return <>{renderBlocks(nested)}</>
+}
+
+// The compiled (`default` condition) build gets React Compiler auto-memoization, and the
+// uncompiled `react-server` build renders exactly once. Named like a hook so the compiler gives it
+// its own memo scope, which keeps the renderer, and the blocks it rendered last time, across
+// changes to `value`. It calls no hooks, so server rendering stays hook-free.
+function useBlocksRenderer(
+  componentOverrides: PortableTextComponents | undefined,
+  handleMissingComponent: MissingComponentHandler,
+): (nodes: TypedObject[]) => ReactNode[] {
+  'use memo'
   const components = componentOverrides
     ? mergeComponents(defaultComponents, componentOverrides)
     : defaultComponents
-
-  const renderNode = getNodeRenderer(components, handleMissingComponent)
-  const rendered = nested.map((node, index) =>
-    renderNode({node: node, index, isInline: false, renderNode}),
-  )
-
-  return <>{rendered}</>
+  return getBlocksRenderer(components, handleMissingComponent)
 }
 
-const getNodeRenderer = (
+const getBlocksRenderer = (
   components: PortableTextReactComponents,
-  handleMissingComponent: MissingComponentHandler,
-): NodeRenderer => {
+  onMissingComponent: MissingComponentHandler,
+) => {
+  let missingComponents = 0
+  const handleMissingComponent: MissingComponentHandler = (message, options) => {
+    missingComponents++
+    onMissingComponent(message, options)
+  }
+
+  // React skips re-rendering when it gets the exact element it rendered last time. So when a block
+  // is the same object at the same position as in the previous pass, it gets that element back.
+  // Blocks that reported missing components render again, so they keep reporting them.
+  type RenderedChildren = {
+    nodes: TypedObject[]
+    elements: ReactNode[]
+    reported?: Set<number> | undefined
+  }
+  let previousPass = new Map<string, RenderedChildren>()
+  let currentPass = previousPass
+  let passes = 0
+
+  function renderBlocks(nodes: TypedObject[]): ReactNode[] {
+    previousPass = currentPass
+    currentPass = new Map()
+    passes++
+    return renderChildren('', nodes)
+  }
+
+  function renderChildren(parentKey: string, nodes: TypedObject[]): ReactNode[] {
+    const previous = previousPass.get(parentKey)
+    let reported: Set<number> | undefined
+    const elements = nodes.map((node, index) => {
+      if (previous?.nodes[index] === node && !previous.reported?.has(index)) {
+        return previous.elements[index]
+      }
+
+      const reportedBefore = missingComponents
+      const element = renderNode({node, index, isInline: false, renderNode})
+      if (missingComponents !== reportedBefore) {
+        reported ??= new Set()
+        reported.add(index)
+      }
+      return element
+    })
+    // Lists are rebuilt on every pass and a page can have hundreds of them, so they are only
+    // remembered once the renderer renders again. For most pages the first pass is the only one.
+    if (parentKey === '' || passes > 1) {
+      currentPass.set(parentKey, {nodes, elements, reported})
+    }
+    return elements
+  }
+
   function renderNode<N extends TypedObject>(options: Serializable<N>): ReactNode {
     const {node, index, isInline} = options
     const key = node._key || `node-${index}`
@@ -76,7 +130,7 @@ const getNodeRenderer = (
       return renderList(node, index, key)
     }
 
-    if (isPortableTextListItemBlock(node)) {
+    if ('listItem' in node && isPortableTextListItemBlock(node)) {
       return renderListItem(node, index, key)
     }
 
@@ -104,7 +158,20 @@ const getNodeRenderer = (
   }
 
   function renderListItem(node: PortableTextListItemBlock, index: number, key: string) {
-    const tree = serializeBlock({node, index, isInline: false, renderNode})
+    let children: ReactNode
+    if (node.style && node.style !== 'normal') {
+      // Wrap any other style in whatever the block serializer says to use
+      const {listItem: _listItem, ...blockNode} = node
+      children = renderNode({
+        node: blockNode,
+        index,
+        isInline: false,
+        renderNode,
+      })
+    } else {
+      children = serializeBlock({node, index, isInline: false, renderNode}).children
+    }
+
     const renderer = components.listItem
     const handler = typeof renderer === 'function' ? renderer : renderer[node.listItem]
     const Li = handler || components.unknownListItem
@@ -117,18 +184,6 @@ const getNodeRenderer = (
       })
     }
 
-    let children = tree.children
-    if (node.style && node.style !== 'normal') {
-      // Wrap any other style in whatever the block serializer says to use
-      const {listItem: _listItem, ...blockNode} = node
-      children = renderNode({
-        node: blockNode,
-        index,
-        isInline: false,
-        renderNode,
-      })
-    }
-
     return (
       <Li key={key} value={node} index={index} isInline={false} renderNode={renderNode}>
         {children}
@@ -137,13 +192,11 @@ const getNodeRenderer = (
   }
 
   function renderList(node: ReactPortableTextList, index: number, key: string) {
-    const children = node.children.map((child, childIndex) =>
-      renderNode({
-        node: child._key ? child : {...child, _key: `li-${index}-${childIndex}`},
-        index: childIndex,
-        isInline: false,
-        renderNode,
-      }),
+    const children = renderChildren(
+      key,
+      node.children.map((child, childIndex) =>
+        child._key ? child : {...child, _key: `li-${index}-${childIndex}`},
+      ),
     )
 
     const component = components.list
@@ -258,23 +311,40 @@ const getNodeRenderer = (
     return Node ? <Node key={key} {...nodeOptions} /> : null
   }
 
-  return renderNode
-}
+  function serializeBlock(options: Serializable<PortableTextBlock>): SerializedBlock {
+    const {node, index, isInline} = options
+    const children =
+      unmarkedTexts(node) ??
+      buildMarksTree(node).map((child, i) =>
+        renderNode({node: child, isInline: true, index: i, renderNode}),
+      )
 
-function serializeBlock(options: Serializable<PortableTextBlock>): SerializedBlock {
-  const {node, index, isInline, renderNode} = options
-  const tree = buildMarksTree(node)
-  const children = tree.map((child, i) =>
-    renderNode({node: child, isInline: true, index: i, renderNode}),
-  )
-
-  return {
-    _key: node._key || `block-${index}`,
-    children,
-    index,
-    isInline,
-    node,
+    return {
+      _key: node._key || `block-${index}`,
+      children,
+      index,
+      isInline,
+      node,
+    }
   }
+
+  // What rendering the marks tree gives for a block of unmarked spans without line breaks
+  function unmarkedTexts(node: PortableTextBlock): string[] | undefined {
+    if ('@text' in components.types) {
+      return undefined
+    }
+
+    const texts: string[] = []
+    for (const child of node.children) {
+      if (!isPortableTextSpan(child) || child.marks?.length || child.text.includes('\n')) {
+        return undefined
+      }
+      texts.push(child.text)
+    }
+    return texts
+  }
+
+  return renderBlocks
 }
 
 function noop() {

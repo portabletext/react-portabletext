@@ -74,6 +74,7 @@
     "esbuild": "^0.28.2",
     "esbuild-register": "^3.6.0",
     "groq": "^6.25.0",
+    "jsdom": "^31.0.1",
     "leaflet": "^1.9.4",
     "oxc-transform-react": "^0.158.0",
     "oxfmt": "^0.80.0",
