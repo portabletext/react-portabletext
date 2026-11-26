@@ -1,5 +1,21 @@
 # @portabletext/react
 
+## 8.0.2
+
+### Patch Changes
+
+- [#366](https://github.com/portabletext/react-portabletext/pull/366) [`9fc401e`](https://github.com/portabletext/react-portabletext/commit/9fc401e4c86a99194cb63f748331d94c653a03ef) Thanks [@stipsan](https://github.com/stipsan)! - Render faster, on the first render and when `value` changes
+
+  - Styled list items (a list item with a `style` other than `normal`) are rendered once instead of twice. Deeply nested styled lists used to double their work at every level. Missing components inside them are now reported once instead of twice.
+  - Blocks made only of unmarked text skip building a marks tree.
+  - In client components, blocks that are the same object at the same position as in the previous render are not rendered again. This is the same assumption React makes for props: change a block by passing a new object, not by mutating it in place. Blocks with missing components still render, and report them, on every render. Passing a new `components` object or `onMissingComponent` function on every render still re-renders every block.
+
+- [#363](https://github.com/portabletext/react-portabletext/pull/363) [`48eb5d8`](https://github.com/portabletext/react-portabletext/commit/48eb5d8cf80b6f3148f41f663a49e14f9c355d0f) Thanks [@christianhg](https://github.com/christianhg)! - fix: list `react` in the npm keywords of @portabletext/react
+
+  npm search and keyword filters now find it under `react`.
+
+- [#364](https://github.com/portabletext/react-portabletext/pull/364) [`f32dff7`](https://github.com/portabletext/react-portabletext/commit/f32dff78c2fc19c4c9eac0771404e5e5dc490f7c) Thanks [@stipsan](https://github.com/stipsan)! - The default `link` mark now only renders an `<a>` for safe hrefs (`http`, `https`, `mailto`, `tel`, `#`, `/` and relative URLs). Links with any other protocol, such as `javascript:`, `data:` or `vbscript:`, render their children as plain text. The `uriLooksSafe` check comes from `@portabletext/toolkit` 6.1.0.
+
 ## 8.0.1
 
 ### Patch Changes
