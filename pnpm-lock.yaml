@@ -186,8 +186,8 @@ importers:
   .:
     dependencies:
       '@portabletext/toolkit':
-        specifier: ^6.1.0
-        version: 6.1.0
+        specifier: ^6.1.1
+        version: 6.1.1
       '@portabletext/types':
         specifier: ^4.0.3
         version: 4.0.3
@@ -2415,8 +2415,8 @@ packages:
     resolution: {integrity: sha512-kMqr55pJDBsIyOHLeVccFMFfJxSdozS+A1TeYhiihIinSDhb6ibUxpQIpg0B1n54vZJJW8rDs+QayP3vQqLKUg==}
     engines: {node: '>=22.12'}
 
-  '@portabletext/toolkit@6.1.0':
-    resolution: {integrity: sha512-ncI1DwhFt0jTapTs4pQw8aRM6lUA90RSYs00WxDLqVAbX5doW7lWfZYw9SELqGtBYKD7l9T93edGuLaF5sXWog==}
+  '@portabletext/toolkit@6.1.1':
+    resolution: {integrity: sha512-W04MbBkgcbRVNW3/01rs6hKbpwiDgKw8w1AGouVwG/If4gW6yrPMeYVQ0K5UfOnZztMJ3DQJQZ5CUWZ+GsuOCQ==}
     engines: {node: '>=22.12'}
 
   '@portabletext/types@4.0.3':
@@ -8127,7 +8127,7 @@ snapshots:
 
   '@portabletext/react@8.0.1(react@19.3.1)':
     dependencies:
-      '@portabletext/toolkit': 6.1.0
+      '@portabletext/toolkit': 6.1.1
       '@portabletext/types': 4.0.3
       react: 19.3.1
 
@@ -8148,10 +8148,10 @@ snapshots:
 
   '@portabletext/to-html@6.0.0':
     dependencies:
-      '@portabletext/toolkit': 6.1.0
+      '@portabletext/toolkit': 6.1.1
       '@portabletext/types': 4.0.3
 
-  '@portabletext/toolkit@6.1.0':
+  '@portabletext/toolkit@6.1.1':
     dependencies:
       '@portabletext/types': 4.0.3
 
@@ -11226,7 +11226,7 @@ snapshots:
       '@portabletext/react': 8.0.1(react@19.3.1)
       '@portabletext/sanity-bridge': 5.0.1(@types/react@19.3.3)(vitest@5.1.2(@types/node@26.6.10)(jsdom@31.0.1(@noble/hashes@2.4.0))(vite@8.3.8(@types/node@26.6.10)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)))
       '@portabletext/to-html': 6.0.0
-      '@portabletext/toolkit': 6.1.0
+      '@portabletext/toolkit': 6.1.1
       '@rexxars/react-json-inspector': 9.0.1(react@19.3.1)
       '@sanity/access-ui': 6.25.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(styled-components@6.7.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(vitest@5.1.2(@types/node@26.6.10)(jsdom@31.0.1(@noble/hashes@2.4.0))(vite@8.3.8(@types/node@26.6.10)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)))
       '@sanity/asset-utils': 2.3.0
